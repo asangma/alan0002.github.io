@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <meta name="description" content="Arcgis-js-api-alan : ArcGIS API for JavaScript">
+
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="../bootstrap/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/calcite/css/calcite.css">
+    <link rel="stylesheet" href="css/style2.css">
+    <link rel="stylesheet" href="css/common.css">
+
+    <script src="../bootstrap/js/jquery-1.11.3.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <title>Scene Viewer : Pan / Rotate Toggle</title>
+    <script type="text/javascript">
+    var toggleTo = {rotate:'pan', pan:'rotate'};
+
+    jQuery(document).ready(function() {
+      jQuery('.toggle').on('click', function(e){
+        var toggle = jQuery(this).attr('data-toggleState');
+
+        jQuery(this).removeClass('pan');
+        jQuery(this).removeClass('rotate');
+
+        jQuery(this).addClass(toggleTo[toggle]);
+        jQuery(this).attr('data-toggleState', toggleTo[toggle]);
+      });
+    });
+    </script>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <li><a href="version-0.html" title="">v01</a></li>
+          <li class="active"><a href="version-2.html" title="">v02</a></li>
+          <li><a href="index.html" title="">v02 with Compass</a></li>
+          <li><a href="version-3.html" title="">v03</a></li>
+      </ul>
+      </div>
+    </nav>
+    <div class="tools">
+    <a href="#" title="" class="esriIcon esri-icon-home"></a>
+    <a href="#" title="" class="esriIcon esri-icon-zoom-in"></a>
+    <a href="#" title="" class="esriIcon esri-icon-zoom-out"></a>
+    <div class="toggle pan" data-toggleState="pan" title="Pan/Zoom Toggle">
+      <a href="javascript:;" class="esriIcon esri-icon-pan"></a>
+      <a href="javascript:;" class="esriIcon esri-icon-rotate"></a>
+    </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+/*
+.calcite .btn:hover {
+  background: gray;
+  color: white;
+}
+*/
+/*.calcite .secondary:hover {
+  background: #4997d2;
+}*/
+/*.calcite .tertiary:hover {
+  background: #4b8d2c;
+}*/
+.calcite .tertiary.disabled,
+.calcite .tertiary.pseudo-class-disabled {
+  background-color: #6aa23f;
+  cursor: default !important;
+  background-position: initial initial;
+  background-repeat: initial initial;
+}
+.calcite .light {
+  background: #ededed;
+  color: #808080;
+  text-shadow: none;
+}
+.calcite .light:hover {
+  background: #ccc;
+}
+.calcite .light.disabled,
+.calcite .light.pseudo-class-disabled {
+  background-color: #ededed;
+  color: #808080;
+  cursor: default !important;
+  background-position: initial initial;
+  background-repeat: initial initial;
+}
+/*.calcite .caution:hover {
+    background: #d6564d;
+}*/
+/*.calcite .transparent:hover {
+    color: #00b9f2;
+    background: none;
+}*/
+.calcite .dijitButtonDisabled .dijitButtonText,
+.calcite .dijitButtonDisabled .dijitButtonNode,
+.calcite .dijitButtonDisabled .dijitButtonContents {
+  cursor: default;
+}

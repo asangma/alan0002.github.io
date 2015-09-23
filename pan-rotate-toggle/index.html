@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <meta name="description" content="Arcgis-js-api-alan : ArcGIS API for JavaScript">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../bootstrap/css/normalize.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/calcite/css/calcite.css">
+    <link rel="stylesheet" href="css/style2.css">
+    <link rel="stylesheet" href="css/common.css">
+    <script src="../bootstrap/js/jquery-1.11.3.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <title>Scene Viewer : Pan / Rotate Toggle</title>
+    <style type="text/css" media="screen">
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+    }
+    </style>
+    <script type="text/javascript">
+    var toggleTo = {
+        rotate: 'pan',
+        pan: 'rotate'
+    };
+    var is_hover = false;
+
+    jQuery(document).ready(function() {
+        jQuery('.toggle').on('click', function(e) {
+            var toggle = jQuery(this).attr('data-toggleState');
+
+            jQuery(this).removeClass('pan');
+            jQuery(this).removeClass('rotate');
+
+            jQuery(this).addClass(toggleTo[toggle]);
+            jQuery(this).attr('data-toggleState', toggleTo[toggle]);
+        });
+
+        var mouse_x, mouse_y, center_x, center_y;
+        var compass = jQuery('.compass');
+
+        
+
+        jQuery('.body').mousemove(function(event) {
+            mouse_x = event.pageX;
+            mouse_y = event.pageY;
+            center_x = jQuery('.body').width() / 2;
+            center_y = jQuery('.body').height() / 2;
+            x_dist = mouse_x - center_x;
+            y_dist = mouse_y - center_y;
+
+            rads = Math.atan2(y_dist, x_dist);
+            degs = (180 / Math.PI) * rads + 45;
+            var scaleX = Math.abs(x_dist / y_dist) * 2;
+            scaleX = scaleX < 1 ? scaleX : 1;
+            scaleX = scaleX > 0.25 ? scaleX : 0.25;
+
+            compass.css('transform', 'rotate(' + degs + 'deg)');
+            
+
+        });
+
+        var basemap_base_str = 'backgrounds/bg-';
+        var curr_base = 0;
+        jQuery('.compass-wrap').hover(function() {
+          is_hover = true;
+          jQuery('.compass').addClass('north');
+        }, function() {
+          is_hover = false;
+          jQuery('.compass').removeClass('north');
+        });
+
+        jQuery('.basemap-switch').on('click', function(event) {
+            event.preventDefault();
+            if (curr_base == 4) {
+                curr_base = 0;
+                jQuery('.body').css('background-size', 'auto');
+            } else {
+                curr_base++;
+                jQuery('.body').css('background-size', 'cover');
+            }
+
+            var path = basemap_base_str + curr_base + '.jpg';
+            jQuery('.body').css('background-image', 'url("' + path + '")');
+        });
+
+    });
+    </script>
+</head>
+
+<body class="body">
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li><a href="version-0.html" title="">v01</a></li>
+                <li><a href="version-2.html" title="">v02</a></li>
+                <li class="active"><a href="index.html" title="">v02 with Compass</a></li>
+                <li><a href="version-3.html" title="">v03</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="tools">
+        <a href="#" title="" class="esriIcon esri-icon-home"></a>
+        <a href="#" title="" class="esriIcon esri-icon-zoom-in"></a>
+        <a href="#" title="" class="esriIcon esri-icon-zoom-out"></a>
+        <div class="toggle pan" data-toggleState="pan" title="Drag/Tilt Toggle">
+            <a href="javascript:;" class="esriIcon esri-icon-pan"></a>
+            <a href="javascript:;" class="esriIcon esri-icon-rotate"></a>
+        </div>
+        <div class="compass-wrap" title="Orient Scene to North">
+            <img src="images/Compass32.svg" alt="" class="compass" />
+        </div>
+    </div>
+    <div class="basemaps">
+        <i class="fa fa-map-o"></i> <a href="javascript:;" class="basemap-switch">Change Basemap</a>
+    </div>
+    <div class="preload">
+        <img src="backgrounds/bg-0.jpg" alt="">
+        <img src="backgrounds/bg-1.jpg" alt="">
+        <img src="backgrounds/bg-2.jpg" alt="">
+        <img src="backgrounds/bg-3.jpg" alt="">
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,269 @@
+[{
+        "id": "all",
+        "title": "All",
+        "desc": "All"
+    }, {
+        "id": "showcase-a-map",
+        "title": "Showcase a Map",
+        "desc": "Let your map speak for itself.",
+        "templates": [
+
+            {
+
+                "title": "Story Map Basic",
+                "desc": "Displays a map with a legend that can be toggled on/off.",
+                "thumb": "images/thumbs/storytelling_basic_th.jpg"
+
+            }, {
+
+                "title": "Simple Viewer",
+                "desc": "Provides an easy configuration experience and simple interface.",
+                "thumb": "images/thumbs/simple_th.png"
+
+            }, {
+
+                "title": "Legend",
+                "desc": "Prominently displays the legend with the ability to add a header, a description, and a footer.",
+                "thumb": "images/thumbs/legend_th.jpg"
+
+            }, {
+
+                "title": "Basic Viewer",
+                "desc": "Displays a set of commonly used tools on a toolbar and a slide-in panel.",
+                "thumb": "images/thumbs/Viewer.png"
+
+            }, {
+
+                "title": "Map Tools",
+                "desc": "Displays a set of commonly used tools on a toolbar. Supports a table view of layers.",
+                "thumb": "images/thumbs/maptools_th.jpg"
+
+            }, {
+
+                "title": "Finder",
+                "desc": "Search a preconfigured layer.",
+                "thumb": "images/thumbs/Finder_th.png"
+
+            }
+        ]
+    }, {
+        "id": "collect-edit-data",
+        "title": "Collect/Edit Data",
+        "desc": "Collect new data or edit the location and field values of existing data.",
+        "templates": [{
+
+                "title": "Basic Viewer",
+                "desc": "Provides an edit tool along with other popular tools.",
+                "thumb": "images/thumbs/Viewer.png"
+            }, {
+
+                "title": "Find, Edit, Filter",
+                "desc": "Provides a configurable search experience in addition to editing capabilities.",
+                "thumb": "images/thumbs/FEF_th.png"
+            }, {
+
+                "title": "Edit",
+                "desc": "Prominently features an editing panel.",
+                "thumb": "images/thumbs/editor_th.jpg"
+            }, {
+
+                "title": "GeoForm",
+                "desc": "A form-based experience for adding features. Supports crowdsourcing data collection.",
+                "thumb": "images/thumbs/geoform.png"
+            }, {
+
+                "title": "Crowdsource Reporter",
+                "desc": "Allows users to submit observations/problems through a template created by the app author.",
+                "thumb": "http://placehold.it/200x133/6e6e6e/f8f8f8?text=Crowdsource%20Reporter"
+            }, {
+
+                "title": "Crowdsource Manager",
+                "desc": "Allows members of an organization to monitor and review reported oberservations/problems.",
+                "thumb": "http://placehold.it/200x133/6e6e6e/f8f8f8?text=Crowdsource%20Manager"
+            }, {
+
+                "title": "Information Lookup",
+                "desc": "Track where users are clicking to get information.",
+                "thumb": "images/thumbs/service-lookup.png"
+            }
+
+        ]
+    }, {
+        "id": "provide-local-information",
+        "title": "Provide Local Information",
+        "desc": "Provide information on a location.",
+        "templates": [{
+                "title": "Information Lookup",
+                "desc": "Tells users if a service is available at a given location.",
+                "thumb": "images/thumbs/service-lookup.png"
+            },
+
+            {
+                "title": "Local Perspective",
+                "desc": "Shows features and gives demographic data around a user-selected point.",
+                "thumb": "images/thumbs/LocalPer_th.jpg"
+            }
+
+        ]
+    }, {
+        "id": "route-get-directions",
+        "title": "Route/Get Directions",
+        "desc": "Route between locations and get directions.",
+        "templates": [{
+                "title": "Local Perspective",
+                "desc": "Provides directions to features within a radius of a user-selected point.",
+                "thumb": "images/thumbs/LocalPer_th.jpg"
+            },
+
+            {
+                "title": "Directions",
+                "desc": "Provides directions between a feature on a map and a user-selected point/address.",
+                "thumb": "images/thumbs/directions_th.png"
+            }
+
+        ]
+    }, {
+        "id": "analyze-summarize-data",
+        "title": "Analyze/Summarize Data",
+        "desc": "Create visual, interactive representations of your data for summary and analysis.",
+        "templates": [{
+                "title": "Filter",
+                "desc": "Filter data by applying operations on field values.",
+                "thumb": "images/thumbs/Filter_th.png"
+            },
+
+            {
+                "title": "Time Aware",
+                "desc": "Visualize the distribution of your data over time.",
+                "thumb": "images/thumbs/Time_th.png"
+            },
+
+            {
+                "title": "Impact Summary",
+                "desc": "Summarize data about a polygon feature.",
+                "thumb": "http://placehold.it/200x133/6e6e6e/f8f8f8?text=Impact%20Summary"
+            },
+
+            {
+                "title": "Summary Viewer",
+                "desc": "Summarize data about all of the features in the current map extent.",
+                "thumb": "images/thumbs/summary.png"
+            },
+
+            {
+                "title": "Elevation Profile",
+                "desc": "Visualize the elevation profile of linear features.",
+                "thumb": "images/thumbs/elevation_profile_th.jpg"
+            }
+        ]
+    }, {
+        "id": "showcase-many-maps-apps",
+        "title": "Create Map/App Gallery",
+        "desc": "Create a gallery of many maps or apps.",
+        "templates": [{
+                "title": "Public Gallery",
+                "desc": "Displays all of the items from a group in a grid or a list.",
+                "thumb": "images/thumbs/PIM_AGOL_Item_SoCal_Hiking_-_App_Load.png"
+            },
+
+
+            {
+                "title": "Maps &amp; Apps Gallery",
+                "desc": "Displays all of the items from a group in a grid or a list.",
+                "thumb": "http://placehold.it/200x133/6e6e6e/f8f8f8?text=Maps/Apps%20Gallery"
+            },
+
+
+            {
+                "title": "Map Carousel",
+                "desc": "Displays the web maps from a group in a carousel.",
+                "thumb": "http://placehold.it/200x133/6e6e6e/f8f8f8"
+            }
+        ]
+    }, {
+        "id": "compare-maps-layers",
+
+        "title": "Compare Maps/Layers",
+        "desc": "Compare two or more maps or layers.",
+        "templates": [{
+                "title": "Map Carousel",
+                "desc": "Displays the web maps from a group in a carousel.",
+                "thumb": "http://placehold.it/200x133/6e6e6e/f8f8f8"
+            },
+
+
+            {
+                "title": "Compare Analysis",
+                "desc": "Displays multiple maps with the capability to sync map extents.",
+                "thumb": "http://placehold.it/200x133/6e6e6e/f8f8f8"
+            },
+
+
+            {
+                "title": "Public Information",
+                "desc": "Swipe between layers in a web map.",
+                "thumb": "http://placehold.it/200x133/6e6e6e/f8f8f8"
+            },
+
+
+            {
+                "title": "Story Map Swipe &amp; Spyglass",
+                "desc": "Interactively compare maps with a magnifying glass or slider tool.",
+                "thumb": "http://placehold.it/200x133/6e6e6e/f8f8f8"
+            },
+
+
+            {
+                "title": "Story Map Series",
+                "desc": "Display maps in tabs, a bulleted list, an accordian control.",
+                "thumb": "http://placehold.it/200x133/6e6e6e/f8f8f8"
+            }
+        ]
+    }, {
+        "id": "narrate-a-story",
+        "title": "Narrate a Story",
+        "desc": "Tell a story using a narrative sequence.",
+        "templates": [{
+                "title": "Story Map Journal",
+                "desc": "Create a sequence of pages containing maps, text and/or graphics.",
+                "thumb": "http://placehold.it/200x133/6e6e6e/f8f8f8"
+            },
+
+
+            {
+                "title": "Story Map Series",
+                "desc": "Display maps in tabs, a bulleted list, an accordian control.",
+                "thumb": "http://placehold.it/200x133/6e6e6e/f8f8f8"
+            },
+
+
+            {
+                "title": "Story Map Swipe &amp; Spyglass",
+                "desc": "Compare layers or maps with a spyglass or magnifying glass.",
+                "thumb": "http://placehold.it/200x133/6e6e6e/f8f8f8"
+            },
+
+
+            {
+                "title": "Story Map Tour",
+                "desc": "Take users through a sequence of pictures or videos and their locations on a map.",
+                "thumb": "http://placehold.it/200x133/6e6e6e/f8f8f8"
+            }]
+
+    }, {
+        "id": "map-social-media",
+        "title": "Map Social Media",
+        "desc": "Display social media content on a map.",
+        "templates": [{
+                "title": "Public Information",
+                "desc": "Overlays geolocated content from Twitter, Instagram, Flickr, YouTube and webcams.travel on a map.",
+                "thumb": "http://placehold.it/200x133/6e6e6e/f8f8f8"
+            },
+            {
+                "title": "Twitter",
+                "desc": "Overlays geolocated tweets on a map.",
+                "thumb": "http://placehold.it/200x133/6e6e6e/f8f8f8"
+            }]
+    }
+
+]

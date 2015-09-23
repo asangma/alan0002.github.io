@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <meta name="description" content="Arcgis-js-api-alan : ArcGIS API for JavaScript">
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://esri.github.io/calcite-web/assets/css/all.css">
+    <!-- <link rel="stylesheet" href="https://esri.github.io/calcite-web/assets/css/all.css"> -->
+    <link rel="stylesheet" href="css/bootstrap/css/normalize.css">
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap.vertical-tabs.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style-03.css">
+    <script src="css/bootstrap/js/jquery-1.11.3.min.js"></script>
+    <script src="css/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/prototype-03.js"></script>
+    <title>Filtering Apps in Create App Workflow</title>
+</head>
+
+<body>
+    <div class="overlay"></div>
+    <div class="options-trigger"><i class="fa fa-bars"></i></div>
+    <div class="options-wrap">
+        <h3>Options</h3>
+        <ul class="options">
+            <li><a href="" class="toggle-pagination">Toggle Pagination / Scroll</a></li>
+            <!-- <li><a href="">Toggle Pagination / Scroll</a></li> -->
+        </ul>
+        <hr>
+        <h3>Versions</h3>
+        <ul>
+            <li><a class="active" href="index.html">v03.0</a></li>
+            <li><a href="version-02.html">v02.0</a></li>
+            <li><a href="version-01.html">v01.0</a></li>
+        </ul>
+    </div>
+
+
+    
+
+    <div id="loader-wrap">
+        <img src="images/LoadingIndicator_blue.gif">
+    </div>
+
+
+
+    <div class="container-fluid">
+        <div class="modal-wrapper no-scroll">
+            <a class="modal-closer">
+            </a>
+            <div class="row">
+                <h2>Create a New Web Application.</h2>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul class="nav nav-tabs top-nav">
+                        <li role="presentation" class="active"><a href="#">Configurable Apps</a></li>
+                        <li role="presentation"><a href="#">Web AppBuilder</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <p>What do you want to do with your app?</p>
+                </div>
+                <div class="col-xs-5">
+                    <p class="select-text">Select a template to create your new app.</p>
+                </div>
+                <div class="col-xs-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search Templates">
+                        <span class="input-group-btn">
+                          <button class="btn" type="button"><span class="search-icon">Go</span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row main-content">
+                <div class="col-xs-3 filters-wrap" style="padding-right:5px;">
+                <aside class="side-nav" aria-role="complementary">
+                  <!-- <h4 class="side-nav-title">Sidenav Group</h4> -->
+                  <nav role="navigation" aria-labelledby="sidenav" id="filters">
+                    <!-- <a href="#" class="side-nav-link">Agricultural</a>
+                    <a href="#" class="side-nav-link">Transition</a>
+                    <a href="#" class="side-nav-link">Perpetual</a>
+                    <a href="#" class="side-nav-link">Cultural</a> -->
+                  </nav>
+                </aside>
+                    <!-- <ul class="nav nav-tabs tabs-left" id="filters">
+                    </ul> -->
+                </div>
+                <div class="col-xs-9 template-holder" style="padding-right: 20px;">
+                    <!-- <h3 id="category-title">Everything</h3> -->
+                    <div class="tab-content">
+                        <div id="templates">
+                            <!-- JS POPUPLATES THIS -->
+                        </div>
+
+                    </div>
+                    <div id="template-info-bg"></div>
+                    <!-- 
+                    <div id="template-info-panel">
+                        <div class="template-info-showing"></div>
+                        <div class="panel-actions">
+                            <button class="btn btn-cancel" id="close-panel">Cancel</button>
+                            <button class="btn btn-secondary">Preview</button>
+                            <button class="btn btn-secondary">Download</button>
+                            <button class="btn">Create</button>
+                        </div>
+                    </div> -->
+                    <div class="pagination-wrap">
+                        <nav>
+                            <ul class="pagination pagination-sm">
+                                <li>
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li>
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="bottom-nav">
+                    <button class="btn btn-back">Back</button>
+                    <button class="btn btn-cancel">Cancel</button>
+                </div>
+            </div>
+
+
+                    <div id="template-info-panel">
+                        <div class="template-info-showing"></div>
+                        <div class="row text-center panel-actions">
+                            <button class="btn btn-main">Create App</button>
+                            <button class="btn btn-secondary">Preview</button>
+                            <button class="btn btn-secondary">Download</button>
+
+                            <button class="btn btn-cancel" id="close-panel">Close</button>
+                        </div>
+                    </div>
+        </div>
+    </div>
+</body>
+
+</html>

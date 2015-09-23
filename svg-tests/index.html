@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SVG Tests</title>
+    <link rel="stylesheet" type="text/css" href="../portfolio/css/calcite-bootstrap.css">
+    <style type="text/css" media="screen">
+    .sized {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .bigger {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .bigger, .sized, img {
+        border: dashed 1px #ccc;
+    }
+    .settings {
+        border:none;
+    }
+    
+    .paddinged {
+        padding: 3px;
+    }
+    
+    .responsive {
+        background: url(svgs/responsive.svg) center no-repeat;
+    }
+    
+    .nonresponsive {
+        background: url(svgs/nonresponsive.svg) center no-repeat;
+    }
+    
+    .row {
+        margin-bottom: 80px;
+    }
+    
+    .settings {
+        max-width: 80%;
+        margin: 20px 10% 0;
+    }
+    
+    .section-title {
+        margin-bottom: 60px;
+    }
+    
+    h1 {
+        /*text-align: center;*/
+        margin-bottom: .2em;
+    }
+    
+    h2 {
+        margin-bottom: .2em;
+    }
+    .compass {
+        background: url(svgs/Compass30-graphic-style.svg) no-repeat center;
+        width:300px;
+        height: 300px;
+        color:#ff0000;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <hr>
+        <div class="text-center section-title">
+            <h1>SVG as Image</h1> The SVG files are 32x32px with no artboard padding.
+        </div>
+        <div class="row">
+            <div class="col-md-6 ">
+                <h2>Non-Responsive</h2>
+                <p>No width or height set</p>
+                <img src="svgs/nonresponsive.svg" alt="">
+            </div>
+            <div class="col-md-6">
+                <h2>Responsive</h2>
+                <p>No width or height set</p>
+                <img src="svgs/responsive.svg" alt="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 ">
+                <h2>Non-Responsive</h2>
+                <p>Size: 32x32</p>
+                <img class="sized" src="svgs/nonresponsive.svg" alt="">
+            </div>
+            <div class="col-md-6">
+                <h2>Responsive</h2>
+                <p>Size: 32x32</p>
+                <img class="sized" src="svgs/responsive.svg" alt="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 ">
+                <h2>Non-Responsive</h2>
+                <p>Size: 32x32 : 3px padding</p>
+                <img class="sized paddinged" src="svgs/nonresponsive.svg" alt="">
+            </div>
+            <div class="col-md-6">
+                <h2>Responsive</h2>
+                <p>Size: 32x32 : 3px padding</p>
+                <img class="sized paddinged" src="svgs/responsive.svg" alt="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 ">
+                <h2>Non-Responsive</h2>
+                <p>Size: 100x100</p>
+                <img class="bigger" src="svgs/nonresponsive.svg" alt="">
+            </div>
+            <div class="col-md-6">
+                <h2>Responsive</h2>
+                <p>Size: 100x100</p>
+                <img class="bigger" src="svgs/responsive.svg" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <hr>
+        <div class="text-center section-title">
+            <h1>SVG as Background</h1> background-position: center
+        </div>
+        <p><strong>*When no width or height is set, nothing appears.</strong></p>
+        <div class="row">
+            <div class="col-md-6 ">
+                <h2>Non-Responsive</h2>
+                <p>Node size: 32x32px</p>
+                <div class="sized responsive"></div>
+            </div>
+            <div class="col-md-6">
+                <h2>Responsive</h2>
+                <p>Node size: 32x32px</p>
+                <div class="sized nonresponsive"></div>
+            </div>
+        </div>
+        <!-- <hr> -->
+        <div class="row">
+            <div class="col-md-6 ">
+                <h2>Non-Responsive</h2>
+                <p>Node size: 100x100px</p>
+                <div class="bigger nonresponsive"></div>
+            </div>
+            <div class="col-md-6">
+                <h2>Responsive</h2>
+                <p>Node size: 100x100px</p>
+                <div class="bigger responsive"></div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <hr>
+        <div class="text-center">
+            <h1>Settings</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <img class="settings" src="screens/nonresponsive-settings.png" alt="">
+            </div>
+            <div class="col-md-6">
+                <img class="settings" src="screens/responsive-settings.png" alt="">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="compass"></div>
+            </div>
+        </div>
+    </div> -->
+</body>
+
+</html>

@@ -1,0 +1,256 @@
+.social-content {
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 30px 40px;
+  background: #efefef;
+}
+
+#feed {
+  margin-bottom: 40px;
+}
+
+.feed-day {
+  margin: 0 0 40px 10%;
+  width: 80%;
+}
+
+.feed-day h2, .feed-day h3, .feed-day h4 {
+  margin-bottom: 0.5em;
+}
+
+.feed-event {
+  margin: 0 0 0px 24px;
+  padding: 0 0 30px 0;
+  border-left: solid 1px #a9a9a9;
+  /* [class^="esri-icon-"] {
+		color: $Calcite_Gray_600;
+		background: $panelBGColor;
+		padding: 5px 5px 5px 0;
+		font-size: 28px; 
+	} */
+}
+
+.feed-event .event-meta {
+  position: relative;
+  font-size: 14px;
+  background: #fff;
+  margin: 0 0 10px -16px;
+}
+
+.feed-event .event-time {
+  margin: 0 0 0 0;
+  font-size: 14px;
+  line-height: 1em;
+  text-align: left;
+  color: #a9a9a9;
+}
+
+.feed-event .event-icon {
+  font-size: 30px;
+  color: #595959;
+  background: #fff;
+  padding: 0;
+  margin: 0 5px 0 0;
+  font-size: 28px;
+  display: block;
+  float: left;
+  height: 40px;
+  line-height: 40px;
+}
+
+.feed-event .event-item {
+  font-size: 20px;
+  margin: 0 0 0 0;
+  height: 40px;
+  line-height: 40px;
+  font-weight: 500;
+  display: block;
+  float: left;
+}
+
+.feed-event .item-thumb {
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  float: left;
+  margin: 0 10px 0 0;
+  border: solid 1px #e7e7e7;
+  position: relative;
+}
+
+.feed-event .item-thumb img {
+  height: 40px;
+  width: auto;
+  margin: auto;
+}
+
+.feed-event .event-action {
+  margin: 0 0.2em 0 0;
+}
+
+.feed-event .event-actor {
+  margin: 0 0 5px 0;
+}
+
+.feed-event .event-actor img.event-actor-avatar {
+  width: 30px;
+  height: 30px;
+  margin: 0 2px 0 0;
+  border: solid 1px #e7e7e7;
+}
+
+.feed-event .event-actor img.event-actor-avatar:hover {
+  cursor: pointer;
+}
+
+.feed-event .event-info {
+  clear: both;
+  padding: 0 0;
+  margin: 0 0 0 40px;
+  background: #fff;
+  font-size: 14px;
+  line-height: 1.5em;
+}
+
+.feed-event .event-description {
+  clear: both;
+  padding: 0 0 5px;
+}
+
+.feed-event .event-description span {
+  font-weight: 600;
+}
+
+.feed-event .event-description ul {
+  margin: 0;
+  padding: 0;
+}
+
+.feed-event .event-description ul li {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5em;
+  font-size: 14px;
+}
+
+.feed-event .event-description .hidden-actions {
+  max-height: 0px;
+  overflow: hidden;
+  -webkit-transition: max-height 500ms;
+  -moz-transition: max-height 500ms;
+  -ms-transition: max-height 500ms;
+  -o-transition: max-height 500ms;
+  transition: max-height 500ms;
+}
+
+.feed-event .event-description .hidden-actions.reveal {
+  max-height: 1000px;
+}
+
+.feed-event .reveal-hidden-actions {
+  text-decoration: none;
+}
+
+.feed-event .reveal-hidden-actions span {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.feed-event .reveal-hidden-actions .show-actions {
+  display: inline;
+}
+
+.feed-event .reveal-hidden-actions .hide-actions {
+  display: none;
+}
+
+.feed-event .reveal-hidden-actions:hover {
+  text-decoration: none;
+  color: #333333;
+}
+
+.feed-event .reveal-hidden-actions.showing .show-actions {
+  display: none;
+}
+
+.feed-event .reveal-hidden-actions.showing .hide-actions {
+  display: inline;
+}
+
+.feed-event .event-expiration {
+  padding: 0px 5px 0px 15px;
+  margin: 7px 0;
+  border-left: solid 2px #de2900;
+}
+
+.feed-event .event-expiration .event-expiration-title {
+  color: #de2900;
+}
+
+.feed-event .event-expiration .event-count {
+  font-size: 1.2em;
+  font-weight: 600;
+  /* 
+			display: inline-block;
+			background: $Calcite_Orange_a100;
+			width:24px;
+			height:24px;
+			text-align:center;
+			line-height:25px;
+			border-radius:50%;
+			color:#000; */
+}
+
+.feed-event .esri-icon-delete,
+.feed-event .esri-icon-time-clock,
+.feed-event .esri-icon-notice-round {
+  color: #de2900;
+}
+
+.feed-event .esri-icon-add {
+  color: #2d822c;
+}
+
+.social-footer ul.list-bulleted li {
+  list-style-type: disc;
+}
+
+.social-footer .esri-logo {
+  background-image: url("../images/logo/esri-logo.svg");
+}
+
+@media screen and (max-width: 750px) {
+  .feed-day {
+    width: 90%;
+    margin: 0 5%;
+  }
+  .feed-day h4 {
+    margin-left: -12px;
+  }
+  .feed-event {
+    margin-left: 0;
+  }
+  .feed-event .event-meta {
+    height: auto;
+    line-height: inherit;
+  }
+  .feed-event .event-item {
+    height: auto;
+    line-height: 1.3em;
+    clear: left;
+    padding-bottom: 10px;
+    font-size: 18px;
+  }
+  .feed-event .item-thumb {
+    display: none;
+  }
+  .feed-event .event-action {
+    display: none;
+  }
+}
+
+.clearfix:after {
+  content: "";
+  display: block;
+  clear: both;
+}

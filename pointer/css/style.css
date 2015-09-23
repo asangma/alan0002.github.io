@@ -1,0 +1,8 @@
+ .esriPopup {
+  position: absolute;
+  z-index: 40;
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+}

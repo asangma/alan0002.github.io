@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ArcGIS Online Social Activity Feed v1.0</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../esri/themes/calcite/icons/style.css">
+    <link rel="stylesheet" href="https://esri.github.io/calcite-bootstrap/styles/calcite-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/context-style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/options.js"></script>
+    <style type="text/css" media="screen">
+    ul li {
+        list-style: none;
+    }
+    </style>
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        jQuery.get('data/feed.json',
+            function(data) {
+                populateFeed(data);
+                activateFeedActions();
+                activateControls();
+            });
+    });
+
+    function populateFeed(data) {
+        var html_str = '';
+        jQuery(data).each(function(index, date) {
+            var date_str = date.date;
+            ////////////////////////////////////////////////////////////    [ DAY
+            html_str += '<div class="feed-day">'; // [ feed day
+            html_str += '<h4><span>' + date_str + '</span></h4>';
+
+            ////////////////////////////////////////////////////////////    [ EVENT
+            jQuery(date.events).each(function(i, event) {
+                var typeClass = 'esri-icon-';
+                var typeAction;
+                var actionsDesc;
+                switch (event.actionType) {
+                    case 'addition':
+                        typeClass += 'add';
+                        break;
+                    case 'notification':
+                        typeClass += 'notice-round';
+                        break;
+                    case 'deprecation':
+                        typeClass += 'time-clock';
+                        break;
+                    case 'edit':
+                        typeClass += 'edit';
+                        break;
+                    case 'share':
+                        typeClass += 'share';
+                        break;
+                }
+                html_str += '<div class="feed-event">'; //  [ feed event
+                    html_str += '<div class="event-meta clearfix">'; // [ meta
+                        html_str += '<i class="' + typeClass + ' event-icon"></i>';
+                        html_str += '<div class="item-thumb"><img src="' + event.itemThumb + '"/></div>';
+                        html_str += '<a class="event-item" hre="#">' + event.item + '</a>';
+                    html_str += '</div>'; // meta ]
+                    html_str += '<div class="event-info">'; //  [ info
+                        html_str += '<div class="event-actor">'; //  [ actor
+                            html_str += '<img class="event-actor-avatar" src="' + event.actorImg + '"/> <a href="#">' + event.actor + '</a>';
+                        html_str += '</div>';   //  actor   ]
+                        html_str += '<div class="event-description">'; //   [   desc
+                            html_str += '<ul>';
+                                var numActions = event.actions.length;
+                                var numHiddenActions;
+                                var maxShowingActions = 2;
+                                jQuery(event.actions).each(function(index, el) {
+                                    //console.log(typeof(numActions));
+                                    //console.log(event.item + ' : ' + (numActions > maxShowingActions && index==1));
+                                    if(numActions > maxShowingActions && index == maxShowingActions) {
+                                        html_str += '<div id="action_'+ i + '" class="hidden-actions">';
+                                        numHiddenActions = numActions - index;
+                                    }
+
+                                    html_str += '<li>'+ el + '</li>';
+
+                                    if(numActions > maxShowingActions && (index+1) == numActions) {
+                                        html_str += '</div>';
+                                        html_str += '<li><a href="javascript:;" class="reveal-hidden-actions" data-hidden-actions="action_'+ i +'"><span class="show-actions"><i class="esri-icon-down-arrow"></i> Show '+ numHiddenActions +' more</span><span class="hide-actions"><i class="esri-icon-up-arrow"></i> Hide</span></a></li>';
+                                    }
+                                });
+                            html_str += '</ul>';
+                        html_str += '</div>'; //    desc ]
+                        if (event.actionType == 'deprecation') {
+                            html_str += '<div class="event-expiration">'; //    [ expiration
+                                html_str += '<div class="event-expiration-title">You have ' + event.expiration + ' to respond.</div>';
+                                html_str += '<div class="event-expiration-note"><a href="#">View affected items.</a></div>'
+                            html_str += '</div>'; //    expiration ]
+                        }
+                        html_str += '<div class="event-time"><i class="fa fa-clock-o"></i> ' + event.actionTime + '.</div>';    //  [ time ]
+                    html_str += '</div>'; //    info ]
+                html_str += '</div>'; //    feed event ]
+                ////////////////////////////////////////////////////////////    EVENT ]
+            });
+            html_str += '</div>'; // feed day ]
+            ////////////////////////////////////////////////////////////    DAY ]
+        });
+        jQuery('#feed').append(html_str);
+    }
+
+    function activateFeedActions() {
+        jQuery('.reveal-hidden-actions').on('click', function(even){
+            var hiddenActions = jQuery('#'+ jQuery(this).attr('data-hidden-actions'));
+            hiddenActions.toggleClass('reveal');
+            jQuery(this).toggleClass('showing');
+            //hiddenActions.css('max-height', '10000px');
+        });
+    }
+    </script>
+</head>
+
+<body>
+<div class="options-wrap collapsed">
+    <i class="esri-icon-menu options-toggle"></i>
+    <div class="panel panel-white " id="options-controls">
+        <span class="small-text">Options</span>
+        <ul>
+            <li><a href="javascript:;" title="" class="thumb-toggle">Toggle Item Thumbnails</a></li>
+            <li><a href="javascript:;" title="" class="col-toggle">Toggle Full Page / Half Page</a></li>
+        </ul>
+        <hr>
+        <span class="small-text">Versions</span>
+        <ul>
+            <li><a href="index.html" title="">v3.1</a></li>
+            <li><a href="version-3.html" title="">v3.0</a></li>
+            <li><a href="version-2.html" title="">v2.0</a></li>
+            <li class="active"><a href="version-1.html" title="">v1.0</a></li>
+            <li><a href="wireframe.html" title="">wireframe</a></li>
+        </ul>
+    </div>
+</div>
+    <!-- HEADER (styled from PDX Examples) -->
+    <div class="wrapper">
+        <header class="top-nav">
+            <a href="#" class="versioner-toggle inline left link-light-gray  js-drawer-toggle" data-drawer="versioner">☰</a>
+            <div class="grid-container ">
+                <div class="column-24 ">
+                    <nav class="top-nav-list tablet-show">
+                        <a href="#" class="top-nav-link js-drawer-toggle" data-drawer="top-nav-left">Menu</a>
+                    </nav>
+                    <nav class="top-nav-list tablet-hide">
+                        <a class="top-nav-link signed-out-hide" href="#">Home</a>
+                        <a class="top-nav-link signed-out-hide " href="#">Content</a>
+                        <a class="top-nav-link signed-out-hide " href="#">Groups</a>
+                        <a class="top-nav-link signed-out-hide " href="#">Organization</a><!-- 
+                        <a class="top-nav-link signed-in-hide " href="#">Features</a>
+                        <a class="top-nav-link signed-in-hide " href="#">Plans</a>
+                        <a class="top-nav-link signed-in-hide " href="#">Explore</a> -->
+                    </nav>
+                    <nav class="top-nav-list right">
+                        <!-- extends side-nav-link -->
+                        <div class="dropdown js-dropdown tool-link top-nav-link signed-out-hide">
+                            <!-- extends side-nav -->
+                            <a href="#" class="top-nav-dropdown dropdown-btn js-dropdown-toggle"><img class="nav-image" src="images/top-nav-prototype/top-nav-create.png"> Create</a>
+                            <!-- extends side-nav -->
+                            <nav class="dropdown-menu dropdown-right">
+                                <!-- extends side-nav-link -->
+                                <a class="dropdown-link" href="#">New Map</a>
+                                <a class="dropdown-link" href="#">New Scene</a>
+                                <a class="dropdown-link" href="#">New Layer</a>
+                                <a class="dropdown-link" href="#">New Application</a>
+                                <a class="dropdown-link" href="#">Upload File</a>
+                            </nav>
+                        </div>
+                        <a href="#" class="top-nav-link tool-link"><img class="nav-image" src="images/top-nav-prototype/top-nav-map.png"> Map</a>
+                        <a href="#" class="top-nav-link tool-link"><img class="nav-image" src="images/top-nav-prototype/top-nav-scene.png"> Scene</a>
+                        <a href="#" class="top-nav-link signed-out-hide user-notifications"><img class="nav-image" src="images/top-nav-prototype/top-nav-notifications.png"></a>
+                        <div class="dropdown js-dropdown signed-out-hide top-nav-link">
+                            <div class="tablet-show">
+                                <img src="images/alan.jpg" alt="Sloth Aldrin" class="user-image" width="20" height="20">
+                                <a href="#" data-drawer="top-nav-right" class="js-drawer-toggle link-off-black">Alan</a>
+                            </div>
+                            <div class="tablet-hide">
+                                <img src="images/alan.jpg" alt="Sloth Aldrin" class="user-image" width="20" height="20">
+                                <a class="top-nav-dropdown dropdown-btn js-dropdown-toggle" href="#">Alan</a>
+                            </div>
+                            <nav class="dropdown-menu dropdown-right">
+                                <a href="#" class="dropdown-link">Account</a>
+                                <a href="#" class="dropdown-link">Profile</a>
+                                <a href="#" class="dropdown-link viewer-hide">Billing</a>
+                                <a href="#" class="dropdown-link js-sign-out">Sign Out</a>
+                            </nav>
+                        </div>
+                    </nav>
+                    <div class="site-search is-active right">
+                        <form class="site-search-form">
+                            <span class="icon-ui-search site-search-icon"></span>
+                            <input class="site-search-input" type="search" placeholder="Search">
+                            <span class="input-group-button">
+                                    <a href="#" class="btn btn-clear site-search-button">Go</a>
+                                </span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="panel-blue padding-leader-half padding-trailer-half">
+            <div class="grid-container">
+                <div class="column-24 text-center">
+                    <h1 class="font-size-7 text-white trailer-0">City of Cloud Creek</h1>
+                    <p class="text-white trailer-0">My Feed</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /HEADER (styled from PDX Examples) -->
+
+
+
+    <div class="container-fluid social-content">
+        <div class="row">
+            <div class="col-md-12" id="feed-col">
+                <div id="feed" class="panel panel-white">
+                <h3>My Feed</h3>
+              </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-white" style="height:400px;">
+                    <h3>Other Panel?</h3>
+                </div>
+                <div class="panel panel-white" style="height:400px;">
+                    <h3>Other Panel?</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- FOOTER (styled from PDX Examples) -->
+    <div class="container social-footer">
+    
+        <nav class="col-md-3">
+          <h6>Arc<span>GIS</span></h6>
+          <ul class="list-bulleted">
+            <li><a href="http://www.arcgis.com/about/">Home</a></li>
+            <li><a href="http://www.arcgis.com/about/features.html">Features</a></li>
+            <li><a href="http://www.arcgis.com/about/pricing.html">Pricing</a></li>
+          </ul>
+        </nav>
+
+        <nav class="col-md-3">
+          <h6>Arc<span>GIS</span> for Developers</h6>
+          <ul class="list-bulleted">
+            <li><a href="/en/">Home</a></li>
+            <li><a href="/en/features/">Features</a></li>
+            <li><a href="http://blogs.esri.com/esri/arcgis/category/developer/">Blog</a></li>
+          </ul>
+        </nav>
+
+        <nav class="col-md-3">
+          <h6>About Esri</h6>
+          <ul class="list-bulleted">
+            <li><a href="http://www.esri.com/about-esri/">About Us</a></li>
+            <li><a href="http://www.esri.com/careers/">Careers</a></li>
+            <li><a href="http://blogs.esri.com/esri/esri-insider/">Insiders Blog</a></li>
+            <li><a href="http://www.esri.com/events/user-conference/index.html">User Conference</a></li>
+            <li><a href="http://www.esri.com/events/devsummit/index.html">Developer Summit</a></li>
+          </ul>
+        </nav>
+
+        <nav class="col-md-3 padding-leader-half">
+          <a class="esri-logo" href="http://esri.com"></a>
+          <section class="footer-social-nav">
+            <a class="icon-twitter" href="https://twitter.com/Esri/"></a>
+            <a class="icon-facebook" href="https://www.facebook.com/esrigis/"></a>
+            <a class="icon-github" href="http://esri.github.com/"></a>
+            <a class="icon-email" href="http://www.esri.com/about-esri/contact/"></a>
+          </section>
+        </nav>
+        <div class="col-md-3">
+          <p><small>&copy; Copyright 2013 Environmental Systems Research Institute, Inc. | <a href="http://www.esri.com/legal/privacy">Privacy</a> | <a href="http://www.esri.com/legal/software-license">Legal</a></small></p>
+        </div>
+    
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,193 @@
+[
+	{
+		"date" : "Today",
+		"events":[
+			{
+				"actor" 			: "Sentha S.",
+				"actorImg"		:	"https://media.licdn.com/media/p/3/000/0ed/072/0793423.jpg",
+				"item" 				: "Street Permits Jobs Poly",
+				"itemThumb"		: "https://www.arcgis.com/sharing/rest/content/items/ed82f763d4604f669680525912d51b1f/info/thumbnail/ago_downloaded.png",
+				"itemType"		:	"feature-layer",
+				"actions"			: [
+													"added <span class=\"event-count\">7</span> <span class=\"event-feature\">Features</span>",
+													"deleted <span class=\"event-count\">1</span> <span class=\"event-feature\">Feature</span>"
+												],
+				"message"			: null,
+				"actionType" 	: "edit",
+				"following"		: false,
+				"followID"		: "spjp",
+				"actionTime"	: "Just now"
+				},
+			{
+				"actor" 			: "Frank G.",
+				"actorImg"		:	"https://pbs.twimg.com/profile_images/426595958168641536/0XI1xmhE.jpeg",
+				"item" 				: "Portland Bicycle Parking",
+				"itemThumb"		: "https://www.arcgis.com/sharing/rest/content/items/b67bc6da241640808b7762b65a66f9e2/info/thumbnail/ago_downloaded.png",
+				"itemType"		:	"map",
+				"actions"			: ["scheduled this to be deleted on <span>09/21/2015</span>"],
+				"message"			: "You have <span class=\"event-count\">14 Days</span> to respond.",
+				"actionType" 	: "deprecation",
+				"following"		: false,
+				"followID"		: "pbp-001",
+				"actionTime"	: "32m"
+				},
+			{
+				"actor" 			: "Heath M.",
+				"actorImg"		:	"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/5/005/031/071/23507a0.jpg",
+				"item" 				: "Portland Parks",
+				"itemThumb"		: "https://www.arcgis.com/sharing/rest/content/items/011a7aa51f134f03b079fc7cdc633bb0/info/thumbnail/ago_downloaded.png",
+				"itemType"		:	"feature-layer",
+				"actions"			: [
+													"added <span class=\"event-count\">2</span> <span class=\"event-layer\">Layers</span>",
+													"edited <span class=\"event-count\">23</span> <span class=\"event-feature\">Features</span> across <span class=\"event-count\">3</span> <span class=\"event-layer\">Layers</span>"
+												],
+				"message"			: null,
+				"actionType" 	: "edit",
+				"following"		: true,
+				"followID"		: "0",
+				"actionTime"	: "1h"
+				},
+			{
+				"actor" 			: "Patrick R.",
+				"actorImg"		:	"images/gravatar.jpg",
+				"item" 				: "Portland Parks",
+				"itemThumb"		: "https://www.arcgis.com/sharing/rest/content/items/011a7aa51f134f03b079fc7cdc633bb0/info/thumbnail/ago_downloaded.png",
+				"itemType"		:	"feature-layer",
+				"actions"			: [
+													"<!--<div><img class=\"action-object\" src=\"http://placehold.it/30/333?text=G\" /><img class=\"action-object\" src=\"http://placehold.it/30/333?text=G\" /><img class=\"action-object\" src=\"http://placehold.it/30/333?text=G\" /></div>-->shared this <span>Map</span> with <span class=\"event-count\">3</span> <span class=\"event-group\">Groups</span>",
+													"changed the <span>Permissions</span> to <span>Public</span>"
+												],
+				"message"			: null,
+				"actionType" 	: "share",
+				"following"		: true,
+				"followID"		: "0",
+				"actionTime"	: "2h"
+				},
+			{
+				"actor" 			: "City of Portland",
+				"actorImg"		:	"http://placehold.it/200x133/333/f8f8f8?text=System",
+				"item" 				: "Credit Limit Reached",
+				"itemThumb"		: "",
+				"itemType"		:	"system-message",
+				"actions"			: [
+
+												],
+				"message"			: "Aut ut odio unde porro in. Aut fuga magni adipisci. Recusandae ipsum distinctio omnis ut illum.",
+				"actionType" 	: "notification",
+				"following"		: false,
+				"followID"		: null,
+				"actionTime"	: "10:13am"
+				},
+			{
+				"actor" 			: "Alan S.",
+				"actorImg"		:	"https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAMzAAAAJDZmYTA0OTlhLTgwMzMtNDJhZC1hNjQxLWJjMDE0NzcyZDY5Ng.jpg",
+				"item" 				: "Street Permits Jobs Poly",
+				"itemThumb"		: "https://www.arcgis.com/sharing/rest/content/items/ed82f763d4604f669680525912d51b1f/info/thumbnail/ago_downloaded.png",
+				"itemType"		:	"feature-layer",
+				"actions"			: [
+													"added <span class=\"event-count\">7</span> <span class=\"event-feature\">Features</span>",
+													"deleted <span class=\"event-count\">1</span> <span class=\"event-feature\">Feature</span>",
+													"removed <span class=\"event-count\">1</span> <span class=\"event-layer\">Layer</span>",
+													"changed the <span class=\"event-scheme\">Schema</span> of <span class=\"event-count\">1</span> <span class=\"event-layer\">Layer</span>",
+													"changed the <span class=\"event-renderer\">Renderer</span> of <span class=\"event-count\">1</span> <span class=\"event-layer\">Layer</span>",
+													"edited the <span class=\"event-popup\">Popup</span> across <span class=\"event-count\">3</span> <span class=\"event-layer\">Layers</span>",
+													"edited <span class=\"event-count\">2</span> <span class=\"event-feature\">Features</span> in <span class=\"event-count\">1</span> <span class=\"event-layer\">Layer</span>"
+													],
+				"message"			: null,
+				"actionType" 	: "edit",
+				"following"		: false,
+				"followID"		: "spjp",
+				"actionTime"	: "10:13am"
+				},
+			{
+				"actor" 			: "Heath M.",
+				"actorImg"		:	"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/5/005/031/071/23507a0.jpg",
+				"item" 				: "Portland Parks",
+				"itemThumb"		: "https://www.arcgis.com/sharing/rest/content/items/011a7aa51f134f03b079fc7cdc633bb0/info/thumbnail/ago_downloaded.png",
+				"itemType"		:	"feature-layer",
+				"actions"			: [
+													"removed <span class=\"event-count\">1</span> <span class=\"event-layer\">Layer</span>",
+													"changed the <span class=\"event-scheme\">Schema</span> of <span class=\"event-count\">1</span> <span class=\"event-layer\">Layer</span>",
+													"changed the <span class=\"event-renderer\">Renderer</span> of <span class=\"event-count\">1</span> <span class=\"event-layer\">Layer</span>",
+													"edited the <span class=\"event-popup\">Popup</span> across <span class=\"event-count\">3</span> <span class=\"event-layer\">Layers</span>",
+													"edited <span class=\"event-count\">2</span> <span class=\"event-feature\">Features</span> in <span class=\"event-count\">1</span> <span class=\"event-layer\">Layer</span>"
+												],
+				"message"			: null,
+				"actionType" 	: "edit",
+				"following"		: true,
+				"followID"		: "0",
+				"actionTime"	: "9:52am"
+				},
+			{
+				"actor" 			: "Alan S.",
+				"actorImg"		:	"https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAMzAAAAJDZmYTA0OTlhLTgwMzMtNDJhZC1hNjQxLWJjMDE0NzcyZDY5Ng.jpg",
+				"item" 				: "Street Permits Jobs Poly",
+				"itemThumb"		: "https://www.arcgis.com/sharing/rest/content/items/ed82f763d4604f669680525912d51b1f/info/thumbnail/ago_downloaded.png",
+				"itemType"		:	"feature-layer",
+				"actions"			: ["added this <span>Feature Layer</span>"],
+				"message"			: null,
+				"actionType" 	: "addition",
+				"following"		: false,
+				"followID"		: "spjp",
+				"actionTime"	: "9:27am"
+			}
+		]
+		},
+	{
+		"date" : "Yesterday",
+		"events" : [
+			{
+				"actor"				: "Erich R.",
+				"actorImg"		:	"http://dc.esri.com/assets/img/profile-bluedog.jpg",
+				"item" 				: "Glasgow, Scotland - Port Dundas Business Park, Financial Commercial Survey Application",
+				"itemThumb"		: "https://www.arcgis.com/sharing/rest/content/items/7fce663d57484a32a4afe3f0c2233e82/info/thumbnail/ago_downloaded.png",
+				"itemType"		:	"feature-class",
+				"actions"			: ["scheduled this to be deleted on <span>09/01/2015</span>"],
+				"message"			: "You have <span class=\"event-count\">1 Day</span> to respond.",
+				"actionType" 	: "deprecation",
+				"following"		: false,
+				"followID"		: "glasgow",
+				"actionTime"	: "3:32pm"
+				},
+			{
+				"actor" 			: "Frank G.",
+				"actorImg"		:	"https://pbs.twimg.com/profile_images/426595958168641536/0XI1xmhE.jpeg",
+				"item"				: "Capital Improvement Projects (CIP) Lines",
+				"itemThumb"		: "https://www.arcgis.com/sharing/rest/content/items/93ed0b190bc6441fad1e48871b4c58d2/info/thumbnail/ago_downloaded.png",
+				"itemType"		:	"feature-layer",
+				"actions"			: ["changed <span>The Title</span>."],
+				"message"			: null,
+				"actionType" 	: "edit",
+				"following"		: false,
+				"followID"		: "cip-lines",
+				"actionTime"	: "11:17am"
+				},
+			{
+				"actor"				: "John G.",
+				"actorImg"		:	"images/DefaultUser64.png",
+				"item"				: "Portland Bicycle Network",
+				"itemThumb"		: "https://www.arcgis.com/sharing/rest/content/items/191e7d0605a24a7ea42e802b4d5742bb/info/thumbnail/ago_downloaded.png",
+				"itemType"		:	"shape-file",
+				"actions"			: ["changed the <span>Permissions</span> to <span>Private</span>"],
+				"message"			: null,
+				"actionType" 	: "edit",
+				"following"		: false,
+				"followID"		: "pbn",
+				"actionTime"	: "9:20am"
+				},
+			{
+				"actor" 			: "Sentha S.",
+				"actorImg"		:	"https://media.licdn.com/media/p/3/000/0ed/072/0793423.jpg",
+				"item" 				: "Heritage Trees Portland",
+				"itemThumb"		: "https://www.arcgis.com/sharing/rest/content/items/a539e9fe98964fbca427fe84629db1be/info/thumbnail/ago_downloaded.png",
+				"itemType"		:	"shape-file",
+				"actions"			: ["added this <span>Feature Layer</span>"],
+				"message"			: null,
+				"actionType" 	: "addition",
+				"following"		: false,
+				"followID"		: "htp",
+				"actionTime"	: "9:12am"
+			}
+		]
+	}
+]

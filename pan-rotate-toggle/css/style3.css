@@ -1,0 +1,84 @@
+body {
+  background:url("../images/earth.jpg") no-repeat top center #000;
+  /*background-size:cover;*/
+}
+h2 {
+  margin:10px 0 20px 15px;
+}
+
+.tools {
+	width:32px;
+	height:200px;
+	position:fixed;
+	top:62px;
+	left:10px;
+	overflow:hidden;
+	
+}
+
+.toggle {
+	border:solid 1px #959595;
+}
+
+.toggle:hover {
+	cursor: pointer;
+}
+
+.toggleTitle {
+	color: #ccc;
+	font-size:12px;
+	line-height:1.2em;
+	display: block;
+}
+
+a.esriIcon {
+	font-size:16px;
+	padding:8px;
+	display:block;
+	text-decoration:none;
+	color:#4c4c4c;
+	background: #f8f8f8;
+	-webkit-transition: all 125ms ease-in-out;
+	   -moz-transition: all 125ms ease-in-out;
+	    -ms-transition: all 125ms ease-in-out;
+	     -o-transition: all 125ms ease-in-out;
+	        transition: all 125ms ease-in-out;
+}
+
+.esri-icon-zoom-in,
+.toggle {
+	margin-top:10px;
+}
+
+.esri-icon-zoom-out {
+	border-top:solid 1px #4c4c4c;
+}
+
+.toggle .esriIcon {
+	padding:4px 0;
+	width:100%;
+	display:block;
+	text-align: center;
+	/*border:solid 2px #ccc;*/
+}
+
+.toggle hr {
+	margin: 0;
+	height: 1px;
+	border: none;
+	background-color: #333;
+}
+
+.toggle .esri-icon-pan {
+	border-bottom:none;
+}
+
+.toggle .esri-icon-rotate {
+	border-top:none;
+}
+
+.rotate .esri-icon-pan,
+.pan .esri-icon-rotate {
+	background: #6e6e6e;
+	color: #f8f8f8;
+}

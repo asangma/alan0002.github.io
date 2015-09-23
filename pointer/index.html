@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+	<style>
+  html, body, #mapDiv {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    background: url(./images/dark-map.jpg) no-repeat center;
+    background-size:cover;
+    /*background: url(./images/open-street-map.jpg) no-repeat center;*/
+    /*background-size: cover;*/
+  }
+  .marker {
+  	position: absolute;
+  	left: 50%;
+  	top: 50%;
+  	width: 50px;
+  	height: 50px;
+  	/*background: rgba(0,0,0,0.15);*/
+  	border: solid 5px #f7f8f8;
+  	border-radius: 50% 0 50% 50%;
+  	transform:rotate(45deg);
+  	box-shadow: 0 2px 2px rgba(0,0,0, 0.5);
+    z-index: 50;
+  }
+
+  .popup {
+  	width: 320px;
+  	height: 200px;
+  	background: #fff;
+    -webkit-border-radius: 4px;
+            border-radius: 4px;
+    position: absolute;
+    z-index: 100;
+    cursor: move;
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0, 0.5);
+            box-shadow: 0 3px 6px rgba(0,0,0, 0.5);
+  }
+	</style>
+  <title>Popup Protoype : UI Team</title>
+</head>
+
+<body class="calcite">
+  <div class="marker"></div>
+  <div class="popup"></div>
+  <div id="mapDiv"></div>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script>
+	
+
+	var interval, x_dist, y_dist, mouse_x, mouse_y, marker_x, marker_y, rads, degs;
+
+	jQuery(document).ready(function() {
+			var pos = jQuery('.marker').position();
+			var marker_y = pos.top + jQuery('.marker').width()/2;
+			var marker_x = pos.left + jQuery('.marker').height()/2;
+      var marker = jQuery('.marker');
+      var popup = jQuery('.popup');
+
+			jQuery('.calcite').mousemove(function(event) {
+			mouse_x = event.pageX;
+			mouse_y = event.pageY;
+			x_dist = /*Math.abs(*/ mouse_x - marker_x;//);
+			y_dist = /*Math.abs(*/ mouse_y - marker_y;//); 
+
+			//console.log(x_dist + ' : ' + y_dist);
+			rads = Math.atan2(y_dist, x_dist);
+			degs = (180/Math.PI) * rads + 45;
+			// console.log(degs);
+
+			marker.css('transform', 'rotate('+degs+'deg)');
+      popup.css({
+        left: (mouse_x - popup.width()/2) + 'px',
+        top: (mouse_y - 20) + 'px'
+      });
+
+
+		});
+	});
+
+	</script>
+</body>
+
+</html>

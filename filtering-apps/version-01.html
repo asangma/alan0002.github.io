@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <meta name="description" content="Arcgis-js-api-alan : ArcGIS API for JavaScript">
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://esri.github.io/calcite-web/assets/css/all.css">
+    <link rel="stylesheet" href="css/bootstrap/css/normalize.css">
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap.vertical-tabs.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="css/bootstrap/js/jquery-1.11.3.min.js"></script>
+    <script src="css/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/prototype.js"></script>
+    <title>Filtering Apps in Create App Workflow</title>
+</head>
+
+<body>
+    <div class="overlay"></div>
+    <div class="options-trigger"><i class="fa fa-bars"></i></div>
+    <div class="options-wrap">
+        <ul class="options">
+            <li><a href="" class="toggle-pagination">Toggle Pagination / Scroll</a></li>
+            <!-- <li><a href="">Toggle Pagination / Scroll</a></li> -->
+        </ul>
+        <hr>
+        <h3>Versions</h3>
+        <ul>
+            <li><a href="index.html">v03.0</a></li>
+            <li><a href="version-02.html">v02.0</a></li>
+            <li><a class="active" href="version-01.html">v01.0</a></li>
+        </ul>
+    </div>
+    <div class="container-fluid">
+        <div class="modal-wrapper">
+            <a class="modal-closer">
+            </a>
+            <div class="row">
+                <h2>Create a New Web Application.</h2>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul class="nav nav-tabs top-nav">
+                        <li role="presentation" class="active"><a href="#">Configurable Apps</a></li>
+                        <li role="presentation"><a href="#">Web AppBuilder</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <p>What do you want to do with your application?</p>
+                </div>
+                <div class="col-xs-5">
+                    <p>Select a template to create your new application.</p>
+                </div>
+                <div class="col-xs-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search Templates">
+                        <span class="input-group-btn">
+                          <button class="btn" type="button"><span class="search-icon">Go</span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row main-content">
+                <div class="col-xs-3 filters-wrap" style="padding-left: 20px;">
+                    <ul class="nav nav-tabs tabs-left" id="filters">
+                    </ul>
+                </div>
+                <div class="col-xs-9 template-holder no-scroll" style="padding-right: 20px;">
+                    <!-- <h3 id="category-title">Everything</h3> -->
+                    <div class="tab-content">
+                        <div id="templates">
+                            <!-- JS POPUPLATES THIS -->
+                        </div>
+                    </div>
+                    <div id="template-info-panel">
+                        <div class="template-info-showing"></div>
+                        <div class="panel-actions">
+                            <button class="btn btn-cancel" id="close-panel">Cancel</button>
+                            <button class="btn btn-secondary">Preview</button>
+                            <button class="btn btn-secondary">Download</button>
+                            <button class="btn">Create</button>
+                        </div>
+                    </div>
+                    <div class="pagination-wrap">
+                        <nav>
+                            <ul class="pagination pagination-sm">
+                                <li>
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li>
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="bottom-nav">
+                    <button class="btn btn-back">Back</button>
+                    <button class="btn btn-cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

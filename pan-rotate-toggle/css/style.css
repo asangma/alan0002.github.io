@@ -1,0 +1,172 @@
+body {
+  background:url("../images/earth.jpg") no-repeat top center #000;
+  /*background-size:cover;*/
+}
+h2 {
+  margin:10px 0 20px 15px;
+}
+
+.tools {
+	width:32px;
+	height:200px;
+	position:fixed;
+	top:62px;
+	left:10px;
+	overflow:hidden;
+	
+}
+
+.toggle {
+	position:relative;
+	/*margin-top: 40px;*/
+	width:67px;
+	overflow:hidden;
+	-webkit-transition: all 250ms ease-in-out;
+	   -moz-transition: all 250ms ease-in-out;
+	    -ms-transition: all 250ms ease-in-out;
+	     -o-transition: all 250ms ease-in-out;
+	        transition: all 250ms ease-in-out;
+
+}
+
+a.esriIcon {
+	font-size:16px;
+	padding:8px;
+	display:block;
+	text-decoration:none;
+	color:#4c4c4c;
+	background: #f8f8f8;
+}
+
+.esri-icon-zoom-in,
+.toggle {
+	margin-top:10px;
+}
+
+.esri-icon-zoom-out {
+	border-top:solid 1px #4c4c4c;
+}
+
+.toggle .esriIcon {
+	position: relative;
+	top:0;
+	float:left;
+}
+
+.esri-icon-rotate {
+	border-left:solid 2px #4c4c4c;
+}
+
+.toggle.rotate {
+	left:-34px;
+}
+.toggle.rotate:hover {
+	left:-29px;
+}
+
+.toggle.pan {
+	left:0;
+}
+.toggle.pan:hover {
+	left:-5px;
+}
+
+
+
+/*.toggle.toggle-to-rotate {
+	-webkit-transform: translate(0, -32px);
+	   -moz-transform: translate(0, -32px);
+	    -ms-transform: translate(0, -32px);
+	     -o-transform: translate(0, -32px);
+	        transform: translate(0, -32px);
+	-webkit-animation: toggle-to-rotate 500ms ease-in-out;
+	   -moz-animation: toggle-to-rotate 500ms ease-in-out;
+	     -o-animation: toggle-to-rotate 500ms ease-in-out;
+	        animation: toggle-to-rotate 500ms ease-in-out;
+}
+
+.toggle.toggle-to-pan {
+	-webkit-transform: translate(0, 0px);
+	   -moz-transform: translate(0, 0px);
+	    -ms-transform: translate(0, 0px);
+	     -o-transform: translate(0, 0px);
+	        transform: translate(0, 0px);
+	-webkit-animation: toggle-to-pan 500ms ease-in-out;
+	   -moz-animation: toggle-to-pan 500ms ease-in-out;
+	     -o-animation: toggle-to-pan 500ms ease-in-out;
+	        animation: toggle-to-pan 500ms ease-in-out;
+}
+*/
+
+@-webkit-keyframes toggle-to-rotate {
+	0% {
+		-webkit-transform: scale(1, 1) translate(0, 0);
+		   -moz-transform: scale(1, 1) translate(0, 0);
+		    -ms-transform: scale(1, 1) translate(0, 0);
+		     -o-transform: scale(1, 1) translate(0, 0);
+		        transform: scale(1, 1) translate(0, 0);
+	}
+
+	50% {
+		-webkit-transform: scale(0, 1) translate(0, 0);
+		   -moz-transform: scale(0, 1) translate(0, 0);
+		    -ms-transform: scale(0, 1) translate(0, 0);
+		     -o-transform: scale(0, 1) translate(0, 0);
+		        transform: scale(0, 1) translate(0, 0);
+
+	}
+
+	51% {
+		-webkit-transform: scale(0, 1) translate(0, -32px);
+		   -moz-transform: scale(0, 1) translate(0, -32px);
+		    -ms-transform: scale(0, 1) translate(0, -32px);
+		     -o-transform: scale(0, 1) translate(0, -32px);
+		        transform: scale(0, 1) translate(0, -32px);
+
+	}
+
+	100% {
+		-webkit-transform: scale(1, 1) translate(0, -32px);
+		   -moz-transform: scale(1, 1) translate(0, -32px);
+		    -ms-transform: scale(1, 1) translate(0, -32px);
+		     -o-transform: scale(1, 1) translate(0, -32px);
+		        transform: scale(1, 1) translate(0, -32px);
+	}
+}
+
+
+@-webkit-keframes toggle-to-pan {
+	0% {
+		-webkit-transform: scale(1, 1) translate(0, -32px);
+		   -moz-transform: scale(1, 1) translate(0, -32px);
+		    -ms-transform: scale(1, 1) translate(0, -32px);
+		     -o-transform: scale(1, 1) translate(0, -32px);
+		        transform: scale(1, 1) translate(0, -32px);
+	}
+
+	50% {
+		-webkit-transform: scale(0, 1) translate(0, -32px);
+		   -moz-transform: scale(0, 1) translate(0, -32px);
+		    -ms-transform: scale(0, 1) translate(0, -32px);
+		     -o-transform: scale(0, 1) translate(0, -32px);
+		        transform: scale(0, 1) translate(0, -32px);
+
+	}
+
+	51% {
+		-webkit-transform: scale(0, 1) translate(0, 0);
+		   -moz-transform: scale(0, 1) translate(0, 0);
+		    -ms-transform: scale(0, 1) translate(0, 0);
+		     -o-transform: scale(0, 1) translate(0, 0);
+		        transform: scale(0, 1) translate(0, 0);
+
+	}
+
+	100% {
+		-webkit-transform: scale(1, 1) translate(0, 0);
+		   -moz-transform: scale(1, 1) translate(0, 0);
+		    -ms-transform: scale(1, 1) translate(0, 0);
+		     -o-transform: scale(1, 1) translate(0, 0);
+		        transform: scale(1, 1) translate(0, 0);
+	}
+}

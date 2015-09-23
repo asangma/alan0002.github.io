@@ -1,0 +1,12 @@
+
+
+.navbar-default {
+	border-radius:0;
+}
+.navbar {
+	min-height: 0;
+}
+.navbar-nav>li>a {
+	padding-top:0;
+	padding-bottom:0;
+}
