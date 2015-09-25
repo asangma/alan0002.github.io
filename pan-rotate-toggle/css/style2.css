@@ -87,11 +87,11 @@ a.esriIcon {
 .compass {
 	width:32px;
 	height:32px;
-	-webkit-transition: all 250ms ease-out;
+/*	-webkit-transition: all 250ms ease-out;
 	   -moz-transition: all 250ms ease-out;
 	    -ms-transition: all 250ms ease-out;
 	     -o-transition: all 250ms ease-out;
-	        transition: all 250ms ease-out;
+	        transition: all 250ms ease-out;*/
 	
 
 }

@@ -55,7 +55,7 @@
             y_dist = mouse_y - center_y;
 
             rads = Math.atan2(y_dist, x_dist);
-            degs = (180 / Math.PI) * rads + 45;
+            degs = (180 / Math.PI) * rads + 90;
             var scaleX = Math.abs(x_dist / y_dist) * 2;
             scaleX = scaleX < 1 ? scaleX : 1;
             scaleX = scaleX > 0.25 ? scaleX : 0.25;
