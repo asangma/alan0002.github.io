@@ -7,13 +7,17 @@ h2 {
 }
 
 .tools {
-	width:32px;
-	height:220px;
+	width:120px;
+	height:100%;
 	position:fixed;
 	top:62px;
 	left:10px;
 	overflow:hidden;
-	
+	/*color:#4c4c4c;*/
+}
+
+.tools span {
+	color: #5a5a5a;
 }
 
 .toggle {
@@ -32,6 +36,7 @@ h2 {
 a.esriIcon {
 	font-size:16px;
 	padding:8px;
+	width:32px;
 	display:block;
 	text-decoration:none;
 	color:#4c4c4c;
@@ -75,7 +80,7 @@ a.esriIcon {
 }
 
 .compass-wrap {
-	margin-top: 10px;
+	margin-top: 20px;
 	width:32px;
 	height:32px;
 	background: rgba(255, 255, 255, 1);
