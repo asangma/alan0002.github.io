@@ -21,7 +21,8 @@ jQuery(document).ready(function($) {
     //jQuery('')
 
     jQuery.get('includes/nav.html', function(data, textStatus, xhr) {
-        jQuery('#skrollr-body').prepend(data);
+        var window_w = jQuery(window).width();
+        jQuery('.body').prepend(data);
         if (!isHome) {
             jQuery('.nav li').each(function(index, elem) {
                 var href = jQuery(elem).children('a').attr('href');
@@ -38,14 +39,14 @@ jQuery(document).ready(function($) {
             jQuery('.navbar-brand').attr('data--200-top', "margin-left:-75px;");
             jQuery('.navbar-brand').attr('data--250-top', "margin-left:-25px;");
         }
-        //jQuery('body').animate({scrollTop: 0}, 125, function(){
+      //  jQuery('body').animate({scrollTop: 0}, 25, function(){
           //  console.log('*');
             sklr = skrollr.init({
                 smoothScrollling: true,
                 forceHeight: true,
                 edgeStrategy: 'ease'
             }); 
-        //});
+       // });
     });
 
 
