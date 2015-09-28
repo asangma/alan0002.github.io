@@ -39,14 +39,14 @@ jQuery(document).ready(function($) {
             jQuery('.navbar-brand').attr('data--200-top', "margin-left:-75px;");
             jQuery('.navbar-brand').attr('data--250-top', "margin-left:-25px;");
         }
-      //  jQuery('body').animate({scrollTop: 0}, 25, function(){
+       jQuery('body').animate({scrollTop: 0}, 25, function(){
           //  console.log('*');
             sklr = skrollr.init({
                 smoothScrollling: true,
                 forceHeight: true,
                 edgeStrategy: 'ease'
             }); 
-       // });
+       });
     });
 
 
