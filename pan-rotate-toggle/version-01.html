@@ -12,26 +12,28 @@
 
     <link rel="stylesheet" href="../bootstrap/css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/calcite/css/calcite.css">
-    <link rel="stylesheet" href="css/style2.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/common.css">
 
     <script src="../bootstrap/js/jquery-1.11.3.min.js"></script>
     <script src="../bootstrap/js/bootstrap.min.js"></script>
     <title>Scene Viewer : Pan / Rotate Toggle</title>
+    <script src="js/nav.js" type="text/javascript"></script>
     <script type="text/javascript">
-    var toggleTo = {rotate:'pan', pan:'rotate'};
-
     jQuery(document).ready(function() {
-      jQuery('.toggle').on('click', function(e){
-        var toggle = jQuery(this).attr('data-toggleState');
+      jQuery('.esriIcon').on('click', function(e){
+        var toggle = jQuery(this).attr('data-toggleTo');
 
-        jQuery(this).removeClass('pan');
-        jQuery(this).removeClass('rotate');
 
-        jQuery(this).addClass(toggleTo[toggle]);
-        jQuery(this).attr('data-toggleState', toggleTo[toggle]);
+        jQuery(this).parent().removeClass('pan');
+        jQuery(this).parent().removeClass('rotate');
+
+        jQuery(this).parent().addClass(toggle);
       });
-    });
+
+      getNav('includes/nav.html');
+  });
+
     </script>
   </head>
 
@@ -39,11 +41,6 @@
     <nav class="navbar navbar-default">
       <div class="container">
         <ul class="nav navbar-nav">
-          <li><a href="version-0.html" title="">v01</a></li>
-          <li class="active"><a href="version-2.html" title="">v02</a></li>
-          <li><a href="index.html" title="">v02 with Compass</a></li>
-          <li><a href="index-non-north.html" title="">v02 with Non North Compass</a></li>
-          <li><a href="version-3.html" title="">v03</a></li>
       </ul>
       </div>
     </nav>
@@ -51,9 +48,9 @@
     <a href="#" title="" class="esriIcon esri-icon-home"></a>
     <a href="#" title="" class="esriIcon esri-icon-zoom-in"></a>
     <a href="#" title="" class="esriIcon esri-icon-zoom-out"></a>
-    <div class="toggle pan" data-toggleState="pan" title="Pan/Zoom Toggle">
-      <a href="javascript:;" class="esriIcon esri-icon-pan"></a>
-      <a href="javascript:;" class="esriIcon esri-icon-rotate"></a>
+    <div class="toggle pan">
+      <a href="javascript:;" class="esriIcon esri-icon-pan" data-toggleTo="rotate"></a>
+      <a href="javascript:;" class="esriIcon esri-icon-rotate" data-toggleTo="pan"></a>
     </div>
     </div>
   </body>

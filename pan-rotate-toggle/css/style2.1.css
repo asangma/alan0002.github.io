@@ -1,0 +1,164 @@
+body {
+  background:url("../backgrounds/bg-0.jpg") no-repeat top center #000;
+  background-size:
+}
+h2 {
+  margin:10px 0 20px 15px;
+}
+
+.tools {
+	width:120px;
+	height:100%;
+	position:fixed;
+	top:62px;
+	left:10px;
+	overflow:hidden;
+	/*color:#4c4c4c;*/
+}
+
+.tools span {
+	color: #5a5a5a;
+}
+
+.toggle {
+	position:relative;
+	/*margin-top: 40px;*/
+	width:32px;
+	/*height: 67px;*/
+	overflow:hidden;
+	background: #a9a9a9;
+	/*border:solid 2px #333;*/
+	-webkit-border-radius: 16px;
+	        border-radius: 16px;
+
+}
+.toggle:hover {
+	cursor: pointer;
+}
+
+.indicator {
+	position:absolute;
+	width:32px;
+	height:32px;
+	border:solid 2px #a9a9a9;
+	-webkit-border-radius: 16px ;
+	        border-radius: 16px ;
+	background-color: #f8f8f8;
+	z-index: 5;
+	top:0;
+	right:0;
+	
+	-webkit-transition: all 125ms ease-in-out;
+	   -moz-transition: all 125ms ease-in-out;
+	    -ms-transition: all 125ms ease-in-out;
+	     -o-transition: all 125ms ease-in-out;
+	        transition: all 125ms ease-in-out;
+}
+
+.pan .indicator {
+	top:32px;
+}
+.rotate .indicator {
+	top:0px;
+	-webkit-border-radius:  16px;
+	        border-radius:  16px;
+}
+
+a.esriIcon {
+	font-size:16px;
+	padding:8px;
+	width:32px;
+	display:block;
+	text-decoration:none;
+	color:#4c4c4c;
+	background: #f8f8f8;
+	-webkit-transition: all 125ms ease-in-out;
+	   -moz-transition: all 125ms ease-in-out;
+	    -ms-transition: all 125ms ease-in-out;
+	     -o-transition: all 125ms ease-in-out;
+	        transition: all 125ms ease-in-out;
+}
+
+.esri-icon-zoom-in,
+.toggle {
+	margin-top:10px;
+}
+
+.esri-icon-zoom-out {
+	border-top:solid 1px #4c4c4c;
+}
+
+.toggle .esriIcon {
+	padding:8px 0;
+	position: relative;
+	/*top:0;*/
+	z-index:1;
+	float:left;
+	width:32px;
+	height:32px;
+	display:block;
+	text-align: center;
+	background:none;
+	color:#f8f8f8;
+}
+
+.esri-icon-rotate {
+	/*border-top:solid 1px #4c4c4c;*/
+}
+
+.pan .esri-icon-pan,
+.rotate .esri-icon-rotate {
+	/*color: #f8f8f8;*/
+}
+
+.compass-wrap {
+	margin-top: 20px;
+	width:32px;
+	height:32px;
+	background: rgba(255, 255, 255, 1);
+	/*line-height: 32px;*/
+	-webkit-border-radius: 50%;
+	        border-radius: 50%;
+}
+
+.compass {
+	width:32px;
+	height:32px;
+/*	-webkit-transition: all 250ms ease-out;
+	   -moz-transition: all 250ms ease-out;
+	    -ms-transition: all 250ms ease-out;
+	     -o-transition: all 250ms ease-out;
+	        transition: all 250ms ease-out;*/
+	
+
+}
+
+.compass:hover {
+	cursor: pointer;
+}
+
+.compass.north {
+	-webkit-transform: rotate(0) scale(1) !important;
+	   -moz-transform: rotate(0) scale(1) !important;
+	    -ms-transform: rotate(0) scale(1) !important;
+	     -o-transform: rotate(0) scale(1) !important;
+	        transform: rotate(0) scale(1) !important;
+}
+
+.basemaps {
+	position: absolute;
+	bottom: 30px;
+	right: 20px;
+	background: rgba(0,0,0, 0.5);
+	padding:5px 10px;
+}
+
+.basemaps i,
+.basemaps a {
+	color: #f8f8f8;
+	text-decoration: none;
+}
+
+.preload {
+	display:none;
+}
