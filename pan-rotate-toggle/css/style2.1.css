@@ -26,7 +26,7 @@ h2 {
 	width:32px;
 	/*height: 67px;*/
 	overflow:hidden;
-	background: #8a8a8a;
+	background: #f8f8f8;
 	/*border:solid 2px #333;*/
 	-webkit-border-radius: 16px;
 	        border-radius: 16px;
@@ -40,10 +40,10 @@ h2 {
 	position:absolute;
 	width:32px;
 	height:32px;
-	border:solid 2px #8a8a8a;
+	border:solid 2px #f8f8f8;
 	-webkit-border-radius: 16px ;
 	        border-radius: 16px ;
-	background-color: #f8f8f8;
+	background-color: #4c4c4c;
 	z-index: 5;
 	top:0;
 	right:0;
@@ -99,7 +99,7 @@ a.esriIcon {
 	display:block;
 	text-align: center;
 	background:none;
-	color:#f8f8f8;
+	/*color:#f8f8f8;*/
 }
 
 .esri-icon-rotate {
