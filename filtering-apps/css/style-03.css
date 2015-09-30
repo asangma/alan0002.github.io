@@ -257,7 +257,7 @@ p.min-height {
   border:solid 1px #e0e0e0;
   border-right: none;
   right: -680px;
-  top: 108px;
+  top: 118px;
   overflow-x: hidden;
   position: absolute;
   z-index: 100;
@@ -318,7 +318,7 @@ p.min-height {
 #loader-wrap {
   position: absolute;
   top:40%;
-  width:100%;
+  width:98%;
   text-align: center;
   z-index: 100;
   color: #ccc;
