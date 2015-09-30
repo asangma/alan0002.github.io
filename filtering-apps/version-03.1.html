@@ -17,6 +17,18 @@
     <script src="css/bootstrap/js/jquery-1.11.3.min.js"></script>
     <script src="css/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/prototype-03.js"></script>
+    <style type="text/css" media="screen">
+        #template-info-bg {
+            background-color:rgba(0,0,0, 0.8);
+            width: 680px;
+            height: 620px;
+            top:119px;
+            right:100%;
+        }
+        .showing #template-info-bg {
+            left:220px;
+        }
+    </style>
     <title>Filtering Apps in Create App Workflow</title>
 </head>
 
@@ -47,6 +59,7 @@
 
     <div class="container-fluid">
         <div class="modal-wrapper no-scroll">
+        <div id="template-info-bg"></div>
             <a class="modal-closer">
             </a>
             <div class="row">
@@ -101,7 +114,7 @@
                         </div>
 
                     </div>
-                    <div id="template-info-bg"></div>
+                    <!-- <div id="template-info-bg"></div> -->
                     <div class="pagination-wrap">
                         <nav>
                             <ul class="pagination pagination-sm">
