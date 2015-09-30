@@ -438,7 +438,7 @@ ul.top-nav>li>a:hover {
   background:0 0;
 }*/
 
-.options-wrap a.active {
+.options-wrap .active {
   font-weight: 700;
 }
 

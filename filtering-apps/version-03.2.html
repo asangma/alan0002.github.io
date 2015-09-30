@@ -16,7 +16,25 @@
     <link rel="stylesheet" href="css/style-03.css">
     <script src="css/bootstrap/js/jquery-1.11.3.min.js"></script>
     <script src="css/bootstrap/js/bootstrap.min.js"></script>
-    <script src="js/prototype-03.js"></script>
+    <script src="js/prototype-03.2.js"></script>
+    <style type="text/css" media="screen">
+        /*#template-info-bg {
+            background-color:rgba(0,0,0, 0.8);
+            width: 680px;
+            height: 620px;
+            top:119px;
+            right:100%;
+        }*/
+        /*.no #template-info-bg {
+            left:220px;
+        }*/
+        .template .btn.btn-main {
+            color:#f8f8f8;
+            border-color:#f8f8f8;
+            background-color: transparent;
+            margin-top: 5px;
+        }
+    </style>
     <script src="js/nav.js"></script>
     <script type="text/javascript">
         getNav('includes/nav.html', '.nav-ul', 'li');
@@ -48,6 +66,7 @@
 
     <div class="container-fluid">
         <div class="modal-wrapper no-scroll">
+        <!-- <div id="template-info-bg"></div> -->
             <a class="modal-closer">
             </a>
             <div class="row">
@@ -137,9 +156,9 @@
                     <div id="template-info-panel">
                         <div class="template-info-showing"></div>
                         <div class="row text-center panel-actions">
-                            <button class="btn btn-main">Create App</button>
-                            <button class="btn btn-secondary">Preview</button>
+                            <button class="btn btn-main">Preview</button>
                             <button class="btn btn-secondary">Download</button>
+                            <button class="btn btn-secondary">Create App</button>
 
                             <button class="btn btn-cancel" id="close-panel">Close</button>
                         </div>

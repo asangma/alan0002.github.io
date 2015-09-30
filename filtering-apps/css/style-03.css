@@ -209,7 +209,7 @@ p.min-height {
 .tab-content {
   height:400px;
   margin-bottom: 15px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   position:relative;
 }
@@ -249,7 +249,7 @@ p.min-height {
 }
 
 #template-info-panel {
-  height:587px;
+  height:618px;
   width:300px;
   padding:15px;
   /*opacity:0;*/
@@ -269,6 +269,9 @@ p.min-height {
        -o-transition: all 500ms ease-in-out;
           transition: all 500ms ease-in-out;
 }
+/*.no-scroll #template-info-panel {
+  height:587px;
+}*/
 .showing #template-info-panel {
   /*width:99%;*/
   right: 0px;
@@ -512,7 +515,7 @@ ul.top-nav>li>a:hover {
   background:0 0;
 }*/
 
-.options-wrap a.active {
+.options-wrap .active {
   font-weight: 700;
 }
 
