@@ -31,6 +31,7 @@
   .popup {
   	width: 320px;
   	height: 200px;
+    padding:15px;
   	background: #fff;
     -webkit-border-radius: 4px;
             border-radius: 4px;
@@ -46,7 +47,7 @@
 
 <body class="calcite">
   <div class="marker"></div>
-  <div class="popup"></div>
+  <div class="popup"><br/>The pointer would reach out to the popup as the user dragged the popup closer to the selected feature.  If the user releases the popup close enough to the feature, it reattaches to the pointer.<br/>The pointer would reshape into a standard tail at that point.</div>
   <div id="mapDiv"></div>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script>
@@ -75,7 +76,7 @@
 			marker.css('transform', 'rotate('+degs+'deg)');
       popup.css({
         left: (mouse_x - popup.width()/2) + 'px',
-        top: (mouse_y - 20) + 'px'
+        top: (mouse_y - 10) + 'px'
       });
 
 
