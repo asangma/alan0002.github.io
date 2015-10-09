@@ -48,14 +48,14 @@ function getData() {
 function popuplateFilters() {
     filterHtml = '';
     jQuery(templates_obj).each(function(i, category){
-        var active = (i > 0) ? '' : 'is-active';
-        var allID = (i > 0) ? '' : 'all-filter';
-        var href = (i > 0) ? category.id : 'all';
-        var title = (i > 0) ? category.title : 'All';
-        //filterHtml += '<li class="'+ active +'" id="'+allID+'"><a class="filter" href="'+ href +'">'+ title +'</a></li>';
-        filterHtml += '<a href="'+href+'" class="side-nav-link filter '+active+'">'+ title +'</a>';
+        //var active = (i > 0) ? '' : 'is-active';
+        //var allID = (i > 0) ? '' : 'all-filter';
+        //var href = (i > 0) ? category.id : 'all';
+        //var title = (i > 0) ? category.title : 'All';
+        //filterHtml += '<a href="'+href+'" class="side-nav-link filter '+active+'">'+ title +'</a>';
+        filterHtml += '<a href="'+category.id+'" class="side-nav-link filter">'+ category.title +'</a>';
     });
-    jQuery('#filters').html(filterHtml);
+    jQuery('#filters').prepend(filterHtml);
 }
 
 
@@ -152,8 +152,8 @@ function addTemplateListener() {
         if(!jQuery(this).hasClass('selected')) {
             var width = jQuery(this).children('.thumbnail').width()+2;
             var height = jQuery(this).children('.thumbnail').height()+2;
-            //jQuery(this).children('.thumbnail').append('<div id="template-overlay" style="width:'+width+'px; height:'+height+'px; ><span style="line-height:'+height+'px;">'+content+'</span></div>');
-            jQuery(this).children('.thumbnail').append('<div id="template-overlay" style="width:'+width+'px; height:'+height+'px; padding:'+(height/2-42)+'px 10px 10px 10px; ><span style="">'+content+'</span><br/><button class="btn btn-main">More</button></div>');
+            jQuery(this).children('.thumbnail').append('<div id="template-overlay" style="width:'+width+'px; height:'+height+'px; line-height:'+height+'px;"><span class="overlay-text" style="line-height:'+height+'px;">SELECT</span></div>');
+            //jQuery(this).children('.thumbnail').append('<div id="template-overlay" style="width:'+width+'px; height:'+height+'px; padding:'+(height/2-42)+'px 10px 10px 10px; ><span style="">'+content+'</span><br/><button class="btn btn-main">More</button></div>');
         }
 
     }, function() {

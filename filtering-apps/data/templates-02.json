@@ -1,8 +1,4 @@
 [{
-        "id": "all",
-        "title": "All",
-        "desc": "All"
-    }, {
         "id": "showcase-a-map",
         "title": "Showcase a Map",
         "desc": "Let your map speak for itself.",
