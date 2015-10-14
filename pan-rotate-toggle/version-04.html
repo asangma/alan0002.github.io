@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../bootstrap/css/normalize.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/calcite/css/calcite.css">
-    <link rel="stylesheet" href="css/style5.css">
+    <link rel="stylesheet" href="css/style2.1.css">
     <link rel="stylesheet" href="css/common.css">
     <script src="../bootstrap/js/jquery-1.11.3.min.js"></script>
     <script src="../bootstrap/js/bootstrap.min.js"></script>
@@ -27,30 +27,21 @@
     </style>
     <script type="text/javascript">
     var toggleTo = {
-        tilt: 'drag',
-        drag: 'tilt'
+        rotate: 'pan',
+        pan: 'rotate'
     };
     var is_hover = false;
 
     jQuery(document).ready(function() {
         getNav('includes/nav.html');
-        /*jQuery('.toggle').on('click', function(e) {
+        jQuery('.toggle').on('click', function(e) {
             var toggle = jQuery(this).attr('data-toggleState');
 
-            jQuery(this).removeClass('drag');
-            jQuery(this).removeClass('tilt');
+            jQuery(this).removeClass('pan');
+            jQuery(this).removeClass('rotate');
 
             jQuery(this).addClass(toggleTo[toggle]);
             jQuery(this).attr('data-toggleState', toggleTo[toggle]);
-        });*/
-        jQuery('.drag-tilt-toggle').on('click', function(event) {
-            event.preventDefault();
-            var tool = jQuery(this).attr('data-tool');
-
-            jQuery('.toggle').removeClass('drag');
-            jQuery('.toggle').removeClass('tilt');
-            
-            jQuery('.toggle').addClass(tool);
         });
 
         var mouse_x, mouse_y, center_x, center_y;
@@ -116,14 +107,14 @@
         <a href="#" title="" class="esriIcon esri-icon-home"></a>
         <a href="#" title="" class="esriIcon esri-icon-zoom-in"></a>
         <a href="#" title="" class="esriIcon esri-icon-zoom-out"></a>
-        <div class="toggle drag" data-toggleState="drag" title="Drag/Tilt Toggle">
+        <div class="toggle pan" data-toggleState="pan" title="Drag/Tilt Toggle">
             <div class="indicator">
                 
             </div>
-            <a href="javascript:;" class="esriIcon esri-icon-pan drag-tilt-toggle" data-tool="drag"></a>
-            <a href="javascript:;" class="esriIcon esri-icon-rotate drag-tilt-toggle" data-tool="tilt"></a>
+            <a href="javascript:;" class="esriIcon esri-icon-pan"></a>
+            <a href="javascript:;" class="esriIcon esri-icon-rotate"></a>
         </div>
-        <div class="compass-wrap esriIcon" title="Orient Scene to North">
+        <div class="compass-wrap" title="Orient Scene to North">
             <img src="images/Compass32.svg" alt="" class="compass" />
         </div>
     </div>
