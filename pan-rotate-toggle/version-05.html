@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../bootstrap/css/normalize.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/calcite/css/calcite.css">
-    <link rel="stylesheet" href="css/style6.css">
+    <link rel="stylesheet" href="css/style5.css">
     <link rel="stylesheet" href="css/common.css">
     <script src="../bootstrap/js/jquery-1.11.3.min.js"></script>
     <script src="../bootstrap/js/bootstrap.min.js"></script>
@@ -34,21 +34,23 @@
 
     jQuery(document).ready(function() {
         getNav('includes/nav.html');
-        jQuery('.tools').on('click', function(e) {
-            //var toggle = jQuery(this).attr('data-toggleState');
+        /*jQuery('.toggle').on('click', function(e) {
+            var toggle = jQuery(this).attr('data-toggleState');
 
-            jQuery('.flyout').toggleClass('not-visible');
-            // jQuery(this).removeClass('tilt');
-        });
-        jQuery('.flyout-tool').on('click', function(event) {
+            jQuery(this).removeClass('drag');
+            jQuery(this).removeClass('tilt');
+
+            jQuery(this).addClass(toggleTo[toggle]);
+            jQuery(this).attr('data-toggleState', toggleTo[toggle]);
+        });*/
+        jQuery('.drag-tilt-toggle').on('click', function(event) {
             event.preventDefault();
-            var tool = jQuery(this).attr('href');
+            var tool = jQuery(this).attr('data-tool');
 
             jQuery('.toggle').removeClass('drag');
             jQuery('.toggle').removeClass('tilt');
             
             jQuery('.toggle').addClass(tool);
-            jQuery('.flyout').addClass('not-visible');
         });
 
         var mouse_x, mouse_y, center_x, center_y;
@@ -110,25 +112,19 @@
             </ul>
         </div>
     </nav>
-    <div class="tools-wrap">
+    <div class="tools">
         <a href="#" title="" class="esriIcon esri-icon-home"></a>
         <a href="#" title="" class="esriIcon esri-icon-zoom-in"></a>
         <a href="#" title="" class="esriIcon esri-icon-zoom-out"></a>
         <div class="toggle drag" data-toggleState="drag" title="Drag/Tilt Toggle">
-            <div class="flyout not-visible">
-                <ul>
-                    <li class="drag-tool"><a href="drag" class="flyout-tool" title=""><span class="esriIcon esri-icon-pan"></span> Drag</a></li>
-                    <li class="tilt-tool"><a href="tilt" class="flyout-tool" title=""><span class="esriIcon esri-icon-rotate"></span> Tilt</a></li>
-                </ul>
+            <div class="indicator">
+                
             </div>
-            <div class="tools">
-                <a href="javascript:;" class="esriIcon esri-icon-pan"></a>
-                <a href="javascript:;" class="esriIcon esri-icon-rotate"></a>
-            </div>
-            <span class="indicator"></span>
+            <a href="javascript:;" class="esriIcon esri-icon-pan drag-tilt-toggle" data-tool="drag"></a>
+            <a href="javascript:;" class="esriIcon esri-icon-rotate drag-tilt-toggle" data-tool="tilt"></a>
         </div>
         <div class="compass-wrap esriIcon" title="Orient Scene to North">
-            <img src="images/Compass32.svg" alt="" class="compass" /> 
+            <img src="images/Compass32.svg" alt="" class="compass" />
         </div>
     </div>
     <div class="basemaps">
