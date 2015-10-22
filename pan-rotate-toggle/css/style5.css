@@ -79,7 +79,9 @@ a.esriIcon {
 	        transition: all 125ms ease-in-out;
 }
 
-.esriIcon:hover {
+.esriIcon:hover,
+.drag .esri-icon-pan,
+.tilt .esri-icon-rotate {
 	background-color:#e2f1fb;
 	color:#0079c1;
 }
