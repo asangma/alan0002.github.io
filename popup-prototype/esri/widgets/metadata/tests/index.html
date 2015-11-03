@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html dir="ltr">
+<head>
+  <title>esri/widgets/metadata</title>
+  
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<!-- <meta name="viewport" content="width=device-width,  initial-scale= 1, maximum-scale=1, user-scalable=no" /> -->
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+	
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	
+	<!--<link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/claro/claro.css">--> 
+	<!--<link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/soria/soria.css">-->
+	<!--<link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">-->
+	<link rel="stylesheet" href="../../../../dijit/themes/soria/soria.css">
+	<link rel="stylesheet" href="../../../css/main.css">
+  <link rel="stylesheet" href="../css/gxe-app.css"/>
+  <link rel="stylesheet" href="../css/gxe.css"/>
+	
+	<script type="text/javascript">
+	  window.tmpUseDialog = true;
+	  //window.tmpUseDialog = true;
+		var dojoConfig = {
+			parseOnLoad: true,
+			packages: [{
+				name: "esri",
+				location: "../../../js/jsapi/esri"
+			}]
+//			packages: [{name:"esri/widgets/metadata",location:location.pathname.replace(/\/[^/]*$/,'')+'../../metadata'}]
+		};
+	</script>
+	<script src="../../../../dojo/dojo.js"></script>
+
+	<script type="text/javascript">
+		require(["dojo/ready",
+		         "dojo/Deferred",
+		         "../..//metadata/context/GxeContext",
+		         "../..//metadata/arcgis/portal/PortalItemAdaptor",
+		         "../..//metadata/arcgis/portal/PortalItemContext"],
+		function (ready,Deferred,GxeContext,PortalItemAdaptor,PortalItemContext) {
+			
+			var originalXml = '<?xml version="1.0" encoding="UTF-8"?><metadata><idinfo><citation><citeinfo><title>test1</title></citeinfo></citation></idinfo></metadata>';
+			originalXml = null;
+			//originalXml = "<a>a</a>";
+			
+			window.tmpGxeContext = new GxeContext({
+				basemap: "hybrid"
+			});
+			//window.tmpGxeContext.setAllowedTypeKeys(["fgdc","iso-19115","iso-19119"]);
+			
+		  var portalItem = {
+ 				id: "iTestItemId",
+ 				title: "iTestTitle",
+ 				snippet: "iTestSnippet",
+ 				description: "iTestDescription",
+ 				licenseInfo: "iTestLicenseInfo",
+ 				accessInformation: "iTestAccessInformation-Credits",
+ 				url: "http://www.example.com",
+ 				type: "Geometry Service",
+ 				tags: ["tag1", "tag2"],
+ 				typeKeywords: ["Service"],
+ 				extent: [[-103.623, -35.4308], [103.623, 59.1947]]
+ 		  };
+		  
+		  var portalItemContext = new PortalItemContext({
+		  	allowEditMetadata: true,
+		  	allowPushToItem: true,
+		  	autoPullItem: true,
+		  	portalItem: portalItem,
+		  	originalXml: originalXml
+		  });
+		  
+		  window.tmpGxeAdaptor = new PortalItemAdaptor({
+		  	portalItemContext: portalItemContext,
+		  	updateItem: function() {
+		    	var deferred = new Deferred();
+		    	deferred.resolve();
+		    	return deferred;
+		  	},
+		  	writeXml: function() {
+		    	var deferred = new Deferred();
+		    	deferred.resolve();
+		    	return deferred;
+		  	}
+		  });
+			
+			ready(function () {
+				if (window.tmpUseDialog) {
+					document.getElementById("idMButton").style.display = "block";
+				} else {
+				  showEditor();
+				}
+			});
+		});
+	</script>
+	
+	<script type="text/javascript">
+	
+	  function showEditor() {
+			require(["../..//metadata/editor/Editor"],
+			function (Editor) {
+				var editor = new Editor({
+					gxeAdaptor: window.tmpGxeAdaptor,
+					gxeContext: window.tmpGxeContext
+				},"idGxeEditor");
+				editor.initializeView();
+			});	  	
+	  }
+	
+	  function showEditorDialog() {
+			require(["../..//metadata/editor/EditorDialog"],
+			function (EditorDialog) {
+				var d = new EditorDialog({
+					gxeAdaptor: window.tmpGxeAdaptor,
+					gxeContext: window.tmpGxeContext
+				});
+				d.show();
+			});	  	
+	  }
+	  
+	</script>
+	
+</head>
+<body class="soria">
+  <button id="idMButton" class="gxeButton" onclick="showEditorDialog()" style="display:none;">Metadata</button>
+  <div style="padding:10px;"><div id="idGxeEditor"></div></div>
+</body>
+</html>

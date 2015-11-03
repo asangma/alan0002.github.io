@@ -1,0 +1,59 @@
+.esri-compass {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: hidden;
+}
+
+.esri-compass-container {
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 50%;
+
+  /* use box-shadow instead of border to avoid aliasing */
+  box-shadow: 0 0 0 1px #57585a;
+
+  /* border compensation since box-shadow does not affect box model */
+  margin: 1px;
+}
+
+.esri-compass-container:hover {
+  background-color: #eee;
+}
+
+.esri-compass-container:active {
+  background-color: #ddd;
+}
+
+.esri-compass-icon-north {
+  display: none;
+}
+
+.esri-compass-is-web-mercator .esri-compass-icon-north {
+  display: block;
+}
+
+.esri-compass-is-web-mercator .esri-compass-icon-rotation {
+  display: none;
+}
+
+.esri-compass-icon-rotation {
+  display: block;
+}
+
+.esri-compass.esri-disabled .esri-compass-icon {
+  display: none;
+}
+
+.esri-compass.esri-disabled .esri-compass-container {
+  background-color: #f8f8f8;
+  box-shadow: 0 0 0 1px #f8f8f8;
+}
+
+.esri-compass-icon {
+  height: 100%;
+  width: 100%;
+  fill: #4c4c4c;
+}
