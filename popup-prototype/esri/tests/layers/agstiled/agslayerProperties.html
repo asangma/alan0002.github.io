@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>ArcGISMapServiceLayer properties</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.layers.agstiled");
+      dojo.require("doh.runner");
+      
+      function init() {
+	  
+		
+        var layer = new esri.layers.ArcGISTiledMapServiceLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/PublicSafety/PublicSafetyBasemap/MapServer");
+        if (layer.loaded) {
+			 runTests(layer);
+        }
+        else {
+			  dojo.connect(layer, "onLoad", runTests);
+        }
+      }
+      
+      function runTests(layer) {
+	  	
+        doh.registerGroup("layers.agstiled.layerInfo", [
+          {
+            name: "copyright",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertEqual("string", typeof layer.copyright);
+			 
+	   var copyright = "Copyright© 2008, MSD, PVA, Louisville Water Company, Louisville Metro Government";
+             t.assertEqual(copyright, layer.copyright);
+            }
+          },
+          
+          {
+            name: "description",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertEqual("string", typeof layer.description);
+	      var description ="This map document is optimized for use in a web-based COP.  The emphasis is on features that will provide a context for public safety operational layers. This map can be used at multiple scales and content has been optimized for use at community, neighborhood, block and parcel levels.";
+              t.assertEqual(description, layer.description);
+            }
+          },
+          
+          {
+            name: "fullExtent",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertTrue(layer.fullExtent instanceof esri.geometry.Extent);
+			  
+              t.assertEqual({xmin:-85.9607077551927,ymin:37.9858889640817,xmax:-85.3853191603571,ymax:38.3936856969578,spatialReference:{wkid:4326}}, layer.fullExtent.toJson());
+            }
+          },
+          
+          {
+            name: "initialExtent",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertTrue(layer.initialExtent instanceof esri.geometry.Extent);
+			  console.debug("initialExtent:"+dojo.toJson(layer.initialExtent.toJson()));
+              t.assertEqual({"xmin":-86.0563489132057,"ymin":37.9815029445673,"xmax":-85.2977420573133,"ymax":38.4294278674302,"spatialReference":{"wkid":4326}}, layer.initialExtent.toJson());
+            }
+          },
+          
+          {
+            name: "spatialReference",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertTrue(layer.spatialReference instanceof esri.SpatialReference);
+              t.assertEqual({wkid:4326}, layer.spatialReference.toJson());
+            }
+          },
+          
+          {
+            name: "units",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertEqual("string", typeof layer.units);
+              t.assertEqual("esriDecimalDegrees", layer.units);
+            }
+          },
+          
+          {
+            name: "url",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertEqual("string", typeof layer.url);
+              t.assertEqual("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/PublicSafety/PublicSafetyBasemap/MapServer", layer.url);
+            }
+          },
+          
+          {
+            name: "layerInfos",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertEqual(47, layer.layerInfos.length);
+            }
+          }
+        ],
+        
+        function() { //setUp
+          dojo.extend(esri.layers.LayerInfo, {
+            toJson: function() {
+              return { id:this.id, name:this.name, defaultVisibility:this.defaultVisibility, parentLayerId:this.parentLayerId, subLayerIds:this.subLayerIds };
+            }
+          });
+        },
+        
+        function() { //tearDown
+          delete esri.layers.LayerInfo.prototype.toJson;
+        }
+        ); 
+        doh.run();
+      }
+     
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+  </body>
+</html>

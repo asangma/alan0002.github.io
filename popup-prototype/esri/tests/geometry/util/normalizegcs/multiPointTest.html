@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Query Features</title>
+        <link rel="stylesheet" type="text/css" href="../../../../../dojo/dijit/themes/tundra/tundra.css">
+        <script>
+            dojoConfig = {
+                isDebug: true
+            };
+        </script>
+        <script type="text/javascript" src="../../../../../../index.jsp">
+        </script>
+        <script type="text/javascript">
+            dojo.require("esri.geometry");
+            dojo.require("esri.map");
+            dojo.require("doh.runner");
+            
+            
+            var geometryService;
+            
+            function init(){
+            
+                var map = new esri.Map("mapDiv");
+                dojo.connect(map, "onLoad", runTests);
+                var layer = new esri.layers.ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer");
+                map.addLayer(layer);
+                
+                
+            }
+            
+            function runTests(){
+            
+                doh.registerGroup("geometry.util.normalizegcs.multiPointTest", [{
+                    name: "crossPlus180",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsMultiPoint = new esri.geometry.Multipoint({
+                            "points": [[196.1718749999484, -69.41124235696336], [238.35937499993727, 20.63278425038328], [224.9999999999408, -39.909736234528005]],
+                            "spatialReference": ({
+                                " wkid": 4326
+                            })
+                        });
+                        
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsMultiPoint], geometryService, function(normalizedGeo){
+                            var normalizedGcsMultiPoint = normalizedGeo[0];
+                            
+                            for (var i = 0; i < normalizedGcsMultiPoint.points.length; i++) {
+                            
+                                t.assertEqual(normalizedGcsMultiPoint.points[i][0], (gcsMultiPoint.points[i][0] - 360));
+                                
+                            }
+                            
+                            
+                            
+                        });
+                        
+                        
+                        
+                    },
+                
+                
+                
+                }, {
+                    name: "crossMinus180",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsMultiPoint = new esri.geometry.Multipoint({
+                            "points": [[-196.1718749999484, -69.41124235696336], [-238.35937499993727, 20.63278425038328], [-224.9999999999408, -39.909736234528005]],
+                            "spatialReference": ({
+                                " wkid": 4326
+                            })
+                        });
+                        
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsMultiPoint], geometryService, function(normalizedGeo){
+                            var normalizedGcsMultiPoint = normalizedGeo[0];
+                            
+                            for (var i = 0; i < normalizedGcsMultiPoint.points.length; i++) {
+                            
+                                t.assertEqual(normalizedGcsMultiPoint.points[i][0], (gcsMultiPoint.points[i][0] + 360));
+                                
+                            }
+                            
+                            
+                            
+                        });
+                        
+                        
+                        
+                    },
+                }, {
+                    name: "crossPlus540",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsMultiPoint = new esri.geometry.Multipoint({
+                            "points": [[556.1718749999484, -69.41124235696336], [598.35937499993727, 20.63278425038328], [584.9999999999408, -39.909736234528005]],
+                            "spatialReference": ({
+                                " wkid": 4326
+                            })
+                        });
+                        
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsMultiPoint], geometryService, function(normalizedGeo){
+                            var normalizedGcsMultiPoint = normalizedGeo[0];
+                            
+                            for (var i = 0; i < normalizedGcsMultiPoint.points.length; i++) {
+                            
+                                t.assertEqual(normalizedGcsMultiPoint.points[i][0], (gcsMultiPoint.points[i][0] - 360) - 360);
+                                
+                            }
+                            
+                            
+                            
+                        });
+                        
+                        
+                        
+                    },
+                
+                
+                
+                }, {
+                    name: "crossMinus540",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsMultiPoint = new esri.geometry.Multipoint({
+                            "points": [[556.1718749999484, -69.41124235696336], [598.35937499993727, 20.63278425038328], [584.9999999999408, -39.909736234528005]],
+                            "spatialReference": ({
+                                " wkid": 4326
+                            })
+                        });
+                        
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsMultiPoint], geometryService, function(normalizedGeo){
+                            var normalizedGcsMultiPoint = normalizedGeo[0];
+                            
+                            for (var i = 0; i < normalizedGcsMultiPoint.points.length; i++) {
+                            
+                                t.assertEqual(normalizedGcsMultiPoint.points[i][0], (gcsMultiPoint.points[i][0] - 360) - 360);
+                                
+                            }
+                            
+                            
+                            
+                        });
+                        
+                        
+                        
+                    },
+                
+                
+                
+                }, {
+                    name: "withinPlus180",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsMultiPoint = new esri.geometry.Multipoint({
+                            "points": [[116.1718749999484, -69.41124235696336], [138.35937499993727, 20.63278425038328], [24.9999999999408, -39.909736234528005]],
+                            "spatialReference": ({
+                                " wkid": 4326
+                            })
+                        });
+                        
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsMultiPoint], geometryService, function(normalizedGeo){
+                            var normalizedGcsMultiPoint = normalizedGeo[0];
+                            
+                            for (var i = 0; i < normalizedGcsMultiPoint.points.length; i++) {
+                            
+                                t.assertEqual(normalizedGcsMultiPoint.points[i][0], (gcsMultiPoint.points[i][0]));
+                                
+                            }
+                            
+                            
+                            
+                        });
+                        
+                        
+                        
+                    },
+                
+                
+                
+                },
+				{
+                    name: "withinMinus180",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsMultiPoint = new esri.geometry.Multipoint({
+                            "points": [[-116.1718749999484, -69.41124235696336], [-138.35937499993727, 20.63278425038328], [-24.9999999999408, -39.909736234528005]],
+                            "spatialReference": ({
+                                " wkid": 4326
+                            })
+                        });
+                        
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsMultiPoint], geometryService, function(normalizedGeo){
+                            var normalizedGcsMultiPoint = normalizedGeo[0];
+                            
+                            for (var i = 0; i < normalizedGcsMultiPoint.points.length; i++) {
+                            
+                                t.assertEqual(normalizedGcsMultiPoint.points[i][0], (gcsMultiPoint.points[i][0]));
+                                
+                            }
+                            
+                            
+                            
+                        });
+                        
+                        
+                        
+                    },
+                
+                
+                
+                },
+				{
+                    name: "withinMinusPlus180",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsMultiPoint = new esri.geometry.Multipoint({
+                            "points": [[-116.1718749999484, -69.41124235696336], [-138.35937499993727, 20.63278425038328], [124.9999999999408, -39.909736234528005]],
+                            "spatialReference": ({
+                                " wkid": 4326
+                            })
+                        });
+                        
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsMultiPoint], geometryService, function(normalizedGeo){
+                            var normalizedGcsMultiPoint = normalizedGeo[0];
+                            
+                            for (var i = 0; i < normalizedGcsMultiPoint.points.length; i++) {
+                            
+                                t.assertEqual(normalizedGcsMultiPoint.points[i][0], (gcsMultiPoint.points[i][0]));
+                                
+                            }
+                            
+                            
+                            
+                        });
+                        
+                        
+                        
+                    },
+                
+                
+                
+                } ], function()//setUp()
+                {
+                    esriConfig.request.proxyUrl = "../../../proxy.jsp";
+                    esriConfig.request.forceProxy = false;
+                    geometryService = new esri.tasks.GeometryService("http://servery/ArcGIS/rest/services/Geometry/GeometryServer");
+                    
+                }, function()//tearDown
+                {
+                    geometryService = null;
+                    
+                });
+                
+                
+                doh.run();
+            }
+            
+            dojo.addOnLoad(init);
+        </script>
+    </head>
+    <body class="tundra">
+        <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;">
+        </div>
+    </body>
+</html>

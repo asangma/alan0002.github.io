@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>visibleLayers</title>
+        <link rel="stylesheet" type="text/css" href="../../../../../dojo/dijit/themes/tundra/tundra.css">
+        <script>
+            dojoConfig = {
+                isDebug: true
+            };
+        </script>
+        <script type="text/javascript" src="../../../../../../index.jsp">
+        </script>
+        <script type="text/javascript">
+            dojo.require("esri.arcgis.utils");
+            dojo.require("doh.runner");
+            
+            function init(){
+                esri.arcgis.utils.arcgisUrl = "http://dev.arcgis.com/sharing/content/items";
+                var webmap = {};
+                webmap.item = {
+                    "title": "TMPT_World_EarthQuake_Map",
+                    "extent": [[-154.07, -76.24], [-150.56, 71.11]],
+                    "tags": ["popup", "unit test", "tmpt"]
+                };
+                var itemDataJson = {
+                    "operationalLayers": [{
+                        "url": "http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/Since_1970/MapServer",
+                        "id": "Since_1970_4760",
+                        "visibility": true,
+                        "opacity": 1,
+                        "title": "Since_1970",
+                        "layers": [{
+                            "id": 0,
+                            "popupInfo": {
+                                "title": "Earthquakes1970: {Name}",
+                                "fieldInfos": [{
+                                    "fieldName": "OBJECTID",
+                                    "label": "Object Id",
+                                    "isEditable": false,
+                                    "tooltip": "",
+                                    "visible": false,
+                                    "format": null,
+                                    "stringFieldOption": "textbox"
+                                }, {
+                                    "fieldName": "Tsu",
+                                    "label": "Tsunami",
+                                    "isEditable": false,
+                                    "tooltip": "",
+                                    "visible": true,
+                                    "format": null,
+                                    "stringFieldOption": "textbox"
+                                }, {
+                                    "fieldName": "Name",
+                                    "label": "Name",
+                                    "isEditable": false,
+                                    "tooltip": "",
+                                    "visible": true,
+                                    "format": null,
+                                    "stringFieldOption": "textbox"
+                                }, {
+                                    "fieldName": "Latitude",
+                                    "label": "Latitude",
+                                    "isEditable": false,
+                                    "tooltip": "",
+                                    "visible": true,
+                                    "format": {
+                                        "places": 2,
+                                        "digitSeparator": true
+                                    },
+                                    "stringFieldOption": "textbox"
+                                }, {
+                                    "fieldName": "Longitude",
+                                    "label": "Longitude",
+                                    "isEditable": false,
+                                    "tooltip": "",
+                                    "visible": true,
+                                    "format": {
+                                        "places": 2,
+                                        "digitSeparator": true
+                                    },
+                                    "stringFieldOption": "textbox"
+                                }, {
+                                    "fieldName": "Focal",
+                                    "label": "Focal",
+                                    "isEditable": false,
+                                    "tooltip": "",
+                                    "visible": true,
+                                    "format": {
+                                        "places": 2,
+                                        "digitSeparator": true
+                                    },
+                                    "stringFieldOption": "textbox"
+                                }, {
+                                    "fieldName": "Magnitude",
+                                    "label": "Magnitude",
+                                    "isEditable": false,
+                                    "tooltip": "",
+                                    "visible": true,
+                                    "format": {
+                                        "places": 2,
+                                        "digitSeparator": true
+                                    },
+                                    "stringFieldOption": "textbox"
+                                }, {
+                                    "fieldName": "Num_Deaths",
+                                    "label": "Number of Deaths",
+                                    "isEditable": false,
+                                    "tooltip": "",
+                                    "visible": true,
+                                    "format": {
+                                        "places": 2,
+                                        "digitSeparator": true
+                                    },
+                                    "stringFieldOption": "textbox"
+                                }, {
+                                    "fieldName": "Num_Injured",
+                                    "label": "Number of Injured People",
+                                    "isEditable": false,
+                                    "tooltip": "",
+                                    "visible": true,
+                                    "format": {
+                                        "places": 2,
+                                        "digitSeparator": true
+                                    },
+                                    "stringFieldOption": "textbox"
+                                }, {
+                                    "fieldName": "Mill_Damages",
+                                    "label": "Damages (Million$)",
+                                    "isEditable": false,
+                                    "tooltip": "",
+                                    "visible": true,
+                                    "format": {
+                                        "places": 2,
+                                        "digitSeparator": true
+                                    },
+                                    "stringFieldOption": "textbox"
+                                }, {
+                                    "fieldName": "Num_Houses_Dest",
+                                    "label": "Houses Destroyed",
+                                    "isEditable": false,
+                                    "tooltip": "",
+                                    "visible": true,
+                                    "format": {
+                                        "places": 2,
+                                        "digitSeparator": true
+                                    },
+                                    "stringFieldOption": "textbox"
+                                }, {
+                                    "fieldName": "Num_Houses_Dam",
+                                    "label": "Houses Damaged",
+                                    "isEditable": false,
+                                    "tooltip": "",
+                                    "visible": true,
+                                    "format": {
+                                        "places": 2,
+                                        "digitSeparator": true
+                                    },
+                                    "stringFieldOption": "textbox"
+                                }, {
+                                    "fieldName": "Date_",
+                                    "label": "Earthquake Date",
+                                    "isEditable": false,
+                                    "tooltip": "",
+                                    "visible": false,
+                                    "format": {
+                                        "dateFormat": "shortDateShortTime"
+                                    },
+                                    "stringFieldOption": "textbox"
+                                }, {
+                                    "fieldName": "YYYYMMDD",
+                                    "label": "YYYYMMDD",
+                                    "isEditable": false,
+                                    "tooltip": "",
+                                    "visible": true,
+                                    "format": null,
+                                    "stringFieldOption": "textbox"
+                                }, {
+                                    "fieldName": "Shape",
+                                    "label": "Shape",
+                                    "isEditable": false,
+                                    "tooltip": "",
+                                    "visible": false,
+                                    "format": null,
+                                    "stringFieldOption": "textbox"
+                                }],
+                                "description": null,
+                                "showAttachments": false,
+                                "mediaInfos": []
+                            }
+                        }]
+                    }],
+                    "baseMap": {
+                        "baseMapLayers": [{
+                            "id": "World_Terrain_Base_8350",
+                            "opacity": 1,
+                            "visibility": true,
+                            "url": "http://services.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer"
+                        }, {
+                            "id": "World_Reference_Overlay_7825",
+                            "isReference": true,
+                            "opacity": 1,
+                            "visibility": true,
+                            "url": "http://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer"
+                        }],
+                        "title": "Terrain with Labels"
+                    },
+                    "widgets": {
+                        "timeSlider": {
+                            "properties": {
+                                "startTime": 288000000,
+                                "endTime": 1243494061000,
+                                "thumbCount": 2,
+                                "thumbMovingRate": 2000,
+                                "timeStopInterval": {
+                                    "interval": 4,
+                                    "units": "esriTimeUnitsYears"
+                                }
+                            }
+                        }
+                    },
+                    "version": "1.2"
+                };
+                webmap.itemData = itemDataJson;
+                
+                var mapDeferred = esri.arcgis.utils.createMap(webmap, "map", {
+                    mapOptions: {
+                        slider: true,
+                        nav: false
+                    }
+                });
+                
+                mapDeferred.addCallback(function(response){
+                
+                    var map = response.map;
+                    if (map.loaded) {
+                        runTests(response);
+                    }
+                    else {
+                        dojo.connect(map, "onLoad", function(){
+                            runTests(response);
+                        });
+                        
+                    }
+                });
+                mapDeferred.addErrback(function(error){
+                    console.log("Map creation failed: ", dojo.toJson(error));
+                });
+            }
+            
+            function runTests(response){
+                doh.registerGroup("createmap.json.popup.tmptPopupTest", [{
+                    name: "PopupTest",
+                    timeout: 6000,
+                    runTest: function(t){
+                    
+                        var map = response.map;
+                        var graphicsLayerIds = map.graphicsLayerIds;
+                        var graphicLayer0 = map.getLayer(graphicsLayerIds[0]);
+                        var infoTemplate = graphicLayer0.infoTemplate;
+                                             		
+						t.assertEqual(infoTemplate.info.title,"Earthquakes1970: {Name}");
+						t.assertEqual(infoTemplate.info.description,null);
+						t.assertEqual(infoTemplate.info.fieldInfos.length,15);
+						t.assertFalse(infoTemplate.info.showAttachments);
+						t.assertEqual(infoTemplate.info.mediaInfos.length,0);
+                        
+                    }
+                    
+                    
+                }]);
+                doh.run();
+            }
+            
+            dojo.addOnLoad(init);
+        </script>
+    </head>
+    <body class="tundra">
+        <div id="map" style="width:800px; height:600px; border:1px solid #000;">
+        </div>
+    </body>
+</html>

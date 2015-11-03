@@ -1,0 +1,287 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>IdentifyTask</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+
+	<link rel="stylesheet" href="../../../../esri/css/main.css">
+
+	<script>
+		var dojoConfig = {
+			async: true,
+			isDebug: true,
+
+			paths: {
+				esri: "../esri"
+			}
+		};
+	</script>
+
+	<style>
+		html, body {
+			padding: 0;
+			margin: 0;
+		}
+	</style>
+
+
+	<script type="text/javascript" src="../../../../dojo/dojo.js"></script>
+	<script>
+		var map, view, identifyParams;
+
+		require([
+				"esri/Map",
+				"esri/views/MapView",
+				"esri/layers/GraphicsLayer",
+
+				"esri/Graphic",
+				"esri/geometry/Point",
+				"esri/geometry/Polyline",
+				"esri/geometry/Polygon",
+
+				"esri/symbols/SimpleMarkerSymbol",
+				"esri/symbols/SimpleLineSymbol",
+				"esri/symbols/SimpleFillSymbol",
+
+				"esri/geometry/SpatialReference",
+
+				'esri/tasks/GeometryService',
+
+				"dojo/domReady!"
+			],
+			function(
+				Map, MapView, GraphicsLayer,
+				Graphic, Point, Polyline, Polygon,
+				SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol,
+				SpatialReference,
+				GeometryService
+			) {
+
+				map = new Map({
+					basemap: "topo"
+				});
+
+				view = new MapView({
+					container: "viewDiv",
+					map: map,
+					center: [-145.19682693481445, 40.06020952545651],
+					zoom: 6
+				});
+
+				/*     var parcelsURL = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer";
+				 map.add(new ArcGISDynamicLayer({
+				 url: parcelsURL
+				 }));*/
+
+				var graphicsLayer = new GraphicsLayer();
+				map.add(graphicsLayer);
+
+
+				var point1 = new Point(-117.20261978149414, 34.06001021532272, new SpatialReference({wkid: 4326}));
+				var point2 = new Point(-117.19682693481445, 34.05828952745651, new SpatialReference({wkid: 4326}));
+				var point3 = new Point(-140.21682693482441, 34.05828952743655, new SpatialReference({wkid: 4326}));
+
+				var markerSymbol = new SimpleMarkerSymbol({
+					color: [226, 119, 40],
+
+					outline: new SimpleLineSymbol({
+						color: [255, 255, 255],
+						width: 2
+					})
+				});
+
+				pointGraphic1 = new Graphic({
+					geometry: point1,
+					symbol: markerSymbol
+				});
+				pointGraphic2 = new Graphic({
+					geometry: point2,
+					symbol: markerSymbol
+				});
+				pointGraphic3 = new Graphic({
+					geometry: point3,
+					symbol: markerSymbol
+				});
+
+
+
+				graphicsLayer.add(pointGraphic1);
+				graphicsLayer.add(pointGraphic2);
+				graphicsLayer.add(pointGraphic3);
+
+				var polygon = new Polygon([
+					[-140.20061978149414, 37.06001021532272],
+					[-145.19682693481445, 44.06020952545651],
+					[-140.20082693482441, 40.05828952743655]
+				]);
+
+				var fillSymbol = new SimpleFillSymbol({
+					color: "red",
+
+					outline: new SimpleLineSymbol({
+						color: [255, 255, 255],
+						width: 1
+					})
+				});
+
+				polygonGraphic = new Graphic({
+					geometry: polygon,
+					symbol: fillSymbol
+				});
+
+				graphicsLayer.add(polygonGraphic);
+
+				var polygon = new Polygon([
+					[-140.20061978149414, 37.06001021532272],
+					[-145.19682693481445, 44.06020952545651],
+					[-146.20082693482441, 40.05828952743655]
+				]);
+
+				var fillSymbol = new SimpleFillSymbol({
+					color: "green",
+
+					outline: new SimpleLineSymbol({
+						color: [255, 255, 255],
+						width: 1
+					})
+				});
+
+				polygonGraphic = new Graphic({
+					geometry: polygon,
+					symbol: fillSymbol
+				});
+
+				graphicsLayer.add(polygonGraphic);
+
+
+
+				var polyline = new Polyline([
+					[-140.20061978149414, 37.06001021532272],
+					[-135.19682693481445, 44.06020952545651],
+					[-140.20082693482441, 40.05828952743655]
+				]);
+
+				var lineSymbol = new SimpleLineSymbol({
+					color: [226, 119, 40],
+					width: 4
+				});
+
+				polylineGraphic = new Graphic({
+					geometry: polyline,
+					symbol: lineSymbol
+				});
+
+				graphicsLayer.add(polylineGraphic);
+
+				var polyline = new Polyline([
+					[-135.20061978149414, 46.06001021532272],
+					[-145.19682693481445, 44.06020952545651],
+					[-140.20082693482441, 40.05828952743655]
+				]);
+
+				var lineSymbol = new SimpleLineSymbol({
+					color: "blue",
+					width: 4
+				});
+
+				polylineGraphic = new Graphic({
+					geometry: polyline,
+					symbol: lineSymbol
+				});
+
+				graphicsLayer.add(polylineGraphic);
+
+				var polygon1 = new Polygon([
+					[-140.20061978149414, 37.06001021532272],
+					[-145.19682693481445, 44.06020952545651],
+					[-140.20082693482441, 40.05828952743655]
+				], new SpatialReference({wkid:4326}));
+
+				var polygon2 = new Polygon([
+					[-140.20061978149414, 37.06001021532272],
+					[-145.19682693481445, 44.06020952545651],
+					[-146.20082693482441, 40.05828952743655]
+				], new SpatialReference({wkid:4326}));
+
+				var polygons = [polygon1, polygon2];
+
+				var polyline1 = new Polyline([
+					[-140.20061978149414, 37.06001021532272],
+					[-135.19682693481445, 44.06020952545651],
+					[-140.20082693482441, 40.05828952743655]
+				], new SpatialReference({wkid:4326}));
+
+				var polyline2 = new Polyline([
+					[-135.20061978149414, 46.06001021532272],
+					[-145.19682693481445, 44.06020952545651],
+					[-140.20082693482441, 40.05828952743655]
+				], new SpatialReference({wkid:4326}));
+
+				var polylines = [polyline1, polyline2];
+
+				var geometryService = new GeometryService("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/Geometry/GeometryServer");
+				geometryService.autoComplete(polygons, polylines).then(
+					function(result) {
+						console.log(result);
+
+						var fillSymbol = new SimpleFillSymbol({
+							color: "yellow",
+
+							outline: new SimpleLineSymbol({
+								color: [255, 255, 255],
+								width: 1
+							})
+						});
+
+						polylineGraphic = new Graphic({
+							geometry: result[0],
+							symbol: fillSymbol
+						});
+
+						graphicsLayer.add(polylineGraphic);
+					}
+				);
+
+				view.then(function(){
+					/*//create identify tasks and setup parameters
+					 var identifyTask = new IdentifyTask(parcelsURL);
+
+					 identifyParams = new IdentifyParameters();
+					 identifyParams.tolerance = 3;
+					 identifyParams.returnGeometry = true;
+					 identifyParams.layerIds = [0, 2];
+					 identifyParams.layerOption = IdentifyParameters.LAYER_OPTION_ALL;
+					 identifyParams.width = map.width;
+					 identifyParams.height = map.height;
+
+					 view.on("click", function(evt){
+					 //evt is the event object returned after the event fires
+
+					 //prints the map coordinates of the clicked location
+					 console.log(evt.mapPoint);
+
+					 identifyParams.geometry = event.mapPoint;
+					 identifyParams.mapExtent = map.extent;
+
+					 identifyTask.execute(identifyParams)
+					 .then(function (response) {
+					 console.log(response);
+					 });
+					 });*/
+
+
+				})
+
+
+			});
+	</script>
+</head>
+
+<body>
+<div id="viewDiv"></div>
+</body>
+
+</html>

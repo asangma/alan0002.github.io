@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Query RelatedFeatures</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../../index.jsp">
+      </script>
+
+    <script type="text/javascript">
+      dojo.require("esri.layers.FeatureLayer");
+	  dojo.require("esri.tasks.query");
+	  dojo.require("esri.map");
+	  
+      dojo.require("doh.runner");
+	  
+      
+      function init() {
+         var startExtent = new esri.geometry.Extent(-97.5328,37.4344,-97.2582,37.64041, new esri.SpatialReference({wkid:4326}));
+        //create map
+        var map = new esri.Map("mapDiv",{extent:startExtent});
+		var imageParams = new esri.layers.ImageParameters();
+        imageParams.layerIds = [0,1];
+        imageParams.layerOption = esri.layers.ImageParameters.LAYER_OPTION_SHOW;
+        var dynamicLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer", {imageParameters:imageParams});
+        map.addLayer(dynamicLayer);
+
+        var featureLayer = new esri.layers.FeatureLayer("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer/0", {
+          mode:esri.layers.FeatureLayer.MODE_SELECTION,id:"wellLayer"
+               });
+		map.addLayer(featureLayer);
+        if (featureLayer.loaded) {
+          runTests(featureLayer);
+        }
+        else {
+          dojo.connect(map, "onLayerAdd", runTests);
+        }
+      }
+      
+      function runTests(featureLayer) {
+	  	if (featureLayer.id != "wellLayer") {
+						return;
+					}
+        doh.registerGroup("layers.featuremserver.selection.queryRelatedFeatures", [
+          {
+		  	name: "queryRelatedFeatures",
+		  	timeout: 3000,
+		  	runTest: function(t){
+		  		var d = new doh.Deferred();
+		  		var relatedTopsQuery = new esri.tasks.RelationshipQuery();
+        		relatedTopsQuery.outFields = ["*"];
+        		relatedTopsQuery.relationshipId = 3;
+        		relatedTopsQuery.objectIds = [49535, 213942];
+		  		
+		  		function showResults(results){
+		  		
+		  			if (results == null || results.length == 0) {
+		  				t.assertTrue(false);
+		  			}
+		  			else {
+						var fset = results[49535];
+						var feature1= fset.features[0];
+						console.log(feature1);
+						t.assertEqual(76077,feature1.attributes.OBJECTID);
+            			t.assertEqual("15-173-01708",feature1.attributes.API_NUMBER);
+						t.assertEqual("Mississippian System",feature1.attributes.FORMATION);
+                    
+          			}
+			  			
+		  			d.callback(true);
+		  		}
+				featureLayer.queryRelatedFeatures(relatedTopsQuery, showResults)
+		  		return d;
+		  	}
+		  }
+		           
+          
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+    <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;"></div>
+  </body>
+</html>

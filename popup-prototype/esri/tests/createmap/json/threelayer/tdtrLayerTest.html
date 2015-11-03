@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>visibleLayers</title>
+        <link rel="stylesheet" type="text/css" href="../../../../../dojo/dijit/themes/tundra/tundra.css">
+        <script>
+            dojoConfig = {
+                isDebug: true
+
+            };
+        </script>
+
+        <script type="text/javascript" src="../../../../../../index.jsp">
+        </script>
+        <script type="text/javascript">
+            dojo.require("esri.arcgis.utils");
+            dojo.require("doh.runner");
+            
+            function init(){
+                esri.arcgis.utils.arcgisUrl = "http://dev.arcgis.com/sharing/content/items";
+                var webmap = {};
+				webmap.item = {
+                    "title": "TDTR_Portland_Map",
+                    "extent":[[-123.8567, 44.9281], [-121.0387, 46.2048]],
+                    "tags": ["TDTR", "threelayer", "unit test"]
+                };
+                var itemDataJson = {
+                    "operationalLayers": [{
+                        "url": "http://servery/ArcGIS/rest/services/Portland/PortlandMap/MapServer",
+                        "id": "PortlandMap_6847",
+                        "visibility": true,
+                        "opacity": 1,
+                        "title": "PortlandMap"
+                    }],
+                    "baseMap": {
+                        "baseMapLayers": [{
+                            "id": "World_Terrain_Base_1691",
+                            "opacity": 1,
+                            "visibility": true,
+                            "url": "http://services.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer"
+                        }, {
+                            "id": "World_Reference_Overlay_1340",
+                            "isReference": true,
+                            "opacity": 1,
+                            "visibility": true,
+                            "url": "http://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer"
+                        }],
+                        "title": "Terrain with Labels"
+                    },
+                    "version": "1.2"
+                };
+                webmap.itemData = itemDataJson;
+				 var mapDeferred = esri.arcgis.utils.createMap(webmap, "map", {
+                    mapOptions: {
+                        slider: true,
+                        nav: false
+                    }
+                });
+                
+                mapDeferred.addCallback(function(response){
+                    var map = response.map;
+                    if (map.loaded) {
+                        runTests(response);
+                    }
+                    else {
+                        dojo.connect(map, "onLoad", function(){
+                            runTests(response);
+                        });
+                        
+                    }
+                });
+                mapDeferred.addErrback(function(error){
+                    console.log("Map creation failed: ", dojo.toJson(error));
+                });
+            }
+            
+            function runTests(response){
+                doh.registerGroup("createmap.json.threelayer.tdtrLayerTest", [{
+                    name: "layerTest",
+                    timeout: 6000,
+                    runTest: function(t){
+                    
+                        var map = response.map;
+                        var layerIds = map.layerIds;
+                        console.log(response);
+                        var layer0 = map.getLayer(layerIds[0]);
+                        var layer1 = map.getLayer(layerIds[1]);
+                        var layer2 = map.getLayer(layerIds[2]);
+                        
+                        t.assertEqual(3, layerIds.length);
+                        t.assertTrue(layer0 instanceof esri.layers.ArcGISTiledMapServiceLayer);
+                        t.assertEqual(layer0.url, "http://services.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer");
+                        t.assertTrue(layer1 instanceof esri.layers.ArcGISDynamicMapServiceLayer);
+                        t.assertEqual(layer1.url, "http://servery/ArcGIS/rest/services/Portland/PortlandMap/MapServer");
+                        t.assertTrue(layer2 instanceof esri.layers.ArcGISTiledMapServiceLayer);
+                        t.assertEqual(layer2.url, "http://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer");
+                        
+						var referenceLayer = response.itemInfo.itemData.baseMap.baseMapLayers[1];
+						t.assertTrue(referenceLayer.isReference); 
+						            
+                        var operationalLayers = response.itemInfo.itemData.operationalLayers;
+                        t.assertEqual(1, operationalLayers.length);
+                        t.assertEqual(operationalLayers[0].url, "http://servery/ArcGIS/rest/services/Portland/PortlandMap/MapServer");
+                        t.assertEqual(operationalLayers[0].opacity, 1);
+                       
+                        t.assertEqual(layer1.visibleLayers,[0, 2, 3, 4, 5, 6, 7, 8]);
+                       	t.assertTrue(operationalLayers[0].visibility);
+                        t.assertTrue(layer1.visible);
+                                  
+                    }
+                    
+                    
+                }]);
+                doh.run();
+            }
+            
+            dojo.addOnLoad(init);
+        </script>
+    </head>
+    <body class="tundra">
+        <div id="map" style="width:800px; height:600px; border:1px solid #000;">
+        </div>
+    </body>
+</html>

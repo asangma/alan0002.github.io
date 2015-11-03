@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Feature Type</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../../index.jsp">
+      </script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.layers.FeatureLayer");
+	   dojo.require("esri.symbol");
+	   dojo.require("esri.layers.FeatureLayer");
+
+      	   dojo.require("doh.runner");
+      
+      function init() {
+          var featureLayer =  new esri.layers.FeatureLayer("http://servery/ArcGIS/rest/services/FeatureServiceServices/LotesFincas/FeatureServer/1", {
+          mode:esri.layers.FeatureLayer.MODE_SELECTION,
+          outFields: ["*"],
+          id: "useColombiaLayer"
+        });
+        if (featureLayer.loaded) {
+          runTests(featureLayer);
+        }
+        else {
+          dojo.connect(featureLayer, "onLoad", runTests);
+        }
+      }
+      
+      function runTests(featureLayer) {
+        doh.registerGroup("layers.featurefserver.selection.Field", [
+     		  
+		  {
+            name: "Field",
+            timeout: 50,
+            runTest: function(t) {
+				console.log(featureLayer.fields.length);
+				
+				var fields = featureLayer.fields;
+				var field = fields[0];
+				
+				t.assertEqual("OBJECTID",field.alias);
+				t.assertEqual(undefined,field.domain);
+				t.assertEqual("OBJECTID",field.name);
+				t.assertEqual("esriFieldTypeOID",field.type);
+				t.assertEqual(undefined,field.length);
+				t.assertEqual(false,field.editable);
+				
+			
+			
+			         
+            }
+          }
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+  </body>
+</html>

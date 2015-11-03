@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>ArcGISDynamicMapServiceLayer methods/events</title>
+        <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+        <script>
+            dojoConfig = {
+                isDebug: true
+            };
+        </script>
+        <script type="text/javascript" src="../../../../../index.jsp">
+        </script>
+        <script type="text/javascript">
+            dojo.require("esri.layers.agsimageservice");
+            dojo.require("doh.runner");
+            
+            function init(){
+                var layer = new esri.layers.ArcGISImageServiceLayer("http://servery/ArcGIS/rest/services/World/Temperature/ImageServer");
+                if (layer.loaded) {
+                    runTests(layer);
+                }
+                else {
+                    dojo.connect(layer, "onLoad", runTests);
+                }
+            }
+            
+            function runTests(layer){
+                doh.registerGroup("layers.agsimage.agsimagelayerMethods", [
+				{
+                    name: "setBandIds",
+                    timeout: 50,
+                    runTest: function(t){
+                        layer.setBandIds([2,1,0]);
+                        t.assertEqual([2,1,0], layer.bandIds);
+                    }
+                }, 
+				{
+                    name: "setCompressionQuality",
+                    timeout: 50,
+                    runTest: function(t){
+                        layer.setCompressionQuality(10);
+                        t.assertEqual(10,layer.compressionQuality);
+                    }
+                }, 
+				{
+                    name: "setDisableClientCaching",
+                    timeout: 50,
+                    runTest: function(t){
+                        layer.setDisableClientCaching(true);
+                        t.assertTrue(layer.setDisableClientCaching);
+                    }
+                }, 
+				{
+                    name: "setInterpolation",
+                    timeout: 50,
+                    runTest: function(t){
+                        layer.setInterpolation("INTERPOLATION_BILINEAR");
+                        t.assertEqual("INTERPOLATION_BILINEAR",layer.interpolation);
+                    }
+                }, 
+				{
+                    name: "setMosaicRule",
+                    timeout: 50,
+                    runTest: function(t){
+						var mr = new esri.layers.MosaicRule();
+						mr.method = esri.layers.MosaicRule.METHOD_LOCKRASTER;
+						mr.lockRasterIds = [32,454,14]; 
+
+                        layer.setMosaicRule(mr);
+						var msr = layer.mosaicRule;
+						t.assertEqual("esriMosaicLockRaster",msr.method);
+						t.assertEqual([32,454,14],msr.lockRasterIds);
+						
+                    }
+                }, 
+				{
+                    name: "setRenderingRule",
+                    timeout: 50,
+                    runTest: function(t){
+						var rasterFunction = new esri.layers.RasterFunction();
+  						rasterFunction.functionName = "Hillshade";
+						rasterFunction.arguments = {
+    							"Azimuth":215.0,
+    							"Altitude":75.0,
+    							"ZFactor":0.3
+  						};
+                        layer.setRenderingRule(rasterFunction);
+						var rrule = layer.renderingRule; 
+						
+                        t.assertEqual("Hillshade",rrule.functionName);
+						t.assertEqual(0.3,rrule.arguments.ZFactor);
+                    }
+                }, 
+				
+				]);
+                doh.run();
+            }
+            
+            dojo.addOnLoad(init);
+        </script>
+    </head>
+    <body class="tundra">
+    </body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Layer properties</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../../dojo/dijit/themes/tundra/tundra.css">
+    <script>
+        dojoConfig = {
+            isDebug: true
+        };
+    </script>
+    <script type="text/javascript" src="../../../../../../index.jsp">
+    </script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.layers.FeatureLayer");
+      dojo.require("doh.runner");
+      
+      function init() {
+        var featureLayer =  new esri.layers.FeatureLayer("http://servery/ArcGIS/rest/services/FeatureServiceServices/LotesFincas/MapServer/1", {
+          mode:esri.layers.FeatureLayer.MODE_ONDEMAND,
+          outFields: ["*"],
+          id: "useColombiaLayer"
+        });
+        if (featureLayer.loaded) {
+          runTests(featureLayer);
+        }
+        else {
+          dojo.connect(featureLayer, "onLoad", runTests);
+        }
+      }
+      
+      function runTests(featureLayer) {
+        doh.registerGroup("layers.featuremserver.ondemand.layerProperties", [
+          {
+            name: "type",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertTrue(featureLayer instanceof esri.layers.FeatureLayer);
+            }
+          },
+          
+          {
+            name: "loaded",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertEqual("boolean", typeof featureLayer.loaded);
+              t.assertTrue(featureLayer.loaded);
+            }
+          },
+          
+          {
+            name: "layerId",
+            timeout: 50,
+            runTest: function(t) {
+				t.assertEqual(1,featureLayer.layerId);
+            }
+          },
+                    
+          {
+            name: "visible",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertEqual("boolean", typeof featureLayer.visible);
+              t.assertTrue(featureLayer.visible);
+            }
+          },
+		  {
+            name: "name",
+            timeout: 50,
+            runTest: function(t) {
+				t.assertEqual("Use_Colombia",featureLayer.name);
+            }
+          },
+		  {
+            name: "description",
+            timeout: 50,
+            runTest: function(t) {
+				
+            	t.assertEqual("",featureLayer.description);
+            }
+          },
+		  {
+            name: "geometryType",
+            timeout: 50,
+            runTest: function(t) {
+            	t.assertEqual("esriGeometryPolygon",featureLayer.geometryType);
+            }
+          },
+		  {
+            name: "displayField",
+            timeout: 50,
+            runTest: function(t) {
+				
+            	t.assertEqual("CODIGO_LOT",featureLayer.displayField);
+            }
+          },
+		  {
+            name: "defaultDefinitionExpression",
+            timeout: 50,
+            runTest: function(t) {
+            	t.assertEqual("",featureLayer.defaultDefinitionExpression);
+            }
+          },
+		  {
+            name: "fullExtent",
+            timeout: 50,
+            runTest: function(t) {
+            
+             t.assertEqual(484029.843488268,featureLayer.fullExtent.xmin);
+			 t.assertEqual(1017874.04720419,featureLayer.fullExtent.ymin);
+			 t.assertEqual(488026.775670017,featureLayer.fullExtent.xmax);
+			 t.assertEqual(1021174.64063444,featureLayer.fullExtent.ymax);
+            }
+          },
+		  {
+            name: "fields",
+            timeout: 50,
+            runTest: function(t) {
+			  t.assertEqual(8,featureLayer.fields.length);
+              t.assertEqual("OBJECTID",featureLayer.fields[0].name);
+			  t.assertEqual("esriFieldTypeOID",featureLayer.fields[0].type);
+            }
+          },
+		  {
+            name: "objectIdField",
+            timeout: 50,
+            runTest: function(t) {
+             
+             t.assertEqual("OBJECTID",featureLayer.objectIdField);
+            }
+          },
+		  {
+            name: "typeIdField",
+            timeout: 50,
+            runTest: function(t) {
+            	t.assertEqual(undefined,featureLayer.typeIdField);
+            }
+          },
+		  {
+            name: "defaultSymbol",
+            timeout: 50,
+            runTest: function(t) {
+			
+             t.assertEqual(undefined,featureLayer.defaultSymbol);
+            }
+          },
+		  {
+            name: "types",
+            timeout: 50,
+            runTest: function(t) {
+			 t.assertEqual(0,featureLayer.types.length);
+			 
+             
+            }
+          },
+		  {
+            name: "maxScale",
+            timeout: 50,
+            runTest: function(t) {
+			 t.assertEqual(0,featureLayer.maxScale);
+			 
+             
+            }
+          },
+		  {
+            name: "minScale",
+            timeout: 50,
+            runTest: function(t) {
+			 t.assertEqual(0,featureLayer.minScale);
+			 
+             
+            }
+          },
+		   //new properties after public beta
+		  {
+            name: "capabilities",
+            timeout: 50,
+            runTest: function(t) {
+			  t.assertEqual("Map,Query,Data",featureLayer.capabilities);
+			             
+            }
+          },
+		  {
+            name: "copyright",
+            timeout: 50,
+            runTest: function(t) {
+			
+			 t.assertEqual("",featureLayer.copyright);
+			             
+            }
+          },
+		   {
+            name: "globalIdField",
+            timeout: 50,
+            runTest: function(t) {
+			 t.assertEqual(undefined,featureLayer.globalIdField);
+			 
+             
+            }
+          },
+		  {
+            name: "htmlPopupType",
+            timeout: 50,
+            runTest: function(t) {
+			 console.log("h: "+featureLayer.htmlPopupType);
+			 t.assertEqual("esriServerHTMLPopupTypeNone",featureLayer.htmlPopupType);
+			 
+             
+            }
+          },
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+  </body>
+</html>

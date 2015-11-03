@@ -1,0 +1,487 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Raster Layer Hillshade Demo</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../../dijit/themes/claro/claro.css">
+    <link rel="stylesheet" type="text/css" href="../../../../css/main.css">
+    <script type="text/javascript">
+      var dojoConfig = {
+        parseOnLoad: true,
+        isDebug: true,
+        async: true,
+        packages: [
+          {
+            name: "esri",
+            location: "../esri"
+          }
+        ]
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../dojo/dojo.js"></script>
+    <style>
+      @import url(http://js.arcgis.com/3.9/js/dojo/dojox/form/resources/RangeSlider.css);
+
+      html, body
+      {
+        width: 98%;
+        height: 98%;
+        margin: 0 1%;
+        padding: 10px 0 0 0;
+      }
+
+      #mapCanvas
+      {
+        border: solid 1px #888;
+        padding: 0;
+      }
+
+      #status
+      {
+        background-color: #000;
+        color: #FFF;
+        border: solid 1px #FFF;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        padding: 3px;
+      }
+
+      .shadow
+      {
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        border-radius: 6px;
+        -moz-box-shadow: 0 6px 3px -3px #bdbdbd;
+        -webkit-box-shadow: 0 6px 3px -3px #bdbdbd;
+        box-shadow: 0 6px 3px -3px #bdbdbd;
+        background-color: #FFF;
+        padding: 8px;
+      }
+
+      #footer
+      {
+        height: 80px;
+        padding: 10px;
+      }
+
+      #searchWindow
+      {
+        position: absolute;
+        left: 80px;
+        top: 25px;
+        z-index: 999;
+        text-align: left;
+      }
+
+      #floatingWindow
+      {
+        position: absolute;
+        right: 25px;
+        top: 15px;
+        z-index: 998;
+        width: 260px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        background: url("images/blue.png") repeat scroll left top transparent;
+        border: solid 3px #028482;
+        color: #000000;
+        padding: 10px;
+        font-family: "Tahoma";
+        color: black;
+        text-align: left;
+      }
+    </style>
+    <script id="2d-vertex-shader" type="x-shader/x-vertex">
+        // from Microsoft example. you actually only need a very simple/basic vertex shader
+        // outgoing coordinate
+        varying vec2 v_texCoord;
+
+        // incoming coordinate (point)
+        attribute vec2 a_texCoord;
+
+        // maximum number of changes to grid
+        #define MAXPOINTS 10
+
+        uniform vec2 p1[MAXPOINTS];    // Where the drag started
+        uniform vec2 p2[MAXPOINTS];    // Where the drag ended
+
+        void main() {
+
+        v_texCoord = a_texCoord;
+        // Set up position variable with current coordinate normalized from 0 - 1 to -1 to 1 range
+        vec2 position = a_texCoord * 2.0 - 1.0;
+
+        for (int i = 0; i < MAXPOINTS; i++) // loop through
+        {
+        float dragdistance = distance(p1[i], p2[i]); // Calculate the distance between two start and end of mouse drag for each of the drags
+        float mydistance = distance(p1[i], position);  // Calculate the distance between the start of the mouse drag and the last position
+        if (mydistance < dragdistance)
+        {
+        vec2 maxdistort = (p2[i] - p1[i]) / 4.0;    // only affect vertices within 4 x the drag distance (
+        float normalizeddistance = mydistance / dragdistance;
+        float normalizedimpact = (cos(normalizeddistance*3.14159265359)+1.0)/2.0;
+        position += (maxdistort * normalizedimpact);
+        }
+        }
+        // gl_Position always specifies where to render this vector
+        gl_Position = vec4(position, 0.0, 1.0);     // x,y,z,
+        }
+    </script>
+
+    <!-- fragment shader -->
+    <script id="2d-fragment-shader-hillshade" type="x-shader/x-fragment">
+        precision mediump float;
+
+        // uniform to use for texture
+        uniform sampler2D u_image;
+
+        // Output of the vertex shader
+        varying vec2 v_texCoord;
+
+        //uniform to use for screen pixel resolution, 0-1
+        uniform vec2 u_resolution;
+
+        //uniform to use for actual cell size (map)
+        uniform vec2 u_cellSize;
+
+        //uniform z factor
+        uniform float u_zfactor;
+
+        //uniform altitude
+        uniform float u_altitude;
+
+        //uniform azimuth
+        uniform float u_azimuth;
+
+        //uniform
+        uniform bool u_singleNumberInRGBA;
+
+        //uniform
+        uniform bool u_floatTexture;
+
+        //help docs (exist as early as 9.3)
+        //http://resources.arcgis.com/en/help/main/10.2/index.html#/How_Aspect_works/009z000000vp000000/
+        //http://resources.arcgis.com/en/help/main/10.2/index.html#//009z000000z2000000
+		    //http://resources.arcgis.com/en/help/main/10.2/index.html#/How_Slope_works/009z000000vz000000/
+        void main() {
+
+        float pi = 3.141592653589793238;
+        //   a b c
+        //   d e f
+        //   g h i
+
+        //1 Computing the illumination angle
+        float zenith_rad = (90.0 - u_altitude) * pi / 180.0;
+
+        //2 Computing the illumination direction
+        float azimuth_math = 360.0 - u_azimuth + 90.0;
+        azimuth_math = azimuth_math>=360.0? azimuth_math - 360.0: azimuth_math;
+        float azimuth_rad = azimuth_math * pi/ 180.0;
+
+        float dz_dx = 0.0;
+        float dz_dy = 0.0;
+
+        //mirror edge pixels
+        vec4 va, vb,  vc,vd,ve,vf,vg,vh,vi;
+        vec2 axy = vec2(-1.0,-1.0);
+        vec2 bxy = vec2(0.0, -1.0);
+        vec2 cxy = vec2(1.0, -1.0);
+        vec2 dxy = vec2(-1.0, 0.0);
+        vec2 fxy = vec2(1.0, 0.0);
+        vec2 gxy = vec2(-1.0, 1.0);
+        vec2 hxy = vec2(0.0, 1.0);
+        vec2 ixy = vec2(1.0, 1.0);
+        if (v_texCoord.s < u_resolution.s)
+        {
+        axy[0] = 1.0;
+        dxy[0] = 1.0;
+        gxy[0] = 1.0;
+        }
+        if (v_texCoord.t < u_resolution.t)
+        {
+        axy[1] = 1.0;
+        bxy[1] = 1.0;
+        cxy[1] = 1.0;
+        }
+        if (v_texCoord.s >1.0-u_resolution.s)
+        {
+        cxy[0] = -1.0;
+        fxy[0] = -1.0;
+        ixy[0] = -1.0;
+        }
+        if (v_texCoord.t > 1.0- u_resolution.t)
+        {
+        gxy[1] = -1.0;
+        hxy[1] = -1.0;
+        ixy[1] = -1.0;
+        }
+        if (v_texCoord.s >= u_resolution.s &&  (1.0-u_resolution.s)>=v_texCoord.s && v_texCoord.t >= u_resolution.t &&  (1.0-u_resolution.t)>=v_texCoord.t)
+        {//[dz/dx] = ((c + 2f + i) - (a + 2d + g)) / (8 * cellsize)
+
+        va = texture2D(u_image, v_texCoord + u_resolution* axy);
+        vb = texture2D(u_image, v_texCoord + u_resolution* bxy);
+        vc = texture2D(u_image, v_texCoord + u_resolution* cxy);
+        vd = texture2D(u_image, v_texCoord + u_resolution* dxy);
+        ve = texture2D(u_image, v_texCoord + u_resolution* vec2(0, 0));
+        vf = texture2D(u_image, v_texCoord + u_resolution* fxy);
+        vg = texture2D(u_image, v_texCoord + u_resolution* gxy);
+        vh = texture2D(u_image, v_texCoord + u_resolution* hxy);
+        vi = texture2D(u_image, v_texCoord + u_resolution* ixy);
+        }
+
+        float alpha = 1.0;
+        if (u_singleNumberInRGBA)
+        {
+        float val_r, val_sign, a, b, c, d, e, f, g, h, i;
+        vec4 pv;
+        //pv = va;
+        //val_sign = va.r>127.0?-1.0:1.0;
+        //val_r = float(val_sign > 0.5? va.r:(255.0-va.r));
+        //a = val_sign*(va.a+va.b*256.0+va.g*256.0*256.0+ val_r*256.0*256.0*256.0);
+
+        pv = ve;
+        //val_sign = pv.r>127.0?-1.0:1.0;
+        //val_r = float(val_sign > 0.5? pv.r:(255.0-pv.r));
+        //e = val_sign*(pv.a+pv.b*256.0+pv.g*256.0*256.0+ val_r*256.0*256.0*256.0);
+        //if (2147483647.0 - e < 0.000000001)
+        // && pv.g == 255.0 && pv.b == 255.0 && pv.a == 255.0)
+        if (pv.r == 127.0/255.0 && pv.g == 1.0 && pv.b == 1.0 && pv.a == 1.0)
+        alpha = 0.0;
+
+        pv = va;
+        val_sign = pv.r>127.0/255.0?-1.0:1.0;
+        val_r = float(val_sign > 0.5? pv.r:(255.0-pv.r));
+        a = val_sign*(pv.a+pv.b*256.0+pv.g*256.0*256.0+ val_r*256.0*256.0*256.0);
+
+        pv = vb;
+        val_sign = pv.r>127.0/255.0?-1.0:1.0;
+        val_r = float(val_sign > 0.5? pv.r:(255.0-pv.r));
+        b = val_sign*(pv.a+pv.b*256.0+pv.g*256.0*256.0+ val_r*256.0*256.0*256.0);
+
+        pv = vc;
+        val_sign = pv.r>127.0/255.0?-1.0:1.0;
+        val_r = float(val_sign > 0.5? pv.r:(255.0-pv.r));
+        c = val_sign*(pv.a+pv.b*256.0+pv.g*256.0*256.0+ val_r*256.0*256.0*256.0);
+
+        pv = vd;
+        val_sign = pv.r>127.0/255.0?-1.0:1.0;
+        val_r = float(val_sign > 0.5? pv.r:(255.0-pv.r));
+        d = val_sign*(pv.a+pv.b*256.0+pv.g*256.0*256.0+ val_r*256.0*256.0*256.0);
+
+        pv = vf;
+        val_sign = pv.r>127.0/255.0?-1.0:1.0;
+        val_r = float(val_sign > 0.5? pv.r:(255.0-pv.r));
+        f = val_sign*(pv.a+pv.b*256.0+pv.g*256.0*256.0+ val_r*256.0*256.0*256.0);
+
+        pv = vg;
+        val_sign = pv.r>127.0/255.0?-1.0:1.0;
+        val_r = float(val_sign > 0.5? pv.r:(255.0-pv.r));
+        g = val_sign*(pv.a+pv.b*256.0+pv.g*256.0*256.0+ val_r*256.0*256.0*256.0);
+
+        pv = vh;
+        val_sign = pv.r>127.0/255.0?-1.0:1.0;
+        val_r = float(val_sign > 0.5? pv.r:(255.0-pv.r));
+        h = val_sign*(pv.a+pv.b*256.0+pv.g*256.0*256.0+ val_r*256.0*256.0*256.0);
+
+        pv = vi;
+        val_sign = pv.r>127.0/255.0?-1.0:1.0;
+        val_r = float(val_sign > 0.5? pv.r:(255.0-pv.r));
+        i = val_sign*(pv.a+pv.b*256.0+pv.g*256.0*256.0+ val_r*256.0*256.0*256.0);
+
+        dz_dx = (c+2.0*f+i - a - 2.0*d - g)/(8.0*u_cellSize[0])*255.0;
+        dz_dy = (g+2.0*h+i - a - 2.0*b - c)/(8.0*u_cellSize[1])*255.0;
+
+        }
+        else if (u_floatTexture)
+        {
+        dz_dx = (vc+2.0*vf+vi - va - 2.0*vd - vg).r/(8.0*u_cellSize[0]);
+        dz_dy = (vg+2.0*vh+vi - va - 2.0*vb - vc).r/(8.0*u_cellSize[1]);
+        alpha = ve.a;
+        }
+        else
+        {
+
+        dz_dx = (vc+2.0*vf+vi - va - 2.0*vd - vg).r/(8.0*u_cellSize[0])*255.0;
+        dz_dy = (vg+2.0*vh+vi - va - 2.0*vb - vc).r/(8.0*u_cellSize[1])*255.0;
+        alpha = ve.a;
+        }
+
+        float slope_rad = atan (u_zfactor * sqrt(dz_dx * dz_dx + dz_dy * dz_dy));
+
+        float aspect_rad = 0.0;
+
+        if (dz_dx == 0.0)
+        {
+        if  (dz_dy > 0.0)
+        aspect_rad = 0.5 * pi;
+        else if (dz_dy < 0.0)
+        aspect_rad = 1.5 * pi;
+        else
+        aspect_rad = 0.0;
+        }
+        else
+        {
+        aspect_rad = atan(dz_dy,  -dz_dx);
+        if (aspect_rad < 0.0)
+        aspect_rad = 2.0*pi + aspect_rad;
+        }
+
+        //Hillshade = 255.0 * ((cos(Zenith_rad) * cos(Slope_rad)) + (sin(Zenith_rad) * sin(Slope_rad) * cos(Azimuth_rad - Aspect_rad)))
+        //int hillshade = int (255.0 * (cos(zenith_rad) * cos(slope_rad) + sin(zenith_rad) * sin(slope_rad) * cos(azimuth_rad - aspect_rad)));
+        float hillshade = (cos(zenith_rad) * cos(slope_rad) + sin(zenith_rad) * sin(slope_rad) * cos(azimuth_rad - aspect_rad));
+        //if  (dz_dx == 0.0 && dz_dy == 0.0)
+        //     hillshade = 0.0;
+        gl_FragColor = vec4( hillshade, hillshade, hillshade, alpha);
+        }
+    </script>
+    <script>
+      var map, isRasterLayer;
+      var canvasSupport;
+      var pixelFilter;
+      require([
+        "esri/map",
+        "esri/domUtils", "esri/request",
+        "dojo/parser", "dojo/number", "dojo/dom", "dojo/io-query", "dojo/_base/url", "dojo/has",
+        "dijit/registry", "esri/layers/ArcGISTiledLayer", "esri/layers/RasterLayer", "esri/tests/layers/agsimage/WebGLDemo/PixelFilterWebGL",
+        "esri/geometry/Extent", "esri/SpatialReference",
+        "dijit/layout/BorderContainer", "dijit/layout/ContentPane",
+        "dijit/form/HorizontalSlider", "dojox/form/RangeSlider", "dijit/form/HorizontalRule", "dijit/form/HorizontalRuleLabels", "dojox/gauges/GlossyCircularGauge", "dojo/domReady!"
+      ], function (
+        Map, 
+        domUtils, esriRequest,
+        parser, number, dom, ioQuery, Url, has,
+        registry, ArcGISTiledMapServiceLayer, RasterLayer, PixelFilterWebGL,
+        Extent, SpatialReference, BorderContainer, ContentPane,
+        HorizontalSlider, RangeSlider, HorizontalRule, HorizontalRuleLabels, GlossyCircularGauge
+      ) {
+        parser.parse();
+        // does the browser support canvas?
+
+        var querystrings = window.location.search;
+        var isUrl = "";
+        if (querystrings.indexOf("?") > -1) {
+          querystrings = querystrings.substring(querystrings.indexOf("?") + 1, querystrings.length);
+          isUrl = ioQuery.queryToObject(querystrings).isUrl;
+        }
+        if ("" == isUrl) {
+          alert("usage: ?isurl=http://server/arcgis/rest/services/image/ImageServer");
+          return;
+        }
+
+        var corsEnabledServers, imageServiceAuthority, onceDone;
+        imageServiceAuthority = new Url(isUrl).authority;
+        corsEnabledServers = esriConfig.request.corsEnabledServers;
+        if (!corsEnabledServers.some(function (x) {
+          return x === imageServiceAuthority;
+        })) {
+          corsEnabledServers.push(imageServiceAuthority);
+        }
+        var initExtent = new Extent(-14037326.52206292, 5421124.454472854, -13296193.095809888, 5884638.59399414, SpatialReference.WebMercator);
+        map = new Map("mapCanvas", {
+          extent: initExtent,
+          basemap: "topo"
+        });
+
+        map.on("load", mapLoaded);
+
+        function mapLoaded() {
+          if (!supports_canvas()) {
+            alert("This app will not work properly. This browser is not supported.");
+            return;
+          }
+          // Add raster layer
+          var options = {
+            altitude: 45.0,
+            azimuth: 315.0,
+            zFactor: 25.0
+          };
+          pixelFilter = new PixelFilterWebGL(options);
+          isRasterLayer = new RasterLayer(isUrl, {
+            opacity: 1,
+            pixelFilter: pixelFilter.hillshade,
+            drawMode: false,
+            drawType: "experimental-webgl"
+          });
+          pixelFilter.layer = isRasterLayer;
+          map.addLayer(isRasterLayer);
+        }
+
+        // does the browser support canvas?
+        function supports_canvas() {
+          return window.WebGLRenderingContext;
+        }
+      });
+
+      function setPixelFilter() {
+        var zf = dijit.byId("zfactorSlider").value;
+        var altitude = dijit.byId("altitudeSlider").value;
+        var azimuth = dijit.byId("azimuthGauge").value;
+        document.getElementById("zfactorLabel").innerText = zf.toFixed(2);
+        document.getElementById("altitudeLabel").innerText = altitude.toFixed(1);
+        document.getElementById("azimuthLabel").innerText = azimuth.toFixed(0);
+        pixelFilter.altitude = altitude;
+        pixelFilter.azimuth = azimuth;
+        pixelFilter.zFactor = zf;
+        isRasterLayer.redraw();
+      }
+    </script>
+</head>
+
+<body class="claro">
+    <div data-dojo-type="dijit.layout.BorderContainer" design="headline" gutters="false" style="width: 100%; height: 100%; margin: 0;">
+        <div id="mapCanvas" data-dojo-type="dijit.layout.ContentPane" region="center" style="overflow:hidden;position:relative;">
+            <div id="searchWindow"><div id="search"></div></div>
+            <div id="floatingWindow">
+                <div class="shadow">
+                    <div id="title">
+                        <label>Interactive Hillshading</label>
+                    </div>
+                    <div id="divbasicFeatures">
+                        <br />
+                        <label style="font-size: 11pt;">Get instantaneous hillshade when changing parameter values</label>
+                        <br>
+                        <br>
+                        <label>
+                            Z Factor:&nbsp;
+                        </label>
+                        <label id="zfactorLabel">25</label>
+
+                        <br><br>
+                        <div id="zfactorSlider" data-dojo-type="dijit.form.HorizontalSlider" onchange="setPixelFilter(this.value);" onclick="    setPixelFilter(this.value);" value="25.0" maximum="100" minimum="1" discretevalues=1000 pageincrement="1" showbuttons="true" intermediatechanges="true" slideduration="500">
+                            <div data-dojo-type="dijit/form/HorizontalRule" data-dojo-props='container:"bottomDecoration", count:5, style:{height:"5px"}'></div>
+                            <ol data-dojo-type="dijit/form/HorizontalRuleLabels" data-dojo-props='container:"bottomDecoration", style:{height:"1em",fontSize:"90%"}'>
+                                <li>1</li>
+                                <li>100</li>
+                            </ol>
+                        </div>
+                        <br>
+                        <label>
+                            Altitude (&deg;):&nbsp;
+                        </label>
+                        <label id="altitudeLabel">45</label>
+                        <br><br>
+                        <div id="altitudeSlider" data-dojo-type="dijit.form.HorizontalSlider" onchange="setPixelFilter(this.value);" onclick="    setPixelFilter(this.value);" value=45 maximum=90 minimum=0 discretevalues=901 pageincrement="1" showbuttons="true" intermediatechanges="true" slideduration="500">
+                            <div data-dojo-type="dijit/form/HorizontalRule" data-dojo-props='container:"bottomDecoration", count:5, style:{height:"5px"}'></div>
+                            <ol data-dojo-type="dijit/form/HorizontalRuleLabels" data-dojo-props='container:"bottomDecoration", style:{height:"1em",fontSize:"90%"}'>
+                                <li>0</li>
+                                <li>90</li>
+                            </ol>
+                        </div>
+                        <br />
+                        <label>
+                            Azimuth (&deg;):&nbsp;
+                        </label>
+                        <label id="azimuthLabel">315</label>
+                        <br><br>
+                        <div id="azimuthGauge" data-dojo-type="dojox/gauges/GlossyCircularGauge" onvaluechanged="setPixelFilter(this.value);" background="[255, 255, 255, 0]" title="Value" width="150" height="150" textindicatorfont:"normal small-caps bold 14pt arial" min="0" max="360" value="315" startangle="0" endangle="360" majorticksinterval="45"></div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

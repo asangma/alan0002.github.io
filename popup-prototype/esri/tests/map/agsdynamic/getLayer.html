@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>onZoom</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+
+    <script type="text/javascript">
+      dojo.require("esri.map");
+      dojo.require("doh.runner");
+
+      var map,layer,layerId;
+	  
+       function init() {
+        map = new esri.Map("mapDiv");
+        dojo.connect(map, "onLoad", runTests);
+        map.addLayer(new esri.layers.ArcGISDynamicMapServiceLayer("http://servery/ArcGIS/rest/services/Portland/PortlandMap/MapServer"));
+      	
+	  }
+	      
+      function runTests(){
+	  	doh.registerGroup("map.agsdynamic.getLayer", [{
+	  		name: "getLayer",
+	  		timeout: 6000,
+	  		runTest: function(t){
+	  		
+	  		
+	  		 var d = new doh.Deferred();
+	  			function assertGetLayer(){
+					
+					
+	  				if(layer.id ==layerId)
+	  					d.callback(true);
+					else
+						d.callback(false);
+	  			}
+	  			
+				
+				var ids = map.layerIds;
+				layerId =ids[0];
+				layer = map.getLayer(ids[0]);
+				console.debug(layer.id);
+				dojo.connect(map, "onExtentChange", assertGetLayer);
+				var point = new esri.geometry.Point(7646014.863,660477.123, new esri.SpatialReference({ wkid: 102726 }));
+				map.centerAt(point);
+	  			return d;
+	  			
+	  		}
+	  		
+	  		
+	  	}]);
+	  	doh.run();
+	  }
+		
+       dojo.addOnLoad(init);   
+    </script>
+
+  </head>
+  <body class="tundra">
+    <div id="mapDiv" style="width:1024px; height:512px; border:1px solid #000;"></div>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Map navigation settings</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../dojo/dijit/themes/tundra/tundra.css">
+    <script type="text/javascript" src="../../../dojo/dojo/dojo.js" djConfig="isDebug:true"></script>
+    <script type="text/javascript" src="../../esri.js"></script>
+    <script type="text/javascript" src="../../jsapi.js"></script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.map");
+      dojo.require("doh.runner");
+      
+      var map;
+      
+      function init() {
+        map = new esri.Map("mapDiv");
+        dojo.connect(map, "onLoad", runTests);
+
+        map.addLayer(new esri.layers.ArcGISTiledMapServiceLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Portland/Portland_ESRI_LandBase_AGO/MapServer"));
+      }
+      
+      function runTests() {
+        doh.registerGroup("map.navigationSettings", [
+          {
+            name: "disableClickRecenter",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertEqual("boolean", typeof map.isClickRecenter);
+              t.assertTrue(map.isClickRecenter);
+              
+              map.disableClickRecenter();
+              t.assertEqual("boolean", typeof map.isClickRecenter);
+              t.assertFalse(map.isClickRecenter);
+            }
+          },
+          
+          {
+            name: "enableClickRecenter",
+            timeout: 50,
+            runTest: function() {
+              map.enableClickRecenter();
+              t.assertEqual("boolean", typeof map.isClickRecenter);
+              t.assertTrue(map.isClickRecenter);
+            }
+          },
+          
+          {
+            name: "slider",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertEqual("boolean", typeof map.isZoomSlider);
+              t.assertFalse(map.isZoomSlider);
+            }
+          },
+          
+          {
+            name: "extent",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertTrue(map.extent instanceof esri.geometry.Extent);
+              t.assertEqual({xmin:-122.80466572783938,ymin:45.51422414113295,xmax:-122.62888447783938,ymax:45.60211476613295,spatialReference:{wkid:4326}}, map.extent.toJson());
+            }
+          }
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+    <div id="mapDiv" style="width:1024px; height:512px; border:1px solid #000;"></div>
+  </body>
+</html>

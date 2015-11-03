@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Geoprocessor Sync</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+
+  <link rel="stylesheet" href="../../../../../../esri/css/main.css">
+
+  <script>
+    var dojoConfig = {
+      async: true,
+      isDebug: true,
+
+      paths: {
+        esri: "../esri"
+      }
+    };
+  </script>
+
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+
+
+  <script type="text/javascript" src="../../../../../../dojo/dojo.js"></script>
+  <script>
+    var map, view, identifyParams;
+
+    require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/layers/GraphicsLayer",
+
+        "esri/Graphic",
+        "esri/geometry/Polyline",
+        "esri/geometry/Polygon",
+
+        "esri/symbols/SimpleLineSymbol",
+        "esri/symbols/SimpleFillSymbol",
+
+        "esri/geometry/SpatialReference",
+
+        'esri/tasks/Geoprocessor',
+        "esri/tasks/support/FeatureSet",
+
+        "dojo/domReady!"
+      ],
+      function(
+        Map, MapView, GraphicsLayer,
+        Graphic, Polyline, Polygon,
+        SimpleLineSymbol, SimpleFillSymbol,
+        SpatialReference,
+        Geoprocessor, FeatureSet
+      ) {
+
+        map = new Map({
+          basemap: "streets"
+        });
+
+        view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [-122.81, 45.466],
+          zoom: 13
+        });
+
+        view.then(
+          function() {
+
+            var params = {
+              Query: "(DATE > date '1998-01-01 00:00:00' AND DATE < date '1998-01-31 00:00:00') AND (Day = 'SUN' OR Day= 'SAT')"
+            };
+
+
+            var geoprocessor = new Geoprocessor("http://sampleserver6.arcgisonline.com/arcgis/rest/services/911CallsHotspot/GPServer/911%20Calls%20Hotspot");
+            geoprocessor.outSpatialReference = new SpatialReference({wkid: 102100});
+
+            console.log("executing...");
+
+            geoprocessor.submitJob(params).then(function(result){
+              console.log("result...");
+              console.log(result);
+
+              var layer = geoprocessor.getResultImageLayer(result.jobId, null, null);
+              console.log("layer", layer);
+              //map.add(layer);
+
+             /* geoprocessor.getResultData(result.jobId, null).then(function(data){
+                console.log("data", data);
+              });*/
+
+              geoprocessor.checkJobStatus(result.jobId).then(function(status){
+                console.log("status", status);
+              });
+
+              var img = geoprocessor.getResultImage(result.jobId, null, null);
+              console.log("img", img);
+
+              var jb = geoprocessor.cancelJob(result.jobId);
+              console.log("jb", jb);
+
+            }, function(err) {
+              console.log(err);
+            });
+
+
+
+
+          }
+        );
+
+
+      });
+  </script>
+</head>
+
+<body>
+<div id="viewDiv"></div>
+</body>
+
+</html>

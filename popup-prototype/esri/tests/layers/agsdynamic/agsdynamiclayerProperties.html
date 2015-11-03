@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>AGSDynamicMapServiceLayer properties</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+    <script type="text/javascript">
+      dojo.require("esri.layers.agsdynamic");
+      dojo.require("doh.runner");
+      
+      function init() {
+        var layer = new esri.layers.ArcGISDynamicMapServiceLayer("http://servery/ArcGIS/rest/services/Portland/PortlandMap/MapServer");
+        if (layer.loaded) {
+          runTests(layer);
+        }
+        else {
+          dojo.connect(layer, "onLoad", runTests);
+        }
+      }
+      
+      function runTests(layer) {
+        doh.registerGroup("layers.agsdynamic.agsdynamiclayerProperties", [
+            {
+              name: "dpi",
+              timeout: 50,
+              runTest: function(t) {
+                t.assertEqual("number", typeof layer.dpi);
+                t.assertEqual(96, layer.dpi);
+              }
+            },
+            
+            {
+              name: "imageFormat",
+              timeout: 50,
+              runTest: function(t) {
+                t.assertEqual("string", typeof layer.imageFormat);
+                t.assertEqual("png8", layer.imageFormat);
+              }
+            },
+            
+            {
+              name: "imageTransparency",
+              timeout: 50,
+              runTest: function(t) {
+                t.assertEqual("boolean", typeof layer.imageTransparency);
+                t.assertTrue(layer.imageTransparency);
+              }
+            },
+            
+           
+            /**
+            {
+              name: "layerDefinitions",
+              timeout: 50,
+              runTest: function(t) {
+                //t.assertTrue(dojo.isArray(layer.layerDefinitions));
+				console.debug(dojo.isArray(layer.layerDefinitions));
+				console.debug(layer.layerDefinitions.length);
+                t.assertEqual(0, layer.layerDefinitions.length);
+				
+              }
+            }**/
+          ]
+        );
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+  </body>
+</html>

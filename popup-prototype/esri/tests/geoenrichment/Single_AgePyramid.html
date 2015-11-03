@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>Geoenrichment API</title>
+    
+    <style>
+        html, body, .app, .map
+        {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        #infographic
+        {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .ProgressBar
+        {
+            position: fixed;
+            left: 10px;
+            bottom: 10px;
+            width: 100px;
+            display: none;
+        }
+    </style>
+</head>
+<body class="claro">
+    <script src="inject.js"></script>
+    <script src="config.js"></script>
+
+    <script>
+        require([
+            "dijit/ProgressBar",
+            "esri/map",
+            "esri/layers/FeatureLayer",
+            "esri/renderers/SimpleRenderer",
+            "esri/symbols/SimpleFillSymbol",
+            "esri/Graphic",
+            "esri/widgets/geoenrichment/Infographic",
+            "esri/tasks/geoenrichment/GeometryStudyArea",
+            "esri/IdentityManager",
+            "dojo/domReady!"
+        ], function (
+            ProgressBar,
+            Map,
+            FeatureLayer,
+            SimpleRenderer,
+            SimpleFillSymbol,
+            Graphic,
+            Infographic,
+            GeometryStudyArea,
+            config,
+            id
+            ) {
+
+            var map = new Map("map", {
+                basemap: "streets",
+                center: [-98.215, 38.382],
+                zoom: 7,
+                sliderStyle: "small"
+            });
+            var layer = new FeatureLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer/3");
+            layer.setRenderer(new SimpleRenderer(new SimpleFillSymbol()));
+            map.addLayer(layer);
+
+            var progressBar = new ProgressBar({
+                "class": "ProgressBar",
+                indeterminate: true
+            });
+            progressBar.placeAt(document.body);
+
+            var graphic;
+            var infographic;
+            map.on("click", function (e) {
+                if (!e.graphic) {
+                    return;
+                }
+                var geom = e.graphic.geometry;
+                if (!graphic) {
+                    var symbol = new SimpleFillSymbol();
+                    symbol.outline.width = 4;
+                    graphic = new Graphic(geom, symbol);
+                    map.graphics.add(graphic);
+                } else {
+                    graphic.setGeometry(geom);
+                }
+
+                if (!infographic) {
+                    infographic = new Infographic({
+                        type: "AgePyramid",
+                        variables: ["Age.*"],
+                        title: "Age Pyramid",
+                        onDataRequest: function () {
+                            progressBar.domNode.style.display = "block";
+                        },
+                        onDataLoad: function () {
+                            progressBar.domNode.style.display = "none";
+                        }
+                    }, "infographic");
+                    infographic.startup();
+                }
+                infographic.set("studyArea", new GeometryStudyArea({ geometry: geom }));
+            });
+
+        });
+    </script>
+    <div id="map"></div>
+    <div id="infographic"></div>
+</body>
+</html>

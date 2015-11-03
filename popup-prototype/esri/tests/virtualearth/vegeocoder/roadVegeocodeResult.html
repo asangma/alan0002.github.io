@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>onLoad</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+
+    <script type="text/javascript">
+      dojo.require("esri.map");
+	  dojo.require("esri.virtualearth.VETiledLayer");
+      dojo.require("doh.runner");
+	  
+	  var map,veGeocoder;
+	  
+      function init() {
+        
+        map = new esri.Map("map");
+       
+        //Creates the Virtual Earth layer to add to the map
+        veTileLayer = new esri.virtualearth.VETiledLayer({
+          bingMapsKey:'AmYgFHxR1J5GOgv_0a0eVtcWabmvg1R1WHueiUH7w3f7DAWJlv1ChftrlVPzssLI',
+          mapStyle: esri.virtualearth.VETiledLayer.MAP_STYLE_ROAD
+        });
+		 //Create geocoder
+        veGeocoder = new esri.virtualearth.VEGeocoder({
+          bingMapsKey:'AmYgFHxR1J5GOgv_0a0eVtcWabmvg1R1WHueiUH7w3f7DAWJlv1ChftrlVPzssLI'
+        });
+
+        dojo.connect(map, "onLayerAdd", runTests);
+        map.addLayer(veTileLayer);
+
+         
+        
+      }
+
+      function runTests(t) {
+        doh.registerGroup("virtualearth.vegeocoder.roadVEGeocoder", [
+          {
+            name: "geocodeResult",
+            timeout: 3000,
+            runTest: function(t) {
+			  var d = new doh.Deferred();
+			    function showResult(geocodeResults){
+					var result = geocodeResults[0];
+					t.assertEqual("380 New York St",result.address.addressLine);
+					t.assertEqual("extent",result.bestView.type);
+					t.assertEqual("Parcel",result.calculationMethod)
+					t.assertEqual("high",result.confidence);
+					t.assertEqual("380 New York St, Redlands, CA 92373-8118",result.displayName);
+					
+					t.assertEqual("Address",result.entityType);
+					t.assertEqual("point",result.location.type);
+					
+					t.assertEqual("Good",result.matchCodes);
+					
+					
+				}
+				dojo.connect(veGeocoder, "onAddressToLocationsComplete", showResult)
+              	var query = "380 New York St, Redlands, CA, 92373";
+        		veGeocoder.addressToLocations(query);
+			
+				d.callback(true);
+              return d;
+            }
+          }
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+    <div id="map" style="width:1024px; height:512px; border:1px solid #000;"></div>
+  </body>
+</html>

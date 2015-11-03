@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Featurester - ClassBreaks</title>
+
+  <!-- 
+  <link href="http://jsdev.arcgis.com/4.0alphaamd/js/esri/css/esri.css" rel="stylesheet" type="text/css">
+  -->
+  <link href="../../esri/css/view.css" rel="stylesheet" type="text/css">
+
+  <style>
+  html, body {
+    margin:0;
+    padding:0;
+    height: 100%;
+  }
+  body {
+    font-family: source-sans-pro, sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+  body.dark {
+    color: #F0F1F1;
+    background: #4A4D4E;
+  }
+  #map {
+    width: 100%;
+    height: 100%;
+  }
+  .panel {
+    z-index: 1;
+    position: fixed;
+    background: -webkit-linear-gradient(#555555, #000000);
+    background: -moz-linear-gradient(#555555, #000000);
+    opacity: 0.8;
+    padding: 5px;
+  }
+  .panel > .title {
+    position: relative;
+    float: left;
+    left: 10px;
+    top: 6px;
+  }
+  .panel > .right {
+    position: relative;
+    float: right;
+    right: 10px;
+    top: 6px;
+  }
+  .panel a {
+    color: #FF6622;
+  }
+  </style>
+
+
+ <script src="./jsapi.js"></script>
+  <script src="../../dojo/dojo.js"></script>
+
+  <script type="text/javascript">
+  var map, view, featureLayer, renderer;
+
+  jsAPI.setup([
+      "dojo/_base/lang",
+      "esri/kernel",
+      "esri/config",
+      "esri/Map",
+      "esri/views/SceneView",
+
+      "esri/layers/ArcGISTiledLayer",
+      "esri/layers/FeatureLayer",
+      "esri/renderers/ClassBreaksRenderer",
+      "esri/symbols/PointSymbol3D",
+      "esri/symbols/ObjectSymbol3DLayer"
+    ], function(
+      lang, esriNS, esriConfig, Map,  SceneView,
+      ArcGISTiledLayer, FeatureLayer, ClassBreaksRenderer, PointSymbol3D, ObjectSymbol3DLayer
+    ) {
+      // setup the map
+      map = new Map({
+        basemap: "gray"
+      });
+
+      view = new SceneView({
+        map: map,
+        container: "map"
+      });
+
+      var url = "http://tmservices1.esri.com/arcgis/rest/services/LiveFeeds/Earthquakes/MapServer/0";
+
+      var primitive = "cube"; // cylinder
+
+      var symbol1 = new PointSymbol3D({
+        symbolLayers: [new ObjectSymbol3DLayer({
+          resource: {
+            primitive: primitive
+          },
+          material: {
+            color: [0, 169, 230] // blue
+          },
+          elevationOffset: 100000,
+          height: 200000,
+          width: 50000
+        })]
+      });
+      var symbol2 = new PointSymbol3D({
+        symbolLayers: [new ObjectSymbol3DLayer({
+          resource: {
+            primitive: primitive
+          },
+          material: {
+            color: [0, 230, 0] // green
+          },
+          elevationOffset: 200000,
+          height: 400000,
+          width: 70000
+        })]
+      });
+      var symbol3 = new PointSymbol3D({
+        symbolLayers: [new ObjectSymbol3DLayer({
+          resource: {
+            primitive: primitive
+          },
+          material: {
+            color: [230, 230, 0] // yelow
+          },
+          elevationOffset: 400000,
+          height: 800000,
+          width: 90000
+        })]
+      });
+      var symbol4 = new PointSymbol3D({
+        symbolLayers: [new ObjectSymbol3DLayer({
+          resource: {
+            primitive: primitive
+          },
+          material: {
+            color: [230, 152, 0] // orange
+          },
+          elevationOffset: 800000,
+          height: 1600000,
+          width: 110000
+        })]
+      });
+      var symbol5 = new PointSymbol3D({
+        symbolLayers: [new ObjectSymbol3DLayer({
+          resource: {
+            primitive: primitive
+          },
+          material: {
+            color: [230, 0, 0] // red
+          },
+          elevationOffset: 1600000,
+          height: 3200000,
+          width: 130000
+        })]
+      });
+
+
+      renderer = new ClassBreaksRenderer(null, "MAGNITUDE");
+      renderer.addBreak({
+        minValue: 0,
+        maxValue: 2,
+        symbol: symbol1
+      });
+      renderer.addBreak({
+        minValue: 2,
+        maxValue: 4.01,
+        symbol: symbol2
+      });
+      renderer.addBreak({
+        minValue: 4.01,
+        maxValue: 5,
+        symbol: symbol3
+      });
+      renderer.addBreak({
+        minValue: 5,
+        maxValue: 6,
+        symbol: symbol4
+      });
+      renderer.addBreak({
+        minValue: 6,
+        maxValue: 99,
+        symbol: symbol5
+      });
+      renderer.defaultSymbol = symbol1;
+
+      featureLayer = new FeatureLayer(url, {
+        mode: FeatureLayer.MODE_SNAPSHOT
+      });
+
+      map.add(featureLayer);
+
+      window.applyRenderer = function applyRenderer() {
+        featureLayer.set("renderer", renderer);
+      };
+    });
+  </script>
+</head>
+
+<body class="dark">
+  <div id="map"></div>
+  <div class="panel" style="position:fixed; width:100%; height:35px; top:0px;">
+    <span class="title">Featurester - ClassBreaks</span>
+    <div class="right">
+      <button onclick="javascript:applyRenderer()">Apply 3D Symbology</button>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>I3Sser</title>
+
+    <link href="../../esri/css/view.css" rel="stylesheet" type="text/css">
+
+    <script src="./jsapi.js"></script>
+    <script src="../../dojo/dojo.js"></script>
+
+    <script>
+      var map, view;
+
+      jsAPI.setup([
+        "dojo/dom",
+        "esri/Map"
+      ], function(dom, Map) {
+        var tiledLayers = {
+          "Topo":      "http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer",
+          "Satellite": "http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+          "Street":    "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer",
+          "Oceans":    "http://services.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer",
+          "Gray":      "http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer"
+        };
+
+        var extents = {
+          "sanfrancisco":    {"xmin":-13642384.327822307,"ymin":4541704.0524831535,"xmax":-13619758.967449924,"ymax":4553303.371525413,"spatialReference":{"wkid":102100}},
+          "allenfieldhouse": {"xmin":-10603861.177707408,"ymin":4714986.293707896,"xmax":-10603154.135195673,"ymax":4715269.946742587,"spatialReference":{"wkid":102100}},
+          "technopark":      {"xmin":947695.5377291957,"ymin":6005684.184757532,"xmax":948402.5802409305,"ymax":6006046.663477653,"spatialReference":{"wkid":102100}}
+        };
+
+        window.createMap = function createMap(viewClassName) {
+          if (map) {
+            map.destroy();
+            map = null;
+          }
+
+          require([
+            "esri/views/" + viewClassName,
+            "esri/layers/SceneLayer"
+          ],
+          function(
+            ViewClass, SceneLayer
+          ) {
+            map = new Map({
+              basemap: "topo"
+            });
+
+            view = new ViewClass({
+              container: "mapDiv",
+              map: map
+            });
+
+            map.add(new SceneLayer("http://zrh-joe.esri.com/scenes/sf_114/"));
+
+            view.on("layer-view-add", function(data) {
+              if (data.layerView.declaredClass === "esri.layers.views.canvas3d.Canvas3DSceneServiceLayerView") {
+                data.layerView.watch("updating", function(foo, old, v) {
+                  dom.byId("loadingIndicator").style["background-color"] = v ? "red" : "green";
+                });
+              }
+            });
+          });
+        };
+
+        window.addLayer = function addLayer(id) {
+          require(["esri/layers/ArcGISTiledLayer"], function(ArcGISTiledLayer) {
+            var layer = new ArcGISTiledLayer(tiledLayers[id], { id: id });
+            map.add(layer);
+          });
+        };
+
+        window.removeLayer = function removeLayer(id) {
+          map.remove(map.getLayer(id));
+        };
+
+        window.setExtent = function setExtent(name) {
+          require(["esri/geometry/Extent"], function(Extent) {
+            view.set("extent", new Extent(extents[name]));
+          });
+        };
+      });
+    </script>
+  </head>
+
+  <body>
+    <p>
+      Create Map:
+      <input type="button" value="2D" onclick="createMap('MapView');" />
+      <input type="button" value="3D" onclick="createMap('SceneView');" />
+      <br/>
+
+      Add Tiled Layer:
+      <input type="button" value="Topo" onclick="addLayer('Topo');" />
+      <input type="button" value="Satellite" onclick="addLayer('Satellite');" />
+      <input type="button" value="Street" onclick="addLayer('Street');" />
+      <input type="button" value="Oceans" onclick="addLayer('Oceans');" />
+      <input type="button" value="Gray" onclick="addLayer('Gray');" />
+      <br/>
+
+      Remove Tiled Layer:
+      <input type="button" value="Topo" onclick="removeLayer('Topo');" />
+      <input type="button" value="Satellite" onclick="removeLayer('Satellite');" />
+      <input type="button" value="Street" onclick="removeLayer('Street');" />
+      <input type="button" value="Oceans" onclick="removeLayer('Oceans');" />
+      <input type="button" value="Gray" onclick="removeLayer('Gray');" />
+      <br/>
+
+      Set Extent:
+      <input type="button" value="San Francisco" onclick="setExtent('sanfrancisco');" />
+      <input type="button" value="Allen Fieldhouse" onclick="setExtent('allenfieldhouse');" />
+      <input type="button" value="Technopark" onclick="setExtent('technopark');" />
+    </p>
+
+    <div id="mapDiv" style="width: 800px; height: 600px; border: 1px solid #000; position:relative">
+      <div id="loadingIndicator" style="position: absolute; top: 5px; right: 5px; width: 20px; height: 20px; z-index: 10; background-color: grey; opacity: 0.5"></div>
+    </div>
+
+  </body>
+</html>

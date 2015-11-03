@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>ArcGISDynamicMapServiceLayer methods/events</title>
+        <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+        <script>
+            dojoConfig = {
+                isDebug: true
+            };
+        </script>
+        <script type="text/javascript" src="../../../../../index.jsp">
+        </script>
+        <script type="text/javascript">
+            dojo.require("esri.layers.agsimageservice");
+            dojo.require("doh.runner");
+            
+			var imageServiceLayer;
+            function init(){
+                imageServiceLayer = new esri.layers.ArcGISImageServiceLayer("http://servery/ArcGIS/rest/services/World/Temperature/ImageServer");
+                if (imageServiceLayer.loaded) {
+                    runTests(imageServiceLayer);
+                }
+                else {
+                    dojo.connect(imageServiceLayer, "onLoad", runTests);
+                }
+            }
+            
+            function runTests(imageServiceLayer){
+				
+                doh.registerGroup("layers.agsimage.onMapExportImage", [{
+                    name: "onExportMapImage",
+                    timeout: 3000,
+                    runTest: function(t){
+                        var d = new doh.Deferred();
+                                                      
+                        var params = new esri.layers.ImageServiceParameters();
+                        params.bandIds=[0];
+                        params.compressionQuality = 10;
+                        params.extent = new esri.geometry.Extent({
+                            "xmin": -100,
+                            "ymin": 55.8984375,
+                            "xmax": 100,
+                            "ymax": 60,
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        params.format = "jpg";
+                        params.height = 200;
+                        params.noData = 10;
+						
+                        var mr = new esri.layers.MosaicRule();
+                        mr.method = esri.layers.MosaicRule.METHOD_LOCKRASTER;
+                        mr.lockRasterIds = [32, 454, 14];
+                        params.mosaicRule = mr;
+						
+						var rasterFunction = new esri.layers.RasterFunction();
+                        rasterFunction.functionName = "Hillshade";
+                        
+                        rasterFunction.arguments = {
+                            "Azimuth": 215.0,
+                            "Altitude": 75.0,
+                            "ZFactor": 0.3
+                        };
+                        rasterFunction.variableName = "DEM";
+                        params.renderingRule = rasterFunction;
+                                  
+						params.width = 400;
+						
+                         function assertMapImage(mapImage){
+						 	console.log(mapImage);
+							var href = mapImage.href;
+						 	
+							if(href.substr(href.length-3,3) === "jpg"){
+								t.assertTrue(true);
+							};
+							t.assertEqual(200,mapImage.height);
+							t.assertEqual(400,mapImage.width);
+							t.assertEqual(0,mapImage.scale);
+							/**
+							t.assertEqual(-100,mapImage.extent.xmin);
+							t.assertEqual(55.8984375,mapImage.extent.ymin);
+							t.assertEqual(100,mapImage.extent.xmax);
+							t.assertEqual(60,mapImage.extent.ymax);
+							**/
+                            d.callback(true);
+                        }
+						 dojo.connect(imageServiceLayer,"onMapImageExport",assertMapImage);
+                         imageServiceLayer.exportMapImage(params);
+						 
+                        return d;
+                        
+                    }
+                }, ]);
+                doh.run();
+            }
+            
+            dojo.addOnLoad(init);
+        </script>
+    </head>
+    <body class="tundra">
+    </body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>LayerInfo</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.layers.KMLLayer");
+      dojo.require("doh.runner");
+      
+      function init() {
+        var kmlUrl = "http://www.phillywatersheds.org/kml/virtual_tours/Pennypack_vt_nl.kml";
+
+        var kmlLayer = new esri.layers.KMLLayer(kmlUrl);
+        if (kmlLayer.loaded) {
+          runTests(kmlLayer);
+        }
+        else {
+          dojo.connect(kmlLayer, "onLoad", runTests);
+        }
+      }
+      
+      function runTests(kmlLayer) {
+        doh.registerGroup("kml.networklink_nofolder", [
+          {
+            name: "featureInfos",
+            timeout: 100,
+            runTest: function() {
+                var featureInfos = kmlLayer.featureInfos;
+                doh.assertEqual(featureInfos[0].id,1);
+                doh.assertEqual(featureInfos[0].type,"NetworkLink");
+
+
+            }
+
+          } ,
+          {
+            name: "linkInfo",
+            timeout: 100,
+            runTest: function() {
+                var layers = kmlLayer.getLayers();
+                var layer = layers[0];
+                var linkInfo = layer.linkInfo;
+
+                doh.assertEqual(linkInfo.id, 1);
+                doh.assertEqual(linkInfo.name,"Pennypack Tour Network Link");
+                doh.assertEqual(linkInfo.description,"PWD Office of Watersheds Pennypack Creek Watershed Virtual Tour Network Link");
+                doh.assertEqual(linkInfo.snippet,null);
+                doh.assertEqual(linkInfo.visibility,1);
+                doh.assertEqual(linkInfo.refreshMode,"onChange");
+                doh.assertEqual(linkInfo.refreshInterval,4);
+                doh.assertEqual(linkInfo.viewRefreshTime,4);
+                doh.assertEqual(linkInfo.viewBoundScale,1);
+                doh.assertEqual(linkInfo.viewFormat,null);
+                doh.assertEqual(linkInfo.httpQuery,null);
+
+            }
+
+           }
+        ]
+
+        );
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Set Get definitionExpression</title>
+        <link rel="stylesheet" type="text/css" href="../../../../../dojo/dijit/themes/tundra/tundra.css">
+        <script>
+            dojoConfig = {
+                isDebug: true
+            };
+        </script>
+        <script type="text/javascript" src="../../../../../../index.jsp">
+        </script>
+        <script type="text/javascript">
+            dojo.require("esri.layers.FeatureLayer");
+            dojo.require("doh.runner");
+            
+            var featureLayer;
+            function init(){
+                var startExtent = new esri.geometry.Extent({
+                    "xmin": 484029.843488268,
+                    "ymin": 1017874.04720419,
+                    "xmax": 488026.775670017,
+                    "ymax": 1021174.64063444,
+                    "spatialReference": {
+                        "wkid": 21898
+                    }
+                });
+                //create map
+                var map = new esri.Map("mapDiv", {
+                    extent: startExtent
+                });
+                var layer = new esri.layers.ArcGISDynamicMapServiceLayer("http://servery/arcgis/rest/services/FeatureServiceServices/LotesFincas_Aerial/MapServer");
+                map.addLayer(layer);
+                
+                featureLayer = new esri.layers.FeatureLayer("http://servery/ArcGIS/rest/services/FeatureServiceServices/LotesFincas/FeatureServer/1", {
+                    mode: esri.layers.FeatureLayer.MODE_SNAPSHOT,
+                    outFields: ["*"],
+                    id: "useColombiaLayer"
+                });
+				featureLayer.setDefinitionExpression("Shape.area>80000");
+                dojo.connect(featureLayer, "onUpdateEnd", runTests);
+                map.addLayer(featureLayer);
+                
+            }
+            
+            function runTests(){
+                doh.registerGroup("layers.featurefserver.snapshot.set_getDefinitionExpression", [{
+                    name: "set_getDefinitionExpression",
+                    timeout: 50,
+                    runTest: function(t){
+console.log(featureLayer.getDefinitionExpression());
+                       t.assertEqual("Shape.area>80000", featureLayer.getDefinitionExpression());
+                    }
+                }, {
+                    name: "isEditable",
+                    timeout: 50,
+                    runTest: function(t){
+                        t.assertTrue(featureLayer.isEditable());
+                    }
+                }, ]);
+                doh.run();
+            }
+            
+            dojo.addOnLoad(init);
+        </script>
+    </head>
+    <body class="tundra">
+        <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;">
+        </div>
+    </body>
+</html>

@@ -1,0 +1,5 @@
+define([
+  "./UI",
+  "./DefaultUI",
+  "./Component"
+]);

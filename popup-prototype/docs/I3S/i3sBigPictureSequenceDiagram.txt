@@ -1,0 +1,62 @@
+
+note leftof I3SOnDemandController
+    startNodeLoading
+    after camera move
+end note
+
+I3SOnDemandController->I3SOnDemandController: initViewData
+
+
+I3SOnDemandController->I3SIndexTraversal: new (url, viewData, traversalOptions)
+
+I3SOnDemandController->I3SLodHandling: startNodeLoading (layerViewCallbacks, lodOptions)
+
+I3SOnDemandController->I3SNodeLoader: new (url, textureLoadOptions, bypassFeaturedata)
+
+
+
+I3SOnDemandController->I3SIndexTraversal: start
+
+I3SIndexTraversal->I3SIndexTraversal: queue-based node traversal
+
+
+note leftof I3SOnDemandController
+    data loading
+end note
+
+
+I3SIndexTraversal->I3SOnDemandController: processNodeIndexDocument
+
+
+I3SOnDemandController->LayerView:areAllBundlesLoaded
+
+
+I3SOnDemandController->I3SLodHandling: shouldLoadNode
+
+I3SOnDemandController->I3SLodHandling: lodSwapBuildInfo (find features or nodes to remove)
+
+
+
+I3SOnDemandController->I3SNodeLoader: loadNodeData
+
+I3SNodeLoader->I3SNodeLoader: load shared
+I3SNodeLoader->I3SNodeLoader: load features. MP: build default
+I3SNodeLoader->I3SNodeLoader: load geometry buffer
+I3SNodeLoader->I3SNodeLoader: MP: get features from buffer
+
+I3SNodeLoader->I3SOnDemandController: bundleLoaded(allGeometryData)
+
+I3SOnDemandController->I3SLodHandling: bundleLoaded(lodSwapBuildInfo, allGeometryData)
+I3SLodHandling->LayerView: removeNodeData
+I3SOnDemandController->LayerView: addBundle(allGeometryData, bundleNr)
+
+
+note leftof I3SOnDemandController
+    cancel node loading
+end note
+
+
+I3SOnDemandController->I3SIndexTraversal: cancel
+I3SOnDemandController->I3SNodeLoader: cancel
+I3SOnDemandController->I3SLodHandling: cancel
+I3SOnDemandController->I3SOnDemandController: streamDataSupplier cancel

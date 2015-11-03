@@ -1,0 +1,30 @@
+note left of SceneLayer: new SceneLayer()
+
+SceneLayer->SceneLayer: init companion feature layer
+
+note left of SceneLayerViewFactory
+ LayerViewFactory
+  -Layer.createLayerView
+   --new SceneLayerViewFactory()
+end note
+
+SceneLayerViewFactory->SceneLayerViewFactory: get layerInfo
+
+
+
+alt layerInfo.profile==meshpyramids or features-meshes
+    SceneLayerViewFactory->SceneLayerView:new
+SceneLayerView->SceneLayer:createGraphicsController
+else layerInfo.profile==point, line or polygon
+SceneLayerViewFactory->SceneGraphicsLayerView:new
+SceneLayerView->SceneLayer:createGraphicsController
+end
+
+SceneLayer->I3SOnDemandController:new I3SOnDemandController(layer, layerView), calls initialize
+
+I3SOnDemandController->I3SOnDemandController: resourceController.registerClient
+
+
+I3SOnDemandController->I3SOnDemandController: registerIdleFrameWorker
+
+I3SOnDemandController->I3SOnDemandController: idleBegin (== startNodeLoading)

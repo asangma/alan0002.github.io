@@ -1,0 +1,55 @@
+{
+  "compilerOptions": {
+    "module": "amd",
+    "noEmitHelpers": true,
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "experimentalDecorators": true,
+    "inlineSourceMap": false,
+    "target": "es5"
+  },
+  "files": [
+    "esri/Basemap.ts",
+    "esri/WebScene.ts",
+
+    "esri/config.ts",
+
+    "esri/core/Error.ts",
+    "esri/core/errors.ts",
+    "esri/core/promiseUtils.ts",
+    "esri/core/requireUtils.ts",
+    "esri/core/accessorSupport/typescript.d.ts",
+
+    "esri/renderers/support/layerTemplates.ts",
+
+    "esri/portal/jsonTypes.d.ts",
+    "esri/portal/Portal.ts",
+    "esri/portal/PortalGroup.ts",
+    "esri/portal/PortalItem.ts",
+    "esri/portal/PortalQueryParams.ts",
+    "esri/portal/PortalQueryResult.ts",
+    "esri/portal/creators/FeatureLayerCreator.ts",
+    "esri/portal/creators/GroupLayerCreator.ts",
+    "esri/portal/creators/LayerCreator.ts",
+    "esri/portal/creators/MapServiceLayerCreator.ts",
+    "esri/portal/creators/OpenStreetMapCreator.ts",
+    "esri/portal/creators/SceneServiceLayerCreator.ts",
+    "esri/portal/creators/TiledElevationServiceLayerCreator.ts",
+    "esri/portal/creators/TiledImageServiceLayerCreator.ts",
+    "esri/portal/creators/TiledMapServiceLayerCreator.ts",
+    "esri/portal/creators/TiledServiceLayerCreator.ts",
+    "esri/portal/creators/VectorTiledLayerCreator.ts",
+    "esri/portal/creators/WebTiledLayerCreator.ts",
+    "esri/portal/creators/interfaces.d.ts",
+    "esri/portal/creators/layersCreator.ts",
+
+    "esri/webscene/Environment.ts",
+    "esri/webscene/InitialState.ts",
+    "esri/webscene/Lighting.ts",
+    "esri/webscene/Presentation.ts",
+    "esri/webscene/Slide.ts",
+
+    "typings/tsd.d.ts"
+  ]
+}

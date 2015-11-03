@@ -1,0 +1,331 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Raster Layer with Pixel Filter</title>
+
+    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/esri/css/esri.css">
+    <style>
+      @import url(http://js.arcgis.com/3.10/js/dojo/dojox/form/resources/RangeSlider.css);
+      
+      #info {
+        top: 20px;
+        color: #444;
+        height: auto;
+        font-family: arial;
+        right: 20px;
+        margin: 5px;
+        padding: 10px;
+        position: absolute;
+        width: 115px;
+        z-index: 40;
+        border: solid 2px #666;
+        border-radius: 4px;
+        background-color: #fff;
+      }
+      
+      button {
+        display: block;
+      } 
+      
+      html, body
+      {
+        width: 98%;
+        height: 98%;
+        margin: 0 1%;
+        padding: 10px 0 0 0;
+      }
+
+      #map
+      {
+        border: solid 1px #888;
+        padding: 0;
+      }
+
+      #status
+      {
+        background-color: #000;
+        color: #FFF;
+        border: solid 1px #FFF;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        padding: 3px;
+      }
+
+      .shadow
+      {
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        border-radius: 6px;
+        -moz-box-shadow: 0 6px 3px -3px #bdbdbd;
+        -webkit-box-shadow: 0 6px 3px -3px #bdbdbd;
+        box-shadow: 0 6px 3px -3px #bdbdbd;
+        background-color: #FFF;
+        padding: 8px;
+      }
+
+      #footer
+      {
+        height: 80px;
+        padding: 10px;
+      }
+    </style>
+
+     <script type="text/javascript">
+       var dojoConfig = {
+         parseOnLoad: true,
+         isDebug: true,
+         packages: [
+             {
+               name: "esri",
+               location: "../esri"
+             }
+         ]
+       };
+    </script>   
+    <script type="text/javascript" src="../../../../dojo/dojo.js"></script>      
+    <script>
+      var map, isRasterLayer, tb;
+      var sliderMin, sliderMax, currentMin, currentMax;
+      var canvasSupport;
+
+      require([
+        "esri/map",
+        "esri/domUtils", "esri/request",
+        "dojo/parser", "dojo/number", "dojo/dom", "dojo/io-query", "dojo/_base/url", "dojo/has", "dojo/on",
+        "dijit/registry", "esri/layers/RasterLayer", 'esri/geometry/Extent', 'esri/SpatialReference', "../../../tasks/support/Query",
+        "dojo/_base/array", "esri/Color", "esri/InfoTemplate",
+        "esri/toolbars/draw", "esri/Graphic", "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol",
+        "dijit/layout/BorderContainer", "dijit/layout/ContentPane",
+        "dijit/form/HorizontalSlider", "dojox/form/RangeSlider", "dijit/form/HorizontalRule", "dijit/form/HorizontalRuleLabels", "dojo/domReady!"
+      ], function (
+        Map, 
+        domUtils, esriRequest,
+        parser, number, dom, ioQuery, Url, has, on,
+        registry, RasterLayer, Extent, SpatialReference, Query,
+        array, Color, InfoTemplate,
+        Draw, Graphic, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol,
+        BorderContainer, ContentPane, HorizontalSlider, RangeSlider, HorizontalRule, HorizontalRuleLabels
+      ) {
+        parser.parse();
+       
+        canvasSupport = supports_canvas();
+
+        function getParameter(name) {
+          name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+          var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+              results = regex.exec(location.search);
+          return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+               
+        var isUrl = getParameter("isUrl") ? getParameter("isUrl") : "http://wju:6080/arcgis/rest/services/demo/MODIS_EVI/ImageServer";
+        sliderMin = getParameter("sliderMin") ? parseFloat(getParameter("sliderMin")) : "null";
+        sliderMax = getParameter("sliderMax") ? parseFloat(getParameter("sliderMax")) : "null";
+        
+        var markerSymbol = new SimpleMarkerSymbol();
+        markerSymbol.setPath("M16,4.938c-7.732,0-14,4.701-14,10.5c0,1.981,0.741,3.833,2.016,5.414L2,25.272l5.613-1.44c2.339,1.316,5.237,2.106,8.387,2.106c7.732,0,14-4.701,14-10.5S23.732,4.938,16,4.938zM16.868,21.375h-1.969v-1.889h1.969V21.375zM16.772,18.094h-1.777l-0.176-8.083h2.113L16.772,18.094z");
+        markerSymbol.setColor(new Color("#00FFFF")); 
+        
+        // hook up slider events
+        var slider = registry.byId("pixelSlider");
+        slider.on("mouseup", setPixelFilter);
+        slider.on("change", setPixelFilter);
+
+        var corsEnabledServers, imageServiceAuthority, onceDone;
+        imageServiceAuthority = new Url(isUrl).authority;
+        corsEnabledServers = esriConfig.request.corsEnabledServers;
+        if (!corsEnabledServers.some(function (x) {
+          return x === imageServiceAuthority;
+        })) {
+          corsEnabledServers.push(imageServiceAuthority);
+        }
+        
+        var initExtent = new Extent(-18354670.728057902, -7005300.768277975, 17689362.833863948, 10155729.326078953, SpatialReference.WebMercator);
+        map = new Map("map", {
+          extent: initExtent,
+          basemap: "topo"
+        });
+
+        map.on("update-start", function () {
+          domUtils.show(dom.byId("status"));
+        });
+        map.on("update-end", function () {
+          domUtils.hide(dom.byId("status"));
+        });
+
+        map.on("load", mapLoaded);
+        initToolbar();
+        
+        function mapLoaded() {
+          // Add layer
+          if (canvasSupport) {
+            isRasterLayer = new RasterLayer(isUrl, {
+              opacity: 1,
+              pixelFilter: maskPixels
+            });
+          
+            var infoTemplate = new InfoTemplate();
+            infoTemplate.setTitle("Pixel Value: ${Raster.ServicePixelValue}");
+            var content = "<b>Product Name</b>: ${ProductName}" +
+              "<br><b>ItemPixelValue</b>: ${Raster.ItemPixelValue}" +
+              "<br><b>ServicePixelValue</b>: ${Raster.ServicePixelValue}" +
+              "<br><b>Standard Time</b>: ${StdTime:DateFormat}";        
+            infoTemplate.setContent(content);
+            isRasterLayer.setInfoTemplate(infoTemplate);          
+
+            map.addLayer(isRasterLayer);
+            isRasterLayer.on("Load", function () {
+              if (!sliderMax || sliderMax === "null") {
+                if (isRasterLayer.bands && isRasterLayer.bands[0] && isRasterLayer.bands[0].min) {
+                  sliderMin = isRasterLayer.bands[0].min;
+                  sliderMax = isRasterLayer.bands[0].max;
+                }
+                else {
+                  sliderMin = 0;
+                  sliderMax = 255;
+                }
+              }
+              if (sliderMax) {
+                registry.byId("pixelSlider").minimum = sliderMin;
+                registry.byId("pixelSlider").maximum = sliderMax;
+                registry.byId("pixelSlider").value = [sliderMin, sliderMax];
+
+                var sliderLabels = new dijit.form.HorizontalRuleLabels(
+                     {
+                       container: "bottomDecoration",
+                       labels: [sliderMin.toFixed(0).toString(), sliderMax.toFixed(0).toString()],
+                     }, dojo.create("div", {}, dojo.byId("pixelLabels")));
+                
+                sliderLabels.startup();
+              }
+            });
+
+            isRasterLayer.on("update-start", function () {
+              domUtils.show(dom.byId("status"));
+            });
+            isRasterLayer.on("update-end", function () {
+              domUtils.hide(dom.byId("status"));
+            });
+
+          } else {
+            alert("This browser doesn't support canvas. Visit <a target='_blank' href='http://www.caniuse.com/#search=canvas'>caniuse.com</a> for supported browsers");
+          }
+        }
+
+        // The pixel filter
+        function maskPixels(pixelData) {
+          if (pixelData == null || pixelData.pixelBlock == null)
+            return;
+          if (currentMin == undefined || currentMax == undefined)
+            return;
+          
+          var pixelBlock = pixelData.pixelBlock;
+          var pixels = pixelBlock.pixels;
+          var mask = pixelBlock.mask;
+          var numPixels = pixelBlock.width * pixelBlock.height;
+
+          if (pixels == null || mask == null)
+            return;
+
+          var p1 = p2 = p3 = pixels[0];
+          if (pixels.length >= 3) {
+            p2 = pixels[1];
+            p3 = pixels[2];
+          }
+          for (var i = 0; i < numPixels; i++) {
+            mask[i] = (p1[i] >= Math.floor(currentMin) && p1[i] <= Math.floor(currentMax)) ? 1 : 0;
+          }
+
+          return pixelData;
+        }
+
+        // Slider move
+        function setPixelFilter() {
+          var val = registry.byId("pixelSlider").get("value");
+          if (val)
+            dom.byId("pixelVal").innerHTML = "Currently displaying " + Math.floor(val[0]) + " to " + Math.floor(val[1]);
+          else
+            dom.byId("pixelVal").innerHTML = "Currently displaying all values in the AOI.";
+
+          currentMin = val[0];
+          currentMax = val[1];
+          isRasterLayer.redraw();
+        }
+
+        function initToolbar() {
+          tb = new Draw(map);
+          tb.on("draw-end", queryInfo);
+
+          var pointBtn = dom.byId("info");
+          on(dom.byId("info"), "click", function(evt) {
+            if ( evt.target.id === "info" ) {
+              return;
+            }           
+            var tool = evt.target.id.toLowerCase();
+            map.disableMapNavigation();
+            tb.activate(tool);
+          });
+        }
+        
+        function queryInfo(evt) {
+          tb.deactivate();
+          map.enableMapNavigation();
+          map.graphics.clear();
+          map.graphics.add(new Graphic(evt.geometry, markerSymbol));
+          var query = new Query();
+          query.geometry = evt.geometry;
+          query.outFields = ["*"];
+          query.returnGeometry = true;
+          isRasterLayer.queryVisibleRasters(query).then(
+            function (results) {
+              console.log("results", results);
+              array.forEach(results, function (graphic) {
+                console.log(graphic);
+                map.graphics.add(graphic.setSymbol(new SimpleFillSymbol().setOutline(new SimpleLineSymbol().setColor(new Color([0,255,255]))).setColor(new Color([0,0,0,0]))));
+              });
+            },
+            function (error) {
+              console.log("error", error);
+            }
+          );
+        }         
+
+        // does the browser support canvas? 
+        function supports_canvas() {
+          return true;
+          //return !!document.createElement("canvas").getContext;
+        }
+      });
+    </script>
+</head>
+
+<body class="claro">
+    <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline', gutters:false"
+        style="width: 100%; height: 100%; margin: 0;">
+        <div id="info">
+          <div>Click on Info to know more...</div>
+          <p></p>
+          <button id="Point">Info</button>
+        </div>        
+        <div id="map" class='shadow' data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"
+            style="height: 100%;">
+            <div id="status" style="position: absolute; right: 10px; bottom: 10px; z-index: 99;">
+                Loading...
+            </div>
+        </div>
+        <div id="footer" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'bottom'">
+            <span style='font-weight: 600;' id='elevSpan'>Filter by Pixel Values </span>
+            <div id='pixelVal'></div>
+            <div id="pixelSlider" data-dojo-type="dojox.form.HorizontalRangeSlider" data-dojo-props="showButtons:'false', intermediateChanges:'false', slideDuration:'0'" minimum:"0" value:"0,255" maximum:"255">
+                <div data-dojo-type="dijit/form/HorizontalRule" data-dojo-props='container:"bottomDecoration", count:2, style:{height:"5px"}'></div>
+                <div id="pixelLabels"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

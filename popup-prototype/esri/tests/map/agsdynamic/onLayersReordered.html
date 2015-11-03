@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>onLayersReordered</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+
+    <script type="text/javascript">
+      dojo.require("esri.map");
+      dojo.require("doh.runner");
+      
+      var layerLoad = 0;
+      var map;
+      
+      function init() {
+        map = new esri.Map("mapDiv");
+        dojo.connect(map, "onLayerAdd", initTests);
+
+        map.addLayer(new esri.layers.ArcGISDynamicMapServiceLayer("http://servery/ArcGIS/rest/services/Portland/PortlandMap/MapServer"));
+        map.addLayer(new esri.layers.ArcGISDynamicMapServiceLayer("http://servery/ArcGIS/rest/services/USA/states/MapServer"));
+      }
+      
+      function initTests() {
+        layerLoad++;
+        if (layerLoad === 2) {
+          //timer added since Portland map serive takes while to export
+          setTimeout(runTests, 5000);
+        }
+      }
+      
+      function runTests() {
+        doh.registerGroup("map.agsdynamic.onLayersReordered", [
+          {
+            name: "moveLayer0Up",
+            timeout: 3000,
+            runTest: function(t) {
+              var onLayersReorderedHandler;
+              var d = new doh.Deferred();
+
+              function assert(layerIds) {
+                dojo.disconnect(onLayersReorderedHandler);
+				console.log(layerIds[0]);
+				console.log(map.getLayer(layerIds[0])._layerIndex);
+
+				
+                t.assertEqual(2, layerIds.length);
+                t.assertEqual("layer1", layerIds[0]);
+                t.assertEqual(1, map.getLayer(layerIds[0])._layerIndex);
+                t.assertEqual("layer0", layerIds[1]);
+                t.assertEqual(0, map.getLayer(layerIds[1])._layerIndex);
+
+                
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onLayersReorderedHandler = dojo.connect(map, "onLayersReordered", assert);
+                map.reorderLayer("layer0", 1);
+              }, 1000);
+              return d;
+            }
+          },
+          
+          {
+            name: "moveLayer0Down",
+            timeout: 3000,
+            runTest: function(t) {
+              var onLayersReorderedHandler;
+              var d = new doh.Deferred();
+
+              function assert(layerIds) {
+                dojo.disconnect(onLayersReorderedHandler);
+                t.assertEqual(2, layerIds.length);
+                t.assertEqual("layer0", layerIds[0]);
+                t.assertEqual(0, map.getLayer(layerIds[0])._layerIndex);
+                t.assertEqual("layer1", layerIds[1]);
+                t.assertEqual(1, map.getLayer(layerIds[1])._layerIndex);
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onLayersReorderedHandler = dojo.connect(map, "onLayersReordered", assert);
+                map.reorderLayer("layer0", 0);
+              }, 1000);
+              return d;
+            }
+          }
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+    <div id="mapDiv" style="width:1024px; height:512px; border:1px solid #000;"></div>
+  </body>
+</html>

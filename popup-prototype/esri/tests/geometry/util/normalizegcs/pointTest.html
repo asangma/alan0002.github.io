@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Query Features</title>
+        <link rel="stylesheet" type="text/css" href="../../../../../dojo/dijit/themes/tundra/tundra.css">
+        <script>
+            dojoConfig = {
+                isDebug: true
+            };
+        </script>
+        <script type="text/javascript" src="../../../../../../index.jsp">
+        </script>
+        <script type="text/javascript">
+            dojo.require("esri.geometry");
+            dojo.require("esri.map");
+            dojo.require("doh.runner");
+            
+            
+                      
+            function init(){
+            
+                var map = new esri.Map("mapDiv");
+                dojo.connect(map, "onLoad", runTests);
+                var layer = new esri.layers.ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer");
+                map.addLayer(layer);
+                
+                
+            }
+            
+            function runTests(){
+            
+                doh.registerGroup("geometry.util.normalizegcs.pointTest", [{
+                    name: "plus180",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsPoint = new esri.geometry.Point({
+                            "x": 196.1718749999484,
+                            "y": -69.41124235696336,
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsPoint], null, function(normalizedGeo){
+                            var normalizedGcsPoint = normalizedGeo[0];
+                            t.assertEqual(normalizedGcsPoint.x, 196.1718749999484 - 360);
+                            
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                }, {
+                    name: "minus180",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsPoint = new esri.geometry.Point({
+                            "x": -196.1718749999484,
+                            "y": -69.41124235696336,
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsPoint], null, function(normalizedGeo){
+                            var normalizedGcsPoint = normalizedGeo[0];
+                            t.assertEqual(normalizedGcsPoint.x, -196.1718749999484 + 360);
+                            
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                }, {
+                    name: "plus540",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsPoint = new esri.geometry.Point({
+                            "x": 576.1718749999484,
+                            "y": -69.41124235696336,
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsPoint], null, function(normalizedGeo){
+                            var normalizedGcsPoint = normalizedGeo[0];
+                            t.assertEqual(normalizedGcsPoint.x, (576.1718749999484 - 360) - 360);
+                            
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                }, {
+                    name: "minus540",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsPoint = new esri.geometry.Point({
+                            "x": -576.1718749999484,
+                            "y": -69.41124235696336,
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsPoint], null, function(normalizedGeo){
+                            var normalizedGcsPoint = normalizedGeo[0];
+                            t.assertEqual(normalizedGcsPoint.x, (-576.1718749999484180 + 360) + 360);
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "withinPlus180",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsPoint = new esri.geometry.Point({
+                            "x": 136.1718749999484,
+                            "y": -69.41124235696336,
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsPoint], null, function(normalizedGeo){
+                            var normalizedGcsPoint = normalizedGeo[0];
+                            t.assertEqual(normalizedGcsPoint.x, gcsPoint.x);
+                            
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "withinMinus180",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsPoint = new esri.geometry.Point({
+                            "x": -136.1718749999484,
+                            "y": -69.41124235696336,
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsPoint], null, function(normalizedGeo){
+                            var normalizedGcsPoint = normalizedGeo[0];
+                            t.assertEqual(normalizedGcsPoint.x, gcsPoint.x);
+                            
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                }
+				
+				]);
+                
+                doh.run();
+            }
+            
+            dojo.addOnLoad(init);
+        </script>
+    </head>
+    <body class="tundra">
+        <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;">
+        </div>
+    </body>
+</html>

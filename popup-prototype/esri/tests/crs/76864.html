@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>GeometryService.project</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../index.jsp">
+      </script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.tasks.query");
+      dojo.require("esri.tasks.geometry");
+      dojo.require("doh.runner");
+      
+      function init() {
+        var queryTask = new esri.tasks.QueryTask("http://servery/ArcGIS/rest/services/Portland/PortlandMap/MapServer/8");
+        var query = new esri.tasks.Query();
+        query.where = "FID = 25";
+        query.returnGeometry = true;
+        queryTask.execute(query, runTests);
+      }
+      
+      function runTests(featureSet) {
+        var geometryService = new esri.tasks.GeometryService("http://servery/ArcGIS/rest/services/Geometry/GeometryServer");
+        var features = featureSet.features;
+        var projected4326;
+        
+        doh.registerGroup("crs.", [
+          {
+            name: "projectTo4326",
+            timeout: 3000,
+            runTest: function(t) {
+              var d = new doh.Deferred();
+              
+              function assert(graphics) {
+                projected4326 = graphics;				
+                t.assertEqual(features.length, graphics.length);
+				console.log(graphics[0].spatialReference.wkid);
+                for (var i=0, il=graphics.length; i<il; i++) {
+					t.assertEqual(4326, graphics[i].spatialReference.wkid);
+                }
+                d.callback(true);
+              }
+              
+              geometryService.project(esri.getGeometries(features), new esri.SpatialReference({ wkid:4326 }), assert);
+
+              return d;
+            }
+          }
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+  </body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ArcGIS JS 4.0 Bootstrap Responsive Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="ArcGIS JS 4.0 Bootstrap Responsive Test">
+  <!-- Fonts -->
+  <link type="text/css" rel="stylesheet" href="https://fast.fonts.net/cssapi/3706abc4-0756-424b-b07b-1748122f85d8.css">
+  <!-- Step 1. Add CSS for Bootstrap, ArcGIS -->
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <!--link rel="stylesheet" href="//cabon.esri.com/arcgis-js-api-4/esri/css/esri.css"-->
+  <link rel="stylesheet" href="../../../../esri/css/main.css">
+  <style>
+    html, body {
+      font-family: "Avenir LT W01 35 Light";
+    }
+    .container {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    #view2D, #view3D {
+      min-height: 100px;
+      /*         max-height: 400px; */
+      padding: 5px 0 5px;
+      margin: 5px 0 5px;
+    }
+    .esriZoom.esriVertical.esriComponent {
+      left: 5px;
+      top: 5px;
+    }
+    .title-back {
+      background-color: #eee;
+    }
+    .map-back {
+      background-color: #000;
+    }
+    .col-no-padding {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    h1 {
+      margin: 8px 0 5px;
+    }
+    h4 {
+      margin: 5px 0 10px;
+    }
+    .nav {
+      padding: 26px 0px 0px 10px;
+    }
+    .nav>li>a {
+      padding: 5px 10px 3px;
+    }
+    .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+      background-color: #BEBEBE;
+    }
+    @media (max-width: 768px) {
+      .container {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+      h1 {
+        font-size: 28px;
+      }
+      .nav {
+        padding: 8px 10px 0px 0px;
+      }
+      #view2D, #view3D {
+        padding: 0px 0 0;
+        margin: 0px 0 0;
+      }
+    }
+  </style>
+
+  <script>
+    var dojoConfig = {
+      async: true,
+      isDebug: true,
+      paths: {
+        esri: "../esri"
+      }
+    };
+  </script>
+
+  <!-- Step 2. Add JS lirbaries -->
+  <script type="text/javascript" src="../../../../dojo/dojo.js"></script>
+  <script>
+
+    require([
+        "esri/Map",
+        "esri/views/SceneView",
+        "esri/views/MapView",
+        "esri/layers/GroupLayer",
+        "esri/layers/FeatureLayer",
+        "esri/geometry/Extent",
+        "dojo/on",
+        "dojo/dom-style",
+        "dojo/dom",
+        "dojo/domReady!"
+      ],
+      function(
+        Map,
+        SceneView, MapView,
+        GroupLayer, FeatureLayer,
+        Extent,
+        on, style, dom
+      ) {
+        var map1 = new Map();
+
+        view2D = new MapView({
+          container: "view2D",
+          map: map1,
+          extent: new Extent({
+            xmin: -1.30758164047166E7,
+            ymin: 4014771.46954516,
+            xmax: -1.30730056797177E7,
+            ymax: 4016869.78617381,
+            spatialReference: 102100
+          })
+        });
+
+        var layer1 = new FeatureLayer({
+          url: "http://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/FeatureServer/0"
+        });
+        var layer2 = new FeatureLayer({
+          url: "http://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/FeatureServer/1"
+        });
+        var groupLayer = new GroupLayer({
+          layers: [layer1, layer2],
+          visibilityMode: "inherited"
+        });
+        map1.add(groupLayer);
+
+        map1.load().then(function () {
+          console.log("map1 loaded");
+        });
+
+      });
+  </script>
+  <!-- jQuery (for Bootstrap's JavaScript plugins). NOTE: You can also use pure Dojo. See examples. -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!-- Include all  plugins or individual files as needed -->
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+<!-- Step 3. Add HTML to define the layout of the map and page -->
+<div class="container">
+  <div class="row title-back">
+    <div class="col-xs-8">
+      <h1>ArcGIS JS 4.0 Beta2</h1>
+      <h4 class="hidden-xs">Responsive Resize Test with Bootstrap</h4>
+    </div>
+    <div class="col-xs-4">
+      <ul class="nav nav-pills pull-right">
+        <li class="active" role="presentation"><a href="#2D" data-toggle="tab">2D<span class="hidden-xs"> View</span></a></li>
+        <li role="presentation"><a href="#3D" data-toggle="tab">3D<span class="hidden-xs"> View</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="row body-back">
+    <div class="col-xs-12 col-no-padding">
+      <div class="tab-content">
+        <div class="tab-pane active" id="2D">
+          <div id="view2D"></div>
+        </div>
+        <div class="tab-pane" id="3D">
+          <div id="view3D"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

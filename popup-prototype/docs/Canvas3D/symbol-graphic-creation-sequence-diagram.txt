@@ -1,0 +1,16 @@
+title Canvas3D symbol/graphic creation in detail
+
+API->+Canvas3DSymbolSet: new Canvas3DSymbolSet(symbol)
+loop For each symbol layer
+Canvas3DSymbolSet->+Canvas3DSymbolBase: new Canvas3D*Symbol
+  Canvas3DSymbolBase->Canvas3D*Symbol: _prepareResources()
+  Canvas3D*Symbol->Web: fetch deferred resources (e.g. textures)
+  Canvas3DSymbolBase-->-Canvas3DSymbolSet: Canvas3D*Symbol\n(instanceof Deferred)
+end
+Canvas3DSymbolSet-->-API: Canvas3DSymbolSet\n(instanceof Deferred)
+Web-->Canvas3D*Symbol: deferred resources
+  note over Canvas3D*Symbol: create resources which are the same for\nall graphics using this symbol (e.g. Material)
+Canvas3D*Symbol->Canvas3D*Symbol: resolve()
+Canvas3DSymbolSet->+Canvas3DSymbolSet: all(Canvas3D*Symbol)
+Canvas3DSymbolSet->-Canvas3DSymbolSet: resolve()
+

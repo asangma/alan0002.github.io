@@ -1,0 +1,68 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: source-sans-pro, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+#mapLeft,
+#mapRight {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  opacity: 0.5;
+}
+
+#mapLeft {
+  left: 0px;
+}
+
+#mapRight {
+  left: 50%;
+}
+
+#mapLeft.active,
+#mapRight.active {
+  opacity: 1;
+}
+
+.grid {
+  position: absolute;
+  background-color: red;
+}
+
+.grid.vertical {
+  top: 0;
+  width: 1px;
+  height: 100%;
+  left: 50%;
+}
+
+.grid.horizontal {
+  left: 0;
+  height: 1px;
+  width: 100%;
+  top: 50%;
+}
+
+#controls {
+  padding: 12px;
+  margin: 12px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 1px solid #aaa;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  border-radius: 5px;
+}
+
+#syncRight {
+  float: right;
+}

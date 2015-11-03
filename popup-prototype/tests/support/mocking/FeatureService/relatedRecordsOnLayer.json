@@ -1,0 +1,227 @@
+{
+  "fields" : [
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeOID",
+      "alias" : "Object ID"
+    },
+    {
+      "name" : "FIELD_KID",
+      "type" : "esriFieldTypeString",
+      "alias" : "Field KID",
+      "length" : 25
+    },
+    {
+      "name" : "APPROXACRE",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Approximate Acre"
+    },
+    {
+      "name" : "FIELD_NAME",
+      "type" : "esriFieldTypeString",
+      "alias" : "Field Name",
+      "length" : 150
+    },
+    {
+      "name" : "STATUS",
+      "type" : "esriFieldTypeString",
+      "alias" : "Status",
+      "length" : 50
+    },
+    {
+      "name" : "PROD_GAS",
+      "type" : "esriFieldTypeString",
+      "alias" : "Production Gas",
+      "length" : 3
+    },
+    {
+      "name" : "PROD_OIL",
+      "type" : "esriFieldTypeString",
+      "alias" : "Production Oil",
+      "length" : 3
+    },
+    {
+      "name" : "ACTIVEPROD",
+      "type" : "esriFieldTypeString",
+      "alias" : "Active Production",
+      "length" : 10
+    },
+    {
+      "name" : "CUMM_OIL",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Cumulative Oil"
+    },
+    {
+      "name" : "MAXOILWELL",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Max Oil Well"
+    },
+    {
+      "name" : "LASTOILPRO",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Last Oil Production"
+    },
+    {
+      "name" : "LASTOILWEL",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Last Oil Well"
+    },
+    {
+      "name" : "LASTODATE",
+      "type" : "esriFieldTypeString",
+      "alias" : "Last Oil Date",
+      "length" : 50
+    },
+    {
+      "name" : "CUMM_GAS",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Cumulative Gas"
+    },
+    {
+      "name" : "MAXGASWELL",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Max Gas Well"
+    },
+    {
+      "name" : "LASTGASPRO",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Last Gas Production"
+    },
+    {
+      "name" : "LASTGASWEL",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Last Gas Well"
+    },
+    {
+      "name" : "LASTGDATE",
+      "type" : "esriFieldTypeString",
+      "alias" : "Last Gas Date",
+      "length" : 50
+    },
+    {
+      "name" : "AVGDEPTH",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Average Depth"
+    },
+    {
+      "name" : "AVGDEPTHSL",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Average Depth SL"
+    },
+    {
+      "name" : "POLYDATE",
+      "type" : "esriFieldTypeDate",
+      "alias" : "Poly Date",
+      "length" : 8
+    },
+    {
+      "name" : "FIELD_TYPE",
+      "type" : "esriFieldTypeString",
+      "alias" : "Field Type",
+      "length" : 5
+    },
+    {
+      "name" : "FIELD_KIDN",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Field KID"
+    }
+  ],
+  "relatedRecordGroups" : [
+    {
+      "objectId" : 1,
+      "relatedRecords" : [
+        {
+          "attributes" : {
+            "OBJECTID" : 5540,
+            "FIELD_KID" : "1000147595",
+            "APPROXACRE" : 95929,
+            "FIELD_NAME" : "LOST SPRINGS",
+            "STATUS" : "Active",
+            "PROD_GAS" : "Yes",
+            "PROD_OIL" : "Yes",
+            "ACTIVEPROD" : "OILGAS",
+            "CUMM_OIL" : 22340713.390000001,
+            "MAXOILWELL" : 429,
+            "LASTOILPRO" : 3231.9099999999999,
+            "LASTOILWEL" : 125,
+            "LASTODATE" : "2-2009",
+            "CUMM_GAS" : 49021181,
+            "MAXGASWELL" : 189,
+            "LASTGASPRO" : 28294,
+            "LASTGASWEL" : 188,
+            "LASTGDATE" : "2-2009",
+            "AVGDEPTH" : 2509.5,
+            "AVGDEPTHSL" : 1095.0999999999999,
+            "POLYDATE" : 1193788800000,
+            "FIELD_TYPE" : "O&G",
+            "FIELD_KIDN" : 1000147595
+          }
+        }
+      ]
+    },
+    {
+      "objectId" : 2,
+      "relatedRecords" : [
+        {
+          "attributes" : {
+            "OBJECTID" : 5540,
+            "FIELD_KID" : "1000147595",
+            "APPROXACRE" : 95929,
+            "FIELD_NAME" : "LOST SPRINGS",
+            "STATUS" : "Active",
+            "PROD_GAS" : "Yes",
+            "PROD_OIL" : "Yes",
+            "ACTIVEPROD" : "OILGAS",
+            "CUMM_OIL" : 22340713.390000001,
+            "MAXOILWELL" : 429,
+            "LASTOILPRO" : 3231.9099999999999,
+            "LASTOILWEL" : 125,
+            "LASTODATE" : "2-2009",
+            "CUMM_GAS" : 49021181,
+            "MAXGASWELL" : 189,
+            "LASTGASPRO" : 28294,
+            "LASTGASWEL" : 188,
+            "LASTGDATE" : "2-2009",
+            "AVGDEPTH" : 2509.5,
+            "AVGDEPTHSL" : 1095.0999999999999,
+            "POLYDATE" : 1193788800000,
+            "FIELD_TYPE" : "O&G",
+            "FIELD_KIDN" : 1000147595
+          }
+        }
+      ]
+    },
+    {
+      "objectId" : 3,
+      "relatedRecords" : [
+        {
+          "attributes" : {
+            "OBJECTID" : 5540,
+            "FIELD_KID" : "1000147595",
+            "APPROXACRE" : 95929,
+            "FIELD_NAME" : "LOST SPRINGS",
+            "STATUS" : "Active",
+            "PROD_GAS" : "Yes",
+            "PROD_OIL" : "Yes",
+            "ACTIVEPROD" : "OILGAS",
+            "CUMM_OIL" : 22340713.390000001,
+            "MAXOILWELL" : 429,
+            "LASTOILPRO" : 3231.9099999999999,
+            "LASTOILWEL" : 125,
+            "LASTODATE" : "2-2009",
+            "CUMM_GAS" : 49021181,
+            "MAXGASWELL" : 189,
+            "LASTGASPRO" : 28294,
+            "LASTGASWEL" : 188,
+            "LASTGDATE" : "2-2009",
+            "AVGDEPTH" : 2509.5,
+            "AVGDEPTHSL" : 1095.0999999999999,
+            "POLYDATE" : 1193788800000,
+            "FIELD_TYPE" : "O&G",
+            "FIELD_KIDN" : 1000147595
+          }
+        }
+      ]
+    }
+  ]
+}

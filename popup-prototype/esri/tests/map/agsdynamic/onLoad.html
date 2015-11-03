@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>onLoad</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+
+    <script type="text/javascript">
+      dojo.require("esri.map");
+      dojo.require("doh.runner");
+      
+      function runTests() {
+        doh.registerGroup("map.agsdynamic.onLoad", [
+          {
+            name: "mapLoad",
+            timeout: 3000,
+            runTest: function(t) {
+              var onLoadHandler;
+              var d = new doh.Deferred();
+
+              function assert(m) {
+                dojo.disconnect(onLoadHandler);
+                t.assertTrue(m instanceof esri.Map);
+                t.assertTrue(m.loaded);
+                t.assertEqual("layer0", m.layerIds[0]);
+                t.assertTrue(m.getLayer("layer0") instanceof esri.layers.ArcGISDynamicMapServiceLayer);
+                t.assertTrue(m.getLayer("layer0").loaded);
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                var map = new esri.Map("mapDiv");
+                onLoadHandler = dojo.connect(map, "onLoad", assert);
+                map.addLayer(new esri.layers.ArcGISDynamicMapServiceLayer("http://servery/ArcGIS/rest/services/Portland/PortlandMap/MapServer"));
+              }, 1000);
+              return d;
+            }
+          }
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(runTests);
+    </script>
+
+  </head>
+  <body class="tundra">
+    <div id="mapDiv" style="width:1024px; height:512px; border:1px solid #000;"></div>
+  </body>
+</html>

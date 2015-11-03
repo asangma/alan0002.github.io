@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>AGSTiledMapServiceLayer properties</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+    <script type="text/javascript">
+      dojo.require("esri.layers.agstiled");
+      dojo.require("doh.runner");
+      
+      function init() {
+        var layer = new esri.layers.ArcGISTiledMapServiceLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/PublicSafety/PublicSafetyBasemap/MapServer");
+        if (layer.loaded) {
+          runTests(layer);
+        }
+        else {
+          dojo.connect(layer, "onLoad", runTests);
+        }
+      }
+      
+      function runTests(layer) {
+        doh.registerGroup("layers.agstiled.agstiledlayerProperties", [
+            {
+              name: "tileInfo",
+              timeout: 50,
+              runTest: function(t) {
+			  	console.log(dojo.toJson(layer.tileInfo.toJson()));
+				t.assertTrue(layer.tileInfo instanceof esri.layers.TileInfo);
+                 //{"dpi":96,"format":"JPEG","width":512,"height":512,"origin":{"x":-180,"y":90,"spatialReference":{"wkid":4326}},"spatialReference":{"wkid":4326},"lods":[{"level":0,"resolution":0.043945313319737,"scale":18468599.9106772},{"level":1,"resolution":0.0219726566598685,"scale":9234299.95533859},{"level":2,"resolution":0.0109863283299342,"scale":4617149.97766929},{"level":3,"resolution":0.00549316416496712,"scale":2308574.98883465},{"level":4,"resolution":0.00274658208248355,"scale":1154287.49441732},{"level":5,"resolution":0.00137329104124178,"scale":577143.747208662},{"level":6,"resolution":0.00068664552062089,"scale":288571.873604331},{"level":7,"resolution":0.000343322760310444,"scale":144285.936802165},{"level":8,"resolution":0.000171661380155222,"scale":72142.9684010827},{"level":9,"resolution":0.0000858306900776113,"scale":36071.4842005414},{"level":10,"resolution":0.0000429153450388056,"scale":18035.7421002707},{"level":11,"resolution":0.0000214576725194028,"scale":9017.87105013534},{"level":12,"resolution":0.0000107288362597014,"scale":4508.93552506767},{"level":13,"resolution":0.00000571070641399267,"scale":2400},{"level":14,"resolution":0.00000380713760932845,"scale":1600},{"level":15,"resolution":0.00000285535320699634,"scale":1200},{"level":16,"resolution":0.00000142767660349817,"scale":600}]}
+				//t.assertEqual({dpi:96,format:"JPEG",width:512,height:512,origin:{wkid:4326},spatialReference:{wkid:4326},"lods":[{"level":0,"resolution":0.043945313319737,"scale":18468599.9106772},{"level":1,"resolution":0.0219726566598685,"scale":9234299.95533859},{"level":2,"resolution":0.0109863283299342,"scale":4617149.97766929},{"level":3,"resolution":0.00549316416496712,"scale":2308574.98883465},{"level":4,"resolution":0.00274658208248355,"scale":1154287.49441732},{"level":5,"resolution":0.00137329104124178,"scale":577143.747208662},{"level":6,"resolution":0.00068664552062089,"scale":288571.873604331},{"level":7,"resolution":0.000343322760310444,"scale":144285.936802165},{"level":8,"resolution":0.000171661380155222,"scale":72142.9684010827},{"level":9,"resolution":0.0000858306900776113,"scale":36071.4842005414},{"level":10,"resolution":0.0000429153450388056,"scale":18035.7421002707},{"level":11,"resolution":0.0000214576725194028,"scale":9017.87105013534},{"level":12,"resolution":0.0000107288362597014,"scale":4508.93552506767},{"level":13,"resolution":0.00000571070641399267,"scale":2400},{"level":14,"resolution":0.00000380713760932845,"scale":1600},{"level":15,"resolution":0.00000285535320699634,"scale":1200},{"level":16,"resolution":0.00000142767660349817,"scale":600}]},
+				//layer.tileInfo.toJson());
+              }
+            }
+          ],
+          function() { //setUp
+            dojo.extend(esri.layers.TileInfo, {
+              toJson: function() {
+                var json = { dpi:this.dpi, format:this.format, width:this.width, height:this.height, origin:this.origin.toJson(), spatialReference:this.spatialReference.toJson() };
+                var lods = [];
+                for (var i=0, il=this.lods.length; i<il; i++) {
+                  lods[i] = this.lods[i].toJson();
+                }
+                json.lods = lods;
+                return json;
+              }
+            });
+            
+            dojo.extend(esri.layers.LOD, {
+              toJson: function() {
+                return { level:this.level, resolution:this.resolution, scale:this.scale };
+              }
+            });
+          },
+          function() { //tearDown
+            delete esri.layers.TileInfo.prototype.toJson;
+            delete esri.layers.LOD.prototype.toJson;
+          }
+        );
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+  </body>
+</html>

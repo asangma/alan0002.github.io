@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>SimpleMarkerSymbol - functional testing</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+
+  <link rel="stylesheet" href="../../../../esri/css/main.css">
+
+  <script>
+    var dojoConfig = {
+      async: true,
+      isDebug: true,
+
+      paths: {
+        esri: "../esri"
+      }
+    };
+  </script>
+
+  <style>
+    html, body, #mapDiv{
+      padding: 0;
+      margin: 0;
+      height: 100%;
+    }
+  </style>
+
+
+  <script type="text/javascript" src="../../../../dojo/dojo.js"></script>
+
+  <script>
+    var map, view, graphicsLayer;
+
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/symbols/SimpleMarkerSymbol",
+      "esri/symbols/SimpleLineSymbol",
+      "esri/Color",
+      "esri/Graphic",
+      "esri/geometry/Point",
+      "esri/layers/GraphicsLayer",
+      "esri/renderers/SimpleRenderer",
+
+      "dojo/dom",
+      "dojo/on",
+      "dojo/domReady!"
+    ], function(Map, MapView, SimpleMarkerSymbol, SimpleLineSymbol, Color, Graphic, Point, GraphicsLayer, SimpleRenderer, dom, on) {
+
+      map = new Map({
+        basemap: "streets"
+      });
+
+      view = new MapView({
+        container: "mapDiv",
+        map: map
+      });
+
+      //map.on("tap", mapClickHandler);
+      on(dom.byId("execute"), "click", mapClickHandler);
+
+      map.on("load", function(evtObj) {
+
+        var simpleMarkerSymbol = new SimpleMarkerSymbol();
+        simpleMarkerSymbol.set("style", SimpleMarkerSymbol.STYLE_SQUARE);
+        simpleMarkerSymbol.set("color", new Color("#f06060"));
+        var outline = new SimpleLineSymbol(
+          SimpleLineSymbol.STYLE_SOLID,
+          new Color([89,95,35]), 2
+        );
+        simpleMarkerSymbol.set("outline", outline);
+        simpleMarkerSymbol.set("type", "simplemarkersymbol");
+
+        graphicsLayer = new GraphicsLayer();
+
+        var renderer = new SimpleRenderer(simpleMarkerSymbol);
+        graphicsLayer.set("renderer", renderer);
+        map.add(graphicsLayer);
+      });
+
+      function mapClickHandler() {
+        var x = dom.byId("x").value;
+        var y = dom.byId("y").value;
+        var inPoint = new Point(x, y, map.spatialReference);
+        var location = new Graphic(inPoint);
+        graphicsLayer.add(location);
+        dom.byId("text").innerHTML = JSON.stringify(graphicsLayer.get("renderer").symbol);
+      }
+
+    });
+  </script>
+</head>
+<body>
+<input type="text" id="x" value="">
+<input type="text" id="y" value="">
+<input id="execute" type="button" value="submit">
+<br>
+Symbol JSON: <p id="text"></p>
+<div id="mapDiv"></div>
+</body>
+</html>

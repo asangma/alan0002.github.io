@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>GraphicsLayer - functional test</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+
+  <link rel="stylesheet" href="../../../../esri/css/main.css">
+
+  <script>
+    var dojoConfig = {
+      async: true,
+      isDebug: true,
+
+      paths: {
+        esri: "../esri"
+      }
+    };
+  </script>
+
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+
+
+  <script type="text/javascript" src="../../../../dojo/dojo.js"></script>
+  <script>
+    var map, view, featureLayer;
+
+    require([
+        "esri/Map",
+        "esri/views/MapView",
+
+        "esri/layers/FeatureLayer",
+        "esri/geometry/Extent",
+
+        "dojo/domReady!"
+      ],
+      function(
+        Map, MapView,
+        FeatureLayer, Extent
+      ) {
+        map = new Map({
+          basemap: "hybrid"
+        });
+        view = new MapView({
+          container: "viewDiv",
+          map: map,
+
+          extent: new Extent({
+            xmin: -9177882.740387835,
+            ymin: 4246761.27629837,
+            xmax: -9176720.658692285,
+            ymax: 4247967.548150893,
+            spatialReference: 102100
+          })
+        });
+
+        /********************
+         * Add feature layer
+         ********************/
+        map.then(function() {
+          featureLayer = new FeatureLayer({
+            url: "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0"
+          });
+          map.add(featureLayer);
+        });
+
+      });
+  </script>
+</head>
+
+<body>
+<div id="viewDiv"></div>
+</body>
+
+</html>

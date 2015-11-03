@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>Loading local code with xdomain CDN code.</title>
+
+	<link rel="stylesheet" type="text/css" href="http://o.aolcdn.com/dojo/1.2.0/dojo/resources/dojo.css" />
+	<link rel="stylesheet" type="text/css" href="http://o.aolcdn.com/dojo/1.2.0/dijit/css/dijitTests.css" />
+	<link rel="stylesheet" type="text/css" href="http://o.aolcdn.com/dojo/1.2.0/dijit/themes/tundra/tundra.css" />
+
+	<script type="text/javascript">
+
+		djConfig = {
+			isDebug: true,
+			parseOnLoad: true,
+			baseUrl: "./",
+			modulePaths: {
+			    "coolio": "scripts/coolio"
+			},
+			xdWaitSeconds: 10
+		};
+	</script>
+
+
+	<!--script type="text/javascript" src="http://o.aolcdn.com/dojo/1.1.0/dojo/dojo.xd.js"></script-->
+	<!--script type="text/javascript" src="http://troll/bonanza/"></script-->
+	
+	<!--script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=1.1"></script-->
+
+    <script type="text/javascript" src="../../../../index.jsp">
+    </script>
+
+	
+	<script type="text/javascript">
+		dojo.require("dijit.ColorPalette");
+		dojo.require("coolio.actions");
+	</script>
+
+	<script type="text/javascript">
+		dojo.addOnLoad(function(){
+			coolio.actions.foo();
+		});
+	</script>
+</head>
+<body>
+	<h1>Loading local code with xdomain CDN code</h1>
+	
+	<p>This example shows how to load local code with xdomain code.</p>
+
+  <div dojoType="dijit.ColorPalette" palette="3x4"></div>
+  
+  <div id="coolioOutput">
+  </div>
+  
+  <br />
+  <br />
+  <a href="http://forums2.esri.com/forum/messageview.cfm?catid=61&threadid=697&enterthread=y" target="_blank">How to create/load a cross-domain dijit/code</a>
+</body>
+</html>

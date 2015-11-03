@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Feature Type</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../../index.jsp">
+      </script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.layers.FeatureLayer");
+	  dojo.require("doh.runner");
+      
+      function init() {
+         var featureLayer =  new esri.layers.FeatureLayer("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/HomelandSecurity/operations/FeatureServer/1", {
+          mode:esri.layers.FeatureLayer.MODE_SNAPSHOT,
+          outFields: ["*"],
+          id: "operationLayer"
+        });
+        if (featureLayer.loaded) {
+          runTests(featureLayer);
+        }
+        else {
+          dojo.connect(featureLayer, "onLoad", runTests);
+        }
+      }
+      
+      function runTests(featureLayer) {
+        doh.registerGroup("layers.featurefserver.snapshot.rangedomain", [
+     		  
+		  {
+            name: "rangedomain",
+            timeout: 50,
+            runTest: function(t) {
+				
+				
+			 			 
+			 
+			 //inherited domain
+			 t.assertEqual("inherited",featureLayer.types[0].domains.lifecyclestatus.type);
+			 t.assertEqual(undefined,featureLayer.types[0].domains.lifecyclestatus.name);
+			 
+			 t.assertEqual("LifecycleStatus Domain",featureLayer.fields[2].domain.name);
+			 t.assertEqual("codedValue",featureLayer.fields[2].domain.type);
+			 var inheritedCodeValues = featureLayer.fields[2].domain.codedValues;
+			 t.assertEqual("0",inheritedCodeValues[0].code);
+			 t.assertEqual("Proposed/Potential",inheritedCodeValues[0].name);
+			 
+			 //CodedValueDomain
+			 var codedValues = featureLayer.types[0].domains.fcode.codedValues;
+			 t.assertEqual("codedValue",featureLayer.types[0].domains.fcode.type);
+			 t.assertEqual("HydroMeterologicalIncident FCode",featureLayer.types[0].domains.fcode.name);
+			 t.assertEqual("11001",codedValues[0].code);
+			 t.assertEqual("Drizzle",codedValues[0].name);
+			
+			
+            }
+          }
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+  </body>
+</html>

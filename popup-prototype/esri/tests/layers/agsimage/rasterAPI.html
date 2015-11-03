@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Client side symbology</title>
+  <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css" />
+  <link rel="stylesheet" href="http://js.arcgis.com/3.8/js/dojo/dijit/themes/claro/claro.css" />
+  <script>
+	//testing submodule workflow
+    var dojoConfig = {
+      isDebug: true,
+      parseOnLoad: true,
+      packages: [
+      {
+        name: "esri",
+        location: "../esri"
+      }
+      ]
+    };
+    console.log(dojoConfig);
+  </script>
+  <script src="../../../../dojo/dojo.js"></script>
+  <script>
+    require(["esri/map",
+      "dojo/parser",
+      "esri/geometry/Extent",
+      "esri/SpatialReference",
+      "esri/request",
+      "dojo/_base/url",
+      "esri/layers/GraphicsLayer",
+      "dojo/on",
+      "esri/Graphic",
+      "dijit/registry",
+      "dojo/data/ObjectStore",
+      "dojo/store/Memory",
+      "dojo/_base/lang",
+      "esri/geometry/Point",
+      "dojo/json",
+      "esri/InfoTemplate",
+      "esri/layers/Raster",
+      "esri/layers/MosaicRule",
+      "esri/renderers/VectorFieldRenderer",
+      "esri/layers/ImageServiceParameters",
+      "esri/layers/RasterFunction",
+      "esri/layers/PixelFilters/VectorFieldPixelFilter",
+      "esri/layers/ArcGISImageServiceLayer",
+      "esri/layers/DimensionalDefinition",
+      "dijit/form/Select",
+      "dojo/domReady!"],
+
+      function (Map, parser, Extent, SpatialReference, esriRequest, Url,
+       GraphicsLayer, on, Graphic, registry, ObjectStore, Memory, dojoLang,
+       Point, dojoJson, InfoTemplate, Raster, MosaicRule, VectorFieldRenderer,
+       ImageServiceParams, RasterFunction, VectorFieldPixelFilter, ArcGISImageServiceLayer, DimensionalDefinition) {
+
+        parser.parse();
+        function getParameterByName(name) {
+          name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+          var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+              results = regex.exec(location.search);
+          return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+
+
+        var dataExtent = new Extent(-9588260.828089952, -4914613.913406536, 9588260.828089952, 5299819.050395412, SpatialReference.WebMercator);
+        var waitGif = document.getElementById("waitGif");
+        //var imageLayerUrl = "http://eg1139.uae.esri.com:6080/arcgis/rest/services/wind_uv_4178/ImageServer";
+        //var imageLayerUrl = "http://wju:6080/arcgis/rest/services/uv/ImageServer";
+
+        //var imageLayerUrl = getParameterByName("isUrl") ? getParameterByName("isUrl") : "http://eg1139.uae.esri.com:6080/arcgis/rest/services/wind_uv_4178/ImageServer";
+        var imageLayerUrl = getParameterByName("isUrl") ? getParameterByName("isUrl") : "http://wju:6080/arcgis/rest/services/demo/uv/ImageServer";
+        var rendererStyle = getParameterByName("renderer") ? getParameterByName("renderer") : "STYLE_DEFAULT";
+        var samplingFactor = 1 / 40; // 1 data point every 40 screen pixels
+        var map = new Map("map", {
+          extent: dojoLang.clone(dataExtent),
+          basemap: "gray"
+        });
+
+        var imageServiceLayer = new ArcGISImageServiceLayer(imageLayerUrl);
+
+
+        var gl = new GraphicsLayer();
+        var infoTemplate = new InfoTemplate();
+        infoTemplate.setTitle("UV-Vector data");
+        gl.setInfoTemplate(infoTemplate);
+        var selectDimValue = registry.byId("dimValueSelect");
+        map.addLayer(gl);
+
+        var mosaicRule = {};
+        var mosaicRuleVariable = null;
+        var mosaicRuleDimField = null;
+        var mosaicRuleDimValue = null;
+
+        var resamplingServerFunction = new RasterFunction();
+
+        imageServiceLayer.on("load", function (args) {
+          resamplingServerFunction.functionName = "Resampling";
+          resamplingServerFunction.functionArguments = {
+            ResamplingType: 10,
+            InputCellSize: {
+              x: imageServiceLayer.pixelSizeX,
+              y: imageServiceLayer.pixelSizeY
+            }
+          };
+        });
+        var raster = new Raster(imageLayerUrl);
+        var corsEnabledServers, imageServiceAuthority;
+        imageServiceAuthority = new Url(imageLayerUrl).authority;
+        corsEnabledServers = esriConfig.request.corsEnabledServers;
+        if (!corsEnabledServers.some(function (x) {
+          return x === imageServiceAuthority;
+        })) {
+          corsEnabledServers.push(imageServiceAuthority);
+        }
+        esri.show(waitGif);
+        esriRequest({
+          url: imageLayerUrl + "/multiDimensionalInfo",
+          handleAs: "json",
+          content: {
+            f: "json"
+          },
+          load: function (response) {
+            var iVal = 0, dimValues = [];
+            var store = new Memory();
+
+            var os = new ObjectStore({ objectStore: store });
+            var variable1 = response.multidimensionalInfo.variables[0];
+            mosaicRuleVariable = variable1.name;
+            mosaicRuleDimField = variable1.dimensions[0].field;
+
+            var selectDimValue = registry.byId("dimValueSelect");
+            for (iVal = 0; iVal < variable1.dimensions[0].values.length; iVal++) {
+              dimValues.push({
+                id: variable1.dimensions[0].values[iVal],
+                label: (new Date(variable1.dimensions[0].values[iVal])).toISOString().replace("T00:00:00.000Z", "")
+              });
+            }
+            store.setData(dimValues);
+            selectDimValue.setStore(os);
+            esri.show(waitGif);
+            mosaicRuleDimValue = selectDimValue.value;
+            refreshData(Extent);
+          }
+        });
+
+        on(selectDimValue, "change", function () {
+          refreshData();
+        });
+
+        on(map, "extent-change", function () {
+          refreshData();
+        });
+
+        on(map, "load", function () {
+          if (selectDimValue.value === "") //multidimensional info not loaded
+            return;
+          refreshData();
+        });
+
+        function refreshData() {
+          if (!map.loaded)
+            return;
+          esri.show(waitGif);
+          
+          var imageExtent = dojoLang.clone(map.extent);
+          var imageWidth = map.width * samplingFactor;
+          fetchData(imageExtent, imageWidth);
+        }
+
+        function fetchData(imageExtent, imageWidth) {
+          var extentHeight = imageExtent.ymax - imageExtent.ymin,
+          extentWidth = imageExtent.xmax - imageExtent.xmin;
+          imageWidth = imageWidth ? Math.ceil(imageWidth) : 50;
+          var imageHeight = Math.ceil(imageWidth * (extentHeight / extentWidth));
+
+          var mosaicRuleObj = new MosaicRule(mosaicRule);
+          mosaicRuleObj.multidimensionalDefinition = [];
+          mosaicRuleObj.multidimensionalDefinition.push(new DimensionalDefinition({
+            variableName: mosaicRuleVariable,
+            dimensionName: mosaicRuleDimField,
+            values: [selectDimValue.value],
+            isSlice: true
+          }));
+          
+          var params = new ImageServiceParams();
+          dojoLang.mixin(params, {
+            width: imageWidth,
+            height: imageHeight,
+            extent: imageExtent,
+            format: "lerc",
+            mosaicRule: mosaicRuleObj,
+            renderingRule: resamplingServerFunction
+          });
+          
+          var options = {
+            imageServiceParameters: params,
+            nBands: 2,
+            pixelType: "F32"
+          }
+          raster.read(options, render, logError);
+
+          function render(pixelData) {
+            gl.clear();
+            var myUVFilter = new VectorFieldPixelFilter();
+            myUVFilter.isDataUV = true;
+            pixelData = myUVFilter.computeMagnitudeAndDirection(pixelData);            
+            var pixelBlock = pixelData.pixelBlock;
+            var extent = pixelData.extent;
+            var locations = pixelData.locations;
+            esri.hide(waitGif);
+            var startTime = new Date();
+            applySymbology(pixelBlock, extent, locations);
+            var endTime = new Date();
+            console.log("time for symbology: " + (endTime - startTime) + "ms");
+          }
+
+          function logError(error) {
+            gl.clear();
+            console.error(error.message);
+            esri.hide(waitGif);
+          }
+
+        }
+
+        function applySymbology(pixelBlock, extent, locations) {
+          var i = 0, j = 0, idx = 0,
+          minMag = pixelBlock.statistics[0].minValue,
+          maxMag = pixelBlock.statistics[0].maxValue,
+          minDir = pixelBlock.statistics[1].minValue,
+          maxDir = pixelBlock.statistics[1].maxValue;
+          console.log("min_dir", minDir);
+          console.log("min_mag", minMag);
+          console.log("max_dir", maxDir);
+          console.log("max_mag", maxMag);
+
+          if (maxMag == minMag && maxMag === 0 && minDir === maxDir) {
+            return false;
+          }
+
+
+          gl.setRenderer(new VectorFieldRenderer(VectorFieldRenderer[rendererStyle], { min: minMag, max: maxMag }));
+          for (i = 0; i < pixelBlock.height; i++) {
+            for (j = 0; j < pixelBlock.width; j++, idx++) {
+              var location = locations[idx];
+              if ((compute = pixelBlock.mask === null ? true : pixelBlock.mask[idx]) && location && location.length === 2) {
+                var point = new Point(location[0], location[1], extent.spatialReference);
+                point.x = Extent.prototype._normalizeX(point.x, extent.spatialReference._getInfo()).x;
+                //NIK: No need to normalize Y?
+                //wraparound180 only affects X, as continuous pan across IDL, _normalizeX shifts X to within world frame
+                var attributes = {
+                  magnitude: pixelBlock.pixels[0][idx],
+                  direction: pixelBlock.pixels[1][idx],
+                  location: dojoJson.stringify(point)
+                };
+                var graphic = new Graphic(point, null, attributes);
+                gl.add(graphic);
+              }
+            }
+          }
+          return true;
+        }
+
+
+      });
+  </script>
+  <style>
+    html, body, #map
+    {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body class="claro">
+  <div style="background: rgba(255, 255, 255, .4) url('resources/wait.gif') no-repeat center center; height: 100%; display: none; width: 100%; z-index: 1001!important; top: 0; left: 0; position: absolute"
+    id="waitGif">
+  </div>
+  <div id="map"></div>
+  <button id="wind" type="button" style="right: 20px; top: 50px; z-index: 1000; display: none; position: absolute;">Show wind magnitude</button>
+  <select data-dojo-type="dijit/form/Select" id="dimValueSelect" style="right: 20px; top: 20px; z-index: 1000; display: block; position: absolute;"></select>
+</body>
+</html>

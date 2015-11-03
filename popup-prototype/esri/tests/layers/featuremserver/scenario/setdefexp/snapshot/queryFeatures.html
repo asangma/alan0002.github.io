@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Query Features</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../../../../index.jsp">
+      </script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.layers.FeatureLayer");
+	  dojo.require("esri.tasks.query");
+	  dojo.require("esri.map");
+	  
+      dojo.require("doh.runner");
+	  
+      var featureLayer;
+      function init() {
+          var startExtent = new esri.geometry.Extent({"xmin":-117.19741474981005,"ymin":32.6965904538416,"xmax":-117.12872559032095,"ymax":32.731854065948,"spatialReference":{"wkid":4269}});
+        //create map
+        var map = new esri.Map("mapDiv",{extent:startExtent});
+		var layer = new esri.layers.ArcGISDynamicMapServiceLayer("http://servery/ArcGIS/rest/services/USA/states/MapServer");
+        map.addLayer(layer);
+
+        featureLayer = new esri.layers.FeatureLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer/5", {
+          mode:esri.layers.FeatureLayer.MODE_SNAPSHOT,
+          outFields: ["*"],
+          id: "stateLayer"
+        });
+		dojo.connect(featureLayer,"onUpdateEnd",runTests);
+		featureLayer.setDefinitionExpression("POP2007<7000000");
+		map.addLayer(featureLayer);
+      }
+      
+      function runTests() {
+	  	
+        doh.registerGroup("layers.featuremserver.scenario.setdefexp.snapshot.queryFeatures", [
+          {
+            name: "queryFeatures",
+            timeout: 3000,
+            runTest: function(t) {
+			
+			   query = new esri.tasks.Query();
+			   query.where = "POP2007>5000000";
+			  
+			  var d = new doh.Deferred();
+			  
+			 
+			  function showResults(results){
+			  	
+			  	if (results == null || results.length == 0) {
+					t.assertTrue(false);
+				}
+				else {
+					
+					console.log(results.features.length);
+					console.log(results);				
+					t.assertEqual(9,results.features.length);			
+					t.assertEqual("STATE_NAME",results.displayFieldName);
+				}
+				d.callback(true);
+				}
+				
+				
+				featureLayer.queryFeatures(query,showResults);
+				
+				return d;
+            }
+            
+          }
+		           
+          
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+    <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;"></div>
+  </body>
+</html>

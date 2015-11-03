@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>onLayerReorder</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+
+    <script type="text/javascript">
+      dojo.require("esri.map");
+      dojo.require("doh.runner");
+      
+      var layerLoad = 0;
+      var map;
+      
+      function init() {
+        map = new esri.Map("mapDiv");
+        dojo.connect(map, "onLayerAdd", initTests);
+
+        map.addLayer(new esri.layers.ArcGISTiledMapServiceLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/PublicSafety/PublicSafetyBasemap/MapServer"));
+        map.addLayer(new esri.layers.ArcGISDynamicMapServiceLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/PublicSafety/PublicSafetyFeedSample/MapServer"));
+      }
+      
+      function initTests() {
+        layerLoad++;
+        if (layerLoad === 2) {
+          runTests();
+        }
+      }
+      
+      function runTests() {
+        doh.registerGroup("map.agstiled.onLayerReorder", [
+          {
+            name: "moveLayer0Up",
+            timeout: 3000,
+            runTest: function(t) {
+              var onLayerReorderHandler;
+              var d = new doh.Deferred();
+
+              function assert(layer, index) {
+                dojo.disconnect(onLayerReorderHandler);
+                t.assertEqual("layer1", layer.id);
+                t.assertTrue(index === 0);
+				var ids = map.layerIds;
+                t.assertEqual("layer1",ids[0]);
+                t.assertEqual("layer0", ids[1]);
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onLayerReorderHandler = dojo.connect(map, "onLayerReorder", assert);
+                map.reorderLayer("layer0", 1);
+              }, 1000);
+              return d;
+            }
+          },
+          
+          {
+            name: "moveLayer0Down",
+            timeout: 3000,
+            runTest: function(t) {
+              var onLayerReorderHandler;
+              var d = new doh.Deferred();
+
+              function assert(layer, index) {
+                dojo.disconnect(onLayerReorderHandler);
+              	t.assertEqual("layer0", layer.id);
+                t.assertTrue(index === 0);
+				var ids = map.layerIds;
+                t.assertEqual("layer0", ids[0]);
+                t.assertEqual("layer1", ids[1]);
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onLayerReorderHandler = dojo.connect(map, "onLayerReorder", assert);
+                map.reorderLayer("layer0", 0);
+              }, 1000);
+              return d;
+            }
+          }
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+    <div id="mapDiv" style="width:1024px; height:512px; border:1px solid #000;"></div>
+  </body>
+</html>

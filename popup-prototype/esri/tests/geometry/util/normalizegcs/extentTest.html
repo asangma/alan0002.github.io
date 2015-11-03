@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta name="generator" content="HTML Tidy, see www.w3.org">
+        <meta http-equiv="Content-Type" content= "text/html; charset=utf-8">
+        <title>Query Features</title>
+        <link rel="stylesheet" type="text/css" href= "../../../../../dojo/dijit/themes/tundra/tundra.css">
+        <script>
+            dojoConfig = {
+                isDebug: true
+            };
+        </script>
+        <script type="text/javascript" src="../../../../../../index.jsp">
+        </script>
+        <script type="text/javascript">
+            dojo.require("esri.geometry");
+            dojo.require("esri.map");
+            dojo.require("doh.runner");
+            
+            
+            var geometryService;
+            
+            function init(){
+            
+                var map = new esri.Map("mapDiv");
+                dojo.connect(map, "onLoad", runTests);
+                var layer = new esri.layers.ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer");
+                map.addLayer(layer);
+                
+                
+            }
+            
+            function runTests(){
+            
+                doh.registerGroup("geometry.util.normalizegcs.extentTest", [{
+                    name: "crossPlus180",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsExtent = new esri.geometry.Extent(121.64062499996795,-54.977613670686,272.81249999992826,-15.961329081592105, new esri.SpatialReference({
+                            "wkid": 4326
+                        }));
+                       
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsExtent], geometryService, function(normalizedGeo){
+                            var normalizedGcsExtent = normalizedGeo[0];
+                            
+                            var extent = normalizedGcsExtent.getExtent();
+                            t.assertEqual(normalizedGcsExtent.type,"polygon");
+                            t.assertEqual(normalizedGcsExtent.rings.length, 2);
+                            t.assertEqual(-180, extent.xmin);
+                            t.assertEqual(180, extent.xmax);
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "crossMinus180",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsExtent = new esri.geometry.Extent(-272.81249999992826, -54.977613670686,-121.64062499996795,-15.961329081592105 , new esri.SpatialReference({
+                            "wkid": 4326
+                        }));
+                                                
+                        esri.geometry.normalizeCentralMeridian([gcsExtent], geometryService, function(normalizedGeo){
+                            var normalizedGcsExtent = normalizedGeo[0];
+                            var extent = normalizedGcsExtent.getExtent();
+                            t.assertEqual(normalizedGcsExtent.type,"polygon");
+                            t.assertEqual(normalizedGcsExtent.rings.length, 2);
+                            t.assertEqual(-180, extent.xmin);
+                            t.assertEqual(180, extent.xmax);
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "crossPlus540",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsExtent = new esri.geometry.Extent(481.64062499996795,-54.977613670686,632.81249999992826,-15.961329081592105, new esri.SpatialReference({
+                            "wkid": 4326
+                        }));
+                       
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsExtent], geometryService, function(normalizedGeo){
+                            var normalizedGcsExtent = normalizedGeo[0];
+                            
+                            var extent = normalizedGcsExtent.getExtent();
+                            t.assertEqual(normalizedGcsExtent.type,"polygon");
+                            t.assertEqual(normalizedGcsExtent.rings.length, 2);
+                            t.assertEqual(-180, extent.xmin);
+                            t.assertEqual(180, extent.xmax);
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "crossMinus540",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsExtent = new esri.geometry.Extent(-632.81249999992826, -54.977613670686,-481.64062499996795,-15.961329081592105 , new esri.SpatialReference({
+                            "wkid": 4326
+                        }));
+                                                
+                        esri.geometry.normalizeCentralMeridian([gcsExtent], geometryService, function(normalizedGeo){
+                            var normalizedGcsExtent = normalizedGeo[0];
+                            var extent = normalizedGcsExtent.getExtent();
+                            t.assertEqual(normalizedGcsExtent.type,"polygon");
+                            t.assertEqual(normalizedGcsExtent.rings.length, 2);
+                            t.assertEqual(-180, extent.xmin);
+                            t.assertEqual(180, extent.xmax);
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "crossPlus180andPlus540",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsExtent = new esri.geometry.Extent(121.64062499996795,-54.977613670686,572.81249999992826,-15.961329081592105, new esri.SpatialReference({
+                            "wkid": 4326
+                        }));
+                       
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsExtent], geometryService, function(normalizedGeo){
+                            var normalizedGcsExtent = normalizedGeo[0];
+                            var extent = normalizedGcsExtent.getExtent();
+							t.assertEqual(normalizedGcsExtent.type,"extent");
+                            t.assertEqual(-180, extent.xmin);
+                            t.assertEqual(180, extent.xmax);
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "crossMinus180andMinus540",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsExtent = new esri.geometry.Extent(-121.64062499996795,-54.977613670686,-572.81249999992826,-15.961329081592105, new esri.SpatialReference({
+                            "wkid": 4326
+                        }));
+                       
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsExtent], geometryService, function(normalizedGeo){
+                            var normalizedGcsExtent = normalizedGeo[0];
+                            var extent = normalizedGcsExtent.getExtent();
+							t.assertEqual(normalizedGcsExtent.type,"extent");
+                            t.assertEqual(-180, extent.xmin);
+                            t.assertEqual(180, extent.xmax);
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "crossPlus540andPlus1260",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsExtent = new esri.geometry.Extent(571.64062499996795,-54.977613670686,1372.81249999992826,-15.961329081592105, new esri.SpatialReference({
+                            "wkid": 4326
+                        }));
+                       
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsExtent], geometryService, function(normalizedGeo){
+                            var normalizedGcsExtent = normalizedGeo[0];
+                            var extent = normalizedGcsExtent.getExtent();
+					        t.assertEqual(normalizedGcsExtent.type,"extent");
+                            t.assertEqual(-180, extent.xmin);
+                            t.assertEqual(180, extent.xmax);
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "crossMinus540andMinus1260",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsExtent = new esri.geometry.Extent(-571.64062499996795,-54.977613670686,-1372.81249999992826,-15.961329081592105, new esri.SpatialReference({
+                            "wkid": 4326
+                        }));
+                       
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsExtent], geometryService, function(normalizedGeo){
+                            var normalizedGcsExtent = normalizedGeo[0];
+                            var extent = normalizedGcsExtent.getExtent();
+					        t.assertEqual(normalizedGcsExtent.type,"extent");
+                            t.assertEqual(-180, extent.xmin);
+                            t.assertEqual(180, extent.xmax);
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "withinMinusPlus180",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsExtent = new esri.geometry.Extent(-171.64062499996795,-54.977613670686,137.81249999992826,-15.961329081592105, new esri.SpatialReference({
+                            "wkid": 4326
+                        }));
+                       
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsExtent], geometryService, function(normalizedGeo){
+                            var normalizedGcsExtent = normalizedGeo[0];
+                            var extent = normalizedGcsExtent.getExtent();
+					        t.assertEqual(normalizedGcsExtent.type,"extent");
+                            t.assertEqual(gcsExtent.xmin, extent.xmin);
+                            t.assertEqual(gcsExtent.xmax, extent.xmax);
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "withinPlus540ToPlus720",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsExtent = new esri.geometry.Extent(571.64062499996795,-54.977613670686,713.81249999992826,-15.961329081592105, new esri.SpatialReference({
+                            "wkid": 4326
+                        }));
+                       
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsExtent], geometryService, function(normalizedGeo){
+                            var normalizedGcsExtent = normalizedGeo[0];
+                            
+                            var extent = normalizedGcsExtent.getExtent();
+							
+                            t.assertEqual(normalizedGcsExtent.type,"extent");
+                            t.assertEqual(gcsExtent.xmin-720, extent.xmin);
+                            t.assertEqual(gcsExtent.xmax-720, extent.xmax);
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "withinMinus540ToMinus720",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsExtent = new esri.geometry.Extent(-571.64062499996795,-54.977613670686,-713.81249999992826,-15.961329081592105, new esri.SpatialReference({
+                            "wkid": 4326
+                        }));
+                       
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsExtent], geometryService, function(normalizedGeo){
+                            var normalizedGcsExtent = normalizedGeo[0];
+                            var extent = normalizedGcsExtent.getExtent();
+						
+                            t.assertEqual(normalizedGcsExtent.type,"extent");
+                            t.assertEqual(gcsExtent.xmin+720, extent.xmin);//xmin = -180
+                            t.assertEqual(gcsExtent.xmax+720, extent.xmax);//xmax = 180
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                }], function()//setUp()
+                {
+                    esriConfig.request.proxyUrl = "../../../proxy.jsp";
+                    esriConfig.request.forceProxy = false;
+                    geometryService = new esri.tasks.GeometryService("http://servery/ArcGIS/rest/services/Geometry/GeometryServer");
+                    
+                }, function()//tearDown
+                {
+                    geometryService = null;
+                    
+                });
+                
+                
+                doh.run();
+            }
+            
+            dojo.addOnLoad(init);
+        </script>
+    </head>
+    <body class="tundra">
+        <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;">
+        </div>
+    </body>
+</html>

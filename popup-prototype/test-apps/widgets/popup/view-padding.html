@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>View Padding</title>
+  <link rel="stylesheet" href="../../../dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="../../../esri/css/main.css">
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+      font-weight: 300;
+    }
+    
+    .toggle {
+      text-align: center;
+      padding: 6px 10px;
+      margin: 0 10px;
+      box-sizing: border-box;
+      cursor: pointer;
+      line-height: normal;
+      display: inline-block;
+      vertical-align: middle;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    .toggle:hover,
+    .toggle:focus {
+      color: #bcdaed;
+      border-color: #bcdaed;
+    }
+    
+    .toggle span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+    
+    .toggle .esri-icon-expand {
+      display: none;
+    }
+    
+    .drawer-open .toggle .esri-icon-expand {
+      display: inline-block;
+    }
+    
+    .toggle .esri-icon-collapse {
+      display: inline-block;
+    }
+    
+    .drawer-open .toggle .esri-icon-collapse {
+      display: none;
+    }
+    
+    h1 {
+      margin: 0;
+      padding: 0;
+      font-weight: normal;
+    }
+    
+    .options {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0 0;
+    }
+    
+    .options li {
+      padding: 5px 0;
+    }
+    
+    #mapDiv {
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    
+    .drawer-animation,
+    .esriUI {
+      -webkit-transition: left 250ms ease;
+      -moz-transition: left 250ms ease;
+      -ms-transition: left 250ms ease;
+      -o-transition: left 250ms ease;
+      transition: left 250ms ease;
+    }
+    
+    .drawer-top {
+      background-color: rgba(25, 111, 166, 0.8);
+      border-bottom: 1px solid #196fa6;
+      color: #d2e9f9;
+      position: absolute;
+      z-index: 50;
+      top: 0;
+      left: 0px;
+      width: 100%;
+      height: 54px;
+      padding: 10px 0;
+      box-sizing: border-box;
+    }
+    
+    .drawer-open .drawer-top {
+      left: 280px;
+    }
+    
+    .drawer-container {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .drawer-side {
+      color: #fff;
+      position: absolute;
+      top: 0;
+      left: -280px;
+      z-index: 51;
+      width: 280px;
+      height: 100%;
+      padding: 20px;
+      margin: 0;
+      background-color: rgba(0, 69, 117, .8);
+      border-right: 1px solid #052942;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    
+    .drawer-open .drawer-side {
+      left: 0;
+      overflow: auto;
+      overflow-x: hidden;
+    }
+    
+    .drawer-center {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+    
+    code {
+      padding: 0.2em;
+      font-size: 85%;
+      background-color: #052942;
+      border-radius: 3px;
+    }
+  </style>
+  <script>
+    var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+    var dojoConfig = {
+      async: true,
+      isDebug: true,
+      packages: [{
+        name: "application",
+        location: package_path + '/js'
+      }],
+      paths: {
+        esri: "../esri"
+      }
+    };
+  </script>
+
+  <script src="../../../dojo/dojo.js"></script>
+
+  <script>
+    var map, v, view, popup;
+
+    require([
+      "dojo/_base/lang",
+      "esri/Map",
+      "esri/views/MapView",
+      "dojo/dom-class",
+      "dojo/dom",
+      "dojo/on",
+      "dojo/dom-attr",
+      "dojo/window",
+      "esri/tasks/QueryTask",
+        "esri/tasks/support/Query",
+        "esri/layers/FeatureLayer",
+        "esri/Graphic",
+        "esri/geometry/Extent",
+        "esri/geometry/Point",
+        "esri/symbols/PictureMarkerSymbol",
+        "esri/PopupTemplate",
+        "esri/widgets/Popup",
+      "dojo/Deferred",
+      "dojo/domReady!"
+    ], function (lang, Map, MapView, domClass, dom, on, domAttr, win,
+      QueryTask,
+      Query,
+      FeatureLayer,
+      Graphic,
+      Extent, Point,
+      PictureMarkerSymbol,
+      PopupTemplate,
+      Popup,
+      Deferred
+    ) {
+
+      map = new Map({
+        basemap: "topo"
+      });
+
+      view = new MapView({
+        container: "mapDiv",
+        map: map,
+        extent: new Extent({
+          "xmin": -8573697.671426324,
+          "ymin": 4705202.445653928,
+          "xmax": -8571636.4834977,
+          "ymax": 4706458.743279023,
+          "spatialReference": {
+            "wkid": 102100
+          }
+        })
+      });
+
+      v = view;
+
+      // document window
+      var w = win.get(document);
+
+      // toggle button
+      var btn = dom.byId("toggle");
+
+      // When toggle button is clicked
+      on(btn, "click", function (evt) {
+        // toggle class
+        toggle(!domClass.contains(document.body, "drawer-open"));
+      }.bind(this));
+
+      // toggles drawer open or closed
+      function toggle(value) {
+        domClass.toggle(document.body, "drawer-open", value);
+        viewPadding();
+      }
+
+      //Sets drawer open or closed depending on the size of the window
+      function drawer() {
+        var vs = win.getBox(),
+          value;
+        // if window width is less than specified size
+        if (vs.w < 850) {
+          // hide drawer
+          value = false;
+        } else {
+          // show drawer
+          value = true;
+        }
+        toggle(value);
+      }
+
+      // applies appropriate view padding
+      function viewPadding() {
+        var padding;
+        if (domClass.contains(document.body, "drawer-open")) {
+          padding = {
+            left: 280,
+            top: 54
+          };
+        } else {
+          padding = {
+            left: 0,
+            top: 54
+          };
+        }
+        view.padding = padding;
+      }
+
+      // When window is resized
+      on(w, 'resize', function () {
+        drawer();
+      });
+      drawer();
+
+
+
+      popup = new Popup({
+        //position: "right",
+        view: view
+      });
+      popup.startup();
+      view.popup = popup;
+
+
+      var templateHurricane = new PopupTemplate({
+        title: "Hurrican Andrew",
+        fieldInfos: [{ //define field infos so we can specify an alias
+          fieldName: "Date",
+          label: "Date:",
+          visible: true
+        }, {
+          fieldName: "CAT",
+          label: "Storm Category:",
+          visible: true
+        }, {
+          fieldName: "PRESSURE",
+          label: "Pressure:",
+          visible: true
+        }, {
+          fieldName: "Wind_MPH",
+          label: "Wind (mph):",
+          visible: true
+        }]
+      });
+
+      /*
+      var hurricane = new FeatureLayer("http://services.arcgis.com/nzS0F0zdNLvs7nc8/ArcGIS/rest/services/05_HurricaneAndrew_1992/FeatureServer/0", {
+        mode: FeatureLayer.MODE_SNAPSHOT,
+        outFields: ["*"],
+        popupTemplate: templateHurricane
+      });
+      
+
+      map.add(hurricane);
+      */
+
+      var features = [new Graphic({
+        geometry: new Point({
+          "x": -8572667.077462012,
+          "y": 4705830.594466476,
+          "spatialReference": {
+            "wkid": 102100
+          }
+        }),
+        symbol: new PictureMarkerSymbol({
+          url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
+          width: 16,
+          height: 16
+        }),
+        attributes: {
+          title: "Some location",
+          content: "test 3"
+        },
+        popupTemplate: new PopupTemplate({
+          content: "{content}",
+          title: "{title}"
+        })
+      }), new Graphic({
+        geometry: new Point({
+          "x": -8572467.077462012,
+          "y": 4705840.594466476,
+          "spatialReference": {
+            "wkid": 102100
+          }
+        }),
+        symbol: new PictureMarkerSymbol({
+          url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
+          width: 16,
+          height: 16
+        }),
+        attributes: {
+          title: "Test location 2",
+          content: "test 2"
+        },
+        popupTemplate: new PopupTemplate({
+          content: "{content}",
+          title: "{title}"
+        })
+      })];
+
+      //popup.set("features", features);
+
+      //popup.set("visible", true);
+
+
+      view.on("click", function (evt) {
+
+        var features = [new Graphic({
+          geometry: evt.mapPoint,
+          attributes: {
+            title: "clicked here",
+            content: "test 1"
+          },
+          symbol: new PictureMarkerSymbol({
+            url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
+            width: 16,
+            height: 16
+          }),
+          popupTemplate: new PopupTemplate({
+            content: "{content}",
+            title: "{title}"
+          })
+        }), new Graphic({
+          geometry: new Point({
+            "x": -8572667.077462012,
+            "y": 4705830.594466476,
+            "spatialReference": {
+              "wkid": 102100
+            }
+          }),
+          attributes: {
+            title: "clicked here 2",
+            content: "test 2"
+          },
+          symbol: new PictureMarkerSymbol({
+            url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
+            width: 16,
+            height: 16
+          }),
+          popupTemplate: new PopupTemplate({
+            content: "{content}",
+            title: "{title}"
+          })
+        }), new Graphic({
+          geometry: new Point({
+            "x": -8576667.077462012,
+            "y": 4705330.594466476,
+            "spatialReference": {
+              "wkid": 102100
+            }
+          }),
+          attributes: {
+            title: "clicked here 3",
+            content: "test 3"
+          },
+          symbol: new PictureMarkerSymbol({
+            url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
+            width: 16,
+            height: 16
+          }),
+          popupTemplate: new PopupTemplate({
+            content: "{content}",
+            title: "{title}"
+          })
+        })];
+
+
+        var features2 = [new Graphic({
+          geometry: evt.mapPoint,
+          attributes: {
+            title: "clicked here 4",
+            content: "test 4"
+          },
+          symbol: new PictureMarkerSymbol({
+            url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
+            width: 16,
+            height: 16
+          }),
+          popupTemplate: new PopupTemplate({
+            content: "{content}",
+            title: "{title}"
+          })
+        })];
+
+        var features3 = [new Graphic({
+          geometry: evt.mapPoint,
+          attributes: {
+            title: "clicked here 5",
+            content: "test 5"
+          },
+          symbol: new PictureMarkerSymbol({
+            url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
+            width: 16,
+            height: 16
+          }),
+          popupTemplate: new PopupTemplate({
+            content: "{content}",
+            title: "{title}"
+          })
+        })];
+
+
+        var def = new Deferred();
+        var def2 = new Deferred();
+        var def3 = new Deferred();
+
+        setTimeout(function () {
+          def.resolve(features);
+        }, 1500);
+
+        setTimeout(function () {
+          def2.resolve(features2);
+        }, 3000);
+
+        setTimeout(function () {
+          def3.resolve(features3);
+        }, 4000);
+
+        popup.set({
+
+          promises: [def.promise, def2.promise, def3.promise],
+          location: evt.mapPoint,
+          visible: true
+        });
+
+        popup.watch("pendingPromisesCount", function () {
+          console.log("Pending promises: " + popup.pendingPromisesCount);
+        });
+
+      });
+
+
+
+      var alignment = dom.byId("option_alignment");
+      domAttr.set(alignment, "value", popup.alignment);
+      on(alignment, "change", function () {
+        popup.set("alignment", alignment.value);
+      });
+      popup.watch("alignment", function () {
+        domAttr.set(alignment, "value", popup.alignment);
+      });
+
+
+
+      var dockPositionPortrait = dom.byId("option_dock_position_portrait");
+      domAttr.set(dockPositionPortrait, "value", popup.dockOptions.position.portrait);
+      on(dockPositionPortrait, "change", function () {
+        var newVal = lang.mixin(popup.dockOptions, {
+          position: {
+            portrait: dockPositionPortrait.value
+          }
+        });
+        popup.set("dockOptions", newVal);
+      });
+      popup.watch("dockOptions", function () {
+        domAttr.set(dockPositionPortrait, "value", popup.dockOptions.position.portrait);
+      });
+
+
+      var dockPositionLandscape = dom.byId("option_dock_position_landscape");
+      domAttr.set(dockPositionLandscape, "value", popup.dockOptions.position.landscape);
+      on(dockPositionLandscape, "change", function () {
+        var newVal = lang.mixin(popup.dockOptions, {
+          position: {
+            landscape: dockPositionLandscape.value
+          }
+        });
+        popup.set("dockOptions", newVal);
+      });
+      popup.watch("dockOptions", function () {
+        domAttr.set(dockPositionLandscape, "value", popup.dockOptions.position.landscape);
+      });
+
+
+      var visible = dom.byId("option_visible");
+      domAttr.set(visible, "checked", popup.visible);
+      on(visible, "change", function (evt) {
+        popup.set("visible", domAttr.get(visible, "checked"));
+      });
+      popup.watch("visible", function () {
+        domAttr.set(visible, "checked", popup.visible);
+      });
+
+      var paginationEnabled = dom.byId("option_paginationEnabled");
+      domAttr.set(paginationEnabled, "checked", popup.paginationEnabled);
+      on(paginationEnabled, "change", function (evt) {
+        popup.set("paginationEnabled", domAttr.get(paginationEnabled, "checked"));
+      });
+      popup.watch("paginationEnabled", function () {
+        domAttr.set(paginationEnabled, "checked", popup.paginationEnabled);
+      });
+
+      var docked = dom.byId("option_docked");
+      domAttr.set(docked, "checked", popup.docked);
+      on(docked, "change", function (evt) {
+        popup.set("docked", domAttr.get(docked, "checked"));
+      });
+      popup.watch("docked", function () {
+        domAttr.set(docked, "checked", popup.docked);
+      });
+
+      var zoomFactor = dom.byId("option_zoomFactor");
+      domAttr.set(zoomFactor, "value", popup.zoomFactor);
+      on(zoomFactor, "change", function () {
+        popup.set("zoomFactor", parseInt(zoomFactor.value, 10));
+      });
+      popup.watch("zoomFactor", function () {
+        domAttr.set(zoomFactor, "value", popup.zoomFactor);
+      });
+
+      var selectedIndex = dom.byId("option_selectedIndex");
+      domAttr.set(selectedIndex, "value", popup.selectedIndex);
+      on(selectedIndex, "change", function () {
+        popup.set("selectedIndex", parseInt(selectedIndex.value, 10));
+      });
+      popup.watch("selectedIndex", function () {
+        domAttr.set(selectedIndex, "value", popup.selectedIndex);
+      });
+
+
+    });
+  </script>
+</head>
+
+<body>
+  <div class="drawer-container">
+    <div class="drawer-side drawer-animation">
+      <h1>Options</h1>
+      <ul class="options">
+        <li>
+          <label>
+            <input id="option_visible" type="checkbox" /> Visible</label>
+        </li>
+        <li>
+          <label>
+            <input id="option_paginationEnabled" type="checkbox" /> Pagination</label>
+        </li>
+        <li>
+          <label>
+            <input id="option_docked" type="checkbox" /> Docked</label>
+        </li>
+        <li>
+          <label>Alignment </label>
+          <select id="option_alignment">
+            <option value="top">top</option>
+            <option value="bottom">bottom</option>
+            <option value="left">left</option>
+            <option value="right">right</option>
+          </select>
+        </li>
+        <li>
+          <label>Dock Position Portrait</label>
+          <select id="option_dock_position_portrait">
+            <option value="top">top</option>
+            <option value="bottom">bottom</option>
+          </select>
+        </li>
+        <li>
+          <label>Dock Position Landscape</label>
+          <select id="option_dock_position_landscape">
+            <option value="left">left</option>
+            <option value="right">right</option>
+          </select>
+        </li>
+        <li>
+          <label>Zoom Factor </label>
+          <input id="option_zoomFactor" type="text" value="4" />
+        </li>
+        <li>
+          <label>Selected Index </label>
+          <input id="option_selectedIndex" type="text" value="10" />
+        </li>
+      </ul>
+    </div>
+    <div class="drawer-center">
+      <div class="drawer-top drawer-animation">
+        <div id="toggle" class="toggle">
+          <span class="esri-icon-expand"></span>
+          <span class="esri-icon-collapse"></span>
+          <span>Options</span>
+        </div>
+      </div>
+      <div id="mapDiv" dir="ltr">
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

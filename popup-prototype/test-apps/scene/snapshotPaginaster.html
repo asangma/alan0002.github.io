@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Basemapster</title>
+
+    <link href="../../esri/css/view.css" rel="stylesheet" type="text/css">
+
+    <style>
+      html, body {
+        margin:0;
+        padding:0;
+        height: 100%;
+      }
+      #map {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+
+    <script src="./jsapi.js"></script>
+    <script src="../../dojo/dojo.js"></script>
+
+    <script type="text/javascript">
+      var map, view;
+
+      jsAPI.setup([
+        "dojo/_base/array",
+
+        "esri/Map",
+        "esri/views/SceneView",
+        "esri/geometry/SpatialReference",
+        "esri/geometry/Extent",
+
+        "esri/layers/FeatureLayer"
+      ], function(
+        array,
+        Map, SceneView, SpatialReference, Extent,
+        FeatureLayer
+      ) {
+        // setup the map
+        map = new Map({
+          basemap: "gray",
+          extent: new Extent(-8597569.887978256, 4681741.438954649, -8548762.643354615, 4730548.849605226, SpatialReference.WebMercator)
+        });
+
+        view = new SceneView({
+          container: "map",
+          map: map
+        });
+
+        var featureLayer = new FeatureLayer({
+          url: "//servicesdev.arcgis.com/aw2hJ3SlsjXvSI4j/arcgis/rest/services/PublicPermitsDC/FeatureServer/0",
+          definitionExpression: "EFFECTIVEDATETIME < '2006-06-05 00:00:00'",
+          mode: FeatureLayer.MODE_SNAPSHOT
+        });
+        
+        map.add(featureLayer);
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="map"></div>
+  </body>
+
+</html>

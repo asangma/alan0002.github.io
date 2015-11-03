@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta name="generator" content="HTML Tidy, see www.w3.org">
+        <meta http-equiv="Content-Type" content= "text/html; charset=utf-8">
+        <title>Query Features</title>
+        <link rel="stylesheet" type="text/css" href= "../../../../dojo/dijit/themes/tundra/tundra.css">
+        <script>
+            dojoConfig = {
+                isDebug: true
+            };
+        </script>
+        <script type="text/javascript" src="../../../../../index.jsp">
+        </script>
+        <script type="text/javascript">
+            dojo.require("esri.geometry");
+            dojo.require("esri.map");
+            dojo.require("doh.runner");
+            
+            
+            var map;
+            
+            function init(){
+            
+                map = new esri.Map("mapDiv");
+                dojo.connect(map, "onLoad", runTests);
+                var layer = new esri.layers.ArcGISDynamicMapServiceLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer");
+                map.addLayer(layer);
+                
+                
+            }
+            
+            function runTests(){
+            
+            
+                doh.registerGroup("geometry.namespace.toMapGeometryGCSTest", [{
+                    name: "testExtent",
+                    timeout: 3000,
+                    runTest: function(t){
+                        var extentJson = {
+                            "xmin": 15,
+                            "ymin": 345,
+                            "xmax": 137,
+                            "ymax": 424
+                        };
+                        
+                        var geometry = esri.geometry.fromJson(extentJson);
+                        var mapExtentJson = {
+                            "xmin": -125.192864566604,
+                            "ymin": 6.92457158852609,
+                            "xmax": -66.1058240541493,
+                            "ymax": 66.8100856214194,
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        
+                        };
+                        var geometry = esri.geometry.toMapGeometry(new esri.geometry.Extent(mapExtentJson), 900, 600, geometry);
+                        console.log(geometry);
+                        t.assertEqual(geometry.type, "extent");
+                        
+                    }
+                }, {
+                    name: "testMultipoint",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var multipointJson = {
+                            "points": [[32, 292], [115, 289], [117, 332], [46, 347], [59, 355]]
+                        };
+                        
+                        var geometry = esri.geometry.fromJson(multipointJson);
+                        var mapExtentJson = {
+                            "xmin": -125.192864566604,
+                            "ymin": 6.92457158852609,
+                            "xmax": -66.1058240541493,
+                            "ymax": 66.8100856214194,
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        
+                        };
+                        
+                        var geometry = esri.geometry.toMapGeometry(new esri.geometry.Extent(mapExtentJson), 900, 600, geometry);
+                        console.log(geometry);
+                        t.assertEqual(geometry.type, "multipoint");
+                        
+                    }
+                }, {
+                    name: "testPoint",
+                    timeout: 3000,
+                    runTest: function(t){
+                        var pointJson = {
+                            "x": 112,
+                            "y": 310
+                        };
+                        
+                        var geometry = esri.geometry.fromJson(pointJson);
+                         var mapExtentJson = {
+                            "xmin": -125.192864566604,
+                            "ymin": 6.92457158852609,
+                            "xmax": -66.1058240541493,
+                            "ymax": 66.8100856214194,
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        
+                        };
+                        var geometry = esri.geometry.toMapGeometry(new esri.geometry.Extent(mapExtentJson), 900, 600, geometry);
+                        console.log(geometry);
+                        t.assertEqual(geometry.type, "point");
+                        
+                    }
+                }, {
+                    name: "testPolyline",
+                    timeout: 3000,
+                    runTest: function(t){
+                        var polylineJson = {
+                            "paths": [[[56, 268], [146, 273], [159, 347], [71, 359]]]
+                        };
+                        
+                        var geometry = esri.geometry.fromJson(polylineJson);
+                        var mapExtentJson = {
+                            "xmin": -125.192864566604,
+                            "ymin": 6.92457158852609,
+                            "xmax": -66.1058240541493,
+                            "ymax": 66.8100856214194,
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        
+                        };
+                        var geometry = esri.geometry.toMapGeometry(new esri.geometry.Extent(mapExtentJson), 900, 600, geometry);
+                        console.log(geometry);
+                        t.assertEqual(geometry.type, "polyline");
+                        
+                    }
+                }, {
+                    name: "testPolygon",
+                    timeout: 3000,
+                    runTest: function(t){
+                        var polygonJson = {
+                            "rings": [[[34, 274], [259, 308], [46, 412], [27, 282], [34, 274]]]
+                        };
+                        
+                        
+                        var geometry = esri.geometry.fromJson(polygonJson);
+                        var mapExtentJson = {
+                            "xmin": -125.192864566604,
+                            "ymin": 6.92457158852609,
+                            "xmax": -66.1058240541493,
+                            "ymax": 66.8100856214194,
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        
+                        };
+                        var geometry = esri.geometry.toMapGeometry(new esri.geometry.Extent(mapExtentJson), 900, 600, geometry);
+                        console.log(geometry);
+                        t.assertEqual(geometry.type, "polygon");
+                        
+                    }
+                }]);
+                
+                
+                doh.run();
+            }
+            
+            dojo.addOnLoad(init);
+        </script>
+    </head>
+    <body class="tundra">
+        <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;">
+        </div>
+    </body>
+</html>

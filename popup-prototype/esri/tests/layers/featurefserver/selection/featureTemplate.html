@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Feature Template</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../../index.jsp">
+      </script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.layers.FeatureLayer");
+	   dojo.require("esri.symbol");
+      dojo.require("doh.runner");
+      
+      function init() {
+         var featureLayer =  new esri.layers.FeatureLayer("http://servery/ArcGIS/rest/services/FeatureServiceServices/Landuse/FeatureServer/0", {
+          mode: esri.layers.FeatureLayer.MODE_SELECTION,
+          outFields: ["*"],
+          id: "landuseLayer"
+        });
+        if (featureLayer.loaded) {
+          runTests(featureLayer);
+        }
+        else {
+          dojo.connect(featureLayer, "onLoad", runTests);
+        }
+      }
+      
+      function runTests(featureLayer) {
+        doh.registerGroup("layers.featurefserver.selection.featureTemplate", [
+     		  
+		  {
+            name: "featureTemplate",
+            timeout: 50,
+            runTest: function(t) {
+			t.assertEqual(esri.layers.FeatureTemplate.TOOL_POINT ,featureLayer.types[0].templates[0].drawingTool);
+			 t.assertEqual("Node Green",featureLayer.types[0].templates[0].name);
+			 t.assertEqual("",featureLayer.types[0].templates[0].description);
+			 t.assertEqual("Node Green",featureLayer.types[0].templates[0].prototype.attributes.SYMBOLNAME);
+			 
+		}
+			
+          }
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+  </body>
+</html>

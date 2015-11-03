@@ -1,0 +1,3 @@
+esri\nls
+esri\widgets\metadata\nls
+esri\widgets\PopupLegacy\nls

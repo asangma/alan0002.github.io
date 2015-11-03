@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>onPanEnd</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+    <script>
+        dojoConfig = {
+            isDebug: true
+        };
+    </script>
+    <script type="text/javascript" src="../../../../../index.jsp">
+    </script>
+
+    <script type="text/javascript">
+      dojo.require("esri.map");
+      dojo.require("doh.runner");
+
+      var map;
+
+      function init() {
+        map = new esri.Map("mapDiv");
+        dojo.connect(map, "onLoad", runTests);
+        map.addLayer(new esri.layers.ArcGISDynamicMapServiceLayer("http://servery/ArcGIS/rest/services/Portland/PortlandMap/MapServer"));
+      }
+      
+      function runTests() {
+        doh.registerGroup("map.agsdynamic.onPanEnd", [
+          //Map.pan
+          {
+            name: "panUpperLeft",
+            timeout: 3000,
+            runTest: function(t) {
+              var onPanEndHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta) {
+                dojo.disconnect(onPanEndHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+
+                t.assertEqual({xmin:7563210.799478776,ymin:668040.3296586215,xmax:7631314.184401931,ymax:702092.0221201994,spatialReference:{wkid:102726}}, extent.toJson());
+                t.assertEqual({x:768,y:384}, delta.toJson());
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onPanEndHandler = dojo.connect(map, "onPanEnd", assert);
+                map.panUpperLeft();
+              }, 1000);
+              return d;
+            }
+          },
+          
+          {
+            name: "panLowerRight",
+            timeout: 3000,
+            runTest: function(t) {
+              var onPanEndHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta) {
+                dojo.disconnect(onPanEndHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                
+                t.assertEqual({xmin:7614288.338171142,ymin:642501.560312438,xmax:7682391.723094298,ymax:676553.252774016,spatialReference:{wkid:102726}}, extent.toJson());
+                t.assertEqual({x:-768,y:-384}, delta.toJson());
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onPanEndHandler = dojo.connect(map, "onPanEnd", assert);
+                map.panLowerRight();
+              }, 1000);
+              return d;
+            }
+          },
+          
+          {
+            name: "panUp",
+            timeout: 3000,
+            runTest: function(t) {
+              var onPanEndHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta) {
+                dojo.disconnect(onPanEndHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                
+                t.assertEqual({xmin:7614288.338171142,ymin:668040.3296586215,xmax:7682391.723094298,ymax:702092.0221201994,spatialReference:{wkid:102726}}, extent.toJson());
+                t.assertEqual({x:0,y:384}, delta.toJson());
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onPanEndHandler = dojo.connect(map, "onPanEnd", assert);
+                map.panUp();
+              }, 1000);
+              return d;
+            }
+          },
+          
+          {
+            name: "panDown",
+            timeout: 3000,
+            runTest: function(t) {
+              var onPanEndHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta) {
+                dojo.disconnect(onPanEndHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                
+                t.assertEqual({xmin:7614288.338171142,ymin:642501.560312438,xmax:7682391.723094298,ymax:676553.252774016,spatialReference:{wkid:102726}}, extent.toJson());
+                t.assertEqual({x:0,y:-384}, delta.toJson());
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onPanEndHandler = dojo.connect(map, "onPanEnd", assert);
+                map.panDown();
+              }, 1000);
+              return d;
+            }
+          },
+          
+          {
+            name: "panUpperRight",
+            timeout: 3000,
+            runTest: function(t) {
+              var onPanEndHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta) {
+                dojo.disconnect(onPanEndHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                
+                t.assertEqual({xmin:7665365.8768635085,ymin:668040.3296586215,xmax:7733469.261786664,ymax:702092.0221201994,spatialReference:{wkid:102726}}, extent.toJson());
+                t.assertEqual({x:-768,y:384}, delta.toJson());
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onPanEndHandler = dojo.connect(map, "onPanEnd", assert);
+                map.panUpperRight();
+              }, 1000);
+              return d;
+            }
+          },
+          
+          {
+            name: "panLowerLeft",
+            timeout: 3000,
+            runTest: function(t) {
+              var onPanEndHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta) {
+                dojo.disconnect(onPanEndHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                
+                t.assertEqual({xmin:7614288.338171142,ymin:642501.560312438,xmax:7682391.723094298,ymax:676553.252774016,spatialReference:{wkid:102726}}, extent.toJson());
+                t.assertEqual({x:768,y:-384}, delta.toJson());
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onPanEndHandler = dojo.connect(map, "onPanEnd", assert);
+                map.panLowerLeft();
+              }, 1000);
+              return d;
+            }
+          },
+          
+          {
+            name: "panRight",
+            timeout: 3000,
+            runTest: function(t) {
+              var onPanEndHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta) {
+                dojo.disconnect(onPanEndHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                
+                t.assertEqual({xmin:7665365.8768635085,ymin:642501.560312438,xmax:7733469.261786664,ymax:676553.252774016,spatialReference:{wkid:102726}}, extent.toJson());
+                t.assertEqual({x:-768,y:0}, delta.toJson());
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onPanEndHandler = dojo.connect(map, "onPanEnd", assert);
+                map.panRight();
+              }, 1000);
+              return d;
+            }
+          },
+          
+          {
+            name: "panLeft",
+            timeout: 3000,
+            runTest: function(t) {
+              var onPanEndHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta) {
+                dojo.disconnect(onPanEndHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                
+                t.assertEqual({xmin:7614288.338171142,ymin:642501.560312438,xmax:7682391.723094298,ymax:676553.252774016,spatialReference:{wkid:102726}}, extent.toJson());
+                t.assertEqual({x:768,y:0}, delta.toJson());
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onPanEndHandler = dojo.connect(map, "onPanEnd", assert);
+                map.panLeft();
+              }, 1000);
+              return d;
+            }
+          },
+          
+          //Map.centerAt
+          {
+            name: "centerAt",
+            timeout: 3000,
+            runTest: function(t) {
+              var onPanEndHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta) {
+                dojo.disconnect(onPanEndHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                
+                t.assertEqual({xmin:7622734.754074697,ymin:649285.295920018,xmax:7690838.138997853,ymax:683336.9883815959,spatialReference:{wkid:102726}}, extent.toJson());
+                t.assertEqual({x:-127,y:102}, delta.toJson());
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onPanEndHandler = dojo.connect(map, "onPanEnd", assert);
+                map.centerAt(new esri.geometry.Point({x:7656786.446536275,y:666311.142150807,spatialReference:{wkid:102726}}));
+              }, 1000);
+              return d;
+            }
+          },
+          
+          //Map.setExtent
+          {
+            name: "setExtentPan",
+            timeout: 3000,
+            runTest: function(t) {
+              var onPanEndHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta) {
+                dojo.disconnect(onPanEndHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                
+                t.assertEqual({xmin:7648872.088327432,ymin:672629.3272755138,xmax:7716975.4732505875,ymax:706681.0197370917,spatialReference:{wkid:102726}}, extent.toJson());
+                t.assertEqual({x:-393,y:351}, delta.toJson());
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onPanEndHandler = dojo.connect(map, "onPanEnd", assert);
+                map.setExtent(new esri.geometry.Extent({xmin:7648872.088327432,ymin:672629.3272755139,xmax:7716975.4732505875,ymax:706681.0197370918,spatialReference:{wkid:102726}}));
+              }, 1000);
+              return d;
+            }
+          }
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+    <div id="mapDiv" style="width:1024px; height:512px; border:1px solid #000;"></div>
+  </body>
+</html>

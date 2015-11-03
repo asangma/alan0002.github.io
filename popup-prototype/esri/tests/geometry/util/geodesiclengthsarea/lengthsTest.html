@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta name="generator" content="HTML Tidy, see www.w3.org">
+        <meta http-equiv="Content-Type" content= "text/html; charset=utf-8">
+        <title>Query Features</title>
+        <link rel="stylesheet" type="text/css" href= "../../../../../dojo/dijit/themes/tundra/tundra.css">
+        <script>
+            dojoConfig = {
+                isDebug: true
+            };
+        </script>
+        <script type="text/javascript" src="../../../../../../index.jsp">
+        </script>
+        <script type="text/javascript">
+            dojo.require("esri.geometry");
+            dojo.require("esri.map");
+            dojo.require("doh.runner");
+            
+            
+            var geometryService, lengthParams, polyline;
+            
+            function init(){
+            
+                var map = new esri.Map("mapDiv");
+                dojo.connect(map, "onLoad", runTests);
+                var layer = new esri.layers.ArcGISDynamicMapServiceLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer");
+                map.addLayer(layer);
+                
+                polyline = new esri.geometry.Polyline({
+                    "paths": [[[-89.296875, 47.4609375], [17.2265625, 54.140625], [55.1953125, -6.6796875], [-15.46875, -31.2890625], [-30.9375, -27.421875]]],
+                    "spatialReference": {
+                        "wkid": 4326
+                    }
+                });
+                lengthParams = new esri.tasks.LengthsParameters();
+                lengthParams.polylines = [polyline];
+                lengthParams.geodesic = true;
+                
+                
+            }
+            
+            function runTests(){
+            
+            
+                doh.registerGroup("geometry.util.geodesiclengthsarea.lengthsTest", [{
+                    name: "geodesiclengths_KILOMETERS",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        lengthParams.lengthUnit = esri.tasks.GeometryService.UNIT_KILOMETER;
+                        
+                        function getResult(result){
+                            var serverlength = result.lengths[0];
+                            
+                            var clientLengths = esri.geometry.geodesicLengths([polyline], esri.Units.KILOMETERS);
+                            var diff = Math.abs((clientLengths[0] - serverlength)) / serverlength * 100;
+							console.log(diff);
+                            if (diff < 0.02) {
+                                t.assertTrue(true);
+                            }
+                        }
+                        dojo.connect(geometryService, "onLengthsComplete", getResult);
+                        geometryService.lengths(lengthParams);
+                        
+                        
+                        
+                    }
+                    
+                    
+                }, {
+                    name: "geodesiclengths_MILES",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        lengthParams.lengthUnit = esri.tasks.GeometryService.UNIT_STATUTE_MILE;
+                        
+                        geometryService.lengths(lengthParams, function(result){
+                            var serverLength = result.lengths[0];
+                            var clientLengths = esri.geometry.geodesicLengths([polyline], esri.Units.MILES);
+                            var diff = Math.abs((clientLengths[0] - serverLength)) / serverLength * 100;
+							console.log(diff);
+                            if (diff < 0.02) {
+                                t.assertTrue(true);
+                            }                            
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "geodesiclengths_FEET",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        lengthParams.lengthUnit = esri.tasks.GeometryService.UNIT_FOOT;
+                        
+                        geometryService.lengths(lengthParams, function(result){
+                            var serverLength = result.lengths[0];
+							var clientLengths = esri.geometry.geodesicLengths([polyline], esri.Units.FEET);
+                    		var diff = Math.abs((clientLengths[0] - serverLength)) / serverLength * 100;
+							console.log(diff);
+                            if (diff < 0.02) {
+                                t.assertTrue(true);
+                            }                            
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "geodesiclengths_METERS",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        lengthParams.lengthUnit = esri.tasks.GeometryService.UNIT_METER;
+                        
+                        geometryService.lengths(lengthParams, function(result){
+                            var serverLength = result.lengths[0];
+							var clientLengths = esri.geometry.geodesicLengths([polyline], esri.Units.METERS);
+                           	var diff = Math.abs((clientLengths[0] - serverLength)) / serverLength * 100;
+							console.log(diff);
+                            if (diff < 0.02) {
+                                t.assertTrue(true);
+                            }                            
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                } ], function()//setUp()
+                {
+                    esriConfig.request.proxyUrl = "../../../proxy.jsp";
+                    esriConfig.request.forceProxy = false;
+                    geometryService = new esri.tasks.GeometryService("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
+                    
+                    
+                }, function()//tearDown
+                {
+                    geometryService = null;
+                    
+                });
+                
+                
+                doh.run();
+            }
+            
+            dojo.addOnLoad(init);
+        </script>
+    </head>
+    <body class="tundra">
+        <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;">
+        </div>
+    </body>
+</html>

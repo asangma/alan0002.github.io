@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Featurester</title>
+
+    <link href="../../esri/css/view.css" rel="stylesheet" type="text/css">
+
+    <style>
+      html, body {
+        margin:0;
+        padding:0;
+        height: 100%;
+      }
+      body {
+        font-family: source-sans-pro, sans-serif;
+        position: relative;
+        overflow: hidden;
+      }
+      body.dark {
+        color: #F0F1F1;
+        background: #4A4D4E;
+      }
+      #map {
+        width: 100%;
+        height: 100%;
+      }
+      .panel {
+        z-index: 1;
+        position: fixed;
+        background: -webkit-linear-gradient(#555555, #000000);
+        background: -moz-linear-gradient(#555555, #000000);
+        opacity: 0.8;
+        padding: 5px;
+      }
+      .panel > .title {
+        position: relative;
+        float: left;
+        left: 10px;
+        top: 6px;
+      }
+      .panel > .right {
+        position: relative;
+        float: right;
+        right: 10px;
+        top: 6px;
+      }
+      .panel a {
+        color: #FF6622;
+      }
+    </style>
+
+    <script src="./jsapi.js"></script>
+    <script src="../../dojo/dojo.js"></script>
+
+    <script type="text/javascript">
+      var map, view;
+
+      jsAPI.setup([
+        "esri/Map", "esri/views/SceneView", "esri/layers/FeatureLayer"
+      ], function(
+        Map, SceneView, FeatureLayer
+      ) {
+        // setup the map
+        map = new Map({
+          basemap: "topo"
+        });
+
+        view = new SceneView({
+          map: map,
+          container: "map"
+        });
+
+        window.addFeatureLayer = function (url) {
+          var featureLayer = new FeatureLayer(url, {  mode: FeatureLayer.MODE_SNAPSHOT });
+          map.add(featureLayer);
+        };
+      });
+    </script>
+  </head>
+
+  <body class="dark">
+    <div id="map"></div>
+    <div class="panel" style="position:fixed; width:100%; height:35px; top:0px;">
+      <span class="title">Featurester</span>
+      <div class="right">
+
+      </div>
+    </div>
+  </body>
+
+</html>

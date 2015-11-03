@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>LayerInfo</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.layers.WebTiledLayer");
+      dojo.require("doh.runner");
+      
+      function init() {
+
+        var wtlUrl = "http://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/8/105/63";
+
+        var webTiledLayer = new esri.layers.WebTiledLayer(wtlUrl,{"copyright": "ArcGIS Online Web tiled service"
+        });
+        if (webTiledLayer.loaded) {
+          runTests(webTiledLayer);
+        }
+        else {
+            console.log("onload");
+          dojo.connect(webTiledLayer, "onLoad", runTests);
+        }
+      }
+      
+      function runTests(webTiledLayer) {
+        doh.registerGroup("webtiled.layerProperties", [
+          {
+            name: "tileInfo",
+            timeout: 100,
+            runTest: function() {
+                var tileInfo = webTiledLayer.tileInfo;
+
+                doh.assertEqual(tileInfo.dpi,undefined);
+                doh.assertEqual(tileInfo.format,undefined);
+                doh.assertEqual(tileInfo.height,256);
+                doh.assertEqual(tileInfo.lods.length,20);
+                doh.assertEqual(tileInfo.origin.x,-20037508.342787);
+                doh.assertEqual(tileInfo.origin.y,20037508.342787);
+                doh.assertEqual(tileInfo.spatialReference.wkid,102100);
+                doh.assertEqual(tileInfo.width,256);
+
+            }
+
+          } ,
+          {
+            name: "copyright",
+            timeout: 100,
+            runTest: function() {
+
+                doh.assertEqual("ArcGIS Online Web tiled service",webTiledLayer.copyright);
+                doh.assertEqual("http://server.arcgisonline.com/",webTiledLayer.tileServers[0]);
+                doh.assertEqual(webTiledLayer.fullExtent.xmin,-20037508.342787);
+                doh.assertEqual(webTiledLayer.fullExtent.ymin,-20037508.34278);
+                doh.assertEqual(webTiledLayer.initialExtent.xmax,20037508.34278);
+                doh.assertEqual(webTiledLayer.initialExtent.ymax,20037508.342787);
+
+            }
+
+          }
+        ]
+
+        );
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+
+  </body>
+</html>

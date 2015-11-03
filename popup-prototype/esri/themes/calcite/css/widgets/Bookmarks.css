@@ -1,0 +1,40 @@
+.calcite .esriBookmarks {
+  width: 215px;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 1px;
+}
+.calcite .esriBookmarkTable {
+  width: 100%;
+  border-spacing: 0px;
+  border-collapse: collapse;
+}
+.calcite .esriBookmarkItem {
+  width: 100%;
+  height: 24px;
+}
+.calcite .esriBookmarkItem.esriBookmarkHighlight,
+.calcite .esriBookmarkItem:hover,
+.calcite .esriBookmarkItem:focus {
+/*background-color: #D9E6F9;*/
+  border: none;
+}
+.calcite .esriBookmarkLabel {
+  position: relative;
+  float: left;
+  width: 99%;
+  overflow: hidden;
+/*line-height: 20px;
+    height: 20px;
+    margin-left: 5px;*/
+  white-space: nowrap;
+  font-size: $fontSizeDefault;
+  text-align: left;
+  vertical-align: middle;
+  color: $textColorDefault;
+  font-family: $fontFamilyDefault; /*Verdana, Helvetica, sans-serif;*/
+  cursor: pointer;
+  line-height: $fontFamilyDefault10px;
+  height: $fontFamilyDefault10px;
+  margin-left: $marginDefaultSpacer;
+}

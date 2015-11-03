@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <title>Animate Path</title>
+    <link href="../../esri/css/view.css" rel="stylesheet" type="text/css">
+    <style>
+      html, body, #map {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: #FFF;
+        overflow: hidden;
+        font-family: "Trebuchet MS";
+      }
+    </style>
+
+    <script src="./jsapi.js"></script>
+    <script src="../../dojo/dojo.js"></script>
+
+    <script>
+      var map, view;
+
+      jsAPI.setup([
+        "dojo/promise/all",
+        "esri/Map",
+        "esri/views/SceneView",
+        "esri/geometry/SpatialReference",
+        "esri/geometry/Point",
+        "esri/geometry/ScreenPoint",
+        "esri/geometry/Polyline",
+        "esri/geometry/Multipoint",
+        "esri/symbols/PointSymbol3D",
+        "esri/symbols/LineSymbol3D",
+        "esri/Graphic",
+        "esri/layers/GraphicsLayer",
+
+        "dojo/domReady!"
+      ], function(
+        all,
+        Map, SceneView, SpatialReference, Point, ScreenPoint,
+        Polyline, Multipoint,
+        PointSymbol3D, LineSymbol3D,
+        Graphic, GraphicsLayer) {
+
+        map = new Map({
+          basemap: "hybrid"
+        });
+
+        view = new SceneView({
+          container: "map",
+          map: map
+        });
+
+        var wmSR = SpatialReference.WebMercator;
+        var points = [];
+
+        var lineSymbol = LineSymbol3D.fromJson({
+          symbolLayers: [{
+            type: "Line",
+            material: {
+              color: [255, 0, 0]
+            },
+            size: 10
+          }]
+        });
+
+        var pointSymbol = PointSymbol3D.fromJson({
+          symbolLayers: [{
+            type: "Object",
+            material: {
+              color: [0, 255, 0]
+            },
+            width: 200,
+            resource: {
+              primitive: "diamond"
+            }
+          }]
+        });
+
+        var lineLayer = new GraphicsLayer();
+        map.add(lineLayer);
+
+        var pointLayer = new GraphicsLayer();
+        map.add(pointLayer);
+
+        pointLayer.set("elevationInfo", { mode: "relativeToGround", offset: 100 });
+
+        var lineGraphic = null; //new Graphic(new Polyline(), lineSymbol);
+
+        all([map, view]).then(function() {
+          view.animateTo({
+            center: new Point(863666.7644965121, 5787095.297868814, 1832.2893740395084, wmSR),
+            scale: 41430,
+            heading: 15,
+            tilt: 70
+          });
+
+          var surface = view.get("surface");
+
+          surface.addEventListener("click", function(ev) {
+            if (!ev.ctrlKey) {
+              return;
+            }
+
+            var sp = new ScreenPoint(ev.x, ev.y);
+
+            view.hitTest(sp).then(function(hit) {
+              var p2d = new Point(hit.mapPoint.x, hit.mapPoint.y, hit.mapPoint.spatialReference);
+              pointLayer.add(new Graphic(p2d, pointSymbol, {}));
+
+              points.push(hit.mapPoint);
+
+              if (points.length > 1) {
+                var line = new Polyline(points);
+
+                if (lineGraphic) {
+                  lineLayer.remove(lineGraphic);
+                }
+
+                lineGraphic = new Graphic(line, lineSymbol, {});
+                lineLayer.add(lineGraphic);
+              }
+            });
+          });
+
+          var active = 0;
+          var animationId = 0;
+
+          surface.addEventListener("keydown", function(ev) {
+            if (ev.keyCode !== 32 || points.length === 0) {
+              return;
+            }
+
+            if (active >= points.length) {
+              active = 0;
+            }
+
+            var point = points[active];
+
+            if (animationId) {
+              cancelAnimationFrame(animationId);
+              animationId = 0;
+            }
+
+            view.animateTo({
+              target: point,
+              heading: view.get("camera").get("heading"),
+              tilt: view.get("camera").get("tilt"),
+              scale: 50000
+            }).then(function(e) {
+              if (e.get("state") === "finished") {
+                var animate = function() {
+                  animationId = requestAnimationFrame(animate);
+
+                  view.set("rotation", view.get("rotation") + 0.5);
+                };
+
+                animationId = requestAnimationFrame(animate);
+              }
+            });
+
+            active++;
+          });
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="map"></div>
+  </body>
+</html>

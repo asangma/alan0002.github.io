@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Map properties</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.map");
+      dojo.require("doh.runner");
+      
+      var map;
+      
+      function init() {
+        map = new esri.Map("mapDiv");
+        dojo.connect(map, "onLoad", runTests);
+        map.addLayer(new esri.layers.ArcGISTiledMapServiceLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/PublicSafety/PublicSafetyBasemap/MapServer"));
+      }
+      
+      function runTests() {
+        doh.registerGroup("map.agstiled.properties", [
+          {
+            name: "loaded",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertEqual("boolean", typeof map.loaded);
+              t.assertTrue(map.loaded);
+            }
+          },
+          
+          {
+            name: "id",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertEqual("string", typeof map.id);
+              t.assertEqual("mapDiv", map.id);
+            }
+          },
+          
+          {
+            name: "extent",
+            timeout: 50,
+            runTest: function(t) {
+			 
+			  t.assertTrue(map.extent instanceof esri.geometry.Extent);
+			  //the following is the temp fix before we get the formula
+			  t.assertEqual({"xmin":-86.0286079918174,"ymin":38.0296841527198,"xmax":-85.3254829787016,"ymax":38.3812466592777,"spatialReference":{"wkid":4326}}, map.extent.toJson());
+            }
+          },
+          
+          {
+            name: "graphics",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertTrue(map.graphics instanceof esri.layers.GraphicsLayer);
+              t.assertEqual(0, map.graphics.graphics.length);
+            }
+          },
+          
+          {
+            name: "size",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertEqual("number", typeof map.width);
+              t.assertEqual("number", typeof map.height);
+              
+              t.assertEqual(1024, map.width);
+              t.assertEqual(512, map.height);
+            }
+          },
+          
+          {
+            name: "infoWindow",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertTrue(map.infoWindow instanceof esri.widgets.InfoWindow);
+            }
+          },
+          
+          {
+            name: "layerIds",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertEqual(1, map.layerIds.length);
+              t.assertEqual("layer0", map.layerIds[0]);
+            }
+          },
+          
+          {
+            name: "spatialReference",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertTrue(map.spatialReference instanceof esri.SpatialReference);
+              t.assertEqual({wkid:4326}, map.spatialReference.toJson());
+            }
+          },
+
+          {
+            name: "mapNavigation",
+            timeout: 50,
+            runTest: function(t) {
+              t.assertEqual("boolean", typeof map.isClickRecenter);
+              t.assertEqual("boolean", typeof map.isDoubleClickZoom);
+              t.assertEqual("boolean", typeof map.isKeyboardNavigation);
+              t.assertEqual("boolean", typeof map.isPan);
+              t.assertEqual("boolean", typeof map.isRubberBandZoom);
+              t.assertEqual("boolean", typeof map.isScrollWheelZoom);
+              t.assertEqual("boolean", typeof map.isPanArrows);
+              t.assertEqual("boolean", typeof map.isZoomSlider);
+              
+              t.assertTrue(map.isClickRecenter);
+              t.assertTrue(map.isDoubleClickZoom);
+              t.assertTrue(map.isKeyboardNavigation);
+              t.assertTrue(map.isPan);
+              t.assertTrue(map.isRubberBandZoom);
+              t.assertTrue(map.isScrollWheelZoom);
+              t.assertFalse(map.isPanArrows);
+              t.assertTrue(map.isZoomSlider);
+            }
+          }
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+    <div id="mapDiv" style="width:1024px; height:512px; border:1px solid #000;"></div>
+  </body>
+</html>

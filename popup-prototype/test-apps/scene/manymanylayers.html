@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Graphicsster</title>
+    
+    <link href="../../esri/css/view.css" rel="stylesheet" type="text/css">
+    
+    <style>
+      html, body {
+        margin:0;
+        padding:0;
+        height: 100%;
+      }
+      body {
+        font-family: source-sans-pro, sans-serif;
+        position: relative;
+        overflow: hidden;
+      }
+      body.dark {
+        color: #F0F1F1;
+        background: #4A4D4E;
+      }
+      #map {
+        width: 100%;
+        height: 100%;
+      }
+      .panel {
+        z-index: 1;
+        position: fixed;
+        background: -webkit-linear-gradient(#555555, #000000);
+        background: -moz-linear-gradient(#555555, #000000);
+        opacity: 0.8;
+        padding: 5px;
+      }
+      .panel > .title {
+        position: relative;
+        float: left;
+        left: 10px;
+        top: 6px;
+      }
+      .panel > .right {
+        position: relative;
+        float: right;
+        right: 10px;
+        top: 6px;
+      }
+      .panel a {
+        color: #FF6622;
+      }
+	</style>
+
+    <script src="./jsapi.js"></script>
+    <script src="../../dojo/dojo.js"></script>
+    
+    <script type="text/javascript">
+      var map, view;
+      
+      jsAPI.setup([
+        "esri/Map",
+        "esri/views/SceneView",
+        "esri/Graphic",
+        "esri/geometry/SpatialReference",
+        "esri/geometry/Extent",
+        "esri/geometry/Point",
+
+        "esri/layers/GraphicsLayer",
+        "esri/symbols/PointSymbol3D"
+      ], function(
+        Map, SceneView, Graphic, SpatialReference, Extent, Point,
+        GraphicsLayer, PointSymbol3D
+      ) {
+        // setup the map
+        map = new Map({
+          basemap: "satellite"
+        });
+
+        view = new SceneView({
+          container: "map",
+          map: map
+        });
+        
+        var pic = "data:image/png;base64,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";
+        var iconSymbol = new PointSymbol3D({
+          type: "PointSymbol3D",
+          symbolLayers: [{
+            type: "Icon",
+            elevationMode: "relativeToGround",
+            size: 32,
+            resource: { dataURI: pic }
+          }]
+        });
+
+        var startX = 752446.11,
+          startY = 5876784.48,
+          endX = 1153934.11,
+          endY = 6179556.58,
+          Nx = 6,
+          Ny = 6;
+
+        var sr = new SpatialReference(102100);
+        var graphicsLayer;
+        var graphics = [];
+
+        for (var x = 0; x < Nx; x++) {
+          for (var y = 0; y < Ny; y++) {
+            graphicsLayer = new GraphicsLayer();
+            map.add(graphicsLayer);
+
+            var p = new Point(startX + (endX - startX)/Nx*x, startY + (endY - startY)/Ny*y, sr);
+            var graphic = new Graphic(p, iconSymbol, {label: x.toString()+"/"+ y.toString()});
+
+            graphicsLayer.add(graphic);
+            graphics.push(graphic);
+          }
+        }
+
+        view.animateTo({
+          target: graphics,
+          scale: 2057700
+        });
+      });
+      
+      
+    </script>
+  </head>
+  
+  <body class="dark">
+    <div id="map"></div>
+    <div class="panel" style="position:fixed; width:100%; height:35px; top:0px;">
+      <span class="title">Graphicsster</span>
+      <div class="right">
+        
+      </div>
+    </div>
+  </body>
+  
+</html>

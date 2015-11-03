@@ -1,0 +1,483 @@
+  <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>onExtentChange</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+    <script>
+        dojoConfig = {
+            isDebug: true
+        };
+    </script>
+    <script type="text/javascript" src="../../../../../index.jsp">
+    </script>
+
+    <script type="text/javascript">
+      dojo.require("esri.map");
+      dojo.require("doh.runner");
+
+      var map;
+
+      function init() {
+        map = new esri.Map("mapDiv");
+        dojo.connect(map, "onLoad", runTests);
+        map.addLayer(new esri.layers.ArcGISTiledMapServiceLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/PublicSafety/PublicSafetyBasemap/MapServer"));
+      }
+      
+      function runTests() {
+        doh.registerGroup("map.agstiled.onExtentChange", [
+		
+          //Map.setLevel
+          {
+            name: "setLevelZoomIn",
+            timeout: 3000,
+            runTest: function(t) {
+              var onExtentChangeHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta, levelChange, lod) {
+                dojo.disconnect(onExtentChangeHandler);
+				
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                t.assertTrue(levelChange === true);
+                t.assertTrue(lod instanceof esri.layers.LOD);
+
+                t.assertEqual({"xmin":-85.68803181358943,"ymin":38.199972241833784,"xmax":-85.66605915692956,"ymax":38.21095857016372,"spatialReference":{"wkid":4326}}, extent.toJson());
+                t.assertEqual({x:0,y:0}, delta.toJson());
+                t.assertEqual(11, lod.level);
+				t.assertEqual(9017.87105013534, lod.scale);
+				t.assertEqual(0.0000214576725194028, lod.resolution);
+                
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onExtentChangeHandler = dojo.connect(map, "onExtentChange", assert);
+                map.setLevel(11);
+              }, 1000);
+              return d;
+            }
+          },
+          
+          {
+            name: "setLevelZoomOut",
+            timeout: 3000,
+            runTest: function(t) {
+              var onExtentChangeHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta, levelChange, lod) {
+                dojo.disconnect(onExtentChangeHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                t.assertTrue(levelChange === true);
+                t.assertTrue(lod instanceof esri.layers.LOD);
+                t.assertEqual({"xmin":-85.69901814191937,"ymin":38.19447907766882,"xmax":-85.65507282859963,"ymax":38.216451734328686,"spatialReference":{"wkid":4326}}, extent.toJson());
+                t.assertEqual({x:0,y:0}, delta.toJson());
+                t.assertEqual(10, lod.level);
+                t.assertEqual(18035.7421002707, lod.scale);
+                t.assertEqual(0.0000429153450388056, lod.resolution);
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onExtentChangeHandler = dojo.connect(map, "onExtentChange", assert);
+                map.setLevel(10);
+              }, 1000);
+              return d;
+            }
+          },
+          
+          //Map.pan
+          {
+            name: "panUpperLeft",
+            timeout: 3000,
+            runTest: function(t) {
+              var onExtentChangeHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta, levelChange, lod) {
+                dojo.disconnect(onExtentChangeHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                t.assertTrue(levelChange === false);
+                t.assertTrue(lod instanceof esri.layers.LOD);
+                t.assertEqual({"xmin":-86.55595175165425,"ymin":38.29335603263823,"xmax":-85.85282673853845,"ymax":38.64491853919613,"spatialReference":{"wkid":4326}}, extent.toJson());
+                t.assertEqual({"x":768,"y":384}, delta.toJson());
+			    t.assertEqual(6, lod.level);
+				t.assertEqual(288571.873604331, lod.scale);
+			    t.assertEqual(0.00068664552062089, lod.resolution);
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onExtentChangeHandler = dojo.connect(map, "onExtentChange", assert);
+                map.panUpperLeft();
+              }, 1000);
+              return d;
+            }
+          },
+        
+         
+          {
+            name: "panLowerRight",
+            timeout: 3000,
+            runTest: function(t) {
+              var onExtentChangeHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta, levelChange, lod) {
+                dojo.disconnect(onExtentChangeHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                t.assertTrue(levelChange === false);
+                t.assertTrue(lod instanceof esri.layers.LOD);
+                t.assertEqual({"xmin":-85.50126423198054,"ymin":37.766012272801376,"xmax":-84.79813921886475,"ymax":38.11757477935927,"spatialReference":{"wkid":4326}}, extent.toJson());
+          	    t.assertEqual({"x":-768,"y":-384}, delta.toJson());
+			    t.assertEqual(6, lod.level);
+			    t.assertEqual(288571.873604331, lod.scale);
+				
+                t.assertEqual(0.00068664552062089, lod.resolution);
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onExtentChangeHandler = dojo.connect(map, "onExtentChange", assert);
+                map.panLowerRight();
+              }, 1000);
+              return d;
+            }
+          },
+           
+        
+          {
+            name: "panUp",
+            timeout: 3000,
+            runTest: function(t) {
+              var onExtentChangeHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta, levelChange, lod) {
+                dojo.disconnect(onExtentChangeHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                t.assertTrue(levelChange === false);
+                t.assertTrue(lod instanceof esri.layers.LOD);
+                t.assertEqual({"xmin":-86.0286079918174,"ymin":38.29335603263823,"xmax":-85.3254829787016,"ymax":38.64491853919613,"spatialReference":{"wkid":4326}}, extent.toJson());
+                t.assertEqual({"x":0,"y":384}, delta.toJson());
+			    t.assertEqual(6, lod.level);
+			    t.assertEqual(288571.873604331, lod.scale);
+			    t.assertEqual(0.00068664552062089, lod.resolution);
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onExtentChangeHandler = dojo.connect(map, "onExtentChange", assert);
+                map.panUp();
+              }, 1000);
+              return d;
+            }
+          }, 
+          
+		
+           
+          {
+            name: "panDown",
+            timeout: 3000,
+            runTest: function(t) {
+              var onExtentChangeHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta, levelChange, lod) {
+                dojo.disconnect(onExtentChangeHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                t.assertTrue(levelChange === false);
+                t.assertTrue(lod instanceof esri.layers.LOD);
+                
+                t.assertEqual({"xmin":-86.0286079918174,"ymin":37.766012272801376,"xmax":-85.3254829787016,"ymax":38.11757477935927,"spatialReference":{"wkid":4326}}, extent.toJson());
+                t.assertEqual({"x":0,"y":-384}, delta.toJson());
+				t.assertEqual(6, lod.level);
+				t.assertEqual(288571.873604331, lod.scale);
+				t.assertEqual(0.00068664552062089, lod.resolution);
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onExtentChangeHandler = dojo.connect(map, "onExtentChange", assert);
+                map.panDown();
+              }, 1000);
+              return d;
+            }
+          },
+          
+          
+          {
+            name: "panUpperRight",
+            timeout: 3000,
+            runTest: function(t) {
+              var onExtentChangeHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta, levelChange, lod) {
+                dojo.disconnect(onExtentChangeHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                t.assertTrue(levelChange === false);
+                t.assertTrue(lod instanceof esri.layers.LOD);
+                t.assertEqual({"xmin":-85.50126423198054,"ymin":38.29335603263823,"xmax":-84.79813921886475,"ymax":38.64491853919613,"spatialReference":{"wkid":4326}}, extent.toJson());
+                t.assertEqual({"x":-768,"y":384}, delta.toJson());
+			    t.assertEqual(6, lod.level);
+				t.assertEqual(288571.873604331, lod.scale);
+				
+                t.assertEqual(0.00068664552062089, lod.resolution);
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onExtentChangeHandler = dojo.connect(map, "onExtentChange", assert);
+                map.panUpperRight();
+              }, 1000);
+              return d;
+            }
+          },
+          
+          {
+            name: "panLowerLeft",
+            timeout: 3000,
+            runTest: function(t) {
+              var onExtentChangeHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta, levelChange, lod) {
+                dojo.disconnect(onExtentChangeHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                t.assertTrue(levelChange === false);
+                t.assertTrue(lod instanceof esri.layers.LOD);
+                t.assertEqual({"xmin":-86.55595175165425,"ymin":37.766012272801376,"xmax":-85.85282673853845,"ymax":38.11757477935927,"spatialReference":{"wkid":4326}}, extent.toJson());
+                t.assertEqual({"x":768,"y":-384}, delta.toJson());
+			    t.assertEqual(6, lod.level);
+			    t.assertEqual(288571.873604331, lod.scale);
+		        t.assertEqual(0.00068664552062089, lod.resolution);
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onExtentChangeHandler = dojo.connect(map, "onExtentChange", assert);
+                map.panLowerLeft();
+              }, 1000);
+              return d;
+            }
+          },
+        
+          {
+            name: "panRight",
+            timeout: 3000,
+            runTest: function(t) {
+              var onExtentChangeHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta, levelChange, lod) {
+                dojo.disconnect(onExtentChangeHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                t.assertTrue(levelChange === false);
+                t.assertTrue(lod instanceof esri.layers.LOD);
+                t.assertEqual({"xmin":-85.50126423198054,"ymin":38.0296841527198,"xmax":-84.79813921886475,"ymax":38.3812466592777,"spatialReference":{"wkid":4326}}, extent.toJson());
+                t.assertEqual({"x":-768,"y":0}, delta.toJson());
+			    t.assertEqual(6, lod.level);
+			    t.assertEqual(288571.873604331, lod.scale);
+				
+                t.assertEqual(0.00068664552062089, lod.resolution);
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onExtentChangeHandler = dojo.connect(map, "onExtentChange", assert);
+                map.panRight();
+              }, 1000);
+              return d;
+            }
+          },
+         
+          {
+            name: "panLeft",
+            timeout: 3000,
+            runTest: function(t) {
+              var onExtentChangeHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta, levelChange, lod) {
+                dojo.disconnect(onExtentChangeHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                t.assertTrue(levelChange === false);
+                t.assertTrue(lod instanceof esri.layers.LOD);
+                t.assertEqual({"xmin":-86.55595175165425,"ymin":38.0296841527198,"xmax":-85.85282673853845,"ymax":38.3812466592777,"spatialReference":{"wkid":4326}}, extent.toJson());
+                t.assertEqual({"x":768,"y":0}, delta.toJson());
+			    t.assertEqual(6, lod.level);
+			    t.assertEqual(288571.873604331, lod.scale);
+		        t.assertEqual(0.00068664552062089, lod.resolution);
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onExtentChangeHandler = dojo.connect(map, "onExtentChange", assert);
+                map.panLeft();
+              }, 1000);
+              return d;
+            }
+          },
+          
+          
+          //Map.centerAt
+          {
+            name: "centerAt",
+            timeout: 3000,
+            runTest: function(t) {
+              var onExtentChangeHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta, levelChange, lod) {
+                dojo.disconnect(onExtentChangeHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                t.assertFalse(levelChange === true);
+                t.assertTrue(lod instanceof esri.layers.LOD);
+                t.assertEqual({"xmin":-123.0374282622423,"ymin":45.11792586208928,"xmax":-122.3343032491265,"ymax":45.46948836864718,"spatialReference":{"wkid":4326}}, extent.toJson());
+                t.assertEqual({"x":53898,"y":10323}, delta.toJson());
+			    t.assertEqual(6, lod.level);
+				t.assertEqual(288571.873604331, lod.scale);
+				t.assertEqual(0.00068664552062089, lod.resolution);
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onExtentChangeHandler = dojo.connect(map, "onExtentChange", assert);
+                map.centerAt(new esri.geometry.Point({x:-122.68553273223391,y:45.29346761037123,spatialReference:{wkid:4326}}));
+              }, 1000);
+              return d;
+            }
+          },
+       /**
+          //Map.setExtent
+          {
+            name: "setExtentZoomIn",
+            timeout: 3000,
+            runTest: function(t) {
+              var onExtentChangeHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta, levelChange, lod) {
+                dojo.disconnect(onExtentChangeHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                t.assertTrue(levelChange === false);
+                t.assertTrue(lod instanceof esri.layers.LOD);
+				console.log("setExtentZoomIn");
+                console.log(dojo.toJson(extent.toJson()));
+                //t.assertEqual({"xmin":-122.73737446889349,"ymin":45.237162678320736,"xmax":-122.64948384225401,"ymax":45.281107991640475,"spatialReference":{"wkid":4326}}, extent.toJson());
+                console.log(delta.toJson());
+			   	//t.assertEqual({"x":0,"y":0}, delta.toJson());
+				console.log(lod.level);
+               // t.assertEqual(9, lod.level);
+				console.log(lod.scale);
+                //t.assertEqual(36071.4842005414, lod.scale);
+				console.log(lod.resolution);
+               // t.assertEqual(0.0000858306900776113, lod.resolution);
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onExtentChangeHandler = dojo.connect(map, "onExtentChange", assert);
+                map.setExtent(new esri.geometry.Extent({"xmin":-85.68803181358943,"ymin":38.199972241833784,"xmax":-85.66605915692956,"ymax":38.21095857016372,"spatialReference":{"wkid":4326}}));
+              }, 1000);
+              return d;
+            }
+          },
+        
+          {
+            name: "setExtentZoomOut",
+            timeout: 3000,
+            runTest: function(t) {
+              var onExtentChangeHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta, levelChange, lod) {
+                dojo.disconnect(onExtentChangeHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                t.assertTrue(levelChange === false);
+                t.assertTrue(lod instanceof esri.layers.LOD);
+				console.log("setExtentZoomOut");
+                console.log(dojo.toJson(extent.toJson()));
+                //t.assertEqual({"xmin":-123.20702970583565,"ymin":45.21680281705869,"xmax":-122.50390469271986,"ymax":45.56836532361659,"spatialReference":{"wkid":4326}}, extent.toJson());
+              	console.log(delta.toJson());
+			   	//t.assertEqual({"x":54145,"y":10467}, delta.toJson());
+				console.log(lod.level);
+                //t.assertEqual(6, lod.level);
+				console.log(lod.scale);
+                //t.assertEqual(288571.873604331, lod.scale);
+				console.log(lod.resolution);
+                //t.assertEqual(0.00068664552062089, lod.resolution);
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onExtentChangeHandler = dojo.connect(map, "onExtentChange", assert);
+                map.setExtent(new esri.geometry.Extent({"xmin":-85.69901814191937,"ymin":38.19447907766882,"xmax":-85.65507282859963,"ymax":38.216451734328686,"spatialReference":{"wkid":4326}}));
+              }, 1000);
+              return d;
+            }
+          },
+      
+          {
+            name: "setExtentPan",
+            timeout: 3000,
+            runTest: function(t) {
+              var onExtentChangeHandler;
+              var d = new doh.Deferred();
+
+              function assert(extent, delta, levelChange, lod) {
+                dojo.disconnect(onExtentChangeHandler);
+                t.assertTrue(extent instanceof esri.geometry.Extent);
+                t.assertTrue(delta instanceof esri.geometry.Point);
+                t.assertTrue(levelChange === false);
+                t.assertTrue(lod instanceof esri.layers.LOD);
+				console.log("setExtentPan");
+                console.log(dojo.toJson(extent.toJson()));
+                //t.assertEqual({"xmin":-123.03948819880415,"ymin":45.30469344369817,"xmax":-122.33636318568836,"ymax":45.65625595025607,"spatialReference":{"wkid":4326}}, extent.toJson());
+                console.log(delta.toJson());
+			   	//t.assertEqual({"x":53901,"y":10595}, delta.toJson());
+				console.log(lod.level);
+                //t.assertEqual(6, lod.level);
+				console.log(lod.scale);
+                //t.assertEqual(288571.873604331, lod.scale);
+				console.log(lod.resolution);
+                //t.assertEqual(0.00068664552062089, lod.resolution);
+                d.callback(true);
+              }
+
+              setTimeout(function() {
+                onExtentChangeHandler = dojo.connect(map, "onExtentChange", assert);
+                map.setExtent(new esri.geometry.Extent({"xmin":-85.50126423198057,"ymin":38.02968415271981,"xmax":-84.79813921886478,"ymax":38.38124665927771,"spatialReference":{"wkid":4326}}));
+              }, 1000);
+              return d;
+            }
+          }**/
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+    <div id="mapDiv" style="width:1024px; height:512px; border:1px solid #000;"></div>
+  </body>
+</html>

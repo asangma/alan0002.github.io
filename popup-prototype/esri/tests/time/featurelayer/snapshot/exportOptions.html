@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>QueryIds</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../../index.jsp">
+      </script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.layers.FeatureLayer");
+	 
+	  dojo.require("esri.map");
+	  
+      dojo.require("doh.runner");
+	  
+      var featureLayer;
+      function init() {
+         var startExtent = new esri.geometry.Extent({"xmin":-117.19741474981005,"ymin":32.6965904538416,"xmax":-117.12872559032095,"ymax":32.731854065948,"spatialReference":{"wkid":4269}});
+        //create map
+        var map = new esri.Map("mapDiv",{extent:startExtent});
+		var basemap = new esri.layers.ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer");
+        map.addLayer(basemap);
+
+		featureLayer = new esri.layers.FeatureLayer("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/Since_1970/MapServer/0",
+ 		{
+          mode: esri.layers.FeatureLayer.MODE_SNAPSHOT,
+          outFields: ["Magnitude"]
+        });
+
+		map.addLayer(featureLayer);
+       
+        dojo.connect(featureLayer, "onUpdateEnd", runTests);
+        
+      }
+      
+      function runTests() {
+	  	
+        doh.registerGroup("time.featurelayer.snapshot.exportOptions", [
+          {
+            name: "exportOptions",
+            timeout: 3000,
+            runTest: function(t) {
+				
+				console.debug("timeDataCumulative..."+featureLayer.timeInfo.exportOptions.timeDataCumulative);
+				t.assertFalse(featureLayer.timeInfo.exportOptions.timeDataCumulative);
+				console.debug("timeOffset..."+featureLayer.timeInfo.exportOptions.timeOffset);
+				t.assertEqual(null,featureLayer.timeInfo.exportOptions.timeOffset);
+				console.debug("timeOffsetUnits..."+featureLayer.timeInfo.exportOptions.timeOffsetUnits);
+				t.assertEqual(null,featureLayer.timeInfo.exportOptions.timeOffsetUnits);
+				console.debug("useTime..."+featureLayer.timeInfo.exportOptions.useTime);
+				t.assertTrue(featureLayer.timeInfo.exportOptions.useTime);
+				
+				
+				
+				
+            }
+            
+          }
+	         
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+    <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;"></div>
+  </body>
+</html>

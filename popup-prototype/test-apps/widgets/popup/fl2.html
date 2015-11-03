@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <title>Popup</title>
+  <link rel="stylesheet" href="../../../dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="../../../esri/css/main.css">
+  <style>
+    html,
+    body,
+    #sceneDiv {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <script>
+    var dojoConfig = {
+      //async: true,
+      //Debug: true,
+      paths: {
+        "esri": "../esri"
+      }
+    };
+  </script>
+  <script src="../../../dojo/dojo.js"></script>
+  <!--<script src="//jsdev.arcgis.com/4.0beta1/"></script>-->
+  <script type="text/javascript">
+    var map, view;
+    require([
+      "esri/Map",
+      "esri/PopupTemplate",
+      "esri/layers/FeatureLayer",
+      "esri/views/MapView",
+      "dojo/domReady!"
+    ], function(
+      Map,
+      PopupTemplate,
+      FeatureLayer,
+      MapView
+    ) {
+
+      //Create the map
+      map = new Map({
+        basemap: "gray"
+      });
+
+      //Create the MapView
+      view = new MapView({
+        container: "sceneDiv",
+        map: map,
+        center: [-73.950, 40.702],
+        zoom: 11
+      });
+
+      //Create the PopupTemplate
+      var template = new PopupTemplate({
+        title: "Marriage in NY, Zip Code: {ZIP}",
+        content:
+        "<p><b> Marriage Rate: {MARRIEDRATE}% </b></p>" +
+        "<p> Married: {MARRIED_CY}</p>" +
+        "<p> Never Married: {NEVMARR_CY}</p>"+
+        "<p> Divorced: {DIVORCD_CY}</p>"
+      });
+
+      //Create the FeatureLayer using the popupTemplate
+      featureLayer = new FeatureLayer({
+        url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/NYCDemographics1/FeatureServer/0",
+        outFields: ["*"],
+        popupTemplate: template
+      });
+      map.add(featureLayer);
+    });
+    
+    
+    
+    
+    
+  </script>
+
+</head>
+
+<body>
+  <div id="sceneDiv"></div>
+</body>
+
+</html>

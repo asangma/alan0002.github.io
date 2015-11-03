@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta name="generator" content="HTML Tidy, see www.w3.org">
+        <meta http-equiv="Content-Type" content= "text/html; charset=utf-8">
+        <title>Query Features</title>
+        <link rel="stylesheet" type="text/css" href= "../../../../../dojo/dijit/themes/tundra/tundra.css">
+        <script>
+            dojoConfig = {
+                isDebug: true
+            };
+        </script>
+        <script type="text/javascript" src="../../../../../../index.jsp">
+        </script>
+        <script type="text/javascript">
+            dojo.require("esri.geometry");
+            dojo.require("esri.map");
+            dojo.require("doh.runner");
+            
+            
+            var geometryService;
+            
+            function init(){
+            
+                var map = new esri.Map("mapDiv");
+                dojo.connect(map, "onLoad", runTests);
+                var layer = new esri.layers.ArcGISDynamicMapServiceLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer");
+                map.addLayer(layer);
+                
+                
+            }
+            
+            function runTests(){
+            
+            
+                doh.registerGroup("geometry.util.geodesiclengthsarea.ringSelfIntersectingTest", [{
+                    name: "oneRingNonSelfIntersecting",
+                    timeout: 3000,
+                    runTest: function(t){
+                        var d = new doh.Deferred();
+                        var polygon = new esri.geometry.Polygon({
+                            "rings": [[[-112.05797515538941, 42.37679589599893], [-104.0333162749817, 41.89771178373579], [-104.1530873030475, 32.91488467880178], [-113.49522749217886, 32.675342622670215], [-111.69866207119205, 42.25702486793314], [-112.05797515538941, 42.37679589599893]]],
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        function showResults(simplifiedGeometries){
+                            dojo.disconnect(handler);
+                            console.log(simplifiedGeometries[0]);
+                            t.assertFalse(esri.geometry.ringSelfIntersecting(polygon));
+                            t.assertEqual(polygon.rings.length, simplifiedGeometries[0].rings.length);
+                            d.callback(true);
+                            
+                        }
+                        var handler = dojo.connect(geometryService, "onSimplifyComplete", showResults);
+                        geometryService.simplify([polygon]);
+                        return d;
+                        
+                    }
+                    
+                    
+                }, {
+                    name: "oneRingSelfIntersecting",
+                    timeout: 3000,
+                    runTest: function(t){
+                        var d = new doh.Deferred();
+                        var polygon = new esri.geometry.Polygon({
+                            "rings": [[[-112.29751721152098, 44.65244542924887], [-106.7880499204948, 44.53267440118309], [-112.41728823958678, 36.50801552077539], [-105.59033963983694, 36.3882444927096], [-112.1777461834552, 44.65244542924887], [-112.29751721152098, 44.65244542924887]]],
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        function showResults(simplifiedGeometries){
+                            dojo.disconnect(handler);
+                            t.assertTrue(esri.geometry.ringSelfIntersecting(polygon));
+                            t.assertEqual(polygon.rings.length, 1);
+                            t.assertTrue(simplifiedGeometries[0].rings.length > 1);
+                            d.callback(true);
+                            
+                        }
+                        var handler = dojo.connect(geometryService, "onSimplifyComplete", showResults);
+                        geometryService.simplify([polygon]);
+                        return d;
+                        
+                    }
+                    
+                    
+                }, {
+                    name: "SimpliedThreeRingSelfIntersecting",
+                    timeout: 3000,
+                    runTest: function(t){
+                        var d = new doh.Deferred();
+                        var polygon = new esri.geometry.Polygon({
+                            "rings": [[[-109.266279839, 40.9998785600001], [-105.59033964, 36.3882444930001], [-112.41728824, 36.5080155210001], [-109.266279839, 40.9998785600001]], [[-109.266279839, 40.9998785600001], [-112.175634158, 44.6497957970001], [-106.78804992, 44.5326744010001], [-109.266279839, 40.9998785600001]], [[-112.175634158, 44.6497957970001], [-112.297517212, 44.6524454290001], [-112.177746183, 44.6524454290001], [-112.175634158, 44.6497957970001]]],
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        function showResults(simplifiedGeometries){
+                            dojo.disconnect(handler);
+                           
+                            t.assertFalse(esri.geometry.ringSelfIntersecting(simplifiedGeometries[0]));
+                            t.assertEqual(polygon.rings.length, simplifiedGeometries[0].rings.length);
+                            d.callback(true);
+                            
+                        }
+                        var handler = dojo.connect(geometryService, "onSimplifyComplete", showResults);
+                        geometryService.simplify([polygon]);
+                        return d;
+                        
+                    }
+                    
+                    
+                }, {
+                    name: "TwoRingsInHole",
+                    timeout: 3000,
+                    runTest: function(t){
+                        var d = new doh.Deferred();
+                        var polygon = new esri.geometry.Polygon(new esri.SpatialReference({
+                            wkid: 4326
+                        }));
+                        
+                        var clockwiseRing = [[-110.3811807624684, 43.21519309245944], [-92.29575552453463, 43.21519309245944], [-93.2539237490609, 29.321753836828186], [-108.7043863695474, 28.363585612301897], [-110.26140973440262, 43.33496412052523], [-110.3811807624684, 43.21519309245944]];
+                        var countClockwiseRing = [[-102.77572048029096, 35.25041972608462], [-99.00293309621867, 35.90916038044645], [-99.06281861025157, 38.42435196982797], [-103.13503356448831, 38.42435196982797], [-102.77572048029096, 35.25041972608462], [-102.77572048029096, 35.25041972608462]];
+                        polygon.addRing(clockwiseRing);
+                        polygon.addRing(countClockwiseRing);
+                        
+                        
+                        function showResults(simplifiedGeometries){
+                            dojo.disconnect(handler);
+                            t.assertFalse(esri.geometry.ringSelfIntersecting(polygon));
+                            t.assertEqual(polygon.rings.length,simplifiedGeometries[0].rings.length);
+                            d.callback(true);
+                            
+                        }
+                        var handler = dojo.connect(geometryService, "onSimplifyComplete", showResults);
+                        geometryService.simplify([polygon]);
+                        return d;
+                        
+                    }
+                    
+                    
+                }, {
+                    name: "TwoRingsIntersectingNotSelfIntEach",
+                    timeout: 3000,
+                    runTest: function(t){
+                        var d = new doh.Deferred();
+                        var polygon = new esri.geometry.Polygon(new esri.SpatialReference({
+                            wkid: 4326
+                        }));
+                        
+                        var leftRing = [[-114.8127088009025, 41.65816972760421], [-105.11125552757379, 41.65816972760421], [-105.59033963983694, 32.07648748234128], [-114.57316674477093, 31.83694542620971], [-114.69293777283673, 41.77794075567], [-114.8127088009025, 41.65816972760421]];
+                        var rightRing = [[-107.86598917308689, 36.028931408512236], [-99.36224618041604, 36.14870243657803], [-99.24247515235024, 28.004272528104536], [-108.10553122921846, 28.12404355617032], [-107.86598917308689, 36.14870243657803], [-107.86598917308689, 36.028931408512236]];
+                        polygon.addRing(leftRing);
+                        polygon.addRing(rightRing);
+                        
+                        
+                        function showResults(simplifiedGeometries){
+                            dojo.disconnect(handler);
+                            
+                            t.assertFalse(esri.geometry.ringSelfIntersecting(polygon));
+                            t.assertEqual(polygon.rings.length,simplifiedGeometries[0].rings.length);//simpfiled is 3 rings, before 2
+                            d.callback(true);
+                            
+                        }
+                        var handler = dojo.connect(geometryService, "onSimplifyComplete", showResults);
+                        geometryService.simplify([polygon]);
+                        return d;
+                        
+                    }
+                    
+                    
+                }, {
+                    name: "TwoRingsNonIntersectingOneSelfInt",
+                    timeout: 3000,
+                    runTest: function(t){
+                        var d = new doh.Deferred();
+                        var polygon = new esri.geometry.Polygon(new esri.SpatialReference({
+                            wkid: 4326
+                        }));
+                        
+                        var leftRing = [[-107.74621814502109, 40.34068841888056], [-102.35652188206069, 40.34068841888056], [-103.43446113465278, 34.5916790717228], [-107.74621814502109, 40.34068841888056], [-107.74621814502109, 40.34068841888056]];
+                        var rightRingSelfIntersecting = [[-99.96110132074497, 41.179085615341066], [-94.81094711391614, 41.05931458727528], [-99.6017882365476, 35.310305240117515], [-94.331863001653, 34.83122112785438], [-99.7215592646134, 41.179085615341066], [-99.96110132074497, 41.179085615341066]];
+                        polygon.addRing(leftRing);
+                        polygon.addRing(rightRingSelfIntersecting);
+                        
+                        function showResults(simplifiedGeometries){
+                            dojo.disconnect(handler);
+                            
+                            t.assertTrue(esri.geometry.ringSelfIntersecting(polygon));//should be false?
+                            t.assertTrue(polygon.rings.length < simplifiedGeometries[0].rings.length);
+                            d.callback(true);
+                            
+                        }
+                        var handler = dojo.connect(geometryService, "onSimplifyComplete", showResults);
+                        geometryService.simplify([polygon]);
+                        return d;
+                        
+                    }
+                    
+                    
+                }, {
+                    name: "TwoRingsNonIntersectingNonSelfIntEach",
+                    timeout: 3000,
+                    runTest: function(t){
+                        var d = new doh.Deferred();
+                        var polygon = new esri.geometry.Polygon(new esri.SpatialReference({
+                            wkid: 4326
+                        }));
+                        
+                        var leftRing = [[[-108.7043863695474, 42.61633795213051], [-102.11697982592912, 42.61633795213051], [-102.11697982592912, 36.3882444927096], [-108.5846153414816, 42.496566924064716], [-108.5846153414816, 42.61633795213051], [-108.7043863695474, 42.61633795213051]]];
+                        var rightRing = [[[-98.16453589975816, 42.61633795213051], [-89.54102187902153, 42.73610898019629], [-89.06193776675838, 35.54984729624909], [-95.76911533844243, 35.430076268183306], [-98.16453589975816, 42.61633795213051], [-98.16453589975816, 42.61633795213051]]];
+                        polygon.addRing(leftRing);
+                        polygon.addRing(rightRing);
+                        
+                        function showResults(simplifiedGeometries){
+                            dojo.disconnect(handler);
+                           
+                            t.assertFalse(esri.geometry.ringSelfIntersecting(polygon));//simplify problem
+                            t.assertTrue(polygon.rings.length ===simplifiedGeometries[0].rings.length);
+                            d.callback(true);
+                            
+                        }
+                        var handler = dojo.connect(geometryService, "onSimplifyComplete", showResults);
+                        geometryService.simplify([polygon]);
+                        return d;
+                        
+                    }
+                    
+                }, ], function()//setUp()
+                {
+                    esriConfig.request.proxyUrl = "../../../proxy.jsp";
+                    esriConfig.request.forceProxy = false;
+                    geometryService = new esri.tasks.GeometryService("http://servery/arcgis/rest/services/Geometry/GeometryServer");
+                    
+                    
+                }, function()//tearDown
+                {
+                    geometryService = null;
+                    
+                });
+                
+                
+                doh.run();
+            }
+            
+            dojo.addOnLoad(init);
+        </script>
+    </head>
+    <body class="tundra">
+        <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;">
+        </div>
+    </body>
+</html>

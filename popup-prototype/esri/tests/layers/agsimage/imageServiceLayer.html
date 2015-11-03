@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>ArcGIS Image Service</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/esri/css/esri.css" />
+
+    <style>
+      html, body, #map { height: 100%; width: 100%; margin: 0; padding: 0; }
+    </style>
+
+    <script type="text/javascript">
+      var dojoConfig = {
+        parseOnLoad:true,
+        isDebug: true,
+        packages: [
+            {
+              name: "esri",
+              location: "../esri" 
+            }
+        ]
+      };
+    </script>   
+    <script type="text/javascript" src="../../../../dojo/dojo.js"></script>      
+    <script>
+      var map;
+      require([
+        "esri/map", "esri/layers/ArcGISImageServiceLayer", 
+        "esri/geometry/Extent", "esri/SpatialReference",
+        "esri/layers/ImageServiceParameters", "dojo/parser", "dojo/domReady!"
+      ], function(
+        Map, ArcGISImageServiceLayer, 
+        Extent, SpatialReference,
+        ImageServiceParameters, parser
+      ) {
+        parser.parse();
+
+        function getParameter(name) {
+          name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+          var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+              results = regex.exec(location.search);
+          return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        
+        var initExtent = new Extent(-18354670.728057902, -7005300.768277975, 17689362.833863948, 10155729.326078953, SpatialReference.WebMercator);
+        map = new Map("map", {
+          extent: initExtent,
+          basemap: "topo"
+        });
+
+        var params = new ImageServiceParameters();
+        params.noData = 0;
+        
+        // http://sampleserver6.arcgisonline.com/arcgis/rest/services/Toronto/ImageServer
+        var url = getParameter("isUrl") ? getParameter("isUrl") : "http://wju:6080/arcgis/rest/services/MODIS_EVI/ImageServer";
+        var imageServiceLayer = new ArcGISImageServiceLayer(url, {
+          imageServiceParameters: params
+        });
+        map.addLayer(imageServiceLayer);
+      });
+    </script>
+  </head>
+  
+  <body>
+    <div id="map"> </div>
+  </body>
+
+</html>

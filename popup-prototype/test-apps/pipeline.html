@@ -1,0 +1,320 @@
+<!doctype html>
+<html>
+<head>
+  <title>Pipeline-Temporal Tracks</title>
+  <style type="text/css">
+    h4{
+      margin-bottom: 2px;
+    }
+    .controls{
+      float: left;
+      margin-right: 10px;
+    }
+  </style>
+  <script>
+    var dojoConfig = {
+      isDebug: true,
+      async: true,
+      paths: {
+        esri: "../esri"
+      }
+    };
+  </script>
+  <script src="../dojo/dojo.js"></script>
+  <!--<script src="//jsdev.arcgis.com/4.0beta1/"></script>-->
+  <script>
+    require([
+      "esri/core/Collection",
+
+      "esri/processors/Filter",
+      "esri/processors/filters/TrackFilter",
+      "esri/processors/filters/ObservationFilter",
+      "esri/processors/filters/TracklineFilter",
+
+      "esri/processors/Pipeline",
+
+      "dojo/_base/array",
+      "dojo/on",
+      "dojo/dom",
+      "dojo/domReady!"
+    ], function(Collection,
+                Filter, TrackFilter, ObservationFilter, TracklineFilter,
+                Pipeline,
+                array, on, dom){
+      var coll,
+          flights = [{
+            id: "UAL254",
+            xy: [-77, 38],
+            cnt: 0
+          }, {
+            id: "AA536",
+            xy: [-111, 38],
+            cnt: 0
+          }, {
+            id: "SW321",
+            xy: [-90, 42],
+            cnt: 0
+          }, {
+            id: "QT111",
+            xy: [-110, 42],
+            cnt: 0
+          }, {
+            id: "BUBBA10",
+            xy: [-100, 38],
+            cnt: 0
+          }],
+          pipe,
+          otherFilt,
+          internalTrackColl,
+          currentObsColl = new Collection(),
+          otherObsColl = new Collection(),
+          lineColl = new Collection(),
+          trackHandler,
+          currentObsHandler,
+          otherObsHandler,
+          lineHandler,
+          cnt = 0;
+
+
+      function init(){
+        configurePipeline();
+        on(dom.byId("cmdAddLots"), "click", doSeedData);
+        on(dom.byId("cmdAdd"), "click", addOneItem);
+        on(dom.byId("cmdClear"), "click", clearData);
+        on(dom.byId("cmdDestroy"), "click", destroy);
+      }
+
+      function configurePipeline(){
+        coll = new Collection();
+        trackHandler = coll.on("change", handleTrackChange);
+
+        pipe = new Pipeline();
+
+        //set filter on pipe before adding any filters
+        pipe.set("input", coll);
+        pipe.pipe(new TrackFilter({
+          trackIdField: "FltId"
+        }));
+        internalTrackColl = pipe._workflow[0].processor.get("output");
+
+        /*//set input on pipe after adding a filter
+         pipe.pipe(new TrackFilter({
+         trackIdField: "FltId"
+         }));
+         pipe.set("input", coll);*/
+
+        /*//set input on first filter, not on pipe
+         pipe.pipe(new TrackFilter({
+         trackIdField: "FltId"
+         }).set("input", coll));*/
+
+        var branch1 = pipe.branch().pipe(new ObservationFilter({
+          trackIdField: "FltId"
+        }));
+        console.log("branch1: ", branch1);
+
+        var branch2 = pipe.branch().pipe(new ObservationFilter({
+          trackIdField: "FltId",
+          observationType: ObservationFilter.OTHER
+        }));
+        console.log("branch2: ", branch2);
+
+        var branch3 = pipe.branch().pipe(new TracklineFilter({
+          trackIdField: "FltId"
+        }));
+        console.log("branch3: ", branch3);
+
+        console.log("pipe: ", pipe);
+        console.log("pipe output: ", pipe.get("output"));
+
+        var outputs =  pipe.get("output");
+        var output;
+        for(var i = 0; i < outputs.length; i++){
+          output = outputs[i];
+          //console.log("output: ", output);
+          if(output.processor.isInstanceOf(ObservationFilter)){
+            if(output.processor.observationType === ObservationFilter.CURRENT){
+              currentObsColl = output.collection;
+              currentObsHandler = output.collection.on("change", handleCurrentObsChange);
+            }
+            else{
+              otherObsColl = output.collection;
+              otherFilt = output.processor;
+              otherObsHandler = output.collection.on("change", handleOtherObsChange);
+            }
+          }
+          else if(output.processor.isInstanceOf(TracklineFilter)){
+            lineColl = output.collection;
+            lineHandler = output.collection.on("change", handleLineCollChange);
+          }
+        }
+      }
+
+      function doSeedData(){
+        var adds = [];
+        for(var i = 0; i < 500; i++){
+          adds.push(makeFeat());
+        }
+        coll.addItems(adds);
+        //console.log(coll);
+      }
+
+      function addOneItem(){
+        var feat = makeFeat();
+        coll.addItem(feat);
+      }
+
+      function destroy(){
+        trackHandler.remove();
+        currentObsHandler.remove();
+        otherObsHandler.remove();
+        lineHandler.remove();
+        pipe.destroy();
+        console.log("Output Current Observations: ", currentObsColl);
+        console.log("Output Other Observations: : ", otherObsColl);
+        console.log("Output Lines: ", lineColl);
+        console.log("Intermediate Track Collection: ", internalTrackColl);
+        console.log("Input collection: ", coll);
+      }
+
+      function makeFeat(){
+        cnt++;
+
+        var flight = flights[randomIntFromInterval(0, flights.length - 1)],
+            trackId = flight.id,
+            x = flight.xy[0] + (flight.cnt * 0.1),
+            y = flight.xy[1] + (flight.cnt * 0.1);
+        flight.cnt += 1;
+        return {
+          id: cnt,
+          attributes: {
+            FltId: trackId,
+            AltitudeFeet: 1000
+          },
+          geometry: {
+            x: x,
+            y: y,
+            spatialReference: {wkid: 4326}
+          }
+        };
+      }
+
+      function randomIntFromInterval(min,max) {
+        return Math.floor(Math.random()*(max - min + 1) + min);
+      }
+
+      function handleTrackChange(){
+        var itemInfo = [],
+            items = coll.getAll(),
+            len = items.length,
+            item;
+
+        for(var i = len, n = len - Math.min(50, len); i > n; i--){
+          item = items[i - 1];
+          itemInfo.push(item.id +": " + item.attributes.FltId);
+        }
+        dom.byId("txtTrackPoints").innerHTML = itemInfo.join("\n");
+      }
+
+      function handleCurrentObsChange(changes){
+        var itemInfo = [],
+            items,
+            item,
+            i, n;
+
+        items = currentObsColl.getAll();
+        for(i = 0, n = items.length; i < n; i++){
+          item = items[i];
+          itemInfo.push(item.parent + ": " + item.id);
+        }
+        dom.byId("txtCurrentObs").innerHTML = itemInfo.join("\n");
+      }
+
+      function handleOtherObsChange(changes){
+        //console.log(outOtherObsColl);
+        var trackIds,
+            trackid,
+            children,
+            idarray,
+            tracks = [],
+            i, n;
+
+        trackIds = getDistinctTrackIds(otherObsColl);
+        for(i = 0, n = trackIds.length; i < n; i++){
+          idarray = [];
+          trackid = trackIds[i];
+          children = otherFilt._getItemsByParent(trackid, otherObsColl);
+          if(children){
+            for(var j = 0, m = children.length; j < m; j++){
+              idarray.push(children.getItemAt(j).id);
+            }
+            tracks.push(trackid + ": " + idarray.join(", "));
+          }
+        }
+        dom.byId("txtOtherObs").innerHTML = tracks.join("\n");
+      }
+
+      function handleLineCollChange(changes){
+        //console.log(changes);
+        var item,
+            lines = [];
+        for(var i = 0, n = lineColl.length; i < n; i++){
+          item = lineColl.getItemAt(i);
+          lines.push(item.parent + ": " + JSON.stringify(item.geometry.paths[0]));
+        }
+        dom.byId("txtTrackLines").innerHTML = lines.join("\n\n");
+      }
+
+      function getDistinctTrackIds(collection){
+        var items = collection.getAll(),
+            trackIds = [],
+            item,
+            trackid;
+
+        for(var i = 0, n = items.length; i < n; i++){
+          item = items[i];
+          trackid = item.parent;
+          if(array.indexOf(trackIds, trackid) === -1){
+            trackIds.push(trackid);
+          }
+        }
+        return trackIds;
+      }
+
+      function clearData(){
+        coll.clear();
+      }
+
+      init();
+    });
+  </script>
+</head>
+<body>
+<div>
+  <h4>Use buttons to add data to the pipe - A little or a lot</h4>
+  <input type="button" id="cmdAddLots" value="Add Lots of Data">
+  <input type="button" id="cmdAdd" value="Add One Item">
+  <input type="button" id="cmdClear" value="Clear Data">
+  <input type="button" id="cmdDestroy" value="Destroy Pipe">
+</div>
+<p>Possible trackIDs are "UAL254", "AA536", "SW321", "QT111", "BUBBA10"</p>
+<div style="position:relative">
+  <div class="controls">
+    <h4>Messages</h4>
+    <textarea id="txtTrackPoints" rows="20" style="width:150px"></textarea>
+  </div>
+  <div class="controls">
+    <h4>Current Observations</h4>
+    <textarea id="txtCurrentObs" rows="10" style="width:150px"></textarea>
+  </div>
+  <div class="controls">
+    <h4>Other Observations</h4>
+    <textarea id="txtOtherObs" rows="10" style="width:400px"></textarea>
+  </div>
+  <div class="controls">
+    <h4>Track Lines</h4>
+    <textarea id="txtTrackLines" rows="10" style="width:400px"></textarea>
+  </div>
+</div>
+</body>
+</html>

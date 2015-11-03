@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>AGSTiledMapServiceLayer properties</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.layers.osm");
+      dojo.require("doh.runner");
+      var map;
+	  
+	  function init() {
+        var extent = new esri.geometry.Extent({"xmin":-10023722.578230502,"ymin":3498675.6586681586,"xmax":-9996969.618330726,"ymax":3517784.9157394273,"spatialReference":{"wkid":102100}});
+        map = new esri.Map("map",{extent:extent,logo:false});
+		var layer = new esri.layers.OpenStreetMapLayer({
+                    id: "myOSMLayer",
+                    visible: true,
+                    opacity: 0.75,
+                    displayLevels: [0, 1, 2]
+                });
+		dojo.connect(map,"onLoad",runTests);
+		map.addLayer(layer);
+      }
+      
+      function runTests() {
+	  	var opensteetlayer = map.getLayer("myOSMLayer");
+        doh.registerGroup("layers.openstreet.agstiledlayerProperties", [
+            {
+              name: "fullExtent",
+              timeout: 50,
+              runTest: function(t){
+			  	t.assertEqual(-20037508.34, opensteetlayer.fullExtent.xmin);
+			  	t.assertEqual(-20037508.34, opensteetlayer.fullExtent.ymin)
+			  	t.assertEqual(20037508.34, opensteetlayer.fullExtent.xmax);
+			  	t.assertEqual(20037508.34, opensteetlayer.fullExtent.ymax);
+			  }
+            },
+			{
+              name: "initialExtent",
+              timeout: 50,
+              runTest: function(t) {
+                
+                t.assertEqual(-20037508.34,opensteetlayer.initialExtent.xmin);
+				t.assertEqual(-20037508.34,opensteetlayer.initialExtent.ymin)
+				t.assertEqual(20037508.34,opensteetlayer.initialExtent.xmax);
+				t.assertEqual(20037508.34,opensteetlayer.initialExtent.ymax)
+              }
+            },
+			{
+              name: "spatialReference",
+              timeout: 50,
+              runTest: function(t) {
+               t.assertEqual(102100,opensteetlayer.spatialReference.wkid);
+              }
+            }
+			,
+			{
+              name: "tileInfo",
+              timeout: 50,
+              runTest: function(t) {
+			  	t.assertEqual(96,opensteetlayer.tileInfo.dpi);
+				t.assertEqual("PNG8",opensteetlayer.tileInfo.format);
+				t.assertEqual(256,opensteetlayer.tileInfo.height);
+				t.assertEqual(0,opensteetlayer.tileInfo.lods[0].level);
+				t.assertEqual("point",opensteetlayer.tileInfo.origin.type);
+				t.assertEqual(102100,opensteetlayer.tileInfo.spatialReference.wkid);
+				t.assertEqual(256,opensteetlayer.tileInfo.width);
+				
+		             
+              }
+            }
+          ]
+		  
+		  ),
+          
+      
+        doh.run();
+		
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+  	<div id="map" style="width:900px; height:600px; border:1px solid #000;"></div>
+  </body>
+</html>

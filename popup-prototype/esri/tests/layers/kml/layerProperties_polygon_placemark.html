@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>LayerInfo</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.layers.KMLLayer");
+      dojo.require("doh.runner");
+      
+      function init() {
+        esri.config.kmlServiceUrl =  "http://utilitydev.arcgis.com/sharing/kml";
+        var kmlUrl = "http://jsmatrix:8080/kml/polygon.kml";
+
+        var kmlLayer = new esri.layers.KMLLayer(kmlUrl);
+        if (kmlLayer.loaded) {
+          runTests(kmlLayer);
+        }
+        else {
+          dojo.connect(kmlLayer, "onLoad", runTests);
+        }
+      }
+      
+      function runTests(kmlLayer) {
+        doh.registerGroup("kml.layerProperties_polygon_placemark", [
+          {
+            name: "featureInfos",
+            timeout: 100,
+            runTest: function() {
+                var featureInfos = kmlLayer.featureInfos;
+                console.log(featureInfos);
+                doh.assertEqual(featureInfos[0].id,1);
+                doh.assertEqual(featureInfos[0].type,"esriGeometryPolygon");
+
+            }
+
+          } ,
+          {
+            name: "folders",
+            timeout: 100,
+            runTest: function() {
+                var folders = kmlLayer.folders;
+
+                console.log(folders[folders.length-1]);
+                var folder = folders[folders.length-1];
+                doh.assertEqual(folder.id,0);
+                doh.assertEqual(folder.name,"The Pentagon");
+                console.log(folder);
+                doh.assertEqual(folder.featureInfos[0].type,"esriGeometryPolygon");
+                doh.assertEqual(folder.description,"http://jsmatrix:8080/kml/polygon.kml");
+                doh.assertEqual(folder.parentFolderId,-1);
+                doh.assertEqual(folder.snippet,"");
+                doh.assertEqual(folder.subFolderIds,[]);
+                doh.assertEqual(folder.visibility,1);
+
+            }
+
+          },
+          {
+            name: "linkInfo",
+            timeout: 100,
+            runTest: function() {
+               doh.assertEqual(kmlLayer.linkInfo, undefined);
+
+          }
+
+           }
+        ]
+
+        );
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+  </body>
+</html>

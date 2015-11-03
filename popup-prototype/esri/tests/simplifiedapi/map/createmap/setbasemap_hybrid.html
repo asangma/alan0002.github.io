@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>onZoom</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../../index.jsp">
+      </script>
+
+    <script type="text/javascript">
+      dojo.require("esri.map");
+      dojo.require("doh.runner");
+
+      var map;
+	 
+       function init() {
+            var initialExtent = new esri.geometry.Extent(
+           {"xmin":-11721159,"ymin":-1138850,
+            "xmax":8277212,"ymax":9858297,
+               "spatialReference":{"wkid":102100}
+           });
+
+           var center = initialExtent.getCenter();
+
+           map = new esri.Map("mapDiv",{
+               center: center
+
+           });
+           map.setBasemap("hybrid");
+
+           dojo.connect(map, "onLoad", runTests);
+
+
+	  }
+	      
+      function runTests(){
+	  	doh.registerGroup("simplifiedapi.map.createmap.setbasemap_gray", [{
+	  		name: "setbasemap_hybrid",
+	  		timeout: 6000,
+	  		runTest: function(){
+                var basemap = map.getBasemap();
+                doh.assertEqual("hybrid",basemap);
+            }
+	  		
+	  		
+	  	}]);
+	  	doh.run();
+	  }
+		
+       dojo.addOnLoad(init);   
+    </script>
+
+  </head>
+  <body class="tundra">
+    <div id="mapDiv" style="width:1024px; height:512px; border:1px solid #000;"></div>
+  </body>
+</html>

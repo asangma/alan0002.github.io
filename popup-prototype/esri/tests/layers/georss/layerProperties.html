@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>LayerInfo</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.layers.GeoRSSLayer");
+      dojo.require("doh.runner");
+      
+      function init() {
+        esri.config.geoRSSServiceUrl = "http://utilitydev.arcgis.com/sharing/rss";
+        var georssUrl = "http://jsmatrix:8080/georss/earthquakes-1hour-M1.xml";
+
+        var georssLayer = new esri.layers.GeoRSSLayer(georssUrl);
+        if (georssUrl.loaded) {
+          runTests(georssUrl);
+        }
+        else {
+          dojo.connect(georssLayer, "onLoad", runTests);
+        }
+      }
+      
+      function runTests(georssLayer) {
+        doh.registerGroup("georss.layerProperties", [
+          {
+            name: "items",
+            timeout: 100,
+            runTest: function() {
+                var items = georssLayer.items;
+                doh.assertEqual(8,items.length);
+                dojo.forEach(items,function(item){
+                    doh.assertEqual("point",item.geometry.type);
+
+                });
+
+             }
+
+          } ,
+          {
+            name: "copyright",
+            timeout: 100,
+            runTest: function() {
+
+                doh.assertEqual("U.S. Geological Survey ",georssLayer.copyright);
+                doh.assertEqual("USGS M 1+ Earthquakes",georssLayer.name);
+                doh.assertEqual("Atom 1.0(Simple Rss) Real-time, worldwide earthquake list for the past hour",georssLayer.description);
+                doh.assertEqual(1,georssLayer.defaultVisibility);
+
+            }
+
+          }
+        ]
+
+        );
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+
+  </body>
+</html>

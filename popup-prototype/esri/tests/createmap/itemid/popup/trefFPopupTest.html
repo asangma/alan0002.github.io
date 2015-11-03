@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>visibleLayers</title>
+        <link rel="stylesheet" type="text/css" href="../../../../../dojo/dijit/themes/tundra/tundra.css">
+        <script>
+            dojoConfig = {
+                isDebug: true
+            };
+        </script>
+        <script type="text/javascript" src="../../../../../../index.jsp">
+        </script>
+        <script type="text/javascript">
+            dojo.require("esri.arcgis.utils");
+            dojo.require("doh.runner");
+            
+            function init(){
+                esri.arcgis.utils.arcgisUrl = "http://dev.arcgis.com/sharing/content/items";
+                var itemId = "9470ff2ea88c468689d822f709774532";
+                var mapDeferred = esri.arcgis.utils.createMap(itemId, "map", {
+                    mapOptions: {
+                        slider: true,
+                        nav: false
+                    }
+                });
+                mapDeferred.addCallback(function(response){
+                    var map = response.map;
+                    if (map.loaded) {
+                        runTests(response);
+                    }
+                    else {
+                        dojo.connect(map, "onLoad", function(){
+                            runTests(response);
+                        });
+                        
+                    }
+                });
+                mapDeferred.addErrback(function(error){
+                    console.log("Map creation failed: ", dojo.toJson(error));
+                });
+            }
+            
+            function runTests(response){
+                doh.registerGroup("createmap.itemid.popup.trefFPopupTest", [{
+                    name: "PopupTest",
+                    timeout: 6000,
+                    runTest: function(t){
+                      var map = response.map;
+                      var graphicsLayerIds = map.graphicsLayerIds;
+                      var graphicLayer0 = map.getLayer(graphicsLayerIds[0]);
+					  var infoTemplate0 = graphicLayer0.infoTemplate;
+					 
+					  t.assertEqual(infoTemplate0.info.title,"Fire Perimeter: {description}");
+					  t.assertEqual(infoTemplate0.info.description,null);
+				      t.assertEqual(infoTemplate0.info.fieldInfos.length,3);
+					  t.assertFalse(infoTemplate0.info.showAttachments);
+					  t.assertEqual(infoTemplate0.info.mediaInfos.length,0);
+					  
+					  var graphicLayer1 = map.getLayer(graphicsLayerIds[1]);
+					  var infoTemplate1 = graphicLayer0.infoTemplate;
+					 					  				
+					  t.assertEqual(infoTemplate1.info.title,"Fire Perimeter: {description}");
+					  t.assertEqual(infoTemplate1.info.description,null);
+				      t.assertEqual(infoTemplate1.info.fieldInfos.length,3);
+					  t.assertFalse(infoTemplate1.info.showAttachments);
+					  t.assertEqual(infoTemplate1.info.mediaInfos.length,0);
+					  		
+					  var graphicLayer2 = map.getLayer(graphicsLayerIds[2]);
+					  var infoTemplate2 = graphicLayer2.infoTemplate;
+					  t.assertEqual(infoTemplate2.info.title,"Points of Interest: {description}");
+					  t.assertEqual(infoTemplate2.info.description,null);
+				      t.assertEqual(infoTemplate2.info.fieldInfos.length,3);
+					  t.assertFalse(infoTemplate2.info.showAttachments);
+					  t.assertEqual(infoTemplate2.info.mediaInfos.length,0);
+											                        
+                    }
+                    
+                    
+                }]);
+                doh.run();
+            }
+            
+            dojo.addOnLoad(init);
+        </script>
+    </head>
+    <body class="tundra">
+        <div id="map" style="width:800px; height:600px; border:1px solid #000;">
+        </div>
+    </body>
+</html>

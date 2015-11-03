@@ -1,0 +1,6 @@
+define([
+    "./AnalysisBase",
+    "./AnalysisScenarioTestSuite"
+], function () {
+
+});

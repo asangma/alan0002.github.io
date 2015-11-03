@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Graphics properties</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+        
+    <script type="text/javascript">
+      dojo.require("esri.map");
+      dojo.require("doh.runner");
+      
+      function init() {
+        var map = new esri.Map("mapDiv");
+        dojo.connect(map, "onLoad", runTests);
+
+        var tiled = new esri.layers.ArcGISTiledMapServiceLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/PublicSafety/PublicSafetyBasemap/MapServer");
+        map.addLayer(tiled);
+      }
+      
+      var _ptgraphic;
+      
+      function runTests(map) {
+        doh.registerGroup("layers.graphics.graphicsProperties", [
+          {
+            name: "add",
+            timeout: 3000,
+            runTest: function(t) {
+              var onGraphicAddHandler;
+              var d = new doh.Deferred();
+
+              function assert(graphic) {
+                dojo.disconnect(onGraphicAddHandler);
+                t.assertTrue(graphic instanceof esri.Graphic);
+                t.assertEqual(1, map.graphics.graphics.length);
+                t.assertEqual(graphic, map.graphics.graphics[0]);
+                d.callback(true);
+              }
+              
+              setTimeout(function() {
+                onGraphicAddHandler = dojo.connect(map.graphics, "onGraphicAdd", assert);
+                _ptgraphic = new esri.Graphic(new esri.geometry.Point(-122.5, 45.5, map.spatialReference), new esri.symbol.SimpleMarkerSymbol());
+                map.graphics.add(_ptgraphic);
+              }, 1000);
+              return d;
+            }
+          },
+          
+          {
+            name: "remove",
+            timeout: 3000,
+            runTest: function(t) {
+              var onGraphicRemoveHandler;
+              var d = new doh.Deferred();
+
+              function assert(graphic) {
+                dojo.disconnect(onGraphicRemoveHandler);
+                t.assertTrue(graphic instanceof esri.Graphic);
+                t.assertEqual(0, map.graphics.graphics.length);
+                d.callback(true);
+              }
+              
+              setTimeout(function() {
+                onGraphicRemoveHandler = dojo.connect(map.graphics, "onGraphicRemove", assert);
+                map.graphics.remove(_ptgraphic);
+              }, 1000);
+              return d;
+            }
+          },
+          
+          {
+            name: "clear",
+            timeout: 3000,
+            runTest: function(t) {
+              var onGraphicsClearHandler;
+              var d = new doh.Deferred();
+
+              function assert() {
+                dojo.disconnect(onGraphicsClearHandler);
+                t.assertEqual(0, map.graphics.graphics.length);
+                d.callback(true);
+              }
+              
+              setTimeout(function() {
+                onGraphicsClearHandler = dojo.connect(map.graphics, "onGraphicsClear", assert);
+                map.graphics.add(new esri.Graphic(new esri.geometry.Point(-122.5, 45.5, map.spatialReference), new esri.symbol.SimpleMarkerSymbol()));
+                map.graphics.add(new esri.Graphic(new esri.geometry.Point(-123.321, 45.54, map.spatialReference), new esri.symbol.SimpleMarkerSymbol()));
+                map.graphics.clear();
+              }, 1000);
+              return d;
+            }
+          }
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+    <div id="mapDiv" style="width:1024px; height:512px; border:1px solid #000;"></div>
+  </body>
+</html>

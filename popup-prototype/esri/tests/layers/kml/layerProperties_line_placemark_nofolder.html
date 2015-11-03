@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>LayerInfo</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.layers.KMLLayer");
+      dojo.require("doh.runner");
+      
+      function init() {
+          esri.config.kmlServiceUrl =  "http://utilitydev.arcgis.com/sharing/kml";
+          var kmlUrl = "http://jsmatrix:8080/kml/paths.kml";
+        var kmlLayer = new esri.layers.KMLLayer(kmlUrl);
+        if (kmlLayer.loaded) {
+          runTests(kmlLayer);
+        }
+        else {
+          dojo.connect(kmlLayer, "onLoad", runTests);
+        }
+      }
+      
+      function runTests(kmlLayer) {
+        doh.registerGroup("kml.layerProperties_line_placemark_nofolder", [
+          {
+            name: "featureInfos",
+            timeout: 100,
+            runTest: function() {
+                //with document folder
+                var featureInfos = kmlLayer.featureInfos;
+                console.log(featureInfos);
+                doh.assertEqual(featureInfos[0].id,1);
+                doh.assertEqual(featureInfos[0].type,"Folder");
+
+             }
+
+          } ,
+          {
+            name: "folders",
+            timeout: 100,
+            runTest: function() {
+                var folders = kmlLayer.folders;
+
+                var folder = folders[folders.length-1];
+                doh.assertEqual(folder.id,1);
+                doh.assertEqual(folder.name,"Paths");
+                console.log(folder);
+                doh.assertEqual(folder.featureInfos[0].type,"esriGeometryPolyline");
+                var str = "Examples of paths. Note that the tessellate tag is by default"+" set to 0. If you want to create tessellated lines, they must be authored (or edited) directly in KML."
+                //doh.assertEqual(folder.description,str);
+                doh.assertEqual(folder.parentFolderId,0);
+                doh.assertEqual(folder.snippet,null);
+                doh.assertEqual(folder.subFolderIds,[]);
+                doh.assertEqual(folder.visibility,1);
+
+            }
+
+          },
+          {
+            name: "linkInfo",
+            timeout: 100,
+            runTest: function() {
+               doh.assertEqual(kmlLayer.linkInfo, undefined);
+
+          }
+
+           }
+        ]
+
+        );
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+  </body>
+</html>

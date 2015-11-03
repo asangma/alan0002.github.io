@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>visibleLayers</title>
+        <link rel="stylesheet" type="text/css" href="../../../../../dojo/dijit/themes/tundra/tundra.css">
+        <script>
+            dojoConfig = {
+                isDebug: true
+            };
+        </script>
+        <script type="text/javascript" src="../../../../../../index.jsp">
+        </script>
+        <script type="text/javascript">
+            dojo.require("esri.arcgis.utils");
+            dojo.require("doh.runner");
+            
+            
+            
+            function init(){
+                esri.arcgis.utils.arcgisUrl = "http://dev.arcgis.com/sharing/content/items";
+                var itemId = "01440d9cfd0f4fb8870108014610dcb9";
+                var mapDeferred = esri.arcgis.utils.createMap(itemId, "map", {
+                    mapOptions: {
+                        slider: true,
+                        nav: false
+                    }
+                });
+                mapDeferred.addCallback(function(response){
+                    var map = response.map;
+                    if (map.loaded) {
+                        runTests(response);
+                    }
+                    else {
+                        dojo.connect(map, "onLoad", function(){
+                            runTests(response);
+                        });
+                        
+                    }
+                });
+                mapDeferred.addErrback(function(error){
+                    console.log("Map creation failed: ", dojo.toJson(error));
+                });
+                
+            }
+            
+            function runTests(response){
+                doh.registerGroup("createmap.itemid.threelayer.tttLayerTest", [{
+                    name: "layerTest",
+                    timeout: 6000,
+                    runTest: function(t){
+                                          
+                            var map = response.map;
+                            var layerIds = map.layerIds;
+                            
+                            var layer0 = map.getLayer(layerIds[0]);
+                            var layer1 = map.getLayer(layerIds[1]);
+                            var layer2 = map.getLayer(layerIds[2]);
+                            
+                            t.assertEqual(3, layerIds.length);
+                            t.assertTrue(layer0 instanceof esri.layers.ArcGISTiledMapServiceLayer);
+                            t.assertEqual(layer0.url, "http://services.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer");
+                            t.assertTrue(layer1 instanceof esri.layers.ArcGISTiledMapServiceLayer);
+                            t.assertEqual(layer1.url, "http://server.arcgisonline.com/ArcGIS/rest/services/Specialty/Soil_Survey_Map/MapServer");
+                            t.assertTrue(layer2 instanceof esri.layers.ArcGISTiledMapServiceLayer);
+                            t.assertEqual(layer2.url, "http://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer");
+                            var operationalLayers = response.itemInfo.itemData.operationalLayers;
+                         
+                            t.assertEqual(2, operationalLayers.length);
+                            t.assertEqual(operationalLayers[0].url, "http://server.arcgisonline.com/ArcGIS/rest/services/Specialty/Soil_Survey_Map/MapServer");
+                            t.assertEqual(operationalLayers[0].opacity,1);
+							t.assertEqual(operationalLayers[1].url, "http://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer");
+                         	t.assertEqual(operationalLayers[1].opacity,1);
+                        }
+                    
+                    
+                }]);
+                doh.run();
+            }
+            
+            dojo.addOnLoad(init);
+        </script>
+    </head>
+    <body class="tundra">
+        <div id="map" style="width:800px; height:600px; border:1px solid #000;">
+        </div>
+    </body>
+</html>

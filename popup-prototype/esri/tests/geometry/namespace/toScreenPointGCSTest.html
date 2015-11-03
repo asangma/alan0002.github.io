@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta name="generator" content="HTML Tidy, see www.w3.org">
+        <meta http-equiv="Content-Type" content= "text/html; charset=utf-8">
+        <title>Query Features</title>
+        <link rel="stylesheet" type="text/css" href= "../../../../dojo/dijit/themes/tundra/tundra.css">
+        <script>
+            dojoConfig = {
+                isDebug: true
+            };
+        </script>
+        <script type="text/javascript" src="../../../../../index.jsp">
+        </script>
+        <script type="text/javascript">
+            dojo.require("esri.geometry");
+            dojo.require("esri.map");
+            dojo.require("doh.runner");
+            
+            
+            var map;
+            
+            function init(){
+            
+                map = new esri.Map("mapDiv");
+                dojo.connect(map, "onLoad", runTests);
+                var layer = new esri.layers.ArcGISDynamicMapServiceLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer");
+                map.addLayer(layer);
+                
+                
+            }
+            
+            function runTests(){
+            
+            
+                doh.registerGroup("geometry.namespace.toScreenPointGCSTest", [{
+                    name: "toScreenPoint",
+                    timeout: 3000,
+                    runTest: function(t){
+                        var pointJson = {
+                            "x": -117.82619910598018,
+                            "y": 35.906598433322046,
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        }
+                        
+                        var geometry = esri.geometry.fromJson(pointJson);
+                        var mapExtentJson = {
+                            "xmin": -125.192864566604,
+                            "ymin": 6.92457158852609,
+                            "xmax": -66.1058240541493,
+                            "ymax": 66.8100856214194,
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        
+                        }
+                        var geometry = esri.geometry.toScreenPoint(new esri.geometry.Extent(mapExtentJson), 900, 600, geometry);
+                        t.assertEqual(geometry.type, "point");
+                        console.log(geometry);
+                        
+                    }
+                }]);
+                
+                
+                doh.run();
+            }
+            
+            dojo.addOnLoad(init);
+        </script>
+    </head>
+    <body class="tundra">
+        <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;">
+        </div>
+    </body>
+</html>

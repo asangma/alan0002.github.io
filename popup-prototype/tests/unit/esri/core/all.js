@@ -1,0 +1,14 @@
+define([
+  "./Accessor",
+  "./Evented",
+  "./HandleRegistry",
+  "./JSONSupport",
+  "./Loadable",
+  "./Promise",
+  "./lang",
+  "./promiseList",
+  "./domUtils",
+  "./screenUtils",
+  "./urlUtils",
+  "./watchUtils"
+]);

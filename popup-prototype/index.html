@@ -1,280 +1,95 @@
-
 <!DOCTYPE html>
-<html>
+<html dir="ltr">
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>Popup Prototype</title>
-  <link rel="stylesheet" href="../dijit/themes/claro/claro.css">
-  <link rel="stylesheet" href="../esri/css/esri.css">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <title>Popup</title>
+  
+  <!-- <link rel="stylesheet" href="dijit/themes/claro/claro.css"> -->
+  <link rel="stylesheet" href="esri/css/main.css">
+  <link rel="stylesheet" type="text/css" href="esri/css/calcite/calcite.css">
   <style>
     html,
-    body {
-      padding: 0;
-      margin: 0;
+    body,
+    #sceneDiv {
       height: 100%;
       width: 100%;
-      font-weight: 300;
-    }
-
-    .toggle {
-      text-align: center;
-      padding: 6px 10px;
-      margin: 0 10px;
-      box-sizing: border-box;
-      cursor: pointer;
-      line-height: normal;
-      display: inline-block;
-      vertical-align: middle;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    .toggle:hover,
-    .toggle:focus {
-      color: #bcdaed;
-      border-color: #bcdaed;
-    }
-
-    .toggle span {
-      display: inline-block;
-      vertical-align: middle;
-    }
-
-    .toggle .esri-icon-expand {
-      display: none;
-    }
-
-    .drawer-open .toggle .esri-icon-expand {
-      display: inline-block;
-    }
-
-    .toggle .esri-icon-collapse {
-      display: inline-block;
-    }
-
-    .drawer-open .toggle .esri-icon-collapse {
-      display: none;
-    }
-
-    h1 {
       margin: 0;
       padding: 0;
-      font-weight: normal;
-    }
-
-    .options{
-      list-style: none;
-      padding: 0;
-      margin: 10px 0 0 0;
-    }
-    .options li{
-      padding: 5px 0;
-    }
-
-    #mapDiv {
-      padding: 0;
-      margin: 0;
-      width: 100%;
-      height: 100%;
-      position: relative;
-    }
-
-    .drawer-animation,
-    .esriUI {
-      -webkit-transition: left 250ms ease;
-      -moz-transition: left 250ms ease;
-      -ms-transition: left 250ms ease;
-      -o-transition: left 250ms ease;
-      transition: left 250ms ease;
-    }
-
-    .drawer-top {
-      background-color: transparent;
-      /*border-bottom: 1px solid #196fa6;*/
-      color: #d2e9f9;
-      position: absolute;
-      z-index: 50;
-      top: 0;
-      left: 0px;
-      width: 150px;
-      height: 54px;
-      padding: 10px 0;
-      box-sizing: border-box;
-    }
-
-    .drawer-open .drawer-top {
-      left: 280px;
-    }
-
-    .drawer-container {
-      width: 100%;
-      height: 100%;
-      padding: 0;
-      margin: 0;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .drawer-side {
-      color: #fff;
-      position: absolute;
-      top: 0;
-      left: -280px;
-      z-index: 51;
-      width: 280px;
-      height: 100%;
-      padding: 20px;
-      margin: 0;
-      background-color: rgba(0, 0, 0, .5);
-      border-right: 1px solid #052942;
-      overflow: hidden;
-      box-sizing: border-box;
-    }
-
-    .drawer-open .drawer-side {
-      left: 0;
-      overflow: auto;
-      overflow-x: hidden;
-    }
-
-    .drawer-center {
-      width: 100%;
-      height: 100%;
-      padding: 0;
-      margin: 0;
-    }
-
-    code {
-      padding: 0.2em;
-      font-size: 85%;
-      background-color: #052942;
-      border-radius: 3px;
     }
   </style>
   <script>
-    var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
     var dojoConfig = {
-      async: true,
-      isDebug: true,
-      packages: [{
-        name: "application",
-        location: package_path + '/js'
-      }],
+      //async: true,
+      //Debug: true,
       paths: {
-        esri: "../esri"
+        "esri": "../esri"
       }
     };
   </script>
-
-  <script src="../dojo/dojo.js"></script>
-
-  <script>
-    var map, view, popup;
+  <script src="dojo/dojo.js"></script>
+  <script type="text/javascript">
+    var map, view, popup, features, dcFL, ripple, tabHandler;
+    var testing = true;
 
     require([
-      "esri/Map",
-      "esri/views/MapView",
-      "dojo/dom-class",
-      "dojo/dom",
-      "dojo/on",
-      "dojo/dom-attr",
-      "dojo/window",
-      "esri/tasks/QueryTask",
+        "esri/Map",
+        "esri/views/MapView",
+        "dojo/dom-class",
+        "dojo/dom",
+        "dojo/on",
+        "dojo/dom-attr",
+        "dojo/window",
+        "esri/tasks/QueryTask",
         "esri/tasks/support/Query",
         "esri/layers/FeatureLayer",
+        "esri/layers/GraphicsLayer",
         "esri/Graphic",
         "esri/geometry/Extent",
         "esri/geometry/Point",
+        "esri/symbols/SimpleMarkerSymbol",
         "esri/symbols/PictureMarkerSymbol",
-        "esri/widgets/PopupTemplate",
+        "esri/PopupTemplate",
         "esri/widgets/Popup",
-      "dojo/domReady!"
+        "esri/widgets/Popup/PopupRenderer",
+        "esri/widgets/Ripple",
+        "dojo/dom-construct",
+        "dojo/Deferred",
+        //"esri/symbols/SimpleMarkerSymbol",
+        "dojo/domReady!"
     ], function (Map, MapView, domClass, dom, on, domAttr, win,
       QueryTask,
       Query,
       FeatureLayer,
+      GraphicsLayer,
       Graphic,
-      Extent, Point,
+      Extent,
+      Point,
+      SimpleMarkerSymbol,
       PictureMarkerSymbol,
       PopupTemplate,
-      Popup) {
-
+      Popup,
+      PopupRenderer,
+      Ripple,
+      domConstruct,
+      Deferred
+      //SimpleMarkerSymbol
+    ) {
+      //var $ = jQuery.noConflict();
+      //Create the map
       map = new Map({
         basemap: "topo"
       });
 
+
+      //Create the MapView
       view = new MapView({
-        container: "mapDiv",
+        container: "sceneDiv",
         map: map,
-         extent: new Extent({
-          "xmin": -8573697.671426324,
-          "ymin": 4705202.445653928,
-          "xmax": -8571636.4834977,
-          "ymax": 4706458.743279023,
-          "spatialReference": {
-            "wkid": 102100
-          }
-        })
+        center: [-77.02512833211676, 38.890752845456115],
+        zoom: 16
       });
-
-      // document window
-      var w = win.get(document);
-
-      // toggle button
-      var btn = dom.byId("toggle");
-
-      // When toggle button is clicked
-      on(btn, "click", function (evt) {
-        // toggle class
-        toggle(!domClass.contains(document.body, "drawer-open"));
-      }.bind(this));
-
-      // toggles drawer open or closed
-      function toggle(value) {
-        domClass.toggle(document.body, "drawer-open", value);
-        viewPadding();
-      }
-
-      //Sets drawer open or closed depending on the size of the window
-      function drawer() {
-        var vs = win.getBox(),
-          value;
-        // if window width is less than specified size
-        if (vs.w < 850) {
-          // hide drawer
-          value = false;
-        } else {
-          // show drawer
-          value = true;
-        }
-        toggle(value);
-      }
-
-      // applies appropriate view padding
-      function viewPadding() {
-        var padding;
-        if (domClass.contains(document.body, "drawer-open")) {
-          padding = {
-            left: 280,
-            top: 54
-          };
-        } else {
-          padding = {
-            left: 0,
-            top: 54
-          };
-        }
-        view.padding = padding;
-      }
-
-      // When window is resized
-      on(w, 'resize', function () {
-        drawer();
-      });
-      drawer();
-
-
 
       popup = new Popup({
         //position: "right",
@@ -282,338 +97,300 @@
       });
       popup.startup();
       view.popup = popup;
-
-
-      var templateHurricane = new PopupTemplate({
-        title: "Hurrican Andrew",
-        fieldInfos: [{ //define field infos so we can specify an alias
-          fieldName: "Date",
-          label: "Date:",
-          visible: true
-        }, {
-          fieldName: "CAT",
-          label: "Storm Category:",
-          visible: true
-        }, {
-          fieldName: "PRESSURE",
-          label: "Pressure:",
-          visible: true
-        }, {
-          fieldName: "Wind_MPH",
-          label: "Wind (mph):",
-          visible: true
-        }]
+/*
+      ripple = new Ripple({
+        visible: true,
+        view: view
       });
+      ripple.startup();
+      domConstruct.place(ripple.domNode, view.root);*/
+        /*
 
-      /*
-      var hurricane = new FeatureLayer("http://services.arcgis.com/nzS0F0zdNLvs7nc8/ArcGIS/rest/services/05_HurricaneAndrew_1992/FeatureServer/0", {
-        mode: FeatureLayer.MODE_SNAPSHOT,
-        outFields: ["*"],
-        popupTemplate: templateHurricane
-      });
+                    washington_monument: 867,
+                    lincoln_memorial: 1213,
+                    ww2: 768
+        */
 
-
-      map.add(hurricane);
-      */
-
-      var features = [new Graphic({
-        geometry: new Point({
-          "x": -8572600.077462012,
-          "y": 4705500.594466476,
-          "spatialReference": {
-            "wkid": 102100
-          }
-        }),
-        symbol: new PictureMarkerSymbol({
-          url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
-          width: 16,
-          height: 16
-        }),
-        attributes: {
-          title: "Virginia Aerial Imagery Service Information for High Impact Areas",
-          description: richTextStr
+      var fieldInfos = [
+        {
+          fieldName     :'washington_monument',
+          label         :'Washington Monument - Visitors',
+          visible       :true
         },
-        popupTemplate: new PopupTemplate({
-          description: "{description}",
-          title: "{title}"
-        })
-      }),new Graphic({
-        geometry: new Point({
-          "x": -8572650.077462012,
-          "y": 4705500.594466476,
-          "spatialReference": {
-            "wkid": 102100
-          }
-        }),
-        symbol: new PictureMarkerSymbol({
-          url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
-          width: 16,
-          height: 16
-        }),
-        attributes: {
-          title: "House Office Buildings",
-          description: houseBuildingText
+        {
+          fieldName     :'lincoln_memorial',
+          label         :'Lincoln Memorial - Visitors',
+          visible       :true
         },
-        popupTemplate: new PopupTemplate({
-          description: "{description}",
-          title: "{title}"
-        })
-      }),new Graphic({
-        geometry: new Point({
-          "x": -8572700.077462012,
-          "y": 4705500.594466476,
-          "spatialReference": {
-            "wkid": 102100
-          }
-        }),
-        symbol: new PictureMarkerSymbol({
-          url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
-          width: 16,
-          height: 16
-        }),
-        attributes: {
-          title: "Protected Area [no desc.]"
-        },
-        popupTemplate: new PopupTemplate({
-          title: "{title}"
-        })
-      }), new Graphic({
-        geometry: new Point({
-          "x": -8572750.077462012,
-          "y": 4705500.594466476,
-          "spatialReference": {
-            "wkid": 102100
-          }
-        }),
-        symbol: new PictureMarkerSymbol({
-          url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
-          width: 16,
-          height: 16
-        }),
-        attributes: {
-          description: '<h1>No Title</h1>'+richTextStr
-        },
-        popupTemplate: new PopupTemplate({
-          description: "{description}",
-          title: "{title}"
-        })
-      }), new Graphic({
-        geometry: new Point({
-          "x": -8572850.077462012,
-          "y": 4705500.594466476,
-          "spatialReference": {
-            "wkid": 102100
-          }
-        }),
-        symbol: new PictureMarkerSymbol({
-          url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
-          width: 16,
-          height: 16
-        }),
-        attributes: {
-          title: "Category Inspections OKC",
-          description: tableDataStr
-        },
-        popupTemplate: new PopupTemplate({
-          description: "{description}",
-          title: "{title}"
-        })
-      })];
-
-      popup.set("features", features);
-
-      popup.set("visible", true);
-
-
-      view.on("click", function (evt) {
-
-        var features = [new Graphic({
-          geometry: evt.mapPoint,
-          attributes: {
-            title: "U.S. Capitol",
-            description: capitolText
-          },
-          symbol: new PictureMarkerSymbol({
-            url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
-            width: 16,
-            height: 16
-          }),
-          popupTemplate: new PopupTemplate({
-            description: "{description}",
-            title: "{title}"
-          })
-        }), new Graphic({
-          geometry: new Point({
-            "x": -8572667.077462012,
-            "y": 4705830.594466476,
-            "spatialReference": {
-              "wkid": 102100
+        {
+          fieldName     :'ww2',
+          label         :'World War II Memorial - Visitors',
+          visible       :true
+        }
+      ];
+      var mediaInfos = [
+          {
+            "title": "Lincoln Memorial",
+            "caption": "Lincoln Memorial",
+            "type": "image",
+            "value": {
+              "sourceURL": "https://upload.wikimedia.org/wikipedia/commons/1/13/Wwiimemorial.jpg"/*,
+              "linkURL": "{link}"*/
             }
-          }),
-          attributes: {
-            title: "U.S. Capitol Lawn",
-            description: capitolText
           },
-          symbol: new PictureMarkerSymbol({
-            url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
-            width: 16,
-            height: 16
-          }),
-          popupTemplate: new PopupTemplate({
-            description: "{description}",
-            title: "{title}"
-          })
-        }), new Graphic({
-          geometry: new Point({
-            "x": -8576667.077462012,
-            "y": 4705330.594466476,
-            "spatialReference": {
-              "wkid": 102100
+          {
+            "title": "Washington Monument",
+            "caption": "Washington Monument",
+            "type": "image",
+            "value": {
+              "sourceURL": "http://www.digital-images.net/Images/Washington_DC/Washington_Monument/WashingtonMonument_LincolnPool_2813.jpg"/*,
+              "linkURL": "{link}"*/
             }
-          }),
-          attributes: {
-            title: "Unsanctioned Testing Facility",
-            description: tableDataStr
           },
-          symbol: new PictureMarkerSymbol({
-            url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
-            width: 16,
-            height: 16
-          }),
-          popupTemplate: new PopupTemplate({
-            description: "{description}",
-            title: "{title}"
-          })
-        })];
-        popup.set("features", features);
-        popup.set("visible", true);
-
+          {
+            "title": "The White House",
+            "caption": "The White House",
+            "type": "image",
+            "value": {
+              "sourceURL": "http://cnsnews.com/sites/default/files/images/WHITE%20HOUSE-AP%20PHOTO-USE.jpg?1331589459",
+              "linkURL": ""
+            }
+          },
+          {
+            "title": "The White House - Interior",
+            "caption": "The White House - Interior",
+            "type": "image",
+            "value": {
+              "sourceURL": "http://images.politico.com/global/2013/02/28/130227_oval_office_reuters_600_605.jpg",
+              "linkURL": ""
+            }
+          },
+          {
+            "title": "World War II Memorial",
+            "caption": "World War II Memorial",
+            "type": "image",
+            "value": {
+              "sourceURL": "http://voices.washingtonpost.com/capitalweathergang/images/IMG_6214.jpg"/*,
+              "linkURL": "{link}"*/
+            }
+          }/*,
+          {
+            "title": null,
+            "type": "barchart",
+            "caption": "",
+            "value": {
+              "fields": ["washington_monument", "tacos", "quesadillas"]
+            }
+          }*/
+        ];
+      var tpl = new PopupTemplate({
+        title: "{title}",
+        content: "{description}",
+        mediaInfos: mediaInfos,
+        //fieldInfos: fieldInfos,
+        showAttachments: true
       });
 
-      var position = dom.byId("option_position");
-      domAttr.set(position, "value", popup.position);
-      on(position, "change", function(){
-        popup.set("position", position.value);
-      });
-      popup.watch("position", function(){
-        domAttr.set(position, "value", popup.position);
-      });
+      //var offOpacity = 1;
 
-      var visible = dom.byId("option_visible");
-      domAttr.set(visible, "checked", popup.visible);
-      on(visible, "change", function(evt){
-        popup.set("visible", domAttr.get(visible, "checked"));
+      //Create the FeatureLayer using the popupTemplate
+      dcFLPoints = new FeatureLayer({
+        popupTemplate   :tpl,
+        url             : "http://services.arcgis.com/ZAA95z0SYTDJP9yw/arcgis/rest/services/DC_Point_FS/FeatureServer/0",
+        //url             :'http://services.arcgis.com/ZAA95z0SYTDJP9yw/arcgis/rest/services/FL_Lincoln_Memorial/FeatureServer/0',
+        outFields       : ["*"],
+        PopupTemplate   :tpl
       });
-      popup.watch("visible", function(){
-        domAttr.set(visible, "checked", popup.visible);
+      /*dcFLPoly = new FeatureLayer({
+        popupTemplate   :tpl,
+        url             : "http://services.arcgis.com/ZAA95z0SYTDJP9yw/arcgis/rest/services/FL_Lincoln_Memorial/FeatureServer/3",
+        outFields       : ["*"]
       });
+      dcFLPoly.opacity = 0;*/
 
-      var pagination = dom.byId("option_pagination");
-      domAttr.set(pagination, "checked", popup.pagination);
-      on(pagination, "change", function(evt){
-        popup.set("pagination", domAttr.get(pagination, "checked"));
-      });
-      popup.watch("pagination", function(){
-        domAttr.set(pagination, "checked", popup.pagination);
-      });
+      map.add(dcFLPoints);
+      // map.add(dcFLPoly);
 
-      var expanded = dom.byId("option_expanded");
-      domAttr.set(expanded, "checked", popup.expanded);
-      on(expanded, "change", function(evt){
-        popup.set("expanded", domAttr.get(expanded, "checked"));
-      });
-      popup.watch("expanded", function(){
-        domAttr.set(expanded, "checked", popup.expanded);
-      });
+      view.on('click', function (event) {
+        /*if (event.graphic) {
+          features = [event.graphic];
+          var def = new Deferred();
+
+          setTimeout(function () {
+            def.resolve(features);
+          }, 1000);
+
+          popup.set({
+            promises: [def.promise],
+            location: event.mapPoint
+          });
+
+        } else {
+
+        }*/
 
 
-      /*var padding = dom.byId("option_padding");
-      domAttr.set(padding, "value", popup.padding);
-      on(padding, "change", function(){
-        popup.set("padding", parseInt(padding.value, 10));
-      });
-      popup.watch("padding", function(){
-        domAttr.set(padding, "value", popup.padding);
-      });*/
+      
+        var features = [];
+        var def = new Deferred();
 
-      var zoomFactor = dom.byId("option_zoomFactor");
-      domAttr.set(zoomFactor, "value", popup.zoomFactor);
-      on(zoomFactor, "change", function(){
-        popup.set("zoomFactor", parseInt(zoomFactor.value, 10));
-      });
-      popup.watch("zoomFactor", function(){
-        domAttr.set(zoomFactor, "value", popup.zoomFactor);
-      });
+        if (event.graphic) {
+          var title = event.graphic.attributes.TITLE.toLowerCase();
+          if(title.indexOf('multi') >= 0) {
 
-      var selectedIndex = dom.byId("option_selectedIndex");
-      domAttr.set(selectedIndex, "value", popup.selectedIndex);
-      on(selectedIndex, "change", function(){
-        popup.set("selectedIndex", parseInt(selectedIndex.value, 10));
-      });
-      popup.watch("selectedIndex", function(){
-        domAttr.set(selectedIndex, "value", popup.selectedIndex);
+            var attachments = popup._popupRenderer.getAttachments();
+            // console.dir(attachments);
+            attachments.then(
+              function(results){
+                console.log('results');
+                console.dir(results.attachmentInfos);
+                // tpl.attachmentInfos = results.attachmentInfos;
+              },
+              function(event){
+                console.log('attachments fail');
+            });
+
+            event.graphic.attributes.TITLE = event.graphic.attributes.TITLE.substring(5); //  remove 'multi' from title
+            
+            features = [
+              event.graphic,
+              new Graphic({
+                geometry: event.mapPoint,
+                symbol: new SimpleMarkerSymbol(),
+                attributes: {
+                  title: "Concerts on the West Steps",
+                  description: tableDataStrBand
+                },
+                popupTemplate: new PopupTemplate({
+                  title: "{title}",
+                  content: "{description}",
+                  mediaInfos: mediaInfos,
+                  attachmentInfos: [],
+                  showAttachments: true
+                })
+                
+              }),
+              /*new Graphic({
+                geometry: event.mapPoint,
+                symbol: new SimpleMarkerSymbol(),
+                attributes: {
+                  title: "U.S. Capitol Building",
+                  description: usCapitol
+                },
+                popupTemplate: tpl,
+                attachmentInfos: []
+              }),*/
+              new Graphic({
+                geometry: event.mapPoint,
+                symbol: new SimpleMarkerSymbol(),
+                attributes: {
+                  title: "U.S. Capitol Building Grounds",
+                  description: lawnStr
+                },
+                popupTemplate: tpl,
+                attachmentInfos: []
+              })
+            ];
+          } else {
+            features = [
+                event.graphic
+            ];
+          }
+        } 
+        ////////////////////
+        //  IS TESTING?
+        
+        if(testing) {
+          popup.set({features:features});
+          resetTabs();
+          connectTabs();
+
+
+        } else {
+          setTimeout(function () {
+            def.resolve(features);
+            resetTabs();
+            connectTabs();
+          }, 1000);
+
+          popup.set({
+            promises: [def.promise],
+            location: event.mapPoint
+          });/*
+          resetTabs();
+          connectTabs();*/
+        }
+
+        if(ripple) ripple.destroy();
+        ripple = new Ripple({
+          visible: true,
+          view: view
+        });
+        ripple.startup();
+        domConstruct.place(ripple.domNode, view.root);
+        ripple.set("visible", true);
+        ripple.set("point", event.mapPoint);
       });
 
 
     });
+function connectTabs() {
+  dojo.addClass(dojo.query('.esri-popup-renderer-attachments')[0], 'esri-hidden');
+  if(!tabHandler) {
+    var tabTriggers = dojo.query('.esri-tab-title');
+    for(var i = 0; i < tabTriggers.length; i++) {
+      dojo.connect(tabTriggers[i], "onclick", function(event){
+        var target = dojo.attr(this, 'data-toggle');
+        var tabbedContent = dojo.query('.esri-tab-content');
+        resetTabs(tabbedContent, target, tabTriggers, this);
+      });
+    }
+    tabHandler = true;
+  } else {
+    console.log('Tabs already connected.');
+    resetTabs();
+  }
+}
+
+function resetTabs(tabbedContent, target, tabTriggers, currTab) {
+    tabbedContent = tabbedContent ? tabbedContent : dojo.query('.esri-tab-content');
+    tabTriggers = tabTriggers ? tabTriggers : dojo.query('.esri-tab-title')
+    
+    for(var i = 0; i < tabbedContent.length; i++) {
+      dojo.addClass(tabbedContent[i], 'esri-hidden');
+    }
+    if(target) {
+      console.log(target);
+      dojo.removeClass(dojo.query('.'+target)[0], 'esri-hidden');
+    } else {
+      console.log('no target');
+      dojo.removeClass(tabbedContent[0], 'esri-hidden');
+    }
+
+    
+    for(var j = 0; j < tabTriggers.length; j++) {
+      dojo.removeClass(tabTriggers[j], 'esri-active');
+    }
+    if(currTab) {
+      dojo.addClass(currTab, 'esri-active');
+    } else {
+      dojo.addClass(tabTriggers[0], 'esri-active');
+    }
+}
+
+    var tableDataStrBand = "<table><tr><th>Oct. 5</th><td>7:30pm - Blues with the Mid-Atlantic Symphony Orchestra</td></tr><tr><th>Oct. 9</th><td>6:00pm - Blues | WWII Memorial Evening Concert Series</td></tr><tr><th>Oct. 10</th><td>10:30am - The U.S. Army's Spirit of America</td></tr><tr><th>Oct. 11</th><td>10:30am - The U.S. Army's Spirit of America</td></tr><tr><th>Oct. 11</th><td>7:30pm - The U.S. Army's Spirit of America</td></tr><tr><th>Oct. 12</th><td>2:00pm - The U.S. Army's Spirit of America</td></tr><tr><th>Oct. 12</th><td>7:30pm - The U.S. Army's Spirit of America</td></tr><tr><th>Oct. 17</th><td>5:00pm - Blues | Music of Herbie Nichols</td></tr><tr><th>Oct. 18</th><td>10:30am - The U.S. Army's Spirit of America</td></tr><tr><th>Oct. 18</th><td>7:30pm - The U.S. Army Chorus Baritones in Recital</td></tr><tr><th>Oct. 19</th><td>2:00pm - The U.S. Army's Spirit of America</td></tr><tr><th>Oct. 19</th><td>7:30pm - The U.S. Army's Spirit of America</td></tr><tr><th>Oct. 19</th><td>7:30pm - The U.S. Army Chorus Baritones in Recital</td></tr></table>";
+    var usCapitol = 'After adopting the Articles of Confederation, the Congress of the Confederation was formed and convened in Philadelphia from March 1781 until June 1783, when a mob of angry soldiers converged upon Independence Hall, demanding payment for their service during the American Revolutionary War. Congress requested that John Dickinson, the Governor of Pennsylvania, call up the militia to defend Congress from attacks by the protesters. In what became known as the Pennsylvania Mutiny of 1783, Dickinson sympathized with the protesters and refused to remove them from Philadelphia.<br/><br/>As a result, Congress was forced to flee to Princeton, New Jersey, on June 21, 1783, and met in Annapolis, Maryland and Trenton, New Jersey before ending up in New York City.';
+/*
+    var richTextStr = '<figure><img src="//upload.wikimedia.org/wikipedia/commons/thumb/4/4f/US_Capitol_west_side.JPG/240px-US_Capitol_west_side.JPG" /><figcaption>The west front of the United States Capitol in 2013, before dome restoration scaffolding was erected</figcaption></figure><p>The <b>United States Capitol</b>, often called <b>Capitol Hill</b>, is the seat of the <a title="United States Congress">United States Congress</a>, the <a title="Legislative branch of the United States federal government" class="mw-redirect">legislative branch</a> of the <a title="Federal government of the United States">U.S. federal government</a>. It sits atop <a title="Capitol Hill">Capitol Hill</a>, at the eastern end of the <a title="National Mall">National Mall</a> in <a title="Washington, D.C.">Washington, D.C.</a>. Though not at the geographic center of the <a title="Geography of Washington, D.C.">Federal District</a>, the Capitol forms the origin point for the District\'s street-numbering system and <a title="Quadrants of Washington, D.C.">the District\'s four quadrants</a>.</p><p>The original building was completed in the year 1800 and was subsequently expanded, particularly with the addition of the massive <a href="/wiki/United_States_Capitol_dome" title="United States Capitol dome">dome</a>. Like the principal buildings of the executive and judicial branches, the Capitol is built in a distinctive <a title="Neoclassical architecture">neoclassical style</a> and has a white exterior. Both its east and west elevations are formally referred to as <i>fronts</i>, though only the east front was intended for the reception of visitors and dignitaries.</p><p>In 2014, scaffolding was erected around the dome for a restoration project scheduled to be completed by early 2017.</p>';*/
+
+    var lawnStr = '<figure><img src="http://www.aoc.gov/sites/default/files/styles/artwork-node/public/6427409965_2c317e1225_o.jpg?itok=0I-oCZH8"></figure><p>Originally a wooded wilderness, the U.S. Capitol Grounds now provide a park-like setting for the nation\'s <a>Capitol Building</a>, offering a picturesque counterpoint to the building\'s formal architecture. The grounds immediately surrounding the U.S. Capitol are bordered by a stone wall and cover an area of 58.8 acres. It’s &nbsp;boundaries are Independence Avenue on the south, Constitution Avenue on the north, First Street NE/SE on the east, and First Street NW/SW on the west.</p><p>Over 100 varieties of trees and bushes are planted around the U.S. Capitol, and thousands of flowers are used in seasonal displays. In contrast to the building\'s straight, neoclassical lines, most of the walkways in the grounds are curved. Benches along the paths offer pleasant spots for visitors to appreciate the building, its landscape, and the surrounding areas, most notably the National Mall to the west.</p><p>The grounds were designed by <a href="/capitol-grounds/frederick-law-olmsted" title="Frederick Law Olmsted">Frederick Law Olmsted</a> (1822-1903), who planned the expansion and landscaping of the area that was performed from 1874 to 1892. Olmsted, who also designed New York\'s Central Park, is considered the greatest American landscape architect of his day. He was a pioneer in the development of public parks in America, and many of his designs were influenced by his studies of European parks, gardens and estates. In describing his plan for the Capitol Grounds, Olmsted noted that "The ground is in design part of the U.S. Capitol, but in all respects subsidiary to the central structure." Therefore, he was careful not to group trees or other landscape features in any way that would distract the viewer from the U.S. Capitol Building. The use of sculpture and other ornamentation has also been kept to a minimum.</p><p>Many of the trees on the Capitol Grounds have historic or memorial associations.&nbsp;A number&nbsp;commemorate members of Congress and other notable citizens, national organizations and special events. In addition, more than 30 states have made symbolic gifts of their state trees to the Capitol Grounds. Many of the trees on the grounds bear plaques that identify their species and their historic significance. The eastern part of the grounds contains the greatest number of historic and commemorative trees.</p><p>At the East Capitol Street entrance to the Capitol Plaza are two large rectangular stone fountains. The bottom levels now contain plantings, but at times in the past they have been used to catch the spillover from the fountains. At other times, both levels have held plantings. Six massive red granite lamp piers topped with light fixtures in wrought-iron cages, and 16 smaller bronze light fixtures, line the paved plaza. Seats are placed at intervals along the sidewalks. Three sets of benches are enclosed with wrought-iron railings and grilles; the roofed bench was originally a shelter for streetcar passengers.</p>';
+
   </script>
 </head>
 
 <body>
-  <div class="drawer-container">
-    <div class="drawer-side drawer-animation">
-      <h1>Options</h1>
-      <ul class="options">
-        <li><label><input id="option_visible" type="checkbox" /> Visible</label></li>
-        <li><label><input id="option_pagination" type="checkbox" /> Pagination</label></li>
-        <li><label><input id="option_expanded" type="checkbox" /> Expanded</label></li>
-        <li>
-          <label>Position </label>
-          <select id="option_position">
-            <option value="top">top</option>
-            <option value="bottom">bottom</option>
-            <option value="left">left</option>
-            <option value="right">right</option>
-          </select>
-        </li>
-        <!-- <li>
-          <label>Padding </label>
-          <input id="option_padding" type="text" value="10" />
-        </li> -->
-        <li>
-          <label>Zoom Factor </label>
-          <input id="option_zoomFactor" type="text" value="4" />
-        </li>
-        <li>
-          <label>Selected Index </label>
-          <input id="option_selectedIndex" type="text" value="10" />
-        </li>
-      </ul>
-    </div>
-    <div class="drawer-center">
-      <div class="drawer-top drawer-animation">
-        <div id="toggle" class="toggle">
-          <span class="esri-icon-expand"></span>
-          <span class="esri-icon-collapse"></span>
-          <span>Options</span>
-        </div>
-      </div>
-      <div id="mapDiv" dir="ltr">
-      </div>
-    </div>
-  </div>
-
-  <script>
-
-
-
-  var tableDataStr = '<table><tr class="odd"><td class="name">Request ID</td><td class="value">471458</td></tr><tr class="even"><td class="name">Request Type</td><td class="value">Maintenance</td></tr><tr class="odd"><td class="name">Request_Date_of_Inspection_To_Be_Performed</td><td class="value">07-19-2009</td></tr><tr class="even"><td class="name">Request Time</td><td class="value">21:58</td></tr><tr class="odd"><td class="name">Request Address</td><td class="value">19 AVE and CLEMET ST</td></tr><tr class="even"><td class="name">X Coordinate</td><td class="value">5989953.0</td></tr><tr class="odd"><td class="name">Y Coordinate</td><td class="value">2113361.5</td></tr><tr class="odd"><td class="name">Request ID</td><td class="value">471458</td></tr><tr class="even"><td class="name">Request Type</td><td class="value">Maintenance</td></tr><tr class="odd"><td class="name">Request_Date_of_Inspection_To_Be_Performed</td><td class="value">07-19-2009</td></tr><tr class="even"><td class="name">Request Time</td><td class="value">21:58</td></tr><tr class="odd"><td class="name">Request Address</td><td class="value">19 AVE and CLEMET ST</td></tr><tr class="even"><td class="name">X Coordinate</td><td class="value">5989953.0</td></tr><tr class="odd"><td class="name">Y Coordinate</td><td class="value">2113361.5</td></tr></table>';
-
-  var richTextStr = "<figure><img src=\"http://cdn.onlyinyourstate.com/wp-content/uploads/2015/07/ok60-1947-tornado.jpg\" /><figcaption>Oklahoma Cats, circa 1987</figcaption></figure><p>The most deadly tornado to ever strike within the borders of the state of Oklahoma occurred on Wednesday, April 9, 1947 in the <a href=\"#\">City of Woodward</a>.</p><p>The Woodward tornadic supercell thunderstorm began in the Texas Panhandle during the afternoon of April 9, 1947, and produced at least six tornadoes along a 220-mile path that stretched from White Deer, TX (northeast of Amarillo) to St. Leo, KS (west of Wichita).</p><p>Here is a list:</p><ul><li>Crescent Heights</li><li>Campus Road</li><li>Practical Praries</li></ul><h2>The Woodward Tornado</h2><p>What is known is that the violent tornado that struck Woodward had a confirmed path that started 3 miles northwest of Canadian, TX. </p><p>The tornado moved northeast, and continued on the ground continuously for about 98 miles, before ending in Woods County, Oklahoma about 10 miles west of Alva. The tornado was massive, up to 1.8 miles wide, and traveled at forward speeds of about 50 miles per hour. It first struck Glazier and Higgins in the Texas Panhandle, devastating both towns and producing at least 69 fatalities in Texas before crossing into Oklahoma.</p><p>In Ellis County, Oklahoma, the tornado did not strike any towns, passing to the southeast of Shattuck, Gage, and Fargo. Even though no towns were struck, nearly 60 farms and ranches were destroyed and 8 people were killed with 42 more injured. Moving into Woodward County, one death was reported near Tangier.</p>";
-
-  var capitolText ='<figure><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/US_Capitol_west_side.JPG/240px-US_Capitol_west_side.JPG"></img></figure><p>The <b>United States Capitol</b> is the seat of the <a href="/wiki/United_States_Congress" title="United States Congress">United States Congress</a>, the legislative branch of the <a href="/wiki/Federal_government_of_the_United_States" title="Federal government of the United States">U.S. federal government</a>. It sits atop <a href="/wiki/Capitol_Hill" title="Capitol Hill">Capitol Hill</a>, at the eastern end of the <a href="/wiki/National_Mall" title="National Mall">National Mall</a> in <a href="/wiki/Washington,_D.C." title="Washington, D.C.">Washington, D.C.</a>. Though not at the geographic center of the <a href="/wiki/Geography_of_Washington,_D.C." title="Geography of Washington, D.C.">Federal District</a>, the Capitol forms the origin point for the District\'s street-numbering system and <a href="/wiki/Quadrants_of_Washington,_D.C." title="Quadrants of Washington, D.C.">the District\'s four quadrants</a>.</p><p>The original building was completed in the year 1800 and was subsequently expanded, particularly with the addition of the massive <a href="/wiki/United_States_Capitol_dome" title="United States Capitol dome">dome</a>. Like the principal buildings of the executive and judicial branches, the Capitol is built in a distinctive <a href="/wiki/Neoclassical_architecture" title="Neoclassical architecture">neoclassical style</a> and has a white exterior. Both its east and west elevations are formally referred to as <i>fronts</i>, though only the east front was intended for the reception of visitors and dignitaries.</p><p>In 2014, scaffolding was erected around the dome for a restoration project scheduled to be completed by early 2017.</p>';
-  var houseBuildingText = '<figure><img src="http://www.aoc.gov/sites/default/files/styles/artwork-node/public/images/buildings/6309632214_a87729ac9f_o.jpg?itok=C_wUtzvv"></img></figure><p>Planning for a second office building for the House of Representatives began in 1925. Severe overcrowding in the <a href="/capitol-buildings/cannon-house-office-building" title="Cannon House Office Building">Cannon House Office Building</a> (completed in 1908) led to the renovation of the Cannon Building and the construction of the <a href="/house/longworth">Longworth Building</a>. Under the direction of Architect of the Capitol <a href="/architect-of-the-capitol/david-lynn" title="David Lynn ">David Lynn</a>, preliminary designs for the building were prepared by a local firm known as The Allied Architects of Washington (Inc.). The principal architects were Frank Upman, Gilbert LaCoste Rodier, Nathan C. Wyeth and Louis Justemente. They produced two schemes for a simple, dignified building in harmony with the rest of the Capitol Complex. In January 1929, Congress authorized $8,400,000 for acquiring and clearing the site and for constructing the new building. The foundations were completed in December 1930, and the building was accepted for occupancy in April 1933.</p>';
-  </script>
+  <div id="sceneDiv"></div>
+  <!--<script src="https://code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>-->
 </body>
 
 </html>

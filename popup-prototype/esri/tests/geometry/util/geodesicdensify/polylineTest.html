@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta name="generator" content="HTML Tidy, see www.w3.org">
+        <meta http-equiv="Content-Type" content= "text/html; charset=utf-8">
+        <title>Query Features</title>
+        <link rel="stylesheet" type="text/css" href= "../../../../../dojo/dijit/themes/tundra/tundra.css">
+        <script>
+            dojoConfig = {
+                isDebug: true
+            };
+        </script>
+        <script type="text/javascript" src="../../../../../../index.jsp">
+        </script>
+        <script type="text/javascript">
+            dojo.require("esri.geometry");
+            dojo.require("esri.map");
+            dojo.require("doh.runner");
+            
+            
+            var geometryService;
+            
+            function init(){
+            
+                var map = new esri.Map("mapDiv");
+                dojo.connect(map, "onLoad", runTests);
+                var layer = new esri.layers.ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer");
+                map.addLayer(layer);
+                
+                
+            }
+            
+            function runTests(){
+            
+            
+                doh.registerGroup("geometry.util.geodesicdensify.polylineTest", [{
+                    name: "maxseglen1000000 ",
+                    timeout: 3000,
+                    runTest: function(t){
+                        var densifiedFromGeometryServerGeometryJson = {
+                            "geometryType": "esriGeometryPolyline",
+                            
+                            "geometries": [{
+                                "paths": [[[-53.0937499999589, -63.7512777762501], [-34.2058477148124, -62.059343781404], [-18.4580711705374, -58.1522128459048], [-6.33271967111493, -52.7199795118845], [2.91008935272783, -46.3289735158814], [10.1426243581435, -39.3433398047865], [16.0300141186027, -31.9824903645977], [21.0302780212023, -24.3808104522502], [25.4582993006792, -16.6253088390598], [29.5406126351265, -8.77699923459091], [33.4535264628588, -0.883139556394139], [37.3498697055625, 7.01518069198212], [41.3802190337119, 14.8774545469389], [45.7135945672449, 22.6583572383444], [50.562499999943, 30.3007929163656], [49.8902548489266, 37.8427361674825], [49.0647596753981, 45.3703578420696], [47.9854518548202, 52.88029528225], [46.45312499992, 60.3668368922534], [41.7752605176625, 66.037816617747], [34.4843749999181, 71.482780222068]]]
+                            }]
+                        
+                        };
+                        
+                        var paths = densifiedFromGeometryServerGeometryJson.geometries[0].paths;
+                        
+                        var gcsPolyline = new esri.geometry.Polyline({
+                            "paths": [[[-53.09374999995893, -63.751277776250074], [50.56249999994304, 30.30079291636564], [46.45312499991996, 60.36683689225343], [34.4843749999181, 71.482780222068]]],
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        var clientDensifiedGeometry = esri.geometry.geodesicDensify(gcsPolyline, 1000000);
+                        var clientDensifiedGeometryJson = clientDensifiedGeometry.toJson();
+                        var densifiedFromGeometryServerGeometry = new esri.geometry.Polyline({
+                            "paths": paths,
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        t.assertEqual(clientDensifiedGeometry.paths[0].length, densifiedFromGeometryServerGeometry.paths[0].length);
+                        
+                    }
+                    
+                    
+                }, {
+                    name: "maxseglen50000 ",
+                    timeout: 3000,
+                    runTest: function(t){
+                        var expectedDensifiedLengthFromGeometryServerGeometryPoints = 369;
+                        
+                        var gcsPolyline = new esri.geometry.Polyline({
+                            "paths": [[[-53.09374999995893, -63.751277776250074], [50.56249999994304, 30.30079291636564], [46.45312499991996, 60.36683689225343], [34.4843749999181, 71.482780222068]]],
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        var clientDensifiedGeometry = esri.geometry.geodesicDensify(gcsPolyline, 50000);
+                        
+                        t.assertEqual(clientDensifiedGeometry.paths[0].length, expectedDensifiedLengthFromGeometryServerGeometryPoints);
+                        
+                    }
+                    
+                    
+                }, {
+                    name: "maxseglen10000 ",
+                    timeout: 3000,
+                    runTest: function(t){
+                        var expectedDensifiedLengthFromGeometryServerGeometryPoints = 1837;
+                        
+                        var gcsPolyline = new esri.geometry.Polyline({
+                            "paths": [[[-53.09374999995893, -63.751277776250074], [50.56249999994304, 30.30079291636564], [46.45312499991996, 60.36683689225343], [34.4843749999181, 71.482780222068]]],
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        
+                        var clientDensifiedGeometry = esri.geometry.geodesicDensify(gcsPolyline, 10000);
+                        
+                        t.assertEqual(clientDensifiedGeometry.paths[0].length, expectedDensifiedLengthFromGeometryServerGeometryPoints);
+                        
+                    }
+                    
+                    
+                }, ], function()//setUp()
+                {
+                    esriConfig.request.proxyUrl = "../../../proxy.jsp";
+                    esriConfig.request.forceProxy = false;
+                    geometryService = new esri.tasks.GeometryService("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
+                    
+                }, function()//tearDown
+                {
+                    geometryService = null;
+                    
+                });
+                
+                
+                doh.run();
+            }
+            
+            dojo.addOnLoad(init);
+        </script>
+    </head>
+    <body class="tundra">
+        <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;">
+        </div>
+    </body>
+</html>

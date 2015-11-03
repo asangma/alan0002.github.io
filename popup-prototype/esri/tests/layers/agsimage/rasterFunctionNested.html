@@ -1,0 +1,296 @@
+<html>
+<head>
+  <title>RasterFunction test app</title>
+  <link rel="stylesheet" href="../../../css/main.css">
+  <link rel="stylesheet" href="../../../../dijit/themes/claro/claro.css">
+  <style>
+    html, body, map
+    {
+      height: 100%;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+  <script type="text/javascript">
+    var dojoConfig = {
+      packages: [{
+        name: "esri",
+        location: "../esri"
+      }]
+    };
+  </script>
+  <script type="text/javascript" src="../../../../dojo/dojo.js"></script>
+  <script>
+    require(["esri/layers/RasterFunction",
+	"dojo/on",
+	"esri/layers/ArcGISImageServiceLayer",
+	"esri/map",
+	"esri/geometry/Extent",
+	"dojo/json",
+    "dijit/registry",
+	"dojo/parser",
+	"dijit/form/Select",
+	"dijit/form/Button",
+	"dojo/domReady!"],
+	
+	function (RasterFunction, on, ImageServiceLayer, Map, Extent, Json, registry, parser) {
+
+	  parser.parse();
+	  var testCase;
+
+	  var testCase2 = function generateRF_2() { //Initializing nested RF using JSAPI, 
+	    var localRF1_4 = new RasterFunction();
+	    localRF1_4.functionName = "Local";
+	    localRF1_4.functionArguments = {
+	      Operation: 34,
+	      Rasters: ["$$", 7424]
+	    };
+
+	    var localRF2_4 = new RasterFunction();
+	    localRF2_4.functionName = "Local";
+	    localRF2_4.functionArguments = {
+	      Operation: 29,
+	      Rasters: ['$$', 203]
+	    };
+
+	    var aspect = new RasterFunction();
+	    aspect.functionName = 'Aspect';
+	    var slope = new RasterFunction();
+	    slope.functionName = 'Slope';
+
+	    var localRF3_4 = new RasterFunction();
+	    localRF3_4.functionName = "Local";
+	    localRF3_4.functionArguments = {
+	      Operation: 17,
+	      Rasters: [
+          slope,
+          18
+	      ]
+	    };
+
+	    var localRF4_4 = new RasterFunction();
+	    localRF4_4.functionName = 'Local';
+	    localRF4_4.functionArguments = {
+	      Operation: 34,
+	      Rasters: [
+          slope,
+          77
+	      ]
+	    };
+
+	    var localRF5_4 = new RasterFunction();
+	    localRF5_4.functionName = 'Local';
+	    localRF5_4.functionArguments = {
+	      Operation: 29,
+	      Rasters: [
+          aspect,
+          231
+	      ]
+	    };
+
+	    var localRF6_4 = new RasterFunction();
+	    localRF6_4.functionName = 'Local';
+	    localRF6_4.functionArguments = {
+	      Operation: 34,
+	      Rasters: [
+          aspect,
+          321
+	      ]
+	    };
+
+	    var localRF1_3 = new RasterFunction();
+	    localRF1_3.functionName = "Local";
+	    localRF1_3.functionArguments = {
+	      Operation: 17,
+	      Rasters: [
+          localRF1_4,
+          localRF2_4
+	      ]
+	    };
+
+	    var localRF2_3 = new RasterFunction();
+	    localRF2_3.functionName = "Local";
+	    localRF2_3.functionArguments = {
+	      Operation: 17,
+	      Rasters: [
+          localRF3_4,
+          localRF4_4
+	      ]
+	    };
+
+	    var localRF3_3 = new RasterFunction();
+	    localRF3_3.functionName = "Local";
+	    localRF3_3.functionArguments = {
+	      Operation: 17,
+	      Rasters: [
+          localRF5_4,
+          localRF6_4
+	      ]
+	    };
+
+	    var localRF1_2 = new RasterFunction();
+	    localRF1_2.functionName = "Local";
+	    localRF1_2.functionArguments = {
+	      Operation: 55,
+	      Rasters: [
+          localRF1_3,
+          localRF2_3,
+          localRF3_3
+	      ]
+	    };
+
+	    var colorMap = new RasterFunction();
+	    colorMap.functionName = "Colormap";
+	    colorMap.functionArguments = {
+	      Colormap: [
+          [3, 255, 0, 0]
+	      ],
+	      Raster: localRF1_2
+	    };
+
+	    return colorMap;
+	  };
+
+	  var testCase4 = function generateRF_4() {
+	    var slope = new RasterFunction();
+	    slope.functionName = "Slope";
+	    slope.functionArguments = {
+	      ZFactor: 0.3,
+	      Raster: "$$"
+	    };
+
+	    var rf = new RasterFunction();
+	    rf.functionName = "Arithmetic";
+	    rf.functionArguments = {
+	      Raster: "$$",
+	      Raster2: slope,
+	      Operation: 2
+	    };
+
+	    return rf;
+	  };
+
+	  var testCase5 = function generateRF_5() {
+	    var rf_arithmethic = new RasterFunction();
+	    rf_arithmethic.functionName = "Arithmetic";
+	    rf_arithmethic.functionArguments = {
+	      Raster: '$$',
+	      Raster2: 100,
+	      Operation: 2
+	    };
+
+	    var rf = new RasterFunction();
+	    rf.functionName = "Slope";
+	    rf.functionArguments = {
+	      ZFactor: 0.3,
+	      DEM: rf_arithmethic
+	    };
+
+	    return rf;
+	  };
+	  
+	  var testCase9 = function generateRF_9() {
+		var rf_arithmethic = new RasterFunction();
+	    rf_arithmethic.functionName = "Arithmetic";
+	    rf_arithmethic.functionArguments = {
+	      Raster: '$$',
+	      Raster2: 100,
+	      Operation: 2
+	    };
+
+	    var rf = new RasterFunction();
+	    rf.functionName = "Slope";
+	    rf.functionArguments = {
+	      ZFactor: 0.3,
+	      FillRaster: rf_arithmethic
+	    };
+
+	    return rf;
+	  };
+
+	  var testCase1 = '{"rasterFunction":"Colormap","rasterFunctionArguments":{"Colormap":[[3,255,0,0]],"Raster":{"rasterFunction":"Local","rasterFunctionArguments":{"Operation":55,"Rasters":[{"rasterFunction":"Local","rasterFunctionArguments":{"Operation":17,"Rasters":[{"rasterFunction":"Local","rasterFunctionArguments":{"Operation":29,"Rasters":["$$",1000]}},{"rasterFunction":"Local","rasterFunctionArguments":{"Operation":34,"Rasters":["$$",5000]}}]}},{"rasterFunction":"Local","rasterFunctionArguments":{"Operation":17,"Rasters":[{"rasterFunction":"Local","rasterFunctionArguments":{"Operation":29,"Rasters":[{"rasterFunction":"Slope"},18]}},{"rasterFunction":"Local","rasterFunctionArguments":{"Operation":34,"Rasters":[{"rasterFunction":"Slope"},77]}}]}},{"rasterFunction":"Local","rasterFunctionArguments":{"Operation":17,"Rasters":[{"rasterFunction":"Local","rasterFunctionArguments":{"Operation":29,"Rasters":[{"rasterFunction":"Aspect"},0]}},{"rasterFunction":"Local","rasterFunctionArguments":{"Operation":34,"Rasters":[{"rasterFunction":"Aspect"},360]}}]}}]}}}}';
+	  var testCase3 = '{"functionName":"RFTShadedReliefElevationColorRamp"}';
+	  var testCase6 = '{"rasterFunction":"Arithmetic","rasterFunctionArguments":{"Raster":"$$","Raster2":{"rasterFunction":"Slope","rasterFunctionArguments":{"ZFactor":0.3,"Raster":"$$"}},"Operation":2}}';
+	  var testCase7 = '{"rasterFunction":"Slope","rasterFunctionArguments":{"ZFactor":0.3,"DEM":{"rasterFunction":"Arithmetic","rasterFunctionArguments":{"Raster":"$$","Raster2":100,"Operation":2}}}}';
+
+	  function initializeRFFromJson(json) {
+	    if (json) {
+	      var rf = new RasterFunction(json);
+	      return rf;
+	    }
+	  }
+
+	  var rasterFunctionTestCases = [testCase1, testCase2, testCase3, testCase4, testCase5, testCase6, testCase7, "", testCase9];
+
+	  var isUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/CharlotteLAS/ImageServer";
+	  var imageServiceLayer = new ImageServiceLayer(isUrl);
+	  var map = new Map("map", {
+	    basemap: "gray",
+	    wrapAround180: false
+	  });
+
+	  on(map, 'load', function () {
+	    map.setExtent(new Extent(new Extent(-9005126, 4189902, -8993049, 4198568, map.spatialReference)));
+	    map.addLayer(imageServiceLayer);
+	  });
+
+	  registry.byId("testCaseSelect").on("change", function (value) {
+	    testCase = rasterFunctionTestCases[value - 1];
+	    document.getElementById("inputJsonTextArea").disabled = (value == 8) ? false : true;
+	    if (typeof testCase != "function") {
+	      document.getElementById("inputJsonTextArea").value = testCase ? testCase : "";
+	    } else {
+	      document.getElementById("inputJsonTextArea").value = "RasterFunction generated in app";
+	    }
+	  });
+
+	  registry.byId("applyRasterFunctionButton").on("click", function () {
+	    var rasterFunction, rfJson;
+	    if (typeof testCase == "function") {
+	      rasterFunction = testCase();
+	    } else if (document.getElementById("inputJsonTextArea").value) {
+	      rfJson = Json.parse(document.getElementById("inputJsonTextArea").value);
+	      rasterFunction = initializeRFFromJson(rfJson);
+	    }
+	    if (rasterFunction) {
+	      imageServiceLayer.setRenderingRule(rasterFunction);
+	      document.getElementById("outputJsonTextArea").value = Json.stringify(rasterFunction.toJson());
+	      if (rfJson) {
+	        if (Json.stringify(rfJson) == document.getElementById("inputJsonTextArea").value)
+	          document.getElementById("jsonObjChange").innerHTML = "No Change in input JSON";
+	        else
+	          document.getElementById("jsonObjChange").innerHTML = "Input JSON Change";
+	      }
+	    } else {
+	      console.error("Invalid Raster Function JSON");
+	    }
+	  });
+	});
+  </script>
+</head>
+<body class="claro">
+  <div style="position: absolute; top: 20px; bottom: 45px; right: 20px; width: 300px; background: rgba(32, 32, 43, 0.46); z-index: 1000; padding: 10px; overflow: auto; border-radius: 5px; border: black solid 2px;">
+    <select id="testCaseSelect" data-dojo-type="dijit/form/Select" style="width: 100%;">
+      <option value="1">JSON Initialialization</option>
+      <option value="2">API Initialialization</option>
+      <option value="3">functionName only</option>
+      <option value="4">Raster2 API</option>
+      <option value="5">DEM API</option>
+      <option value="6">Raster2 JSON</option>
+      <option value="7">DEM JSON</option>
+      <option value="8" selected="selected">Custom JSON</option>
+	  <option value="9">FillRaster API</option>
+    </select>
+    <p />
+    <label>Input JSON</label>
+    <textarea style="width: 100%; height: 200px; resize: vertical" id="inputJsonTextArea"></textarea>
+    <button data-dojo-type="dijit/form/Button" style="width: 100%" id="applyRasterFunctionButton">Apply</button>
+    <p />
+    <label>RasterFunction.toJson</label>
+    <textarea id="outputJsonTextArea" style="width: 100%; height: 200px; resize: vertical"></textarea>
+    <div id="jsonObjChange" style="color: rgb(0,255,255)"></div>
+  </div>
+  <div id="map" style="width: 100%; height: 100%;"></div>
+</body>
+</html>

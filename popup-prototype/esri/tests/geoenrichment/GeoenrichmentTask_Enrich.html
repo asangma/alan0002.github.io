@@ -1,0 +1,309 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>Geoenrichment API</title>
+
+    <style>
+        html, body, .app, .map
+        {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        td
+        {
+            padding-top: 10px;
+        }
+
+        #infoContainer
+        {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #F7F7F7;
+            width: 300px;
+            height: 400px;
+            padding: 10px;
+        }
+
+        #title
+        {
+            text-align: center;
+            width: 290px;
+        }
+
+        #result
+        {
+            width: 290px;
+            height: 140px;
+            max-height: 140px;
+            overflow: auto;
+            border: 1px solid #eaeaea;
+        }
+    </style>
+</head>
+<body class="claro">
+    <script src="inject.js"></script>
+    <script src="config.js"></script>
+
+    <script>
+        var task;
+        var countriesSelect;
+        var dataCollectionsSelect;
+        var variablesSelect;
+        var ready = false;
+
+        require([
+            "dojo/dom-style",
+            "dojo/html",
+            "dojo/_base/Color",
+            "dojox/string/Builder",
+            "dijit/form/Select",
+            "esri/map",
+            "esri/symbols/SimpleFillSymbol",
+            "esri/symbols/SimpleMarkerSymbol",
+            "esri/Graphic",
+            "esri/tasks/geoenrichment/GeoenrichmentTask",
+            "esri/tasks/geoenrichment/DriveBuffer",
+            "esri/tasks/geoenrichment/DriveUnits",
+            "esri/IdentityManager",
+            "esri/InfoTemplate",
+            "dojo/domReady!"
+        ], function (
+            domStyle,
+            html,
+            Color,
+            Builder,
+            Select,
+            Map,
+            SimpleFillSymbol,
+            SimpleMarkerSymbol,
+            Graphic,
+            GeoenrichmentTask,
+            DriveBuffer,
+            DriveUnits,
+            id,
+            InfoTemplate
+            ) {
+
+            var map = new Map("map", {
+                basemap: "streets",
+                center: [-122.435, 37.785],
+                zoom: 12,
+                sliderStyle: "small"
+            });
+
+            countriesSelect = new Select({ maxHeight: 300 }).placeAt("stepOne");
+            dataCollectionsSelect = new Select({ maxHeight: 300 }).placeAt("stepTwo");
+            variablesSelect = new Select({ maxHeight: 300 }).placeAt("stepThree");
+
+            task = new GeoenrichmentTask();
+
+            task.onGetAvailableCountriesComplete = bindCountries;
+            task.onGetDataCollectionsComplete = bindDataCollections;
+            task.onEnrichComplete = showResult;
+
+            task.getAvailableCountries();
+
+            var graphic;
+            map.on("click", function (e) {
+                if (!ready) {
+                    return;
+                }
+
+                for (var i = 0; i < driveGraphics.length; i++) {
+                    var driveGraphic = driveGraphics[i];
+                    map.graphics.remove(driveGraphic);
+                }
+
+                driveGraphics = [];
+                map.infoWindow.hide();
+
+                var point = e.mapPoint;
+                if (!graphic) {
+                    graphic = new Graphic(point, new SimpleMarkerSymbol());
+                    map.graphics.add(graphic);
+                } else {
+                    graphic.setGeometry(point);
+                }
+
+                currentVariable = variablesSelect.get("value");
+
+                var parameters = {};
+                parameters.studyAreas = [{ "geometry": point }];
+                parameters.studyAreaOptions = new DriveBuffer({ radii: [1, 3, 5], units: DriveUnits.MILES });
+                parameters.returnGeometry = true;
+                parameters.countryID = countriesSelect.get("value");
+                parameters.variables = [dataCollectionsSelect.get("value") + "." + currentVariable];
+
+                task.enrich(parameters);
+            });
+
+            function bindCountries(countries) {
+                var countriesOptions = [{ label: "- select -", value: null }];
+
+                for (var i = 0; i < countries.length; i++) {
+                    var country = countries[i];
+                    var countryOption = { label: country.name, value: country.id };
+                    countriesOptions.push(countryOption);
+                }
+
+                countriesSelect.options = countriesOptions;
+
+                countriesSelect.onChange = function (selectedCountry) {
+                    ready = false;
+                    domStyle.set("stepTwoInfo", "display", "none");
+                    domStyle.set("stepThreeInfo", "display", "none");
+                    domStyle.set("stepFourInfo", "display", "none");
+                    domStyle.set("stepFiveInfo", "display", "none");
+
+                    if (selectedCountry) {
+                        dataCollectionsSelect.set("options", []);
+                        variablesSelect.set("options", []);
+
+                        task.getDataCollections(selectedCountry);
+                    }
+                };
+
+                countriesSelect.loadDropDown(function () {
+                    domStyle.set("infoContainer", "display", "");
+                    domStyle.set("stepOneInfo", "display", "");
+                });
+            }
+
+            var currentDataCollections = {};
+            function bindDataCollections(dataCollections) {
+                var dataCollectionsOptions = [{ label: "- select -", value: null }];
+
+                for (var i = 0; i < dataCollections.length; i++) {
+                    var dataCollection = dataCollections[i];
+                    var dataCollectionOption = { label: dataCollection.id, value: dataCollection.id };
+                    dataCollectionsOptions.push(dataCollectionOption);
+
+                    currentDataCollections[dataCollection.id] = dataCollection.variables;
+                }
+
+                dataCollectionsSelect.options = dataCollectionsOptions;
+
+                dataCollectionsSelect.onChange = function (selectedDataCollection) {
+                    domStyle.set("stepThreeInfo", "display", "none");
+                    domStyle.set("stepFourInfo", "display", "none");
+                    domStyle.set("stepFiveInfo", "display", "none");
+
+                    if (selectedDataCollection) {
+                        variablesSelect.set("options", []);
+
+                        var variables = currentDataCollections[selectedDataCollection];
+                        bindVariables(variables);
+                    }
+                };
+
+                dataCollectionsSelect.loadDropDown(function () {
+                    domStyle.set("stepTwoInfo", "display", "");
+                });
+            }
+
+            function bindVariables(variables) {
+                var variablesOptions = [];
+
+                for (var i = 0; i < variables.length; i++) {
+                    var variable = variables[i];
+                    var variableOption = { label: variable.alias, value: variable.id };
+                    variablesOptions.push(variableOption);
+                }
+
+                variablesSelect.options = variablesOptions;
+
+                variablesSelect.onChange = function (selectedVariable) {
+                    domStyle.set("stepFiveInfo", "display", "none");
+                };
+
+                variablesSelect.loadDropDown(function () {
+                    domStyle.set("stepThreeInfo", "display", "");
+                    domStyle.set("stepFourInfo", "display", "");
+                    ready = true;
+                });
+            }
+
+            var currentVariable;
+            var driveGraphics = [];
+            function showResult(result) {
+                var featureSet = result.featureSets[0];
+                var sb = new Builder();
+
+                var alias = featureSet.fieldAliases[currentVariable];
+                sb.append(alias)
+                sb.append(" for<br/>");
+
+                for (var i = 0; i < featureSet.features.length; i++) {
+                    var feature = featureSet.features[i];
+                    var ring = feature.attributes["bufferRadii"];
+                    var value = feature.attributes[currentVariable];
+
+                    sb.append(ring);
+                    sb.append("-mile drive distance is ");
+                    sb.append(value);
+                    sb.append("<br/>");
+
+                    var symbol = new SimpleFillSymbol();
+                    var alpha = 0.9 - 0.1 * i;
+                    var color = new Color([50, 38, 160, alpha]);
+                    symbol.setColor(color);
+
+                    var infoTemplate = new InfoTemplate(ring + "-mile drive distance", alias + " is ${" + currentVariable + "}");
+
+                    var driveGraphic = new Graphic(feature.geometry, symbol, feature.attributes, infoTemplate);
+                    driveGraphics.push(driveGraphic);
+                }
+
+                map.graphics.remove(graphic);
+
+                for (var i = driveGraphics.length; i > 0; i--) {
+                    var driveGraphic = driveGraphics[i - 1];
+                    map.graphics.add(driveGraphic);
+                }
+
+                map.graphics.add(graphic);
+
+                html.set("result", sb.toString());
+                domStyle.set("stepFiveInfo", "display", "");
+                currentVariable = null;
+            }
+
+        });
+    </script>
+    <div id="map"></div>
+    <div id="infoContainer" style="display: none;">
+        <table>
+            <tr>
+                <td id="title">Geoenrichment Task
+                </td>
+            </tr>
+            <tr id="stepOneInfo" style="display: none;">
+                <td id="stepOne">1. Select country<br />
+                </td>
+            </tr>
+            <tr id="stepTwoInfo" style="display: none;">
+                <td id="stepTwo">2. Select data collection<br />
+                </td>
+            </tr>
+            <tr id="stepThreeInfo" style="display: none;">
+                <td id="stepThree">3. Select variable<br />
+                </td>
+            </tr>
+            <tr id="stepFourInfo" style="display: none;">
+                <td id="stepFour">4. Click on the map<br />
+                </td>
+            </tr>
+            <tr id="stepFiveInfo" style="display: none;">
+                <td id="stepFive">5. Result
+                    <div id="result"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

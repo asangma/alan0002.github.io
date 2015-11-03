@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>visibleLayers</title>
+        <link rel="stylesheet" type="text/css" href="../../../../../dojo/dijit/themes/tundra/tundra.css">
+        <script>
+            dojoConfig = {
+                isDebug: true
+            };
+        </script>
+        <script type="text/javascript" src="../../../../../../index.jsp">
+        </script>
+        <script type="text/javascript">
+            dojo.require("esri.arcgis.utils");
+            dojo.require("doh.runner");
+            
+            function init(){
+                esri.arcgis.utils.arcgisUrl = "http://dev.arcgis.com/sharing/content/items";
+                var webmap = {};
+                webmap.item = {
+                    "title": "TFPT_USA_EarthQuake_Map",
+                    "extent": [[-124.7388, 28.0259], [-84.5288, 48.4528]],
+                    "tags": ["popup", "unit test"]
+                };
+                var itemDataJson = {
+                    "operationalLayers": [{
+                        "url": "http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/EarthquakesFromLastSevenDays/FeatureServer/0",
+                        "id": "EarthquakesFromLastSevenDays_9324",
+                        "visibility": true,
+                        "opacity": 1,
+                        "mode": 1,
+                        "title": "EarthquakesFromLastSevenDays - Earthquakes from last 7 days",
+                        "popupInfo": {
+                            "title": "Earthquakes from last 7 days: {eqid}",
+                            "fieldInfos": [{
+                                "fieldName": "objectid",
+                                "label": "Object ID",
+                                "isEditable": false,
+                                "tooltip": "",
+                                "visible": false,
+                                "format": null,
+                                "stringFieldOption": "textbox"
+                            }, {
+                                "fieldName": "datetime",
+                                "label": "Earthquake Date",
+                                "isEditable": true,
+                                "tooltip": "",
+                                "visible": true,
+                                "format": {
+                                    "dateFormat": "shortDateShortTime"
+                                },
+                                "stringFieldOption": "textbox"
+                            }, {
+                                "fieldName": "depth",
+                                "label": "Depth",
+                                "isEditable": true,
+                                "tooltip": "",
+                                "visible": true,
+                                "format": {
+                                    "places": 2,
+                                    "digitSeparator": true
+                                },
+                                "stringFieldOption": "textbox"
+                            }, {
+                                "fieldName": "eqid",
+                                "label": "Earthquake ID",
+                                "isEditable": true,
+                                "tooltip": "",
+                                "visible": true,
+                                "format": null,
+                                "stringFieldOption": "textbox"
+                            }, {
+                                "fieldName": "latitude",
+                                "label": "Latitude",
+                                "isEditable": true,
+                                "tooltip": "",
+                                "visible": true,
+                                "format": {
+                                    "places": 2,
+                                    "digitSeparator": true
+                                },
+                                "stringFieldOption": "textbox"
+                            }, {
+                                "fieldName": "longitude",
+                                "label": "Longitude",
+                                "isEditable": true,
+                                "tooltip": "",
+                                "visible": true,
+                                "format": {
+                                    "places": 2,
+                                    "digitSeparator": true
+                                },
+                                "stringFieldOption": "textbox"
+                            }, {
+                                "fieldName": "magnitude",
+                                "label": "Magnitude",
+                                "isEditable": true,
+                                "tooltip": "",
+                                "visible": true,
+                                "format": {
+                                    "places": 2,
+                                    "digitSeparator": true
+                                },
+                                "stringFieldOption": "textbox"
+                            }, {
+                                "fieldName": "numstations",
+                                "label": "Number of Stations",
+                                "isEditable": true,
+                                "tooltip": "",
+                                "visible": true,
+                                "format": {
+                                    "places": 0,
+                                    "digitSeparator": true
+                                },
+                                "stringFieldOption": "textbox"
+                            }, {
+                                "fieldName": "region",
+                                "label": "Region",
+                                "isEditable": true,
+                                "tooltip": "",
+                                "visible": true,
+                                "format": null,
+                                "stringFieldOption": "textbox"
+                            }, {
+                                "fieldName": "source",
+                                "label": "Source",
+                                "isEditable": true,
+                                "tooltip": "",
+                                "visible": true,
+                                "format": null,
+                                "stringFieldOption": "textbox"
+                            }, {
+                                "fieldName": "version",
+                                "label": "Version",
+                                "isEditable": true,
+                                "tooltip": "",
+                                "visible": true,
+                                "format": null,
+                                "stringFieldOption": "textbox"
+                            }],
+                            "description": null,
+                            "showAttachments": false,
+                            "mediaInfos": []
+                        }
+                    }],
+                    "baseMap": {
+                        "baseMapLayers": [{
+                            "id": "World_Terrain_Base_4286",
+                            "opacity": 1,
+                            "visibility": true,
+                            "url": "http://services.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer"
+                        }, {
+                            "id": "World_Reference_Overlay_5992",
+                            "isReference": true,
+                            "opacity": 1,
+                            "visibility": true,
+                            "url": "http://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer"
+                        }],
+                        "title": "Terrain with Labels"
+                    },
+                    "version": "1.2"
+                };
+				webmap.itemData = itemDataJson;
+                
+                var mapDeferred = esri.arcgis.utils.createMap(webmap, "map", {
+                    mapOptions: {
+                        slider: true,
+                        nav: false
+                    }
+                });
+				
+                mapDeferred.addCallback(function(response){
+					
+                    var map = response.map;
+                    if (map.loaded) {
+                        runTests(response);
+                    }
+                    else {
+                        dojo.connect(map, "onLoad", function(){
+                            runTests(response);
+                        });
+                        
+                    }
+                });
+                mapDeferred.addErrback(function(error){
+                    console.log("Map creation failed: ", dojo.toJson(error));
+                });
+            }
+            
+            function runTests(response){
+                doh.registerGroup("createmap.json.popup.tfptPopupTest", [{
+                    name: "PopupTest",
+                    timeout: 6000,
+                    runTest: function(t){
+                    	
+                        var map = response.map;
+                        var graphicsLayerIds = map.graphicsLayerIds;
+                        var graphicLayer0 = map.getLayer(graphicsLayerIds[0]);
+						var infoTemplate = graphicLayer0.infoTemplate;
+						
+						t.assertEqual(infoTemplate.info.title,"Earthquakes from last 7 days: {eqid}");
+						t.assertEqual(infoTemplate.info.description,null);
+						t.assertEqual(infoTemplate.info.fieldInfos.length,11);
+						t.assertFalse(infoTemplate.info.showAttachments);
+						t.assertEqual(infoTemplate.info.mediaInfos.length,0);
+				                                              
+                    }
+                    
+                    
+                }]);
+                doh.run();
+            }
+            
+            dojo.addOnLoad(init);
+        </script>
+    </head>
+    <body class="tundra">
+        <div id="map" style="width:800px; height:600px; border:1px solid #000;">
+        </div>
+    </body>
+</html>

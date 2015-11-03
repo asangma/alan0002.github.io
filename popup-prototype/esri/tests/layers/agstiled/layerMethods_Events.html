@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Layer methods/events</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.layers.agstiled");
+      dojo.require("doh.runner");
+      
+      function init() {
+        var layer = new esri.layers.ArcGISTiledMapServiceLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/PublicSafety/PublicSafetyBasemap/MapServer");
+        if (layer.loaded) {
+          runTests(layer);
+        }
+        else {
+          dojo.connect(layer, "onLoad", runTests);
+        }
+      }
+      
+      function runTests(layer) {
+        doh.registerGroup("layers.agstiled.layerMethods_Events", [
+          {
+            name: "hide",
+            timeout: 3000,
+            runTest: function(t) {
+              var onVisibilityChangeHandler;
+              var d = new doh.Deferred();
+
+              function assert(visible) {
+                dojo.disconnect(onVisibilityChangeHandler);
+                t.assertEqual("boolean", typeof visible);
+                t.assertFalse(visible);
+                t.assertFalse(layer.visible);
+                d.callback(true);
+              }
+              
+              setTimeout(function() {
+                onVisibilityChangeHandler = dojo.connect(layer, "onVisibilityChange", assert);
+                layer.hide();
+              }, 1000);
+              return d;
+            }
+          },
+          
+          {
+            name: "setOpacity",
+            timeout: 3000,
+            runTest: function(t) {
+              var onOpacityChangeHandler;
+              var d = new doh.Deferred();
+
+              function assert(opacity) {
+                dojo.disconnect(onOpacityChangeHandler);
+                t.assertEqual("number", typeof opacity);
+                t.assertTrue(0.5);
+                t.assertEqual(0.5, layer.opacity);
+                d.callback(true);
+              }
+              
+              setTimeout(function() {
+                onOpacityChangeHandler = dojo.connect(layer, "onOpacityChange", assert);
+                layer.setOpacity(0.5);
+              }, 1000);
+              return d;
+            }
+          },
+          
+          {
+            name: "show",
+            timeout: 3000,
+            runTest: function(t) {
+              var onVisibilityChangeHandler;
+              var d = new doh.Deferred();
+
+              function assert(visible) {
+                dojo.disconnect(onVisibilityChangeHandler);
+                t.assertEqual("boolean", typeof visibile);
+                t.assertTrue(visible);
+                t.assertTrue(layer.visible);
+                d.callback(true);
+              }
+              
+              setTimeout(function() {
+                onVisibilityChangeHandler = dojo.connect(layer, "onVisibilityChange", assert);
+                layer.show();
+              }, 1000);
+            }
+          }
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+  </body>
+</html>

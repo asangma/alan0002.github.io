@@ -1,0 +1,391 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta name="generator" content="HTML Tidy, see www.w3.org">
+        <meta http-equiv="Content-Type" content= "text/html; charset=utf-8">
+        <title>Query Features</title>
+        <link rel="stylesheet" type="text/css" href= "../../../../../dojo/dijit/themes/tundra/tundra.css">
+        <script>
+            dojoConfig = {
+                isDebug: true
+            };
+        </script>
+        <script type="text/javascript" src="../../../../../../index.jsp">
+        </script>
+        <script type="text/javascript">
+            dojo.require("esri.geometry");
+            dojo.require("esri.map");
+            dojo.require("doh.runner");
+            
+            
+            var geometryService;
+            
+            function init(){
+            
+                var map = new esri.Map("mapDiv");
+                dojo.connect(map, "onLoad", runTests);
+                var layer = new esri.layers.ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer");
+                map.addLayer(layer);
+                
+                
+            }
+            
+            function runTests(){
+            
+                doh.registerGroup("geometry.util.normalizegcs.polygonTest", [{
+                    name: "crossPlus180",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsPolygon = new esri.geometry.Polygon({
+                            "rings": [[[121.64062499996795, -15.961329081592105], [130.78124999996558, -18.646245142665393], [272.81249999992826, -54.977613670686], [201.09374999994705, -71.30079291636564], [121.64062499996795, -15.961329081592105]]],
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsPolygon], geometryService, function(normalizedGeo){
+                            var normalizedGcsPolygon = normalizedGeo[0];
+                            var extent = normalizedGcsPolygon.getExtent();
+                            t.assertEqual(normalizedGcsPolygon.rings.length, 2);
+							t.assertEqual(-180, extent.xmin);
+                            t.assertEqual(180, extent.xmax);
+					                          
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "crossMinus180",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsPolygon = new esri.geometry.Polygon({
+                            "rings": [[[-121.64062499996795, -15.961329081592105], [-130.78124999996558, -18.646245142665393], [-272.81249999992826, -54.977613670686], [-201.09374999994705, -71.30079291636564], [-121.64062499996795, -15.961329081592105]]],
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsPolygon], geometryService, function(normalizedGeo){
+                            var normalizedGcsPolygon = normalizedGeo[0];
+                            var extent = normalizedGcsPolygon.getExtent();
+                            t.assertEqual(normalizedGcsPolygon.rings.length, 2);
+							t.assertEqual(-180, extent.xmin);
+                            t.assertEqual(180, extent.xmax);
+					                          
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "crossPlus540",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsPolygon = new esri.geometry.Polygon({
+                            "rings": [[[481.64062499996795, -15.961329081592105], [490.78124999996558, -18.646245142665393], [632.81249999992826, -54.977613670686], [561.09374999994705, -71.30079291636564], [481.64062499996795, -15.961329081592105]]],
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsPolygon], geometryService, function(normalizedGeo){
+                            var normalizedGcsPolygon = normalizedGeo[0];
+                            var extent = normalizedGcsPolygon.getExtent();
+                            t.assertEqual(normalizedGcsPolygon.rings.length, 2);
+							t.assertEqual(-180, extent.xmin);
+                            t.assertEqual(180, extent.xmax);
+					                          
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "crossMinus540",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsPolygon = new esri.geometry.Polygon({
+                            "rings": [[[-481.64062499996795, -15.961329081592105], [-490.78124999996558, -18.646245142665393], [-632.81249999992826, -54.977613670686], [-561.09374999994705, -71.30079291636564], [-481.64062499996795, -15.961329081592105]]],
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsPolygon], geometryService, function(normalizedGeo){
+                            var normalizedGcsPolygon = normalizedGeo[0];
+                            var extent = normalizedGcsPolygon.getExtent();
+                            t.assertEqual(normalizedGcsPolygon.rings.length, 2);
+							t.assertEqual(-180, extent.xmin);
+                            t.assertEqual(180, extent.xmax);
+					                          
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "crossPlus180andPlus540",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsPolygon = new esri.geometry.Polygon({
+                            "rings": [[[151.64062499996795, -15.961329081592105], [130.78124999996558, -18.646245142665393], [272.81249999992826, -54.977613670686], [561.09374999994705, -71.30079291636564], 
+							[151.64062499996795, -15.961329081592105]]],
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsPolygon], geometryService, function(normalizedGeo){
+                            var normalizedGcsPolygon = normalizedGeo[0];
+                            var extent = normalizedGcsPolygon.getExtent();
+							
+                            t.assertEqual(normalizedGcsPolygon.rings.length, 3);
+							t.assertEqual(-180, extent.xmin);
+                            t.assertEqual(180, extent.xmax);
+					                          
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "crossMinus180andMinus540",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsPolygon = new esri.geometry.Polygon({
+                            "rings": [[[-151.64062499996795, -15.961329081592105], [-130.78124999996558, -18.646245142665393], [-272.81249999992826, -54.977613670686], [-561.09374999994705, -71.30079291636564], 
+							[-151.64062499996795, -15.961329081592105]]],
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsPolygon], geometryService, function(normalizedGeo){
+                            var normalizedGcsPolygon = normalizedGeo[0];
+                            var extent = normalizedGcsPolygon.getExtent();
+							
+                            t.assertEqual(normalizedGcsPolygon.rings.length, 3);
+							t.assertEqual(-180, extent.xmin);
+                            t.assertEqual(180, extent.xmax);
+					                          
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "crossPlus540andPlus1260",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                       var gcsPolygon = new esri.geometry.Polygon({
+                            "rings": [[[511.64062499996795, -15.961329081592105], [930.78124999996558, -18.646245142665393], [1272.81249999992826, -54.977613670686], [1361.09374999994705, -71.30079291636564], 
+							[511.64062499996795, -15.961329081592105]]],
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsPolygon], geometryService, function(normalizedGeo){
+                            var normalizedGcsPolygon = normalizedGeo[0];
+                            var extent = normalizedGcsPolygon.getExtent();
+							
+                            t.assertEqual(normalizedGcsPolygon.rings.length, 4);
+							t.assertEqual(-180, extent.xmin);
+                            t.assertEqual(180, extent.xmax);//xmax = 540
+					                          
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "crossMinus540andMinus1260",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                       var gcsPolygon = new esri.geometry.Polygon({
+                            "rings": [[[-511.64062499996795, -15.961329081592105], [-930.78124999996558, -18.646245142665393], [-1272.81249999992826, -54.977613670686], [-1361.09374999994705, -71.30079291636564], 
+							[-511.64062499996795, -15.961329081592105]]],
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsPolygon], geometryService, function(normalizedGeo){
+                            var normalizedGcsPolygon = normalizedGeo[0];
+                            var extent = normalizedGcsPolygon.getExtent();
+							
+                            t.assertEqual(normalizedGcsPolygon.rings.length, 4);
+							t.assertEqual(-180, extent.xmin);
+                            t.assertEqual(180, extent.xmax);//xmax = 900
+					                          
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "withinMinusPlus180",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsPolygon = new esri.geometry.Polygon({
+                            "rings": [[[-151.64062499996795, -15.961329081592105], [130.78124999996558, -18.646245142665393], [172.81249999992826, -54.977613670686], [161.09374999994705, -71.30079291636564], 
+							[-151.64062499996795, -15.961329081592105]]],
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsPolygon], geometryService, function(normalizedGeo){
+                            var normalizedGcsPolygon = normalizedGeo[0];
+                            var extent = normalizedGcsPolygon.getExtent();
+							
+                            t.assertEqual(normalizedGcsPolygon.rings.length, 1);
+							t.assertEqual(gcsPolygon.getExtent().xmin, extent.xmin);
+                            t.assertEqual(gcsPolygon.getExtent().xmax, extent.xmax);
+					                          
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "withinPlus540ToPlus720",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsPolygon = new esri.geometry.Polygon({
+                            "rings": [[[551.64062499996795, -15.961329081592105], [630.78124999996558, -18.646245142665393], [682.81249999992826, -54.977613670686], [711.09374999994705, -71.30079291636564], 
+							[551.64062499996795, -15.961329081592105]]],
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsPolygon], geometryService, function(normalizedGeo){
+                            var normalizedGcsPolygon = normalizedGeo[0];
+                            var extent = normalizedGcsPolygon.getExtent();
+							
+                            t.assertEqual(normalizedGcsPolygon.rings.length, 1);
+							t.assertEqual(gcsPolygon.getExtent().xmin-720, extent.xmin);
+                            t.assertEqual(gcsPolygon.getExtent().xmax-720, extent.xmax);
+					                          
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                },
+				{
+                    name: "withinMinus540ToMinus720",
+                    timeout: 3000,
+                    runTest: function(t){
+                    
+                        var gcsPolygon = new esri.geometry.Polygon({
+                            "rings": [[[-551.64062499996795, -15.961329081592105], [-630.78124999996558, -18.646245142665393], [-682.81249999992826, -54.977613670686], [-711.09374999994705, -71.30079291636564], 
+							[-551.64062499996795, -15.961329081592105]]],
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        });
+                        
+                        
+                        esri.geometry.normalizeCentralMeridian([gcsPolygon], geometryService, function(normalizedGeo){
+                            var normalizedGcsPolygon = normalizedGeo[0];
+                            var extent = normalizedGcsPolygon.getExtent();
+							
+                            t.assertEqual(normalizedGcsPolygon.rings.length, 1);
+							t.assertEqual(gcsPolygon.getExtent().xmin+720, extent.xmin);
+                            t.assertEqual(gcsPolygon.getExtent().xmax+720, extent.xmax);
+					                          
+                            
+                        });
+                        
+                        
+                        
+                    }
+                    
+                    
+                }
+				], function()//setUp()
+                {
+                    esriConfig.request.proxyUrl = "../../../proxy.jsp";
+                    esriConfig.request.forceProxy = false;
+                    geometryService = new esri.tasks.GeometryService("http://servery/ArcGIS/rest/services/Geometry/GeometryServer");
+                    
+                }, function()//tearDown
+                {
+                    geometryService = null;
+                    
+                });
+                
+                
+                doh.run();
+            }
+            
+            dojo.addOnLoad(init);
+        </script>
+    </head>
+    <body class="tundra">
+        <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;">
+        </div>
+    </body>
+</html>

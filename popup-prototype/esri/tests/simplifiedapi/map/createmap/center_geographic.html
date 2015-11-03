@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>onZoom</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../../index.jsp">
+      </script>
+
+    <script type="text/javascript">
+      dojo.require("esri.map");
+      dojo.require("esri.layers.osm");
+      dojo.require("doh.runner");
+
+      var map,geocenter;
+	 
+       function init() {
+            var initialExtent = new esri.geometry.Extent(
+           {"xmin":-11721159,"ymin":-1138850,
+            "xmax":8277212,"ymax":9858297,
+               "spatialReference":{"wkid":102100}
+           });
+
+           geocenter = esri.geometry.webMercatorToGeographic(initialExtent.getCenter());
+           console.log(geocenter);
+
+           map = new esri.Map("mapDiv",{
+               center: geocenter,
+               basemap: "streets"
+
+           });
+
+           dojo.connect(map, "onLoad", runTests);
+
+	  }
+	      
+      function runTests(){
+	  	doh.registerGroup("simplifiedapi.map.createmap.center_geographic", [{
+	  		name: "center_geographic",
+	  		timeout: 6000,
+	  		runTest: function(){
+                console.log("geo:"+dojo.toJson(map.geographicExtent.getCenter().toJson()));
+                if(Math.abs(geocenter.x-map.geographicExtent.getCenter().x)<=0.000001&&
+                   Math.abs(geocenter.y-map.geographicExtent.getCenter().y)<=0.000001){
+
+                    doh.assertTrue(true);
+                }else{
+                    doh.assertTrue(false);
+                }
+
+                t.assertEqual(map.geographicExtent.spatialReference.wkid,4326);
+
+            }
+	  		
+	  		
+	  	}]);
+	  	doh.run();
+	  }
+		
+       dojo.addOnLoad(init);   
+    </script>
+
+  </head>
+  <body class="tundra">
+    <div id="mapDiv" style="width:1024px; height:512px; border:1px solid #000;"></div>
+  </body>
+</html>

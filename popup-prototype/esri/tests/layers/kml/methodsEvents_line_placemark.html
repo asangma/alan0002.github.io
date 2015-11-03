@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>LayerInfo</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+    
+    <script type="text/javascript">
+       dojo.require("esri.map");
+       dojo.require("esri.layers.KMLLayer");
+       dojo.require("doh.runner");
+      
+      function init() {
+          var startExtent = new esri.geometry.Extent({"xmin":-10.2492886844367,"ymin":55.2773891579691,"xmax":-6.06467664354421,"ymax":55.2773891579691,"spatialReference":{"wkid":4326}});
+          //create map
+          var map = new esri.Map("mapDiv",{extent:startExtent});
+          var kmlUrl = "http://www.garda.ie/sez/gardagosafecameras.kml";
+
+        var kmlLayer = new esri.layers.KMLLayer(kmlUrl);
+        map.addLayer(kmlLayer);
+
+          if (kmlLayer.loaded) {
+          runTests(kmlLayer);
+        }
+        else {
+          dojo.connect(kmlLayer, "onLoad", runTests);
+        }
+      }
+      
+      function runTests(kmlLayer) {
+        doh.registerGroup("kml.methodsEvents_line_placemark", [
+          {
+            name: "getFeature",
+            timeout: 100,
+            runTest: function() {
+                var featureInfos = kmlLayer.folders[0].featureInfos;
+                dojo.forEach(featureInfos,function(info){
+                    console.log(info);
+                    var feature = kmlLayer.getFeature(info);
+                    console.log(feature);
+
+                });
+             }
+
+          } ,
+          {
+            name: "getLayers",
+            timeout: 100,
+            runTest: function() {
+                var layers = kmlLayer.getLayers();
+                dojo.forEach(layers, function(layer){
+                    console.log(layer);
+                    doh.assertEqual(layer.declaredClass, "esri.layers.FeatureLayer");
+                    doh.assertEqual(layer.geometryType,"esriGeometryPolyline");
+
+
+                });
+
+            }
+
+          } ,
+          {
+            name: "setFolderVisibility_onRefresh",
+            timeout: 100,
+            runTest: function() {
+                var folders = kmlLayer.folders;
+                dojo.connect(kmlLayer,"onRefresh",function(){
+                    if(folders[0].visibility===1){
+                        kmlLayer.setFolderVisibility(folders[0],false);
+
+                        doh.assertEqual(folders[0].visibility,0);
+                    }else if(folders[0].visibility===0){
+                        kmlLayer.setFolderVisibility(folders[0],true);
+                        doh.assertEqual(folders[0].visibility,1);
+                    }
+
+                }) ;
+
+          }
+
+           }
+        ]
+
+        );
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+     <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;"></div>
+   </body>
+</html>

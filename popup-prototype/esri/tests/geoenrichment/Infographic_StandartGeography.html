@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>Geoenrichment API</title>
+    
+    <style>
+        html, body, .app, .map
+        {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        #infoContainer
+        {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #F7F7F7;
+            width: 440px;
+            height: 100px;
+            padding: 10px;
+        }
+
+        #infographic
+        {
+            position: absolute;
+            top: 130px;
+            right: 5px;
+        }
+
+        .ProgressBar
+        {
+            position: fixed;
+            left: 10px;
+            bottom: 10px;
+            width: 100px;
+            display: none;
+        }
+    </style>
+</head>
+<body class="claro">
+    <script src="inject.js"></script>
+    <script src="config.js"></script>
+
+    <script>
+        var ddlStates;
+
+        require([
+            "dojo/dom-style",
+            "dijit/ProgressBar",
+            "esri/map",
+            "dijit/form/TextBox",
+            "dijit/form/Button",
+            "dijit/form/Select",
+            "esri/renderers/SimpleRenderer",
+            "esri/symbols/SimpleFillSymbol",
+            "esri/Graphic",
+            "esri/widgets/geoenrichment/Infographic",
+            "esri/tasks/geoenrichment/GeometryStudyArea",
+            "esri/tasks/geoenrichment/AddressStudyArea",
+            "esri/tasks/geoenrichment/StandardGeographyStudyArea",
+            "esri/tasks/geoenrichment/StandardGeographyQueryTask",
+            "esri/IdentityManager",
+            "dojo/domReady!"
+        ], function (
+            domStyle,
+            ProgressBar,
+            Map,
+            TextBox,
+            Button,
+            Select,
+            SimpleRenderer,
+            SimpleFillSymbol,
+            Graphic,
+            Infographic,
+            GeometryStudyArea,
+            AddressStudyArea,
+            StandardGeographyStudyArea,
+            StandardGeographyQuery,
+            config,
+            id
+            ) {
+
+            var map = new Map("map", {
+                basemap: "streets",
+                center: [-122.435, 37.785],
+                zoom: 12,
+                sliderStyle: "small"
+            });
+
+            var progressBar = new ProgressBar({
+                "class": "ProgressBar",
+                indeterminate: true
+            });
+            progressBar.placeAt(document.body);
+
+            var graphic;
+            var infographic;
+
+
+            ddlStates = new Select({ maxHeight: 300 }).placeAt("tdStates");
+            domStyle.set("tdStates", "display", "none");
+
+            task = new StandardGeographyQuery();
+
+            var parameters = {};
+            parameters.geographyLayers = "US.WholeUSA";
+            parameters.geographyIDs = ["01"];
+            parameters.subGeographyLayer = "US.States";
+            parameters.returnSubGeographyLayer = true;
+
+            task.onExecuteComplete = bindStates;
+            task.execute(parameters);
+
+            progressBar.domNode.style.display = "block";
+
+            function bindStates(response) {
+
+                var states = response.featureSet.features;
+                states.sort(sortByName);
+                var statesOptions = [{ label: "- select -", value: "_", selected:true }];
+
+                for (var i = 0; i < states.length; i++) {
+                    var state = states[i];
+                    var stateOption = { label: state.attributes["AreaName"], value: state.attributes["AreaID"] };
+                    statesOptions.push(stateOption);
+                }
+
+                ddlStates.set("options", statesOptions);
+                ddlStates.selected = 0;
+
+                ddlStates.onChange = function (selectedState) {
+                    ddlStates.removeOption(0);
+
+                    if (!infographic) {
+                        infographic = new Infographic({
+                            type: "Tapestry",
+                            variables: ["Tapestry.*"],
+                            title: "Tapestry",
+                            returnGeometry: true,
+                            onDataRequest: function () {
+                                progressBar.domNode.style.display = "block";
+                            },
+                            onDataLoad: function () {
+                                progressBar.domNode.style.display = "none";
+                            },
+                            onDataReady: function (provider) {
+                                var ring = provider.getGeometry();
+                                if (!graphic) {
+                                    graphic = new Graphic(ring, new SimpleFillSymbol());
+                                    map.graphics.add(graphic);
+                                }
+                                else {
+                                    graphic.setGeometry(ring);
+                                }
+                                map.setExtent(ring.getExtent().expand(1.5));
+                            }
+                        }, "infographic");
+                        infographic.startup();
+                    }
+                    infographic.set("CountryID", "US");
+                    infographic.set("studyArea", new StandardGeographyStudyArea(
+                        {
+                            countryID: "US",
+                            geographyLayerID: "US.States",
+                            layer: "US.States",
+                            ids: [ddlStates.get("value")]
+                        }
+                    ));
+                };
+
+                
+                ddlStates.loadDropDown(function () {
+                    domStyle.set("tdStates", "display", "");
+                    progressBar.domNode.style.display = "none";
+                });
+                
+
+
+                function sortByName(a1, a2) {
+                    var name1 = a1.attributes["AreaName"].toLowerCase();
+                    var name2 = a2.attributes["AreaName"].toLowerCase();
+
+                    if (name1 < name2)
+                        return -1;
+                    if (name1 > name2)
+                        return 1;
+                    return 0;
+                }
+
+            }
+
+        });
+    </script>
+    <div id="map"></div>
+    <div id="infographic"></div>
+    <div id="infoContainer">
+        <table>
+            <tr>
+                <td id="title">Select State
+                </td>
+            </tr>
+            <tr>
+                <td id="tdStates">
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

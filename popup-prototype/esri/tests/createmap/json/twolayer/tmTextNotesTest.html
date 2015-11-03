@@ -1,0 +1,807 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>visibleLayers</title>
+        <link rel="stylesheet" type="text/css" href="../../../../../dojo/dijit/themes/tundra/tundra.css">
+        <script>
+            dojoConfig = {
+                isDebug: true
+            };
+        </script>
+
+        <script type="text/javascript" src="../../../../../../index.jsp">
+        </script>
+        <script type="text/javascript">
+            dojo.require("esri.arcgis.utils");
+            dojo.require("doh.runner");
+            
+            function init(){
+                esri.arcgis.utils.arcgisUrl = "http://dev.arcgis.com/sharing/content/items";
+                var webmap = {};
+                webmap.item = {
+                    "title": "TMText_CA_StationFireParcels_Map",
+                    "extent": [[-118.41, 34.12], [-117.84, 34.34]],
+                    "tags": ["TMText", "twolayer", "unit test"]
+                };
+                var itemDataJson = {
+                    "baseMap": {
+                        "baseMapLayers": [{
+                            "id": "3f4e4f68-05ba-423f-b237-c196e5b29219",
+                            "opacity": 1,
+                            "title": "World_Topo_Map",
+                            "url": "http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer",
+                            "visibility": true,
+                            "visibleLayers": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
+                        }],
+                        "title": "Topographic"
+                    },
+                    "operationalLayers": [{
+                        "id": "e8c60c66-cd44-4743-9b39-fd4682512d80",
+                        "opacity": 1,
+                        "title": "StationFireParcels",
+                        "url": "http://servery/ArcGIS/rest/services/California/StationFireParcels/MapServer",
+                        "visibility": true,
+                        "visibleLayers": [1, 0]
+                    }, {
+                        "featureCollection": {
+                            "layers": [{
+                                "featureSet": {
+                                    "features": [],
+                                    "geometryType": "esriGeometryPolygon"
+                                },
+                                "layerDefinition": {
+                                    "displayField": "TITLE",
+                                    "drawingInfo": {
+                                        "renderer": {
+                                            "field1": "TYPEID",
+                                            "type": "uniqueValue",
+                                            "uniqueValueInfos": [{
+                                                "description": "",
+                                                "label": "Area",
+                                                "symbol": {
+                                                    "color": [155, 187, 89, 128],
+                                                    "outline": {
+                                                        "color": [115, 140, 61, 255],
+                                                        "style": "esriSLSSolid",
+                                                        "type": "esriSLS",
+                                                        "width": 1.5
+                                                    },
+                                                    "style": "esriSFSSolid",
+                                                    "type": "esriSFS"
+                                                },
+                                                "value": "0"
+                                            }]
+                                        },
+                                        "transparency": 0
+                                    },
+                                    "types": [{
+                                        "domains": {},
+                                        "id": 0,
+                                        "name": "Area",
+                                        "templates": [{
+                                            "description": "",
+                                            "drawingTool": "esriFeatureEditToolPolygon",
+                                            "name": "Area",
+                                            "prototype": {
+                                                "attributes": {
+                                                    "TYPEID": 0,
+                                                    "VISIBLE": 1,
+                                                    "TITLE": "Area"
+                                                }
+                                            }
+                                        }, {
+                                            "description": "",
+                                            "drawingTool": "esriFeatureEditToolTriangle",
+                                            "name": "Triangle",
+                                            "prototype": {
+                                                "attributes": {
+                                                    "TYPEID": 0,
+                                                    "VISIBLE": 1,
+                                                    "TITLE": "Area"
+                                                }
+                                            }
+                                        }, {
+                                            "description": "",
+                                            "drawingTool": "esriFeatureEditToolRectangle",
+                                            "name": "Rectangle",
+                                            "prototype": {
+                                                "attributes": {
+                                                    "TYPEID": 0,
+                                                    "VISIBLE": 1,
+                                                    "TITLE": "Area"
+                                                }
+                                            }
+                                        }, {
+                                            "description": "",
+                                            "drawingTool": "esriFeatureEditToolLeftArrow",
+                                            "name": "Left Arrow",
+                                            "prototype": {
+                                                "attributes": {
+                                                    "TYPEID": 0,
+                                                    "VISIBLE": 1,
+                                                    "TITLE": "Area"
+                                                }
+                                            }
+                                        }, {
+                                            "description": "",
+                                            "drawingTool": "esriFeatureEditToolRightArrow",
+                                            "name": "Right Arrow",
+                                            "prototype": {
+                                                "attributes": {
+                                                    "TYPEID": 0,
+                                                    "VISIBLE": 1,
+                                                    "TITLE": "Area"
+                                                }
+                                            }
+                                        }, {
+                                            "description": "",
+                                            "drawingTool": "esriFeatureEditToolEllipse",
+                                            "name": "Ellipse",
+                                            "prototype": {
+                                                "attributes": {
+                                                    "TYPEID": 0,
+                                                    "VISIBLE": 1,
+                                                    "TITLE": "Area"
+                                                }
+                                            }
+                                        }, {
+                                            "description": "",
+                                            "drawingTool": "esriFeatureEditToolUpArrow",
+                                            "name": "Up Arrow",
+                                            "prototype": {
+                                                "attributes": {
+                                                    "TYPEID": 0,
+                                                    "VISIBLE": 1,
+                                                    "TITLE": "Area"
+                                                }
+                                            }
+                                        }, {
+                                            "description": "",
+                                            "drawingTool": "esriFeatureEditToolDownArrow",
+                                            "name": "Down Arrow",
+                                            "prototype": {
+                                                "attributes": {
+                                                    "TYPEID": 0,
+                                                    "VISIBLE": 1,
+                                                    "TITLE": "Area"
+                                                }
+                                            }
+                                        }, {
+                                            "description": "",
+                                            "drawingTool": "esriFeatureEditToolCircle",
+                                            "name": "Circle",
+                                            "prototype": {
+                                                "attributes": {
+                                                    "TYPEID": 0,
+                                                    "VISIBLE": 1,
+                                                    "TITLE": "Area"
+                                                }
+                                            }
+                                        }, {
+                                            "description": "",
+                                            "drawingTool": "esriFeatureEditToolFreehand",
+                                            "name": "Freehand Area",
+                                            "prototype": {
+                                                "attributes": {
+                                                    "TYPEID": 0,
+                                                    "VISIBLE": 1,
+                                                    "TITLE": "Area"
+                                                }
+                                            }
+                                        }]
+                                    }],
+                                    "fields": [{
+                                        "alias": "OBJECTID",
+                                        "name": "OBJECTID",
+                                        "type": "esriFieldTypeOID"
+                                    }, {
+                                        "alias": "Title",
+                                        "editable": true,
+                                        "length": 50,
+                                        "name": "TITLE",
+                                        "type": "esriFieldTypeString"
+                                    }, {
+                                        "alias": "Visible",
+                                        "editable": true,
+                                        "name": "VISIBLE",
+                                        "type": "esriFieldTypeInteger"
+                                    }, {
+                                        "alias": "Description",
+                                        "editable": true,
+                                        "length": 1073741822,
+                                        "name": "DESCRIPTION",
+                                        "type": "esriFieldTypeString"
+                                    }, {
+                                        "alias": "Image URL",
+                                        "editable": true,
+                                        "length": 255,
+                                        "name": "IMAGE_URL",
+                                        "type": "esriFieldTypeString"
+                                    }, {
+                                        "alias": "Image Link URL",
+                                        "editable": true,
+                                        "length": 255,
+                                        "name": "IMAGE_LINK_URL",
+                                        "type": "esriFieldTypeString"
+                                    }, {
+                                        "alias": "DATE",
+                                        "editable": true,
+                                        "length": 36,
+                                        "name": "DATE",
+                                        "type": "esriFieldTypeDate"
+                                    }, {
+                                        "alias": "Type ID",
+                                        "editable": true,
+                                        "name": "TYPEID",
+                                        "type": "esriFieldTypeInteger"
+                                    }],
+                                    "geometryType": "esriGeometryPolygon",
+                                    "hasAttachments": false,
+                                    "name": "Areas",
+                                    "objectIdField": "OBJECTID",
+                                    "templates": [],
+                                    "typeIdField": "TYPEID",
+                                    "visibilityField": "VISIBLE"
+                                },
+                                "popupInfo": {
+                                    "description": "{DESCRIPTION}",
+                                    "mediaInfos": [{
+                                        "type": "image",
+                                        "value": {
+                                            "linkURL": "{IMAGE_LINK_URL}",
+                                            "sourceURL": "{IMAGE_URL}"
+                                        }
+                                    }],
+                                    "title": "{TITLE}"
+                                }
+                            }, {
+                                "featureSet": {
+                                    "features": [],
+                                    "geometryType": "esriGeometryPolyline"
+                                },
+                                "layerDefinition": {
+                                    "displayField": "TITLE",
+                                    "drawingInfo": {
+                                        "renderer": {
+                                            "field1": "TYPEID",
+                                            "type": "uniqueValue",
+                                            "uniqueValueInfos": [{
+                                                "description": "",
+                                                "label": "Line",
+                                                "symbol": {
+                                                    "color": [115, 140, 61, 255],
+                                                    "style": "esriSLSSolid",
+                                                    "type": "esriSLS",
+                                                    "width": 1.5
+                                                },
+                                                "value": "0"
+                                            }]
+                                        },
+                                        "transparency": 0
+                                    },
+                                    "types": [{
+                                        "domains": {},
+                                        "id": 0,
+                                        "name": "Line",
+                                        "templates": [{
+                                            "description": "",
+                                            "drawingTool": "esriFeatureEditToolLine",
+                                            "name": "Line",
+                                            "prototype": {
+                                                "attributes": {
+                                                    "TYPEID": 0,
+                                                    "VISIBLE": 1,
+                                                    "TITLE": "Line"
+                                                }
+                                            }
+                                        }, {
+                                            "description": "",
+                                            "drawingTool": "esriFeatureEditToolFreehand",
+                                            "name": "Freehand Line",
+                                            "prototype": {
+                                                "attributes": {
+                                                    "TYPEID": 0,
+                                                    "VISIBLE": 1,
+                                                    "TITLE": "Line"
+                                                }
+                                            }
+                                        }]
+                                    }],
+                                    "fields": [{
+                                        "alias": "OBJECTID",
+                                        "name": "OBJECTID",
+                                        "type": "esriFieldTypeOID"
+                                    }, {
+                                        "alias": "Title",
+                                        "editable": true,
+                                        "length": 50,
+                                        "name": "TITLE",
+                                        "type": "esriFieldTypeString"
+                                    }, {
+                                        "alias": "Visible",
+                                        "editable": true,
+                                        "name": "VISIBLE",
+                                        "type": "esriFieldTypeInteger"
+                                    }, {
+                                        "alias": "Description",
+                                        "editable": true,
+                                        "length": 1073741822,
+                                        "name": "DESCRIPTION",
+                                        "type": "esriFieldTypeString"
+                                    }, {
+                                        "alias": "Image URL",
+                                        "editable": true,
+                                        "length": 255,
+                                        "name": "IMAGE_URL",
+                                        "type": "esriFieldTypeString"
+                                    }, {
+                                        "alias": "Image Link URL",
+                                        "editable": true,
+                                        "length": 255,
+                                        "name": "IMAGE_LINK_URL",
+                                        "type": "esriFieldTypeString"
+                                    }, {
+                                        "alias": "DATE",
+                                        "editable": true,
+                                        "length": 36,
+                                        "name": "DATE",
+                                        "type": "esriFieldTypeDate"
+                                    }, {
+                                        "alias": "Type ID",
+                                        "editable": true,
+                                        "name": "TYPEID",
+                                        "type": "esriFieldTypeInteger"
+                                    }],
+                                    "geometryType": "esriGeometryPolyline",
+                                    "hasAttachments": false,
+                                    "name": "Lines",
+                                    "objectIdField": "OBJECTID",
+                                    "templates": [],
+                                    "typeIdField": "TYPEID",
+                                    "visibilityField": "VISIBLE"
+                                },
+                                "popupInfo": {
+                                    "description": "{DESCRIPTION}",
+                                    "mediaInfos": [{
+                                        "type": "image",
+                                        "value": {
+                                            "linkURL": "{IMAGE_LINK_URL}",
+                                            "sourceURL": "{IMAGE_URL}"
+                                        }
+                                    }],
+                                    "title": "{TITLE}"
+                                }
+                            }, {
+                                "featureSet": {
+                                    "features": [{
+                                        "attributes": {
+                                            "OBJECTID": 0,
+                                            "VISIBLE": 1,
+                                            "TYPEID": 0,
+                                            "TEXT": "CA Station Fire 1 Mile Buffer "
+                                        },
+                                        "geometry": {
+                                            "spatialReference": {
+                                                "wkid": 102100
+                                            },
+                                            "x": -1.31461822713795E7,
+                                            "y": 4064633.92272412
+                                        },
+                                        "symbol": {
+                                            "color": [64, 112, 170, 255],
+                                            "font": {
+                                                "decoration": "none",
+                                                "family": "Arial",
+                                                "size": 14,
+                                                "style": "normal",
+                                                "weight": "bold"
+                                            },
+                                            "horizontalAlignment": "left",
+                                            "type": "esriTS"
+                                        }
+                                    }],
+                                    "geometryType": "esriGeometryPoint"
+                                },
+                                "layerDefinition": {
+                                    "displayField": "TITLE",
+                                    "drawingInfo": {
+                                        "renderer": {
+                                            "field1": "TYPEID",
+                                            "type": "uniqueValue",
+                                            "uniqueValueInfos": [{
+                                                "description": "",
+                                                "label": "Text",
+                                                "symbol": {
+                                                    "color": [0, 0, 0, 255],
+                                                    "font": {
+                                                        "decoration": "none",
+                                                        "family": "Arial",
+                                                        "size": 12,
+                                                        "style": "normal",
+                                                        "weight": "bold"
+                                                    },
+                                                    "horizontalAlignment": "left",
+                                                    "type": "esriTS"
+                                                },
+                                                "value": "0"
+                                            }]
+                                        },
+                                        "transparency": 0
+                                    },
+                                    "types": [{
+                                        "domains": {},
+                                        "id": 0,
+                                        "name": "Text",
+                                        "templates": [{
+                                            "description": "",
+                                            "drawingTool": "esriFeatureEditToolText",
+                                            "name": "Text",
+                                            "prototype": {
+                                                "attributes": {
+                                                    "TYPEID": 0,
+                                                    "VISIBLE": 1
+                                                }
+                                            }
+                                        }]
+                                    }],
+                                    "fields": [{
+                                        "alias": "OBJECTID",
+                                        "name": "OBJECTID",
+                                        "type": "esriFieldTypeOID"
+                                    }, {
+                                        "alias": "Title",
+                                        "editable": true,
+                                        "length": 50,
+                                        "name": "TITLE",
+                                        "type": "esriFieldTypeString"
+                                    }, {
+                                        "alias": "Visible",
+                                        "editable": true,
+                                        "name": "VISIBLE",
+                                        "type": "esriFieldTypeInteger"
+                                    }, {
+                                        "alias": "Description",
+                                        "editable": true,
+                                        "length": 1073741822,
+                                        "name": "DESCRIPTION",
+                                        "type": "esriFieldTypeString"
+                                    }, {
+                                        "alias": "Image URL",
+                                        "editable": true,
+                                        "length": 255,
+                                        "name": "IMAGE_URL",
+                                        "type": "esriFieldTypeString"
+                                    }, {
+                                        "alias": "Image Link URL",
+                                        "editable": true,
+                                        "length": 255,
+                                        "name": "IMAGE_LINK_URL",
+                                        "type": "esriFieldTypeString"
+                                    }, {
+                                        "alias": "DATE",
+                                        "editable": true,
+                                        "length": 36,
+                                        "name": "DATE",
+                                        "type": "esriFieldTypeDate"
+                                    }, {
+                                        "alias": "Type ID",
+                                        "editable": true,
+                                        "name": "TYPEID",
+                                        "type": "esriFieldTypeInteger"
+                                    }, {
+                                        "alias": "Text",
+                                        "editable": true,
+                                        "length": 255,
+                                        "name": "TEXT",
+                                        "type": "esriFieldTypeString"
+                                    }],
+                                    "geometryType": "esriGeometryPoint",
+                                    "hasAttachments": false,
+                                    "name": "Text",
+                                    "objectIdField": "OBJECTID",
+                                    "templates": [],
+                                    "typeIdField": "TYPEID",
+                                    "visibilityField": "VISIBLE"
+                                },
+                                "nextObjectId": 1
+                            }, {
+                                "featureSet": {
+                                    "features": [],
+                                    "geometryType": "esriGeometryPoint"
+                                },
+                                "layerDefinition": {
+                                    "displayField": "TITLE",
+                                    "drawingInfo": {
+                                        "renderer": {
+                                            "field1": "TYPEID",
+                                            "type": "uniqueValue",
+                                            "uniqueValueInfos": [{
+                                                "description": "",
+                                                "label": "Stickpin",
+                                                "symbol": {
+                                                    "contentType": "image/png",
+                                                    "height": 24,
+                                                    "type": "esriPMS",
+                                                    "url": "http://static.arcgis.com/images/Symbols/Basic/GreenStickpin.png",
+                                                    "width": 24,
+                                                    "yoffset": 12
+                                                },
+                                                "value": "0"
+                                            }, {
+                                                "label": "Pushpin",
+                                                "symbol": {
+                                                    "contentType": "image/png",
+                                                    "height": 24,
+                                                    "type": "esriPMS",
+                                                    "url": "http://static.arcgis.com/images/Symbols/Basic/GreenShinyPin.png",
+                                                    "width": 24,
+                                                    "xoffset": 2,
+                                                    "yoffset": 8
+                                                },
+                                                "value": "1"
+                                            }, {
+                                                "label": "Cross",
+                                                "symbol": {
+                                                    "color": [155, 187, 89, 128],
+                                                    "outline": {
+                                                        "color": [115, 140, 61, 255],
+                                                        "style": "esriSLSSolid",
+                                                        "type": "esriSLS",
+                                                        "width": 1
+                                                    },
+                                                    "size": 18,
+                                                    "style": "esriSMSCross",
+                                                    "type": "esriSMS"
+                                                },
+                                                "value": "2"
+                                            }]
+                                        },
+                                        "transparency": 0
+                                    },
+                                    "types": [{
+                                        "domains": {},
+                                        "id": 0,
+                                        "name": "Stickpin",
+                                        "templates": [{
+                                            "description": "",
+                                            "drawingTool": "esriFeatureEditToolPoint",
+                                            "name": "Stickpin",
+                                            "prototype": {
+                                                "attributes": {
+                                                    "TYPEID": 0,
+                                                    "VISIBLE": 1,
+                                                    "TITLE": "Point"
+                                                }
+                                            }
+                                        }]
+                                    }, {
+                                        "domains": {},
+                                        "id": 1,
+                                        "name": "Pushpin",
+                                        "templates": [{
+                                            "description": "",
+                                            "drawingTool": "esriFeatureEditToolPoint",
+                                            "name": "Pushpin",
+                                            "prototype": {
+                                                "attributes": {
+                                                    "TYPEID": 1,
+                                                    "VISIBLE": 1,
+                                                    "TITLE": "Point"
+                                                }
+                                            }
+                                        }]
+                                    }, {
+                                        "domains": {},
+                                        "id": 2,
+                                        "name": "Cross",
+                                        "templates": [{
+                                            "description": "",
+                                            "drawingTool": "esriFeatureEditToolPoint",
+                                            "name": "Cross",
+                                            "prototype": {
+                                                "attributes": {
+                                                    "TYPEID": 2,
+                                                    "VISIBLE": 1,
+                                                    "TITLE": "Point"
+                                                }
+                                            }
+                                        }]
+                                    }],
+                                    "fields": [{
+                                        "alias": "OBJECTID",
+                                        "name": "OBJECTID",
+                                        "type": "esriFieldTypeOID"
+                                    }, {
+                                        "alias": "Title",
+                                        "editable": true,
+                                        "length": 50,
+                                        "name": "TITLE",
+                                        "type": "esriFieldTypeString"
+                                    }, {
+                                        "alias": "Visible",
+                                        "editable": true,
+                                        "name": "VISIBLE",
+                                        "type": "esriFieldTypeInteger"
+                                    }, {
+                                        "alias": "Description",
+                                        "editable": true,
+                                        "length": 1073741822,
+                                        "name": "DESCRIPTION",
+                                        "type": "esriFieldTypeString"
+                                    }, {
+                                        "alias": "Image URL",
+                                        "editable": true,
+                                        "length": 255,
+                                        "name": "IMAGE_URL",
+                                        "type": "esriFieldTypeString"
+                                    }, {
+                                        "alias": "Image Link URL",
+                                        "editable": true,
+                                        "length": 255,
+                                        "name": "IMAGE_LINK_URL",
+                                        "type": "esriFieldTypeString"
+                                    }, {
+                                        "alias": "DATE",
+                                        "editable": true,
+                                        "length": 36,
+                                        "name": "DATE",
+                                        "type": "esriFieldTypeDate"
+                                    }, {
+                                        "alias": "Type ID",
+                                        "editable": true,
+                                        "name": "TYPEID",
+                                        "type": "esriFieldTypeInteger"
+                                    }],
+                                    "geometryType": "esriGeometryPoint",
+                                    "hasAttachments": false,
+                                    "name": "Points",
+                                    "objectIdField": "OBJECTID",
+                                    "templates": [],
+                                    "typeIdField": "TYPEID",
+                                    "visibilityField": "VISIBLE"
+                                },
+                                "popupInfo": {
+                                    "description": "{DESCRIPTION}",
+                                    "mediaInfos": [{
+                                        "type": "image",
+                                        "value": {
+                                            "linkURL": "{IMAGE_LINK_URL}",
+                                            "sourceURL": "{IMAGE_URL}"
+                                        }
+                                    }],
+                                    "title": "{TITLE}"
+                                }
+                            }]
+                        },
+                        "id": "b70dd0d1-a9b4-4349-8e03-a4e99ae06bf6",
+                        "opacity": 1,
+                        "title": "Map Notes",
+                        "visibility": true
+                    }],
+                    "presentation": {
+                        "displayTimeSlider": false,
+                        "slideAdvancementInterval": 0,
+                        "slides": [],
+                        "useTimeExtentOfSlide": true
+                    },
+                    "version": "1.2"
+                };
+                
+                webmap.itemData = itemDataJson;
+                
+                var mapDeferred = esri.arcgis.utils.createMap(webmap, "map", {
+                    mapOptions: {
+                        slider: true,
+                        nav: false
+                    }
+                });
+                mapDeferred.addCallback(function(response){
+                    var map = response.map;
+                    if (map.loaded) {
+                        runTests(response);
+                    }
+                    else {
+                        dojo.connect(map, "onLoad", function(){
+                            runTests(response);
+                        });
+                        
+                    }
+                });
+                mapDeferred.addErrback(function(error){
+                    console.log("Map creation failed: ", dojo.toJson(error));
+                });
+            }
+            
+            function runTests(response){
+                doh.registerGroup("createmap.json.twolayer.tmTextNotesTest", [{
+                    name: "TextNotesTest",
+                    timeout: 6000,
+                    runTest: function(t){
+                    
+                        var map = response.map;
+                        var layerIds = map.layerIds;
+						
+                        var layer0 = map.getLayer(layerIds[0]);
+						var layer1 = map.getLayer(layerIds[1]);
+											                   
+                        t.assertEqual(2, layerIds.length);
+                        t.assertTrue(layer0 instanceof esri.layers.ArcGISTiledMapServiceLayer);
+                        t.assertEqual(layer0.url, "http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer");
+                        t.assertTrue(layer1 instanceof esri.layers.ArcGISDynamicMapServiceLayer);
+                        t.assertEqual(layer1.url, "http://servery/ArcGIS/rest/services/California/StationFireParcels/MapServer");          
+                        var graphicsLayerIds = map.graphicsLayerIds;
+						
+                        var graphicLayer0 = map.getLayer(graphicsLayerIds[0]);
+						var graphicLayer1 = map.getLayer(graphicsLayerIds[1]);
+						var graphicLayer2 = map.getLayer(graphicsLayerIds[2]);
+						var graphicLayer3 = map.getLayer(graphicsLayerIds[3]);
+						for(var i=0;i<graphicsLayerIds.length;i++){
+							console.log(graphicsLayerIds[i]);
+								
+							
+						}
+						
+						t.assertEqual(4, graphicsLayerIds.length);
+                        t.assertTrue(graphicLayer0 instanceof esri.layers.FeatureLayer);
+						
+						t.assertEqual("OBJECTID",graphicLayer0.objectIdField);
+						t.assertEqual("esriGeometryPolygon",graphicLayer0.geometryType);
+						t.assertEqual(0,graphicLayer0.graphics.length);
+						t.assertTrue(graphicLayer0.visible);
+						t.assertEqual("OBJECTID",graphicLayer1.objectIdField);
+						t.assertEqual("esriGeometryPolyline",graphicLayer1.geometryType);
+						t.assertEqual(0,graphicLayer1.graphics.length);
+						t.assertTrue(graphicLayer1.visible);
+						//text notes test
+						t.assertEqual("OBJECTID",graphicLayer2.objectIdField);
+						t.assertEqual("esriGeometryPoint",graphicLayer2.geometryType);
+						t.assertEqual(1,graphicLayer2.graphics.length);
+						t.assertTrue(graphicLayer2.visible);
+						var textGraphic = graphicLayer2.graphics[0];
+						t.assertEqual("textsymbol",textGraphic.symbol.type);
+						t.assertEqual("CA Station Fire 1 Mile Buffer ",textGraphic.symbol.text);
+						t.assertEqual("b70dd0d1-a9b4-4349-8e03-a4e99ae06bf6_2",graphicLayer2.id);
+						//
+						t.assertEqual("OBJECTID",graphicLayer3.objectIdField);
+						t.assertEqual("esriGeometryPoint",graphicLayer3.geometryType);
+						t.assertEqual(0,graphicLayer3.graphics.length);
+						t.assertTrue(graphicLayer3.visible);
+						
+					
+                                     								
+                        var operationalLayers = response.itemInfo.itemData.operationalLayers;
+						
+						t.assertEqual(2, operationalLayers.length);
+						var operationalLayer1 = operationalLayers[0];	
+						var operationalLayer2 = operationalLayers[1];
+						var featureCollection = operationalLayer2.featureCollection;
+					
+						t.assertEqual(4, featureCollection.layers.length);
+						
+						var fclayer0 = featureCollection.layers[0];
+						var fclayer1 = featureCollection.layers[1];
+						var fclayer2 = featureCollection.layers[2];
+						var fclayer3 = featureCollection.layers[3];
+						
+						t.assertTrue(fclayer0.visibility);
+						t.assertTrue(fclayer1.visibility);
+						t.assertTrue(fclayer2.visibility);
+						t.assertTrue(fclayer3.visibility);
+						
+                        
+                    }
+                    
+                    
+                }]);
+                doh.run();
+            }
+            
+            dojo.addOnLoad(init);
+        </script>
+    </head>
+    <body class="tundra">
+        <div id="map" style="width:800px; height:600px; border:1px solid #000;">
+        </div>
+    </body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>QueryIds</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.layers.FeatureLayer");
+	  
+	  dojo.require("esri.map");
+	  
+      dojo.require("doh.runner");
+	  
+      var hiniLayer;
+      function init() {
+         var startExtent = new esri.geometry.Extent({"xmin":-117.19741474981005,"ymin":32.6965904538416,"xmax":-117.12872559032095,"ymax":32.731854065948,"spatialReference":{"wkid":4269}});
+        //create map
+        var map = new esri.Map("mapDiv",{extent:startExtent});
+		var basemap = new esri.layers.ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer");
+        map.addLayer(basemap);
+
+		agnLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://10.35.3.179/ArcGIS/rest/services/Health/h1n1/MapServer");
+		var layerTimeOptions = [];
+		var layerTimeOption = new esri.layers.LayerTimeOptions();
+;
+		layerTimeOption.timeDataCumulative= true;
+		layerTimeOption.timeOffset =10;
+		layerTimeOption.timeOffsetUnits = esri.layers.TimeInfo.UNIT_DAYS;
+		layerTimeOption.useTime = true;
+		layerTimeOptions[0] = layerTimeOption;
+		agnLayer.setLayerTimeOptions(layerTimeOption);
+		map.addLayer(agnLayer);
+ 		if (agnLayer.loaded) {
+          runTests(agnLayer);
+        }
+        else {
+          dojo.connect(agnLayer, "onLoad", runTests);
+        }
+        
+      }
+      
+      function runTests(agnLayer) {
+	  	
+        doh.registerGroup("time.agsdynamic.setLayerTimeOptions", [
+          {
+            name: "timeExtent",
+            timeout: 3000,
+            runTest: function(t) {
+				console.log(agnLayer.layerTimeOptions);
+				t.assertTrue(agnLayer.layerTimeOptions.timeDataCumulative);
+				t.assertEqual(10,agnLayer.layerTimeOptions.timeOffset);
+				t.assertEqual("esriTimeUnitsDays",agnLayer.layerTimeOptions.timeOffsetUnits);
+				t.assertTrue(agnLayer.layerTimeOptions.useTime);
+				
+				
+            }
+            
+          }
+	         
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+    <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;"></div>
+  </body>
+</html>

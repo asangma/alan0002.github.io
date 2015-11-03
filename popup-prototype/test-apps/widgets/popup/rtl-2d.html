@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html dir="rtl">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <title>Popup</title>
+  <link rel="stylesheet" href="../../../dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="../../../esri/css/main.css">
+  <style>
+    html,
+    body,
+    #sceneDiv {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <script>
+    var dojoConfig = {
+      //async: true,
+      //Debug: true,
+      locale: "ar",
+      paths: {
+        "esri": "../esri"
+      }
+    };
+  </script>
+  <script src="../../../dojo/dojo.js"></script>
+  <!--<script src="//jsdev.arcgis.com/4.0beta1/"></script>-->
+  <script type="text/javascript">
+    var v, map, popup;
+
+    require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/tasks/QueryTask",
+        "esri/tasks/support/Query",
+        "esri/layers/FeatureLayer",
+        "esri/Graphic",
+        "esri/geometry/Extent",
+        "esri/geometry/Point",
+        "esri/symbols/PictureMarkerSymbol",
+        "esri/PopupTemplate",
+        "esri/widgets/Popup",
+        "dojo/domReady!"
+      ], function (
+      Map,
+      MapView,
+      QueryTask,
+      Query,
+      FeatureLayer,
+      Graphic,
+      Extent, Point,
+      PictureMarkerSymbol,
+      PopupTemplate,
+      Popup
+    ) {
+
+      // setup the map
+      map = new Map({
+        basemap: "topo",
+        extent: new Extent({
+          "xmin": -8573697.671426324,
+          "ymin": 4705202.445653928,
+          "xmax": -8571636.4834977,
+          "ymax": 4706458.743279023,
+          "spatialReference": {
+            "wkid": 102100
+          }
+        })
+      });
+
+
+      v = new MapView({
+        container: "sceneDiv",
+        map: map,
+        padding: {
+          //right: 60,
+          //left: 280,
+          //top: 54,
+          //bottom: 60
+        }
+      });
+
+      popup = new Popup({
+        //position: "right",
+        view: v
+      });
+      popup.startup();
+      v.popup = popup;
+
+
+      var features = [new Graphic({
+        geometry: new Point({
+          "x": -8572667.077462012,
+          "y": 4705830.594466476,
+          "spatialReference": {
+            "wkid": 102100
+          }
+        }),
+        symbol: new PictureMarkerSymbol({
+          url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
+          width: 16,
+          height: 16
+        }),
+        attributes: {
+          title: "Some location",
+          description: "test 3"
+        },
+        popupTemplate: new PopupTemplate({
+          content: "{description}",
+          title: "{title}"
+        })
+      }), new Graphic({
+        geometry: new Point({
+          "x": -8572467.077462012,
+          "y": 4705840.594466476,
+          "spatialReference": {
+            "wkid": 102100
+          }
+        }),
+        symbol: new PictureMarkerSymbol({
+          url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
+          width: 16,
+          height: 16
+        }),
+        attributes: {
+          title: "Test location 2",
+          description: "test 2"
+        },
+        popupTemplate: new PopupTemplate({
+          content: "{description}",
+          title: "{title}"
+        })
+      })];
+
+      popup.set({
+        location: features[0].geometry,
+        visible: true,
+        features: features
+      });
+
+      v.on("click", function (evt) {
+
+        var features = [new Graphic({
+          geometry: evt.mapPoint,
+          attributes: {
+            title: "clicked here",
+            description: "test 1"
+          },
+          symbol: new PictureMarkerSymbol({
+            url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
+            width: 16,
+            height: 16
+          }),
+          popupTemplate: new PopupTemplate({
+            content: "{description}",
+            title: "{title}"
+          })
+        }), new Graphic({
+          geometry: new Point({
+            "x": -8572667.077462012,
+            "y": 4705830.594466476,
+            "spatialReference": {
+              "wkid": 102100
+            }
+          }),
+          attributes: {
+            title: "clicked here 2",
+            description: "test 2"
+          },
+          symbol: new PictureMarkerSymbol({
+            url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
+            width: 16,
+            height: 16
+          }),
+          popupTemplate: new PopupTemplate({
+            content: "{description}",
+            title: "{title}"
+          })
+        }), new Graphic({
+          geometry: new Point({
+            "x": -8576667.077462012,
+            "y": 4705330.594466476,
+            "spatialReference": {
+              "wkid": 102100
+            }
+          }),
+          attributes: {
+            title: "clicked here 3",
+            description: "test 3"
+          },
+          symbol: new PictureMarkerSymbol({
+            url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png",
+            width: 16,
+            height: 16
+          }),
+          popupTemplate: new PopupTemplate({
+            content: "{description}",
+            title: "{title}"
+          })
+        })];
+
+
+        popup.set({
+          features: features,
+          location: evt.mapPoint,
+          visible: true
+        });
+
+      });
+
+    });
+  </script>
+
+</head>
+
+<body>
+  <div id="sceneDiv"></div>
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+define([
+  "./esri/layers/FeatureLayer",
+  "./esri/layers/GraphicsLayer",
+  "./esri/request/identity",
+  "./esri/symbols/SimpleMarkerSymbol",
+  "./esri/widgets/BasemapToggle",
+  "./esri/widgets/Compass",
+  "./esri/widgets/PopupTemplate",
+  "./esri/widgets/Ripple",
+  "./esri/widgets/Search",
+  "./esri/widgets/Spinner"
+]);

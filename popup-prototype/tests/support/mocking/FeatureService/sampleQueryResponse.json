@@ -1,0 +1,32 @@
+{
+  "displayFieldName": "STATE_NAME",
+  "fieldAliases": {
+    "SQMI": "SQMI",
+    "STATE_NAME": "STATE_NAME",
+    "STATE_FIPS": "STATE_FIPS"
+  },
+  "fields": [{
+    "name": "SQMI",
+    "type": "esriFieldTypeInteger",
+    "alias": "SQMI"
+  },
+    {
+      "name": "STATE_NAME",
+      "type": "esriFieldTypeString",
+      "alias": "STATE_NAME",
+      "length": 25
+    },
+    {
+      "name": "STATE_FIPS",
+      "type": "esriFieldTypeString",
+      "alias": "STATE_FIPS",
+      "length": 2
+    }],
+  "features": [{
+    "attributes": {
+      "SQMI": 157776,
+      "STATE_NAME": "California",
+      "STATE_FIPS": "06"
+    }
+  }]
+}

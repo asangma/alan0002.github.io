@@ -1,0 +1,15 @@
+define([
+  "./Locator",
+  "./QueryTask",
+  "./support/AddressCandidate",
+  "./FindTask",
+  "./ClosestFacilityTask",
+  "./IdentifyTask",
+  "./RouteTask",
+  "./ServiceAreaTask",
+  "./ImageServiceIdentifyTask",
+  "./GeometryService",
+  "./Geoprocessor/sync",
+  "./Geoprocessor/async",
+  "./GenerateRendererTask"
+]);

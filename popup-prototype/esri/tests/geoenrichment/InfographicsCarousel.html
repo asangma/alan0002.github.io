@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>Geoenrichment API</title>
+    
+    <style>
+        html, body, .app, .map
+        {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        #infographics
+        {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+    </style>
+</head>
+<body class="claro">
+    <script src="inject.js"></script>
+    <script src="config.js"></script>
+
+    <script>
+        require([
+            "esri/map",
+            "esri/symbols/SimpleMarkerSymbol",
+            "esri/symbols/SimpleFillSymbol",
+            "esri/Graphic",
+            "esri/widgets/geoenrichment/InfographicsCarousel",
+            "esri/tasks/geoenrichment/GeometryStudyArea",
+            "esri/IdentityManager",
+            "dojo/domReady!"
+        ], function (
+            Map,
+            SimpleMarkerSymbol,
+            SimpleFillSymbol,
+            Graphic,
+            InfographicsCarousel,
+            GeometryStudyArea,
+            id
+            ) {
+
+            var map = new Map("map", {
+                basemap: "streets",
+                center: [-117.14, 32.71],
+                zoom: 13,
+                sliderStyle: "small"
+            });
+
+            var inGraphic;
+            var outGrphic;
+            var infographics;
+            map.on("click", function (e) {
+                var point = e.mapPoint;
+                if (!inGraphic) {
+                    inGraphic = new Graphic(point, new SimpleMarkerSymbol());
+                    map.graphics.add(inGraphic);
+                } else {
+                    inGraphic.setGeometry(point);
+                }
+
+                if (!infographics) {
+                    infographics = new InfographicsCarousel({
+                        returnGeometry: true
+                    }, "infographics");
+                    infographics.on("data-ready", function (e) {
+                        var ring = e.provider.getGeometry();
+                        if (!outGrphic) {
+                            outGrphic = new Graphic(ring, new SimpleFillSymbol());
+                            map.graphics.add(outGrphic);
+                        }
+                        else {
+                            outGrphic.setGeometry(ring);
+                        }
+                    });
+                    infographics.startup();
+                }
+                infographics.set("studyArea", new GeometryStudyArea({ geometry: point }));
+            });
+        });
+    </script>
+    <div id="map"></div>
+    <div id="infographics"></div>
+</body>
+</html>

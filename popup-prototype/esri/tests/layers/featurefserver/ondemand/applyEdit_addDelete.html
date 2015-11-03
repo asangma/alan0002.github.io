@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>ApplyEdits</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../../index.jsp">
+      </script>
+
+      <script type="text/javascript">
+      dojo.require("esri.layers.FeatureLayer");
+	  dojo.require("esri.map");
+	  dojo.require("doh.runner");
+	  
+      var featureLayer,graphics;
+      function init() {
+	  	esriConfig.request.proxyUrl = "../../../proxy.jsp";
+    	esriConfig.request.forceProxy = false;
+        var startExtent = new esri.geometry.Extent({"xmin":-117.19741474981005,"ymin":32.6965904538416,"xmax":-117.12872559032095,"ymax":32.731854065948,"spatialReference":{"wkid":4269}});
+        //create map
+        var map = new esri.Map("mapDiv",{extent:startExtent});
+		var layer = new esri.layers.ArcGISDynamicMapServiceLayer("http://servery/ArcGIS/rest/services/USA/states/MapServer");
+        map.addLayer(layer);
+
+        featureLayer = new esri.layers.FeatureLayer("http://servery/ArcGIS/rest/services/FeatureServiceServices/SanDiego/FeatureServer/3", {
+          mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
+          outFields: ["*"],
+          id: "landuseLayer"
+        });
+		dojo.connect(featureLayer,"onUpdateEnd",runTests);
+		map.addLayer(featureLayer);
+       
+      }
+      
+      function runTests() {
+	  	console.log("runtests");
+		graphics = featureLayer.graphics;
+		var graphic = graphics[0];
+	  	
+        doh.registerGroup("layers.featurefserver.ondemand.addDelete", [
+        
+		  
+		  {
+            name: "delete",
+            timeout: 3000,
+            runTest: function(t) {
+			
+			 			  
+			  var d = new doh.Deferred();
+			  
+			  function showResults(a,u,editResult){
+			  	console.log("inshow");
+			  	console.log(editResult);
+			  	
+			  	if (editResult == null || editResult.length == 0) {
+					t.assertTrue(false);
+				}
+				else {
+										
+					//t.assertEqual("5444",editResults[0].objectId);
+					t.assertTrue(editResult[0].success);
+				}
+				d.callback(true);
+				}
+				
+				
+				featureLayer.applyEdits(null,null,[graphic],showResults);
+
+			
+				return d;
+            }
+            
+          },
+		     {
+            name: "add",
+            timeout: 3000,
+            runTest: function(t) {
+					 
+			  
+			  var d = new doh.Deferred();
+			  
+			 
+			  function showResults(editResults){
+			  	
+			  	console.log(editResults);
+				
+			  	if (editResults == null || editResults.length == 0) {
+					t.assertTrue(false);
+				}
+				else {
+										
+					//t.assertEqual("5444",editResults[0].objectId);
+					//console.log(editResults[0].success);
+					t.assertTrue(editResults[0].success);
+				}
+				d.callback(true);
+				}
+				
+				featureLayer.applyEdits([graphic],null,null,showResults);
+
+			
+				return d;
+            }
+            
+          },
+		  {
+            name: "addDelete",
+            timeout: 3000,
+            runTest: function(t) {
+					 
+			  
+			  var d = new doh.Deferred();
+			  
+			 
+			  function showResults(addResult,u,deleteResult){
+			  	
+			  	
+				
+			  	if (addResult == null || deleteResult == null) {
+					t.assertTrue(false);
+				}
+				else {
+										
+					t.assertTrue(addResult[0].success);
+					t.assertTrue(deleteResult[0].success);
+				}
+				d.callback(true);
+				}
+				
+				featureLayer.applyEdits([graphic],null,[graphic],showResults);
+
+			
+				return d;
+            }
+            
+          },  
+		           
+          
+        ]);
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+    <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;"></div>
+  </body>
+</html>

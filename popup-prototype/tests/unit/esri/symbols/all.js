@@ -1,0 +1,10 @@
+define([
+  "./CartographicLineSymbol",
+  "./Font",
+  "./PictureFillSymbol",
+  "./PictureMarkerSymbol",
+  "./SimpleFillSymbol",
+  "./SimpleLineSymbol",
+  "./SimpleMarkerSymbol",
+  "./TextSymbol"
+]);

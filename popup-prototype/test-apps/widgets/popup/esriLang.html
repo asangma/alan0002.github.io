@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <title>Popup</title>
+  <link rel="stylesheet" href="../../../dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="../../../esri/css/main.css">
+  <style>
+    html,
+    body,
+    #sceneDiv {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <script>
+    var dojoConfig = {
+      //async: true,
+      //Debug: true,
+      paths: {
+        "esri": "../esri"
+      }
+    };
+  </script>
+  <script src="../../../dojo/dojo.js"></script>
+  <!--<script src="//jsdev.arcgis.com/4.0beta1/"></script>-->
+  <script type="text/javascript">
+    require([
+      "esri/core/lang",
+      ], function (
+            esriLang
+    ) {
+
+      var test = esriLang.substitute({state_name: "Arizona", state_capital: "Phoenix"},"The capital of {state_name} is ${state_capital}.");
+      
+      console.log(test);
+      
+      var test2 = esriLang.substitute({bananas: 12.5454540005},"${bananas:NumberFormat(places:5)}.");
+      
+      console.log(test2);
+
+    });
+  </script>
+
+</head>
+
+<body>
+  <div id="sceneDiv"></div>
+</body>
+
+</html>

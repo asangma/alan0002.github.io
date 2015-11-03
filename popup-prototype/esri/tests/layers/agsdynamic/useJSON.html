@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>visibleLayers</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+
+    <script type="text/javascript">
+      dojo.require("esri.layers.agsdynamic");
+      dojo.require("doh.runner");
+      
+	  var layer;
+       function init() {
+        layer = new esri.layers.ArcGISDynamicMapServiceLayer("http://servery/ArcGIS/rest/services/Portland/PortlandMap/MapServer");
+        if (layer.loaded) {
+          runTests(layer);
+        }
+        else {
+          dojo.connect(layer, "onLoad", runTests);
+        }
+	  }
+	      
+      function runTests(){
+	  	doh.registerGroup("map.agsdynamic.useJSON", [{
+	  		name: "useJSON",
+	  		timeout: 6000,
+	  		runTest: function(t){
+				console.debug(layer.useJSON);//undefined
+				function assert(){
+					//doh.assertEqual("false", layer.useJSON); 
+ 								
+				}
+		 						  			
+	  		}
+	  		
+	  		
+	  	}
+		]);
+	  	doh.run();
+	  }
+		
+       dojo.addOnLoad(init);   
+    </script>
+
+  </head>
+  <body class="tundra">
+    
+  </body>
+</html>

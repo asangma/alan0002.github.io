@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>LayerInfo</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.layers.wms");
+      dojo.require("doh.runner");
+      
+      function init() {
+          var layer1 = new esri.layers.WMSLayerInfo({name:"1",title:"Rivers",description:"This is rivers."});
+          var layer2 = new esri.layers.WMSLayerInfo({name:"2",title:"Cities",description:"This is cities."});
+          var resourceInfo = {
+              extent: new esri.geometry.Extent(-126.40869140625,31.025390625,-109.66552734375,41.5283203125,{wkid: 4326}),
+              layerInfos: [layer1,layer2]
+          };
+
+
+          var wmsLayer = new esri.layers.WMSLayer("http://sampleserver1.arcgisonline.com/ArcGIS/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/WMSServer",
+                  {resourceInfo: resourceInfo,
+                      visibleLayers: ["1","2"]
+                  }
+          );
+          if (wmsLayer.loaded) {
+          runTests(wmsLayer);
+        }
+        else {
+          dojo.connect(wmsLayer, "onLoad", runTests);
+        }
+      }
+      
+      function runTests(wmsLayer) {
+        console.log("loaded");
+        doh.registerGroup("wms.wmsLayerInfo", [
+          {
+              name: "layerInfos",
+              timeout: 100,
+              runTest: function() {
+                  var layerInfos = wmsLayer.layerInfos;
+                  doh.assertEqual(layerInfos.length,2);
+                  var layerInfo1 = layerInfos[0];
+                  doh.assertEqual(layerInfo1.description,"This is rivers.");
+                  doh.assertEqual(wmsLayer.extent.xmin,-126.40869140625);
+                  doh.assertEqual(wmsLayer.extent.ymin,31.025390625);
+                  doh.assertEqual(wmsLayer.extent.xmax,-109.66552734375);
+                  doh.assertEqual(wmsLayer.extent.ymax,41.5283203125);
+                  doh.assertEqual(layerInfo1.name,"1");
+                  doh.assertEqual(layerInfo1.title,"Rivers");
+
+
+             }
+
+          }
+
+
+        ]
+
+        );
+        doh.run();
+      }
+      
+      dojo.addOnLoad(init);
+    </script>
+
+  </head>
+  <body class="tundra">
+  </body>
+</html>

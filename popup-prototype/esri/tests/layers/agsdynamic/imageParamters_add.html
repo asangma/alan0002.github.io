@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>visibleLayers</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../dojo/dijit/themes/tundra/tundra.css">
+      <script>
+          dojoConfig = {
+              isDebug: true
+          };
+      </script>
+      <script type="text/javascript" src="../../../../../index.jsp">
+      </script>
+    <script type="text/javascript">
+      dojo.require("esri.layers.agsdynamic");
+      dojo.require("doh.runner");
+      
+	  var layer;
+       function init() {
+        layer = new esri.layers.ArcGISDynamicMapServiceLayer("http://servery/ArcGIS/rest/services/Portland/PortlandMap/MapServer");
+        if (layer.loaded) {
+          runTests(layer);
+        }
+        else {
+          dojo.connect(layer, "onLoad", runTests);
+        }
+	  }
+	      
+      function runTests(){
+	  	doh.registerGroup("map.agsdynamic.imageParamters_add", [{
+	  		name: "extent",
+	  		timeout: 6000,
+	  		runTest: function(t){
+				var d = new doh.Deferred();
+
+				function assert(mapImage){
+					
+					t.assertEqual("http://servery/arcgisoutput/_ags_map", mapImage.href.substring(0, 36));
+                	t.assertEqual("jpg", mapImage.href.substring(mapImage.href.length - 3));
+                	t.assertEqual(400, mapImage.width);
+                	t.assertEqual(400, mapImage.height);
+					console.debug("h..."+mapImage.href);
+                	console.debug(mapImage.extent.xmin+" "+mapImage.extent.ymin+" "+mapImage.extent.xmax+" "+mapImage.extent.ymax);
+                	t.assertEqual(98068.8742893451, mapImage.scale);
+					t.assertEqual({xmin:7631314.18440193,ymin:642501.560312438,xmax:7665365.87686351,ymax:676553.252774016,spatialReference:{wkid:102726}}, mapImage.extent.toJson());
+                
+					d.callback(true); 
+ 								
+				}
+			  var imageParams = new esri.layers.ImageParameters();
+              imageParams.extent = new esri.geometry.Extent(7632710.09229166, 642501.560312438, 7663969.96897378, 676553.252774016, layer.spatialReference);
+              imageParams.width = 400;
+              imageParams.height = 400;
+              imageParams.format = "jpg";
+			 
+              
+              layer.exportMapImage(imageParams, assert);
+              return d;
+		 						  			
+	  		}
+	  		  		
+	  	},
+		{
+	  		name: "imageSpatialReference",
+	  		timeout: 6000,
+	  		runTest: function(t){
+				var d = new doh.Deferred();
+
+				function assert(mapImage){
+					t.assertEqual("http://servery/arcgisoutput/_ags_map", mapImage.href.substring(0, 36));
+                	t.assertEqual("jpg", mapImage.href.substring(mapImage.href.length - 3));
+                	t.assertEqual(400, mapImage.width);
+                	t.assertEqual(400, mapImage.height);
+				
+                	t.assertEqual(98068.8742893451, mapImage.scale);
+					t.assertEqual({xmin:7631314.18440193,ymin:642501.560312438,xmax:7665365.87686351,ymax:676553.252774016,spatialReference:{wkid:102726}}, mapImage.extent.toJson());
+                
+					d.callback(true); 
+ 								
+				}
+			  var imageParams = new esri.layers.ImageParameters();
+              imageParams.extent = new esri.geometry.Extent(7632710.09229166, 642501.560312438, 7663969.96897378, 676553.252774016, layer.spatialReference);
+              imageParams.width = 400;
+              imageParams.height = 400;
+              imageParams.format = "jpg";
+			  imageParams.imageSpatialReference = new esri.SpatialReference({"wkid":102726});
+			               
+              layer.exportMapImage(imageParams, assert);
+              return d;
+		 						  			
+	  		}
+	  	},
+		{
+	  		name: "layerDefinitions",
+	  		timeout: 6000,
+	  		runTest: function(t){
+				var d = new doh.Deferred();
+
+				function assert(mapImage){
+					t.assertEqual("http://servery/arcgisoutput/_ags_map", mapImage.href.substring(0, 36));
+                	t.assertEqual("jpg", mapImage.href.substring(mapImage.href.length - 3));
+                	t.assertEqual(400, mapImage.width);
+                	t.assertEqual(400, mapImage.height);
+				
+                	t.assertEqual(98068.8742893451, mapImage.scale);
+					t.assertEqual({xmin:7631314.18440193,ymin:642501.560312438,xmax:7665365.87686351,ymax:676553.252774016,spatialReference:{wkid:102726}}, mapImage.extent.toJson());
+                
+					d.callback(true); 
+ 								
+				}
+			  var imageParams = new esri.layers.ImageParameters();
+              imageParams.extent = new esri.geometry.Extent(7632710.09229166, 642501.560312438, 7663969.96897378, 676553.252774016, layer.spatialReference);
+              imageParams.width = 400;
+              imageParams.height = 400;
+              imageParams.format = "jpg";
+			  var layerDefs = [];
+			  layerDefs[2] = "Id='4'";
+			  imageParams.layerDefinitions = layerDefs;            
+              layer.exportMapImage(imageParams, assert);
+              return d;
+		 						  			
+	  		}
+	  	},
+		{
+	  		name: "layerOption",
+	  		timeout: 6000,
+	  		runTest: function(t){
+				var d = new doh.Deferred();
+
+				function assert(mapImage){
+					
+					t.assertEqual("http://servery/arcgisoutput/_ags_map", mapImage.href.substring(0, 36));
+                	t.assertEqual("jpg", mapImage.href.substring(mapImage.href.length - 3));
+                	t.assertEqual(400, mapImage.width);
+                	t.assertEqual(400, mapImage.height);
+				
+                	t.assertEqual(98068.8742893451, mapImage.scale);
+					t.assertEqual({xmin:7631314.18440193,ymin:642501.560312438,xmax:7665365.87686351,ymax:676553.252774016,spatialReference:{wkid:102726}}, mapImage.extent.toJson());
+               
+					d.callback(true); 
+ 								
+				}
+			  var imageParams = new esri.layers.ImageParameters();
+              imageParams.extent = new esri.geometry.Extent(7632710.09229166, 642501.560312438, 7663969.96897378, 676553.252774016, layer.spatialReference);
+              imageParams.width = 400;
+              imageParams.height = 400;
+              imageParams.format = "jpg";
+			  imageParams.layerIds=[0,2,4];
+			  imageParams.layerOption = "LAYER_OPTION_INCLUDE";
+			            
+              layer.exportMapImage(imageParams, assert);
+              return d;
+		 						  			
+	  		}
+	  	},
+		{
+	  		name: "transparent",
+	  		timeout: 6000,
+	  		runTest: function(t){
+				var d = new doh.Deferred();
+
+				function assert(mapImage){
+					t.assertEqual("http://servery/arcgisoutput/_ags_map", mapImage.href.substring(0, 36));
+                	t.assertEqual("jpg", mapImage.href.substring(mapImage.href.length - 3));
+                	t.assertEqual(400, mapImage.width);
+                	t.assertEqual(400, mapImage.height);
+				
+                	t.assertEqual(98068.8742893451, mapImage.scale);
+					t.assertEqual({xmin:7631314.18440193,ymin:642501.560312438,xmax:7665365.87686351,ymax:676553.252774016,spatialReference:{wkid:102726}}, mapImage.extent.toJson());
+                
+					d.callback(true); 
+ 								
+				}
+			  var imageParams = new esri.layers.ImageParameters();
+              imageParams.extent = new esri.geometry.Extent(7632710.09229166, 642501.560312438, 7663969.96897378, 676553.252774016, layer.spatialReference);
+              imageParams.width = 400;
+              imageParams.height = 400;
+              imageParams.format = "jpg";
+			  imageParams.transparent = false;           
+              layer.exportMapImage(imageParams, assert);
+              return d;
+		 						  			
+	  		}
+	  	}
+		
+		]);
+	  	doh.run();
+	  }
+		
+       dojo.addOnLoad(init);   
+    </script>
+
+  </head>
+  <body class="tundra">
+    
+  </body>
+</html>
