@@ -42,6 +42,14 @@
             jQuery('#message').css('opacity', 1);
             jQuery('#message').delay(1000).animate({opacity: 0}, 250);
         });
+
+        jQuery('#toggle-thumbs').on('click', function(event){
+            event.preventDefault();
+            if(!jQuery('.flyout').hasClass('not-visible')){
+                jQuery('.flyout').toggleClass('show-thumbs');    
+            }
+            
+        });
     });
     </script>
 </head>
@@ -66,19 +74,21 @@
         <div class="iconContainer">
             <a href="#" title="" class="esriIcon esri-icon-basemap esri-basemap-trigger"></a>
             <div class="flyout not-visible">
-                <ul>
-                    <li class="basemap-item active"><a class="basemap-item-anchor" href="Imagery">Imagery</a></li>
-                    <li class="basemap-item"><a class="basemap-item-anchor" href="Imagery-with-Labels">Imagery with Labels</a></li>
-                    <li class="basemap-item"><a class="basemap-item-anchor" href="Streets">Streets</a></li>
-                    <li class="basemap-item"><a class="basemap-item-anchor" href="Topographic">Topographic</a></li>
-                    <li class="basemap-item"><a class="basemap-item-anchor" href="Dark-Gray-Canvas">Dark Gray Canvas</a></li>
-                    <li class="basemap-item"><a class="basemap-item-anchor" href="Light-Gray-Canvas">Light Gray Canvas</a></li>
-                    <li class="basemap-item"><a class="basemap-item-anchor" href="National-Geographic">National Geographic</a></li>
-                    <li class="basemap-item"><a class="basemap-item-anchor" href="Oceans">Oceans</a></li>
-                    <li class="basemap-item"><a class="basemap-item-anchor" href="OpenStreetMap">OpenStreetMap</a></li>
-                    <li class="basemap-item"><a class="basemap-item-anchor" href="USA-Topo-Maps">USA Topo Maps</a></li>
-                    <li class="basemap-item"><a class="basemap-item-anchor" href="USGS-National-Map">USGS National Map</a></li>
-                </ul>
+                <div class="flyout-viewport">
+                    <ul>
+                        <li class="basemap-item active"><a class="basemap-item-anchor" href="Imagery"><img class="esri-basemap-thumb" style="background:url('images/imagery.jpg') no-repeat center; background-size:cover;"/><span class="esri-basemap-title">Imagery</span></a></li>
+                        <li class="basemap-item"><a class="basemap-item-anchor" href="Imagery-with-Labels"><img class="esri-basemap-thumb" style="background:url('images/imagery_labels.jpg') no-repeat center; background-size:cover;"/><span class="esri-basemap-title">Imagery with Labels</span></a></li>
+                        <li class="basemap-item"><a class="basemap-item-anchor" href="Streets"><img class="esri-basemap-thumb" style="background:url('images/world_street_map.jpg') no-repeat center; background-size:cover;"/><span class="esri-basemap-title">Streets</span></a></li>
+                        <li class="basemap-item"><a class="basemap-item-anchor" href="Topographic"><img class="esri-basemap-thumb"  style="background:url('images/topo_map_2.jpg') no-repeat center; background-size:cover;"/><span class="esri-basemap-title">Topographic</span></a></li>
+                        <li class="basemap-item"><a class="basemap-item-anchor" href="Dark-Gray-Canvas"><img class="esri-basemap-thumb" style="background:url('http://placekitten.com.s3.amazonaws.com/homepage-samples/408/287.jpg') no-repeat center; background-size:cover;"/><span class="esri-basemap-title">Dark Gray Canvas</span></a></li>
+                        <li class="basemap-item"><a class="basemap-item-anchor" href="Light-Gray-Canvas"><img class="esri-basemap-thumb" style="background:url('http://placekitten.com.s3.amazonaws.com/homepage-samples/200/140.jpg') no-repeat center; background-size:cover;"/><span class="esri-basemap-title">Light Gray Canvas</span></a></li>
+                        <li class="basemap-item"><a class="basemap-item-anchor" href="National-Geographic"><img class="esri-basemap-thumb" style="background:url('http://placekitten.com.s3.amazonaws.com/homepage-samples/200/287.jpg') no-repeat center; background-size:cover;"/><span class="esri-basemap-title">National Geographic</span></a></li>
+                        <li class="basemap-item"><a class="basemap-item-anchor" href="Oceans"><img class="esri-basemap-thumb" style="background:url('http://placekitten.com.s3.amazonaws.com/homepage-samples/200/139.jpg') no-repeat center; background-size:cover;"/><span class="esri-basemap-title">Oceans</span></a></li>
+                        <li class="basemap-item"><a class="basemap-item-anchor" href="OpenStreetMap"><img class="esri-basemap-thumb" style="background:url('http://placekitten.com.s3.amazonaws.com/homepage-samples/96/139.jpg') no-repeat center; background-size:cover;"/><span class="esri-basemap-title">OpenStreetMap</span></a></li>
+                        <li class="basemap-item"><a class="basemap-item-anchor" href="USA-Topo-Maps"><img class="esri-basemap-thumb" style="background:url('http://placekitten.com.s3.amazonaws.com/homepage-samples/96/140.jpg') no-repeat center; background-size:cover;"/><span class="esri-basemap-title">USA Topo Maps</span></a></li>
+                        <li class="basemap-item"><a class="basemap-item-anchor" href="USGS-National-Map"><img class="esri-basemap-thumb" style="background:url('http://placekitten.com.s3.amazonaws.com/homepage-samples/408/287.jpg') no-repeat center; background-size:cover;"/><span class="esri-basemap-title">USGS National Map</span></a></li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="compass-wrap esriIcon" title="Orient Scene to North">
@@ -87,6 +97,9 @@
     </div>
     <div id="message">
         Basemap would change at this point.
+    </div>
+    <div id="toggle-thumbs">
+        Toggle Thumbs
     </div>
 </body>
 
