@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <meta name="description" content="Arcgis-js-api-alan : ArcGIS API for JavaScript">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../bootstrap/css/normalize.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../calcite/css/calcite.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- <link rel="stylesheet" href="css/common.css"> -->
+    <script src="../bootstrap/js/jquery-1.11.3.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    
+    <title>Dojo : Basemap Toggle</title>
+    <style type="text/css" media="screen">
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+    }
+    </style>
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        
+        jQuery('.esri-basemap-trigger').on('click', function(event){
+            event.preventDefault();
+            jQuery('.flyout').removeClass('item-selected');
+            jQuery('.flyout').toggleClass('not-visible');
+        });
+
+        jQuery('.basemap-item-anchor').on('click', function(event){
+            event.preventDefault();
+            jQuery('.active').removeClass('active');
+            jQuery(this).parent().addClass('active');
+            jQuery('.flyout').toggleClass('not-visible');
+            jQuery('.flyout').addClass('item-selected');
+            jQuery('#message').css('opacity', 1);
+            jQuery('#message').delay(1000).animate({opacity: 0}, 250);
+        });
+    });
+    </script>
+</head>
+
+<body class="body">
+   <!--  <nav class="navbar navbar-default">
+        <div class="container">
+            <ul class="nav navbar-nav">
+            </ul>
+        </div>
+    </nav> -->
+    <div class="tools-wrap">
+        <div class="iconContainer">
+            <a href="#" title="" class="esriIcon esri-icon-home"></a>
+        </div>
+        <div class="iconContainer">
+            <a href="#" title="" class="esriIcon esri-icon-zoom-in"></a>
+        <!-- </div>
+        <div class="iconContainer"> -->
+            <a href="#" title="" class="esriIcon esri-icon-zoom-out esri-border-top"></a>
+        </div>
+        <div class="iconContainer">
+            <a href="#" title="" class="esriIcon esri-icon-basemap esri-basemap-trigger"></a>
+            <div class="flyout not-visible">
+                <ul>
+                    <li class="basemap-item active"><a class="basemap-item-anchor" href="Imagery">Imagery</a></li>
+                    <li class="basemap-item"><a class="basemap-item-anchor" href="Imagery-with-Labels">Imagery with Labels</a></li>
+                    <li class="basemap-item"><a class="basemap-item-anchor" href="Streets">Streets</a></li>
+                    <li class="basemap-item"><a class="basemap-item-anchor" href="Topographic">Topographic</a></li>
+                    <li class="basemap-item"><a class="basemap-item-anchor" href="Dark-Gray-Canvas">Dark Gray Canvas</a></li>
+                    <li class="basemap-item"><a class="basemap-item-anchor" href="Light-Gray-Canvas">Light Gray Canvas</a></li>
+                    <li class="basemap-item"><a class="basemap-item-anchor" href="National-Geographic">National Geographic</a></li>
+                    <li class="basemap-item"><a class="basemap-item-anchor" href="Oceans">Oceans</a></li>
+                    <li class="basemap-item"><a class="basemap-item-anchor" href="OpenStreetMap">OpenStreetMap</a></li>
+                    <li class="basemap-item"><a class="basemap-item-anchor" href="USA-Topo-Maps">USA Topo Maps</a></li>
+                    <li class="basemap-item"><a class="basemap-item-anchor" href="USGS-National-Map">USGS National Map</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="compass-wrap esriIcon" title="Orient Scene to North">
+            <img src="images/Compass32.svg" alt="" class="compass" /> 
+        </div>
+    </div>
+    <div id="message">
+        Basemap would change at this point.
+    </div>
+</body>
+
+</html>
