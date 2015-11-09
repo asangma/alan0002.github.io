@@ -29,6 +29,7 @@
         
         jQuery('.esri-basemap-trigger').on('click', function(event){
             event.preventDefault();
+            if(jQuery('.flyout').hasClass('not-visible')) jQuery('.flyout-viewport').scrollTop(0);
             jQuery('.flyout').removeClass('item-selected');
             jQuery('.flyout').toggleClass('not-visible');
         });
