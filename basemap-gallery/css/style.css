@@ -113,7 +113,7 @@ a.esriIcon {
   -webkit-appearance: none;
   width: 8px;
 	background-color: rgba(0,0,0,0.1);
-  /*border-right: solid 1px #{$barColor};*/
+  /*border-right: solid 1px rgba(0,0,0,0.25);;*/
   margin: 0;
 }
 .flyout-viewport::-webkit-scrollbar-thumb {
