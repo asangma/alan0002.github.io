@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <meta name="description" content="Arcgis-js-api-alan : ArcGIS API for JavaScript">
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://esri.github.io/calcite-web/assets/css/all.css">
+    <link rel="stylesheet" href="css/bootstrap/css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="css/bootstrap/js/jquery-1.11.3.min.js"></script>
+    <script src="css/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/nav.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            setBackgrounds(5, '.map-options');
+            setFeatures(3, '.features-options');
+            setBorder(3, '.border-options');
+            addOptionsListeners();
+        });
+        
+    </script>
+    <title>Feature Selection : Marquee des Fourmis</title>
+</head>
+
+<body class="bg-body px-2">
+    <!-- <div class="overlay"></div> -->
+    <div class="selection">
+        <div class="ants ants-h ants-top"></div>
+        <div class="ants ants-h ants-bottom"></div>
+        <div class="ants ants-v ants-left"></div>
+        <div class="ants ants-v ants-right"></div>
+    </div>
+    <div class="options-trigger"><i class="esri-icon-menu"></i></div>
+    <div class="options-wrap">
+        <h4>Backgrounds</h4>
+        <ul class="map-options">
+            <!-- <li><a href="" class="toggle-pagination">Toggle Pagination / Scroll</a></li> -->
+            <!-- <li><a href="">Toggle Pagination / Scroll</a></li> -->
+        </ul>
+        <hr>
+        <h3>Features</h3>
+        <ul class="features-options">
+            <li><a class="feature-trigger" href="toobig" title="">Past View</a></li>
+        </ul>
+        <hr>
+        <h3>Border Width</h3>
+        <ul class="border-options">
+        </ul>
+    </div>
+
+
+    
+
+
+
+
+
+    <div class="container-fluid">
+    </div>
+</body>
+
+</html>
