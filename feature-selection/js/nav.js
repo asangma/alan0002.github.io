@@ -28,10 +28,10 @@ var features = {
     height: 172
   },
   2: {
-    top: 0,
-    left: 1295,
-    width: 667,
-    height: 319
+    top: 575,
+    left: 1791,
+    width: 172,
+    height: 277
   },
   toobig: {
     top: 0,

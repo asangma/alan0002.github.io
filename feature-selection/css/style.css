@@ -102,7 +102,7 @@ a {
 }
 
 .too-big .selection {
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .too-big .selection .ants-h, .px-3 .selection .ants-h {
@@ -113,7 +113,7 @@ a {
   width: 3px;
 }
 
-.top-right-feature .ants-right, .top-right-feature .ants-top {
+.top-right-feature .ants-right/*, .top-right-feature .ants-top*/ {
   display: none;
 }
 
