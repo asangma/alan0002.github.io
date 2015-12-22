@@ -17,42 +17,50 @@
     <script type="text/javascript">
         jQuery(document).ready(function($) {
             setBackgrounds(5, '.map-options');
-            setFeatures(3, '.features-options');
-            setBorder(3, '.border-options');
+            setFeatures('.features-options');
+            setBorders(4, '.border-options');
             addOptionsListeners();
+
+            jQuery('.toggle-ds').on('click', function(event){
+                jQuery('.bg-body').toggleClass('show-ds');
+            });
         });
         
     </script>
     <title>Feature Selection : Marquee des Fourmis</title>
 </head>
 
-<body class="bg-body px-2">
+<body class="bg-body px-1 show-ds">
     <!-- <div class="overlay"></div> -->
     <div class="selection">
         <div class="ants ants-h ants-top"></div>
         <div class="ants ants-h ants-bottom"></div>
         <div class="ants ants-v ants-left"></div>
         <div class="ants ants-v ants-right"></div>
+        <!-- <div class="feature-message">
+            The map would reposition to show the full extent.
+        </div> -->
     </div>
     <div class="instructions">
         <i class="esri-icon-left"></i> Use the burger menu to change options.
     </div>
     <div class="options-trigger"><i class="esri-icon-menu"></i></div>
-    <div class="options-wrap">
+    <div class="options-wrap open">
         <h3 style="margin-top: 1em;">Backgrounds</h3>
         <ul class="map-options">
-            <!-- <li><a href="" class="toggle-pagination">Toggle Pagination / Scroll</a></li> -->
-            <!-- <li><a href="">Toggle Pagination / Scroll</a></li> -->
         </ul>
         <hr>
         <h3>Features</h3>
         <ul class="features-options">
-            <li><a class="feature-trigger" href="toobig" title="">Past View</a></li>
         </ul>
         <hr>
-        <h3>Border Width</h3>
+        <h3 style="margin-bottom:0;padding-bottom:0;">Border Width</h3>
+        <small>Defaults to 3px when feature is larger than view.</small>
         <ul class="border-options">
         </ul>
+        <hr>
+        <h3>Drop Shadow</h3>
+        <a href="javascript:;" class="toggle-ds">Toggle Drop Shadow</a>
     </div>
 
 
@@ -62,7 +70,7 @@
 
 
 
-    <div class="container-fluid">
+    <div class="container">
     </div>
 </body>
 

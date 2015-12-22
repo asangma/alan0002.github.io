@@ -1,99 +1,144 @@
-
-function setBackgrounds(limit, htmlTarget) {
-  var html = '';
-  for(var i = 0; i < limit; i++) {
-    var active = i>0 ? '' : ' active';
-    html += '<li><a class="bg-trigger'+active+'" href="'+i+'">Background '+i+'</a></li>'
-  }
-  jQuery(htmlTarget).append(html);
-  jQuery('.bg-trigger').on('click', function(event){
-    event.preventDefault();
-    jQuery('.bg-trigger.active').removeClass('active');
-    jQuery(this).addClass('active');
-    jQuery('.bg-body').css('background-image', 'url(images/map-'+jQuery(this).attr('href')+'.jpg)');
-  });
-}
-
 var features = {
-  0: {
-    top: 554,
-    left: 869,
-    width: 196,
-    height: 121
+  '247': {
+    width: 20,
+    height: 20,
+    top: 591,
+    left: 974,
+    type: 'point'
   },
-  1: {
+  'Cady-Mountains': {
     top: 82,
     left: 807,
     width: 644,
-    height: 172
+    height: 172,
+    type: 'polygon'
   },
-  2: {
-    top: 575,
-    left: 1791,
-    width: 172,
-    height: 277
+  'Cleghorn-Lakes': {
+    top: 555,
+    left: 1583,
+    width: 379,
+    height: 195,
+    type: 'line'
   },
-  toobig: {
+  'Larger-than-View': {
     top: 0,
     left: 0,
     width: '100%',
-    height: '100%'
+    height: '100%',
+    type: 'polygon'
   }
 }
 
-function setFeatures(limit, htmlTarget) {
+
+function setBackgrounds(limit, htmlTarget) {
   var html = '';
-  
-
-  for(var i = 0; i < limit; i++) {
-    var active = i>0 ? '' : ' active';
-    html += '<li><a class="feature-trigger'+active+'" href="'+i+'">Feature '+i+'</a></li>'
+  for (var i = 0; i < limit; i++) {
+    var active = i > 0 ? '' : 'active';
+    html += '<li><a class="bg-trigger ' + active + '" href="' + i + '">Background ' + i + '</a></li>'
   }
-  jQuery(htmlTarget).prepend(html);
+  jQuery(htmlTarget).append(html);
+  
+  bindBackgroundOptions();
+}
 
-  jQuery('.feature-trigger').on('click', function(event){
+function bindBackgroundOptions() {
+  jQuery('.bg-trigger').on('click', function(event) {
     event.preventDefault();
-    var href = jQuery(this).attr('href');
-
-    jQuery('.feature-trigger.active').removeClass('active');
+    jQuery('.bg-trigger.active').removeClass('active');
     jQuery(this).addClass('active');
-
-    var position = features[href];
-    jQuery.each(position, function(name, val){
-      jQuery('.selection').css(name, val);
-    });
-
-    if(href == 2) {
-      jQuery('.bg-body').addClass('top-right-feature');
-    } else {
-      jQuery('.bg-body').removeClass('top-right-feature');
-    }
-    if(href == 'toobig') {
-      jQuery('.bg-body').addClass('too-big');
-    } else {
-      jQuery('.bg-body').removeClass('too-big');
-    }
+    jQuery('.container').css('background-image', 'url(images/map-' + jQuery(this).attr('href') + '.jpg)');
   });
 }
 
-
-function setBorder(limit, htmlTarget) {
+function setFeatures(htmlTarget) {
   var html = '';
-  for(var i = 1; i-1 < limit; i++) {
-    var active = i==2 ? ' active' : '';
-    html += '<li><a href="px-'+i+'" class="border-trigger'+active+'">'+i+'px</a></li>';
+  //var regex = new RegExp('-');
+  var i = 0;
+  jQuery.each(features, function(key, obj) {
+    var title = key.replace(/-/g, ' ');
+    var active = '';//i > 0 ? '' : 'active';
+
+    html += '<li><a class="feature-trigger ' + active + '" href="' + key + '">' + title + ' <small>('+obj.type+')</small></a></li>';
+    i++;
+  });
+  /*for(var i = 0; i < limit; i++) {
+    var active = i>0 ? '' : 'active';
+    html += '<li><a class="feature-trigger'+active+'" href="'+i+'">Feature '+i+'</a></li>';
+  }*/
+  jQuery(htmlTarget).prepend(html);
+
+  jQuery('.feature-trigger').on('click', handleFeatureClick);
+  
+  addFeatureHits();
+}
+
+function addFeatureHits() {
+  jQuery.each(features, function(key, obj){
+    if(key !== 'Larger-than-View') {
+        jQuery('.container').append('<a class="hits ' + key + '" href="' + key + '"></a>');
+        jQuery.each(obj, function(prop, val){
+          jQuery('.'+key).css(prop, val);
+        });
+      }
+  });
+
+  jQuery('.hits').on('click', handleFeatureClick);
+}
+
+
+function handleFeatureClick(event) {
+  event.preventDefault();
+  var href = jQuery(this).attr('href');
+
+  jQuery('.feature-trigger.active').removeClass('active');
+  jQuery('.feature-trigger').each(function(i){
+    if(jQuery(this).attr('href') == href) jQuery(this).addClass('active');
+  });
+  //jQuery(this).addClass('active');
+
+  var position = features[href];
+  jQuery.each(position, function(name, val) {
+    if(name !== 'type') jQuery('.selection').css(name, val);
+  });
+
+  if (href == 'Cleghorn-Lakes') {
+    jQuery('.bg-body').addClass('right-feature');
+  } else {
+    jQuery('.bg-body').removeClass('right-feature');
+  }
+
+  if (href == 'Larger-than-View') {
+    jQuery('.bg-body').addClass('too-big');
+  } else {
+    jQuery('.bg-body').removeClass('too-big');
+  }
+
+}
+
+var borderLimit = 0;
+
+function setBorders(limit, htmlTarget) {
+  var html = '';
+  for(var i = 1; (i-1) < limit; i++) {
+    var active = i !== 1 ? '' : 'active';
+    html += '<li><a class="border-trigger '+active+'" href="px-'+i+'">'+i+'px</a></li>';
   }
   jQuery(htmlTarget).append(html);
+  borderLimit = limit;
 
+  bindBorderOptions();
+}
+
+function bindBorderOptions() {
   jQuery('.border-trigger').on('click', function(event) {
     event.preventDefault();
-    
+
     jQuery('.border-trigger.active').removeClass('active');
     jQuery(this).addClass('active');
 
     var pixels = jQuery(this).attr('href');
-    for(var i = 1; i < 4; i++) {
-      jQuery('.bg-body').removeClass('px-'+i);
+    for (var i = 1; (i-1) < borderLimit; i++) {
+      jQuery('.bg-body').removeClass('px-' + i);
     }
     jQuery('.bg-body').addClass(pixels);
   });
@@ -105,12 +150,12 @@ function addOptionsListeners() {
   }, function() {
     jQuery(this).css('opacity', 0);
   });*/
-    jQuery('.options-trigger').on('click', function(event){
-        jQuery('.options-wrap').addClass('open');
-    });
+  jQuery('.options-trigger').on('click', function(event) {
+    jQuery('.options-wrap').toggleClass('open');
+  });
 
-    jQuery('.options-wrap').hover(function(){},function(){
-        jQuery('.options-wrap').removeClass('open');
-    });
+  /*jQuery('.options-wrap').hover(function() {}, function() {
+    jQuery('.options-wrap').removeClass('open');
+  });*/
 
 }

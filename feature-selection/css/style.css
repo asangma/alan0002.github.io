@@ -1,5 +1,7 @@
-body {
-  background: url('../images/map-0.jpg') no-repeat top left #808080;
+body, html {
+  /*background: url('../images/map-0.jpg') no-repeat top left #808080;*/
+  width: 100%;
+  height: 100%;
 }
 
 h2 {
@@ -8,7 +10,7 @@ h2 {
 
 h3 {
   margin-bottom: .2em;
-  line-height: 1.5em;
+  line-height: 1.2em;
 }
 
 h3#category-title {
@@ -27,35 +29,69 @@ a {
   -o-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
 }
+a:hover {
+  text-decoration: none;
+}
+.container {
+  background: url(../images/map-0.jpg) no-repeat top left #808080;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.hits {
+  position: absolute;
+  display: block;
+  background-color: transparent;
+  z-index: 1000;
+}
 
 
-/*.tab-pane > p {
-  margin-bottom:1rem;
-  padding-left:30px;
-  font-size:14px;
-}*/
-
-
-/*.tab-pane .col-xs-6 {
-  padding: 0 0 0 30px;
-}*/
 
 .selection {
   position: fixed;
-  width: 196px;
-  height: 121px;
-  top: 554px;
-  left: 869px;
+  width: 0px;
+  height: 0px;
+  top: -10px;
+  left: -10px;
   z-index: 100;
   /*border-radius: 100%;*/
   overflow: hidden;
+  opacity: 1;
+  /*-webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, .5);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, .5);*/
+}
+
+.show-ds .selection {
+  -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, .5);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, .5);
+}
+
+.show-ds .toggle-ds {
+  font-weight: 700;
+}
+
+.px-1 .selection {
+  opacity: 1;
+}
+
+.px-2 .selection {
+  opacity: 0.8;
+}
+
+.px-3 .selection {
   opacity: 0.7;
-  /*-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);*/
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.px-4 .selection {
+  opacity: 0.6;
 }
 
 .selection .ants {
-  background: url(../images/ants-bw.gif) repeat;
+  background: url(../images/ants-4c4c4c.gif) repeat;
   position: absolute;
   z-index: 100;
 }
@@ -118,8 +154,19 @@ a {
   width: 3px;
 }
 
-.top-right-feature .ants-right/*, .top-right-feature .ants-top*/ {
+.px-4 .selection .ants-h {
+  height: 4px;
+}
+
+.px-4 .selection .ants-v {
+  width: 4px;
+}
+
+.feature-message {
   display: none;
+}
+.right-feature .feature-message {
+  display: block;
 }
 
 .ants-left, .ants-bottom {
@@ -137,6 +184,7 @@ a {
 
 .options-wrap .active {
   font-weight: 700;
+  text-decoration: none;
 }
 
 .options-wrap {
