@@ -16,7 +16,7 @@ function init() {
     }
     var left = leftLimit + (bgWidth-rightLimit) * Math.random();
     var top = topLimit + (bgHeight-bottomLimit) *  Math.random();
-    var selected = i % 3 == 0 ? 'selected' : ''
+    var selected = i % 2 == 0 ? 'selected' : ''
     html = '';
     html += '<div class="selection '+selected+'" style="left:'+left+'px;top:'+top+'px;">';
     html += '<div class="dot"></div>';
