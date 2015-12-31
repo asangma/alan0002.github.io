@@ -58,7 +58,7 @@ function setFeatures(htmlTarget) {
     var title = key.replace(/-/g, ' ');
     var active = '';//i > 0 ? '' : 'active';
 
-    html += '<li><a class="feature-trigger ' + active + '" href="' + key + '">' + title + ' <small>('+obj.type+')</small></a></li>';
+    html += '<li><a class="feature-trigger ' + obj.type + '" href="' + key + '" data-type="' + obj.type + '">' + title + ' <small>('+obj.type+')</small></a></li>';
     i++;
   });
   /*for(var i = 0; i < limit; i++) {
@@ -75,7 +75,7 @@ function setFeatures(htmlTarget) {
 function addFeatureHits() {
   jQuery.each(features, function(key, obj){
     if(key !== 'Larger-than-View') {
-        jQuery('.container').append('<a class="hits ' + key + '" href="' + key + '"></a>');
+        jQuery('.container').append('<a class="hits ' + key + '" href="' + key + '" data-type="' + obj.type + '"></a>');
         jQuery.each(obj, function(prop, val){
           jQuery('.'+key).css(prop, val);
         });
@@ -112,7 +112,10 @@ function handleFeatureClick(event) {
   } else {
     jQuery('.bg-body').removeClass('too-big');
   }
-
+  jQuery('.bg-body').removeClass('feature-type-point');
+  jQuery('.bg-body').removeClass('feature-type-line');
+  jQuery('.bg-body').removeClass('feature-type-polygon');
+  jQuery('.bg-body').addClass('feature-type-'+jQuery(this).attr('data-type'));
 }
 
 var borderLimit = 0;
