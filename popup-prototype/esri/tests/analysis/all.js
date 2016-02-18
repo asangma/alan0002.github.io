@@ -1,6 +1,0 @@
-define([
-    "./AnalysisBase",
-    "./AnalysisScenarioTestSuite"
-], function () {
-
-});

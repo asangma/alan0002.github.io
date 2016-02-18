@@ -1,5 +1,0 @@
-define([
-  "./PaddedViewState",
-  "./ViewState",
-  "./viewpointUtils"
-]);

@@ -1,5 +1,0 @@
-define([
-  "./UI",
-  "./DefaultUI",
-  "./Component"
-]);
