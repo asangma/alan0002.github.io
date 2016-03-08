@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title>Extent Widget : Experimental</title>
+    <link rel="stylesheet" href="https://jsdev.arcgis.com/4.0/esri/css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script>
+    var dojoConfig = {
+        //async: true,
+        //Debug: true,
+        paths: {
+            "esri": "../esri"
+        }
+    };
+    </script>
+    <script src="https://jsdev.arcgis.com/4.0/dojo/dojo.js"></script>
+    <script type="text/javascript">
+    var map, view;
+
+    require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/tasks/QueryTask",
+        "esri/tasks/support/Query",
+        "esri/layers/FeatureLayer",
+        "esri/layers/GraphicsLayer",
+        "esri/geometry/Extent",
+        "esri/widgets/Search",
+        "dojo/dom-construct",
+        "dojo/domReady!"
+    ], function(Map, MapView,
+        QueryTask,
+        Query,
+        FeatureLayer,
+        GraphicsLayer,
+        Extent,
+        Search,
+        domConstruct
+    ) {
+        //Create the map
+        map = new Map({
+            basemap: "streets"
+        });
+        //Create the MapView
+        view = new MapView({
+            container: "sceneDiv",
+            map: map,
+            extent: new Extent({
+                xmin: -9177882.740387835,
+                ymin: 4246761.27629837,
+                xmax: -9176720.658692285,
+                ymax: 4247967.548150893,
+                spatialReference: 102100
+            })
+        });
+
+        treeLayer = new FeatureLayer({
+            url: "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0",
+            outFields: ["*"]
+        });
+
+        map.add(treeLayer);
+
+
+        var search = new Search({
+            viewModel: {
+                view: view
+            }
+        });
+        search.startup();
+        view.ui.add(search, 'bottom-right');
+
+        // queryTask = new QueryTask({
+        //     url: "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0"
+        // });
+        // query = new Query();
+
+        setExtentWidget();
+        addListeners();
+        updateCopyInput();
+    });
+    var extent_container;
+    var options_toggle;
+    var current_features;
+
+    function addListeners() {
+        extent_container = document.getElementById('extent-widget-container');
+        document.getElementById('toggle-mode').addEventListener('click', function(e) {
+            toggleClasses(extent_container, 'show-min-max', 'show-center');
+            updateCoordRadios();
+            updateCopyInput();
+        });
+
+        var coordsRadios = document.getElementsByClassName('coords-radio');
+        for(var i = 0; i < coordsRadios.length; i++) {
+            coordsRadios[i].addEventListener('change', function(e){
+                updateCoords(this.value);
+            });
+        }
+
+        current_features = document.getElementById('current-features');
+        current_features.addEventListener('click', function(e) {
+            toggleClasses(extent_container, 'is-extent-features', 'is-all-features');
+            updateFeatureRadios();
+        });
+        var featuresRadios = document.getElementsByClassName('features-radio');
+        for(var i = 0; i < featuresRadios.length; i++) {
+            featuresRadios[i].addEventListener('change', function(e){
+                toggleClasses(extent_container, 'is-extent-features', 'is-all-features');
+            });
+        }
+
+
+        view.on("pan", setExtentWidget);
+        view.watch("animation", setExtentWidget);
+
+        options_toggle = document.getElementById('more-link');
+        options_toggle.addEventListener('click', function(e) {
+            toggleSingleClass(extent_container, 'show-options-menu');
+        });
+
+    }
+
+
+    function setExtentWidget() {
+        document.getElementById('xmin').innerHTML = getFixed(view.extent.xmin);
+        document.getElementById('ymin').innerHTML = getFixed(view.extent.ymin);
+        document.getElementById('xmax').innerHTML = getFixed(view.extent.xmax);
+        document.getElementById('ymax').innerHTML = getFixed(view.extent.ymax);
+        document.getElementById('lat').innerHTML = getFixed(view.extent.center.latitude)
+        document.getElementById('long').innerHTML = getFixed(view.extent.center.longitude);
+    }
+
+    function updateCopyInput() {
+        var copy_input = document.getElementById('copy-input');
+        if (extent_container.classList.contains('show-min-max')) {
+            copy_input.value = 'xmin:' + view.extent.xmin + ', ymin:' + view.extent.ymin + ', xmax:' +view.extent.xmax + ', ymax:' + view.extent.ymax;
+        } else {
+            copy_input.value = view.extent.center.latitude + ', ' + view.extent.center.longitude;
+        }
+    }
+
+    function updateFeatureRadios() {
+        var val = (extent_container.classList.contains('is-all-features')) ? 'all' : 'extent';
+        var radios = document.getElementsByClassName('features-radio');
+        for(var i = 0; i < radios.length; i++) {
+            if(radios[i].value == val) radios[i].checked = true;
+        }
+    }
+
+    function updateCoordRadios() {
+        var val = (extent_container.classList.contains('show-min-max')) ? 'extent' : 'center';
+        var radios = document.getElementsByClassName('coords-radio');
+        for(var i = 0; i < radios.length; i++) {
+            console.log((radios[i].value == val));
+            if(radios[i].value == val) radios[i].checked = true;
+        }
+    }
+
+    function updateCoords(val) {
+        extent_container.classList.remove('show-no-extent');
+        switch(val) {
+
+            case 'center':
+            extent_container.classList.remove('show-min-max');
+            extent_container.classList.add('show-center');
+            break;
+
+            case 'extent':
+            extent_container.classList.remove('show-center');
+            extent_container.classList.add('show-min-max');
+            break;
+
+            case 'none':
+            extent_container.classList.add('show-no-extent');
+        }
+        updateCopyInput();
+    }
+
+    function getFixed(val) {
+        return val.toFixed(4);
+    }
+
+    function toggleClasses(elem, class_a, class_b) {
+        var new_class = '';
+        var old_class = '';
+        if (elem.classList.contains(class_a)) {
+            new_class = class_b;
+            old_class = class_a;
+        } else if (elem.classList.contains(class_b)) {
+            old_class = class_b;
+            new_class = class_a;
+        }
+        removeClass(elem, old_class);
+        addClass(elem, new_class);
+    }
+
+    function toggleSingleClass(elem, className) {
+        if (elem.classList.contains(className)) {
+            removeClass(elem, className);
+        } else {
+            addClass(elem, className);
+        }
+    }
+
+    function addClass(el, className) {
+        if (el.classList)
+            el.classList.add(className)
+        else if (!hasClass(el, className)) el.className += " " + className
+    }
+
+    function removeClass(el, className) {
+        if (el.classList)
+            el.classList.remove(className)
+        else if (hasClass(el, className)) {
+            var reg = new RegExp('(\\s|^)' + className + '(\\s|$)')
+            el.className = el.className.replace(reg, ' ')
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <div id="sceneDiv"></div>
+    <div class="esri-ui-bottom-left esri-ui-corner">
+        <div class="esri-widget extent-widget show-center is-extent-features " id="extent-widget-container">
+            <div class="extent-module-container">
+                <div id="toggle-mode">
+                    <div class="extent-module extent-module-title min-max-title">
+                        <span class="esri-icon esri-icon-checkbox-unchecked"></span>
+                    </div>
+                    <div class="extent-module extent-module-title center-title">
+                        <span class="esri-icon esri-icon-locate"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="extent-min-max" class="extent-module-container">
+                <div class="extent-module">
+                    <span class="coord-title">X Min</span> <span class="coord-val" id="xmin"></span>
+                </div>
+                <div class="extent-module">
+                    <span class="coord-title">Y Min</span> <span class="coord-val" id="ymin"></span>
+                </div>
+                <div class="extent-module">
+                    <span class="coord-title">X Max</span> <span class="coord-val" id="xmax"></span>
+                </div>
+                <div class="extent-module">
+                    <span class="coord-title">Y Max</span> <span class="coord-val" id="ymax"></span>
+                </div>
+            </div>
+            <div id="extent-center" class="extent-module-container">
+                <div class="extent-module">
+                    <span class="coord-title">Lat</span> <span class="coord-val" id="lat"></span>
+                </div>
+                <div class="extent-module">
+                    <span class="coord-title">Lon</span> <span class="coord-val" id="long"></span>
+                </div>
+            </div>
+            <div class="extent-module">
+                <div id="current-features" class=""><span class="extent-features">12</span> <span class="features-slash">/</span> <span class="all-features">12,457</span></div>
+            </div>
+            <div id="more-link" class="extent-module">
+                <span class="esri-icon-handle-horizontal"></span>
+            </div>
+            <div class="options-menu esri-menu">
+                <form action="" method="" accept-charset="utf-8">
+                    <div class="options-section">
+                        <p>Show</p>
+                        <input class="coords-radio" type="radio" name="coords" value="center" checked>
+                        <label>Center</label>
+                        <br>
+                        <input class="coords-radio" type="radio" name="coords" value="extent">
+                        <label>Min/Max</label>
+                        <br>
+                        <input class="coords-radio" type="radio" name="coords" value="none">
+                        <label>None</label>
+                    </div>
+                    <div class="options-section">
+                        <p>Analysis will be run on</p>
+                        <input class="features-radio" type="radio" name="features" value="extent" checked>
+                        <label>Features In Extent</label>
+                        <br>
+                        <input class="features-radio" type="radio" name="features" value="all">
+                        <label>All Features</label>
+                    </div>
+                    <div class="options-section copy-paste-module">
+                        <!-- <p><span class="min-max-copy">Extent</span><span class="center-copy">Center</span> string</p> -->
+                        <input id="copy-input" type="text" name="copypaste" value="" placeholder="">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
