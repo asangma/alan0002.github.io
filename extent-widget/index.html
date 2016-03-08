@@ -18,7 +18,7 @@
     </script>
     <script src="https://jsdev.arcgis.com/4.0/dojo/dojo.js"></script>
     <script type="text/javascript">
-    var map, view;
+    var map, view, extent_container, options_toggle, current_features, sig_digits;
 
     require([
         "esri/Map",
@@ -74,20 +74,19 @@
         //     url: "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0"
         // });
         // query = new Query();
-
+        sig_digits = 4;
         setExtentWidget();
         addListeners();
+        updateSigDigits();
         updateCopyInput();
     });
-    var extent_container;
-    var options_toggle;
-    var current_features;
 
     function addListeners() {
         extent_container = document.getElementById('extent-widget-container');
         document.getElementById('toggle-mode').addEventListener('click', function(e) {
             toggleClasses(extent_container, 'show-min-max', 'show-center');
             updateCoordRadios();
+            updateSigDigits();
             updateCopyInput();
         });
 
@@ -140,6 +139,12 @@
         }
     }
 
+    function updateSigDigits() {
+      if(extent_container.classList.contains('show-min-max')) sig_digits = 2;
+      else sig_digits = 4;
+      setExtentWidget();
+    }
+
     function updateFeatureRadios() {
         var val = (extent_container.classList.contains('is-all-features')) ? 'all' : 'extent';
         var radios = document.getElementsByClassName('features-radio');
@@ -152,7 +157,7 @@
         var val = (extent_container.classList.contains('show-min-max')) ? 'extent' : 'center';
         var radios = document.getElementsByClassName('coords-radio');
         for(var i = 0; i < radios.length; i++) {
-            console.log((radios[i].value == val));
+            // console.log((radios[i].value == val));
             if(radios[i].value == val) radios[i].checked = true;
         }
     }
@@ -174,11 +179,12 @@
             case 'none':
             extent_container.classList.add('show-no-extent');
         }
+        updateSigDigits();
         updateCopyInput();
     }
 
     function getFixed(val) {
-        return val.toFixed(2);
+        return val.toFixed(sig_digits);
     }
 
     function toggleClasses(elem, class_a, class_b) {
