@@ -42,17 +42,14 @@
     ) {
         //Create the map
         map = new Map({
-            basemap: "streets"
+            basemap: "satellite"
         });
         //Create the MapView
         view = new MapView({
             container: "sceneDiv",
             map: map,
             extent: new Extent({
-                xmin: -9177882.740387835,
-                ymin: 4246761.27629837,
-                xmax: -9176720.658692285,
-                ymax: 4247967.548150893,
+                xmin:-9177687.766249381, ymin:4247099.868447015, xmax:-9176915.632830739, ymax:4247628.956002248,
                 spatialReference: 102100
             })
         });
