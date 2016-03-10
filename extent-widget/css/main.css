@@ -52,23 +52,25 @@ body,
 
 .coord-val {
     padding: 0 5px;
-    border: solid 1px #efefef;
+    border: solid 1px #e0e0e0;
 }
 
-#xmin {
-    border-left: solid 1px #959595;
+#xmin/*,
+#long*/ {
+    border-left: solid 1px #828282;
 }
 
-#ymin {
-    border-top: solid 1px #959595;
+#ymin/*,
+#lat*/ {
+    border-top: solid 1px #828282;
 }
 
 #xmax {
-    border-right: solid 1px #959595;
+    border-right: solid 1px #828282;
 }
 
 #ymax {
-    border-bottom: solid 1px #959595;
+    border-bottom: solid 1px #828282;
 }
 
 .coord-title {
