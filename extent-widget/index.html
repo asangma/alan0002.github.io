@@ -6,7 +6,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
     <title>Extent Widget : Experimental</title>
     <link rel="stylesheet" href="https://jsdev.arcgis.com/4.0/esri/css/main.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="css/main.css">
     <script>
     var dojoConfig = {
         //async: true,
@@ -17,213 +17,7 @@
     };
     </script>
     <script src="https://jsdev.arcgis.com/4.0/dojo/dojo.js"></script>
-    <script type="text/javascript">
-    var map, view, extent_container, options_toggle, current_features, sig_digits;
-
-    require([
-        "esri/Map",
-        "esri/views/MapView",
-        "esri/tasks/QueryTask",
-        "esri/tasks/support/Query",
-        "esri/layers/FeatureLayer",
-        "esri/layers/GraphicsLayer",
-        "esri/geometry/Extent",
-        "esri/widgets/Search",
-        "dojo/dom-construct",
-        "dojo/domReady!"
-    ], function(Map, MapView,
-        QueryTask,
-        Query,
-        FeatureLayer,
-        GraphicsLayer,
-        Extent,
-        Search,
-        domConstruct
-    ) {
-        //Create the map
-        map = new Map({
-            basemap: "satellite"
-        });
-        //Create the MapView
-        view = new MapView({
-            container: "sceneDiv",
-            map: map,
-            extent: new Extent({
-                xmin:-9177687.766249381, ymin:4247099.868447015, xmax:-9176915.632830739, ymax:4247628.956002248,
-                spatialReference: 102100
-            })
-        });
-
-        treeLayer = new FeatureLayer({
-            url: "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0",
-            outFields: ["*"]
-        });
-
-        map.add(treeLayer);
-
-
-        var search = new Search({
-            viewModel: {
-                view: view
-            }
-        });
-        search.startup();
-        view.ui.add(search, 'bottom-right');
-
-        // queryTask = new QueryTask({
-        //     url: "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0"
-        // });
-        // query = new Query();
-        sig_digits = 4;
-        setExtentWidget();
-        addListeners();
-        updateSigDigits();
-        updateCopyInput();
-    });
-
-    function addListeners() {
-        extent_container = document.getElementById('extent-widget-container');
-        document.getElementById('toggle-mode').addEventListener('click', function(e) {
-            toggleClasses(extent_container, 'show-min-max', 'show-center');
-            updateCoordRadios();
-            updateSigDigits();
-            updateCopyInput();
-        });
-
-        var coordsRadios = document.getElementsByClassName('coords-radio');
-        for(var i = 0; i < coordsRadios.length; i++) {
-            coordsRadios[i].addEventListener('change', function(e){
-                updateCoords(this.value);
-            });
-        }
-
-        current_features = document.getElementById('current-features');
-        current_features.addEventListener('click', function(e) {
-            toggleClasses(extent_container, 'is-extent-features', 'is-all-features');
-            updateFeatureRadios();
-        });
-        var featuresRadios = document.getElementsByClassName('features-radio');
-        for(var i = 0; i < featuresRadios.length; i++) {
-            featuresRadios[i].addEventListener('change', function(e){
-                toggleClasses(extent_container, 'is-extent-features', 'is-all-features');
-            });
-        }
-
-
-        view.on("pan", setExtentWidget);
-        view.watch("animation", setExtentWidget);
-
-        options_toggle = document.getElementById('more-link');
-        options_toggle.addEventListener('click', function(e) {
-            toggleSingleClass(extent_container, 'show-options-menu');
-        });
-
-    }
-
-
-    function setExtentWidget() {
-        document.getElementById('xmin').innerHTML = getFixed(view.extent.xmin);
-        document.getElementById('ymin').innerHTML = getFixed(view.extent.ymin);
-        document.getElementById('xmax').innerHTML = getFixed(view.extent.xmax);
-        document.getElementById('ymax').innerHTML = getFixed(view.extent.ymax);
-        document.getElementById('lat').innerHTML = getFixed(view.extent.center.latitude)
-        document.getElementById('long').innerHTML = getFixed(view.extent.center.longitude);
-    }
-
-    function updateCopyInput() {
-        var copy_input = document.getElementById('copy-input');
-        if (extent_container.classList.contains('show-min-max')) {
-            copy_input.value = 'xmin:' + view.extent.xmin + ', ymin:' + view.extent.ymin + ', xmax:' +view.extent.xmax + ', ymax:' + view.extent.ymax;
-        } else {
-            copy_input.value = view.extent.center.latitude + ', ' + view.extent.center.longitude;
-        }
-    }
-
-    function updateSigDigits() {
-      if(extent_container.classList.contains('show-min-max')) sig_digits = 2;
-      else sig_digits = 4;
-      setExtentWidget();
-    }
-
-    function updateFeatureRadios() {
-        var val = (extent_container.classList.contains('is-all-features')) ? 'all' : 'extent';
-        var radios = document.getElementsByClassName('features-radio');
-        for(var i = 0; i < radios.length; i++) {
-            if(radios[i].value == val) radios[i].checked = true;
-        }
-    }
-
-    function updateCoordRadios() {
-        var val = (extent_container.classList.contains('show-min-max')) ? 'extent' : 'center';
-        var radios = document.getElementsByClassName('coords-radio');
-        for(var i = 0; i < radios.length; i++) {
-            // console.log((radios[i].value == val));
-            if(radios[i].value == val) radios[i].checked = true;
-        }
-    }
-
-    function updateCoords(val) {
-        extent_container.classList.remove('show-no-extent');
-        switch(val) {
-
-            case 'center':
-            extent_container.classList.remove('show-min-max');
-            extent_container.classList.add('show-center');
-            break;
-
-            case 'extent':
-            extent_container.classList.remove('show-center');
-            extent_container.classList.add('show-min-max');
-            break;
-
-            case 'none':
-            extent_container.classList.add('show-no-extent');
-        }
-        updateSigDigits();
-        updateCopyInput();
-    }
-
-    function getFixed(val) {
-        return val.toFixed(sig_digits);
-    }
-
-    function toggleClasses(elem, class_a, class_b) {
-        var new_class = '';
-        var old_class = '';
-        if (elem.classList.contains(class_a)) {
-            new_class = class_b;
-            old_class = class_a;
-        } else if (elem.classList.contains(class_b)) {
-            old_class = class_b;
-            new_class = class_a;
-        }
-        removeClass(elem, old_class);
-        addClass(elem, new_class);
-    }
-
-    function toggleSingleClass(elem, className) {
-        if (elem.classList.contains(className)) {
-            removeClass(elem, className);
-        } else {
-            addClass(elem, className);
-        }
-    }
-
-    function addClass(el, className) {
-        if (el.classList)
-            el.classList.add(className)
-        else if (!hasClass(el, className)) el.className += " " + className
-    }
-
-    function removeClass(el, className) {
-        if (el.classList)
-            el.classList.remove(className)
-        else if (hasClass(el, className)) {
-            var reg = new RegExp('(\\s|^)' + className + '(\\s|$)')
-            el.className = el.className.replace(reg, ' ')
-        }
-    }
-    </script>
+    <script src="js/main.js"></script>
 </head>
 
 <body>
@@ -242,24 +36,24 @@
             </div>
             <div id="extent-min-max" class="extent-module-container">
                 <div class="extent-module">
-                    <span class="coord-title">X Min</span> <span class="coord-val" id="xmin">000.00</span>
+                    <span class="coord-title">X Min</span> <span class="coord-val" id="xmin"></span>
                 </div>
                 <div class="extent-module">
-                    <span class="coord-title">Y Min</span> <span class="coord-val" id="ymin">000.00</span>
+                    <span class="coord-title">Y Min</span> <span class="coord-val" id="ymin"></span>
                 </div>
                 <div class="extent-module">
-                    <span class="coord-title">X Max</span> <span class="coord-val" id="xmax">000.00</span>
+                    <span class="coord-title">X Max</span> <span class="coord-val" id="xmax"></span>
                 </div>
                 <div class="extent-module">
-                    <span class="coord-title">Y Max</span> <span class="coord-val" id="ymax">000.00</span>
+                    <span class="coord-title">Y Max</span> <span class="coord-val" id="ymax"></span>
                 </div>
             </div>
             <div id="extent-center" class="extent-module-container">
                 <div class="extent-module">
-                    <span class="coord-title">Lat</span> <span class="coord-val" id="lat">000.00</span>
+                    <span class="coord-title">Lat</span> <span class="coord-val" id="lat"></span>
                 </div>
                 <div class="extent-module">
-                    <span class="coord-title">Lon</span> <span class="coord-val" id="long">000.00</span>
+                    <span class="coord-title">Lon</span> <span class="coord-val" id="long"></span>
                 </div>
             </div>
             <div class="extent-module">
