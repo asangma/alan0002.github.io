@@ -163,15 +163,18 @@ body,
 .show-options-menu .options-menu {
     max-height: 300px;
     visibility: visible;
-    padding: 0.5em 0.5em 0.5em;
+    padding: 10px;
 }
 
 .options-section {
     padding: .5em;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.3);
     margin-bottom: 5px;
     /*border: solid 1px #959595;*/
+}
+.options-section:last-child {
+    margin-bottom: 0;
 }
 
 .options-section.copy-paste-module {
