@@ -25,7 +25,7 @@
     <div class="esri-ui-bottom-left esri-ui-corner">
         <div class="esri-widget extent-widget show-center is-extent-features " id="extent-widget-container">
             <div class="extent-module-container">
-                <div id="toggle-mode">
+                <div id="toggle-mode" title="These are not the icons you are looking for. (waves hand / has beard)">
                     <div class="extent-module extent-module-title min-max-title">
                         <span class="esri-icon esri-icon-checkbox-unchecked"></span>
                     </div>
@@ -34,7 +34,7 @@
                     </div>
                 </div>
             </div>
-            <div id="extent-min-max" class="extent-module-container">
+            <div id="extent-min-max" class="extent-module-container" title="Significant digits for display only. Full values are available from the field in the menu.">
                 <div class="extent-module">
                     <span class="coord-title">X Min</span> <span class="coord-val" id="xmin">00.00</span>
                 </div>
@@ -48,7 +48,7 @@
                     <span class="coord-title">Y Max</span> <span class="coord-val" id="ymax">00.00</span>
                 </div>
             </div>
-            <div id="extent-center" class="extent-module-container">
+            <div id="extent-center" class="extent-module-container" title="Significant digits for display only. Full values are available from the field in the menu.">
                 <div class="extent-module">
                     <span class="coord-title">Lat</span> <span class="coord-val" id="lat">00.00</span>
                 </div>
@@ -56,16 +56,17 @@
                     <span class="coord-title">Lon</span> <span class="coord-val" id="long">00.00</span>
                 </div>
             </div>
-            <div class="extent-module">
+            <div class="extent-module" title="This would live update to display the number of features in the present extent vs. total number of features in the layer.">
                 <div id="current-features" class=""><span class="extent-features">12</span> <span class="features-slash">/</span> <span class="all-features">12,457</span></div>
             </div>
             <div id="more-link" class="extent-module">
                 <span class="esri-icon-handle-horizontal"></span>
             </div>
             <div class="options-menu esri-menu">
+                <p style="margin-bottom: 0.5em;" title="This would update based on what layer was selected...?">Landscape_Trees</p>
                 <form action="" method="" accept-charset="utf-8">
                     <div class="options-section">
-                        <p>Show</p>
+                        <p title="Not sure what this title should be.">Show</p>
                         <input class="coords-radio" type="radio" name="coords" value="center" checked>
                         <label>Center</label>
                         <br>
@@ -75,7 +76,7 @@
                         <input class="coords-radio" type="radio" name="coords" value="none">
                         <label>None</label>
                     </div>
-                    <div class="options-section">
+                    <div class="options-section" title="This may only show when relevant, e.g. in the Map or Scene Viewer.">
                         <p>Analysis will be run on</p>
                         <input class="features-radio" type="radio" name="features" value="extent" checked>
                         <label>Features In Extent</label>
@@ -83,7 +84,7 @@
                         <input class="features-radio" type="radio" name="features" value="all">
                         <label>All Features</label>
                     </div>
-                    <div class="options-section copy-paste-module">
+                    <div class="options-section copy-paste-module" title="A string formatted to work in the API.">
                         <!-- <p><span class="min-max-copy">Extent</span><span class="center-copy">Center</span> string</p> -->
                         <input id="copy-input" type="text" name="copypaste" value="" placeholder="">
                     </div>
