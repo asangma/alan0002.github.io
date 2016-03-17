@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <meta name="description" content="Arcgis-js-api-alan : ArcGIS API for JavaScript">
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://esri.github.io/calcite-web/assets/css/all.css">
+    <link rel="stylesheet" href="css/bootstrap/css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="css/bootstrap/js/jquery-1.11.3.min.js"></script>
+    <script src="css/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/nav.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            setBackgrounds(5, '.map-options');
+            setFeatures('.features-options');
+            setBorders(4, '.border-options');
+            addOptionsListeners();
+
+            jQuery('.toggle-ds').on('click', function(event){
+                jQuery('.bg-body').toggleClass('show-ds');
+            });
+        });
+        
+    </script>
+    <title>Feature Selection : Marquee des Fourmis</title>
+</head>
+
+<body class="bg-body px-1 show-ds">
+    <!-- <div class="overlay"></div> -->
+    <div class="selection">
+        <div class="ants ants-h ants-top"></div>
+        <div class="ants ants-h ants-bottom"></div>
+        <div class="ants ants-v ants-left"></div>
+        <div class="ants ants-v ants-right"></div>
+        <!-- <div class="feature-message">
+            The map would reposition to show the full extent.
+        </div> -->
+    </div>
+    <div class="instructions">
+        <i class="esri-icon-left"></i> Use the burger menu to change options.
+    </div>
+    <div class="options-trigger"><i class="esri-icon-menu"></i></div>
+    <div class="options-wrap">
+        <h3 style="margin-top: 1em;">Backgrounds</h3>
+        <ul class="map-options">
+        </ul>
+        <hr>
+        <h3>Features</h3>
+        <ul class="features-options">
+        </ul>
+        <hr>
+        <h3 style="margin-bottom:0;padding-bottom:0;">Border Width</h3>
+        <small>Defaults to 3px when feature is larger than view.</small>
+        <ul class="border-options">
+        </ul>
+        <hr>
+        <h3>Drop Shadow</h3>
+        <a href="javascript:;" class="toggle-ds">Toggle Drop Shadow</a>
+    </div>
+
+
+    
+
+
+
+
+
+    <div class="container">
+    </div>
+</body>
+
+</html>
