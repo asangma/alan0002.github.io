@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>SVG Glow Effect</title>
+  <title>SVG Buffered Mask Effect</title>
   <style type="text/css" media="screen">
     html, body {
       width: 100%;
@@ -12,11 +12,16 @@
       margin: 0;
     }
     .container {
-      background:url(http://asangma.github.io/assets/images/dark-basemap.jpg) no-repeat 100% 50%;
-      background-size: cover;
+      width: 100%;
+      height: 100%;
+      background:url(http://asangma.github.io/assets/images/dark-basemap-jersey.jpg) top left no-repeat;
+      /*background-size: cover;*/
     }
-    .purple {
-      fill: #8c8ec7;
+    .purple-fill {
+      fill: #d49cca;
+    }
+    .white-fill {
+      fill: #fff;
     }
   </style>
 </head>
@@ -33,7 +38,7 @@
 
 <div class="container">
   
-  <svg version="1.1" width="400" height="700">
+  <svg version="1.1" width="100%" height="100%">
     <defs>
       <filter id="highlight" filterUnits="userSpaceOnUse" width="100%" height="100%">
         <!-- [1] Make the source graphic opaque -->
@@ -50,18 +55,18 @@
 
         <!-- [2] Enlarge source graphic by 6px -->
         <feMorphology in="OpaqueSource" result="DilatedSource" 
-                      operator="dilate" radius="6"></feMorphology>
+                      operator="dilate" radius="8"></feMorphology>
         
         <!-- Removed blur step -->
-        <!-- <feGaussianBlur in="DilatedSource" result="BlurredSource"
-                        stdDeviation="0" / -->
+         <feGaussianBlur in="DilatedSource" result="BlurredSource"
+                        stdDeviation="1" />
         
         <!-- [3] Create a rectangle filled with mask color -->
         <feFlood result="FloodedRect" 
-                 flood-color="rgba(255, 255, 255, 0.7)" />
+                 flood-color="rgba(255, 255, 255, 0.8)" />
         
         <!-- [4] Trim glow rectange to the shape of enlarged source -->
-        <feComposite in="FloodedRect" in2="DilatedSource" 
+        <feComposite in="FloodedRect" in2="BlurredSource" 
                      operator="in" result="Underlay" />
                 
         <!-- [5] Clear out the shape of original source from the result of [4] -->
@@ -75,65 +80,65 @@
       </filter>
     </defs>
 
-    <circle class="purple" r="8" cx="75" cy="60" stroke="black" stroke-width="2px" 
+    <circle class="purple-fill" r="8" cx="50" cy="60" stroke="black" stroke-width="2px" 
              fill-opacity="1" 
             filter="url(#highlight)" >
     </circle>
 
-    <circle class="purple" r="16" cx="125" cy="60" stroke="black" stroke-width="2px" 
+    <circle class="purple-fill" r="16" cx="125" cy="60" stroke="black" stroke-width="2px" 
              fill-opacity="1" 
             filter="url(#highlight)" >
     </circle>
 
-    <circle class="purple" r="32" cx="200" cy="60" stroke="black" stroke-width="2px" 
+    <circle class="purple-fill" r="32" cx="225" cy="60" stroke="black" stroke-width="2px" 
              fill-opacity="1" 
             filter="url(#highlight)" >
     </circle>
 
-    <circle class="purple" r="32" cx="285" cy="60" stroke="white" stroke-width="2px" 
+    <circle class="purple-fill" r="32" cx="345" cy="60" stroke="white" stroke-width="2px" 
              fill-opacity="0.4" 
             filter="url(#highlight)" >
     </circle>
     
-    <rect x="65" y="142" width="16" height="16"
-          fill="#8c8ec7" fill-opacity="1" 
+    <rect class="white-fill" x="45" y="150" width="16" height="16"
+          fill-opacity="1" 
           stroke="black" stroke-width="2px"
           filter="url(#highlight)" />
     
-    <rect x="110" y="136" width="32" height="32"
-          fill="#8c8ec7" fill-opacity="1" 
+    <rect class="white-fill" x="110" y="150" width="32" height="32"
+          fill-opacity="1" 
           stroke="black" stroke-width="2px"
           filter="url(#highlight)" />
     
-    <rect x="170" y="120" width="64" height="64"
-          fill="#8c8ec7" fill-opacity="1" 
+    <rect class="white-fill" x="200" y="150" width="64" height="64"
+          fill-opacity="1" 
           stroke="black" stroke-width="2px" 
           filter="url(#highlight)" />
     
-    <rect x="255" y="120" width="64" height="64"
-          fill="#8c8ec7" fill-opacity="0.4" 
+    <rect class="white-fill" x="315" y="150" width="64" height="64"
+          fill-opacity="0.4" 
           stroke="white" stroke-width="2px" 
           filter="url(#highlight)" />
     
-    <path filter="url(#highlight)" fill-rule="evenodd" stroke-dasharray="none" d="M 488 127 487 129 483 127 479 124 477 131 464 150 466 152 464 153 464 155 461 157 459 156 454 159 452 157 452 160 443 163 440 160 436 163 429 161 426 156 426 154 422 153 421 151 419 150 411 136 412 133 412 129 418 128 419 124 421 123 421 118 425 111 427 112 428 115 429 113 431 114 429 110 431 109 433 104 435 104 438 100 440 101 443 100 451 93 457 73 456 65 459 63 459 90 483 90 483 106 491 98 494 99 499 93 501 96 506 96 507 93 510 93 512 91 517 94 520 94 520 97 522 97 521 99 523 102 520 108 509 98 506 108 503 113 500 114 497 119 494 116 488 127" stroke-miterlimit="4" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="2" stroke-opacity="1" stroke="black" fill-opacity="1" fill="#8C8EC7" transform="translate(-350, 150)"></path>
+    <path class="purple-fill" filter="url(#highlight)" fill-rule="evenodd" stroke-dasharray="none" d="M 488 127 487 129 483 127 479 124 477 131 464 150 466 152 464 153 464 155 461 157 459 156 454 159 452 157 452 160 443 163 440 160 436 163 429 161 426 156 426 154 422 153 421 151 419 150 411 136 412 133 412 129 418 128 419 124 421 123 421 118 425 111 427 112 428 115 429 113 431 114 429 110 431 109 433 104 435 104 438 100 440 101 443 100 451 93 457 73 456 65 459 63 459 90 483 90 483 106 491 98 494 99 499 93 501 96 506 96 507 93 510 93 512 91 517 94 520 94 520 97 522 97 521 99 523 102 520 108 509 98 506 108 503 113 500 114 497 119 494 116 488 127" stroke-miterlimit="4" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="2" stroke-opacity="1" stroke="black" fill-opacity="1"  transform="translate(-380, 200)"></path>
     
-    <path filter="url(#highlight)" fill-rule="evenodd" stroke-dasharray="none" d="M 488 127 487 129 483 127 479 124 477 131 464 150 466 152 464 153 464 155 461 157 459 156 454 159 452 157 452 160 443 163 440 160 436 163 429 161 426 156 426 154 422 153 421 151 419 150 411 136 412 133 412 129 418 128 419 124 421 123 421 118 425 111 427 112 428 115 429 113 431 114 429 110 431 109 433 104 435 104 438 100 440 101 443 100 451 93 457 73 456 65 459 63 459 90 483 90 483 106 491 98 494 99 499 93 501 96 506 96 507 93 510 93 512 91 517 94 520 94 520 97 522 97 521 99 523 102 520 108 509 98 506 108 503 113 500 114 497 119 494 116 488 127" stroke-miterlimit="4" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="2" stroke-opacity="1" stroke="black" fill-opacity="1" fill="none" transform="translate(-200, 150)"></path>
+    <path filter="url(#highlight)" fill-rule="evenodd" stroke-dasharray="none" d="M 488 127 487 129 483 127 479 124 477 131 464 150 466 152 464 153 464 155 461 157 459 156 454 159 452 157 452 160 443 163 440 160 436 163 429 161 426 156 426 154 422 153 421 151 419 150 411 136 412 133 412 129 418 128 419 124 421 123 421 118 425 111 427 112 428 115 429 113 431 114 429 110 431 109 433 104 435 104 438 100 440 101 443 100 451 93 457 73 456 65 459 63 459 90 483 90 483 106 491 98 494 99 499 93 501 96 506 96 507 93 510 93 512 91 517 94 520 94 520 97 522 97 521 99 523 102 520 108 509 98 506 108 503 113 500 114 497 119 494 116 488 127" stroke-miterlimit="4" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="2" stroke-opacity="1" stroke="black" fill-opacity="1" fill="none" transform="translate(-200, 200)"></path>
     
-    <path filter="url(#highlight)" stroke-dasharray="none" d="M 474 498 469 500 463 498 460 499 449 499 444 494 439 494 436 494 428 499 418 501 409 495 405 497 402 501 401 505 391 516 382 517 380 520 374 521 365 531" stroke-miterlimit="4" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="3" stroke-opacity="1" stroke="#8c8ec7" fill-opacity="0" fill="none" transform="translate(-300, -115)"></path>
+    <path filter="url(#highlight)" stroke-dasharray="none" d="M 474 498 469 500 463 498 460 499 449 499 444 494 439 494 436 494 428 499 418 501 409 495 405 497 402 501 401 505 391 516 382 517 380 520 374 521 365 531" stroke-miterlimit="4" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="3" stroke-opacity="1" stroke="#8c8ec7" fill-opacity="0" fill="none" transform="translate(-320, -80)"></path>
     
-    <path filter="url(#highlight)" stroke-dasharray="none" d="M 474 498 469 500 463 498 460 499 449 499 444 494 439 494 436 494 428 499 418 501 409 495 405 497 402 501 401 505 391 516 382 517 380 520 374 521 365 531" stroke-miterlimit="4" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="2" stroke-opacity="1" stroke="black" fill-opacity="0" fill="none" transform="translate(-150, -115)"></path>
+    <path filter="url(#highlight)" stroke-dasharray="none" d="M 474 498 469 500 463 498 460 499 449 499 444 494 439 494 436 494 428 499 418 501 409 495 405 497 402 501 401 505 391 516 382 517 380 520 374 521 365 531" stroke-miterlimit="4" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="2" stroke-opacity="1" stroke="black" fill-opacity="0" fill="none" transform="translate(-150, -80)"></path>
     
-    <image filter="url(#highlight)" x="50" y="465" width="37" height="37" preserveAspectRatio="none" opacity="1" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAYAAACoPemuAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAABGlJREFUWIXtmM9LW1kUxz/XpElG/JHESJRqrMhEBAdfQWQWpSQuszD9C5xllya7YrGllXZrXLp0toVSLbg0UlwMQyGxE5BKh6idouKv+IOOSdXbhXmZZ/LeS3QcamG+q5fk3JwP555z7j3PyjWV9VsDGOl/sIvqUmBSylvAPSAMKICzyCQDJIEp4JUQYvk/BZNSKsAYEChj6szbBIAxKeUcEBVCJK8UTErplFI+BiLqd+u//8rWwjSZpTjHn3fO/2m1G6c/iKdngMafwlh+qA8AidPT05gQ4okQIvOvwaSUTiAuhFAAVmZG+RiPUesAV72bFr8Pm+3Hc2tyuSz7ewtsvI7z4UWU1mCEttAIQogIEJBSBsvBmYKpUIBytLtKaiKMZX+Rbn8XNpvdcJ3NZsfTaMfT2EAulyU9/4zNdy/pvj+Fw+VTgHg5OEMwLdThXwskx/u52VCLt1PRtbffeQRAdv5pCWRnp8LG2jpvn99GGZqlpqWnLJwZ2GMhhHK0u0pyvB+f142nscEQytIROnvWgQPwNjdhsd4gOd5P73ACh8un5PM2WjFYvvoiAKmJMDcbaiuCArB0hAzhPI0NnBx/ITURpvdBAiFEREo5qVetRhEbg7NEt+wvmm6fFqoSOG9zE5n3SVZmRmkLjai+gmXB8s0zcPL3Hh/jMbr9XQbsecd559W//AbA58mfDe1Vtbd3kYrHVLCAlPJWcRPWi9g9gM0/pqh1YFp9l5XNZqfWcdYLm/oGVZ+xcmBhgK2FaVz17pIf7Xce6W6RmfTWuOrdbC1Mq2DhSsAUgMxSnBa/r8SBpSNU2D6tzLZQL+fq6mtYXYqf81kOzAlw/HnnXEc3SvRKVQxns9m1R1nxJaCys7IYSk10MI6U1sYIzkzf930sO/8UOxSiVklL0Nqo0Tv5c6biwtEDywBOa7WbXC5baBfFcBdVMVQul8VaXaj6kvNSDywJBJz+IPt7C3ga/+ljKpyezBqsXqT29w5x+gsNv6IjaQoIeHoG2HgdLzkjL9rDjNbs7u3gvTug9VkW7BUw1tQ3yIcX0XPbeVXK5bIcHEHPWXNVfZqDCSGW83f0QGswQnr+GZ0XOMQrSfR0epHW4EP145zesGJUlVEg0RYaYfPdSzbW1vE2N5UYGRWEGdTG2jondV3qAa76KpEumBAimR8cIt33p3j7/DYW6w3dO1kxnBnU1uY2n7YP6B1+A4CUMlZVVaU7ORn2MSHEEyDgcPkUZWiW5Hg/J8dfTCOnPutpY22dT9sHKEOzOFw+gGTeh67MwDJSyiAQr2npUXqHE6QmwmTeJ2lvLx1GjIByuSzp9CIndV30Dr8pQAGXG0aK4Rwun9L7IMHKzCgpzfhWV19TAnk2vh2yu7fDwRG0Bh9qc6osVFkwLVx+OIm0hUZoC40UBt5Vk4HXe3dA2xKQUl7dwKvCAVEp5ST5VwRNfYPqJa8SzQFRo0S/NJgGMAkEr91LFQ3gMmdX4VgZ00vr+76PfQtdW7CvbPv7IdWvHuMAAAAASUVORK5CYII="></image>
+    <image filter="url(#highlight)" x="50" y="500" width="37" height="37" preserveAspectRatio="none" opacity="1" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAYAAACoPemuAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAABGlJREFUWIXtmM9LW1kUxz/XpElG/JHESJRqrMhEBAdfQWQWpSQuszD9C5xllya7YrGllXZrXLp0toVSLbg0UlwMQyGxE5BKh6idouKv+IOOSdXbhXmZZ/LeS3QcamG+q5fk3JwP555z7j3PyjWV9VsDGOl/sIvqUmBSylvAPSAMKICzyCQDJIEp4JUQYvk/BZNSKsAYEChj6szbBIAxKeUcEBVCJK8UTErplFI+BiLqd+u//8rWwjSZpTjHn3fO/2m1G6c/iKdngMafwlh+qA8AidPT05gQ4okQIvOvwaSUTiAuhFAAVmZG+RiPUesAV72bFr8Pm+3Hc2tyuSz7ewtsvI7z4UWU1mCEttAIQogIEJBSBsvBmYKpUIBytLtKaiKMZX+Rbn8XNpvdcJ3NZsfTaMfT2EAulyU9/4zNdy/pvj+Fw+VTgHg5OEMwLdThXwskx/u52VCLt1PRtbffeQRAdv5pCWRnp8LG2jpvn99GGZqlpqWnLJwZ2GMhhHK0u0pyvB+f142nscEQytIROnvWgQPwNjdhsd4gOd5P73ACh8un5PM2WjFYvvoiAKmJMDcbaiuCArB0hAzhPI0NnBx/ITURpvdBAiFEREo5qVetRhEbg7NEt+wvmm6fFqoSOG9zE5n3SVZmRmkLjai+gmXB8s0zcPL3Hh/jMbr9XQbsecd559W//AbA58mfDe1Vtbd3kYrHVLCAlPJWcRPWi9g9gM0/pqh1YFp9l5XNZqfWcdYLm/oGVZ+xcmBhgK2FaVz17pIf7Xce6W6RmfTWuOrdbC1Mq2DhSsAUgMxSnBa/r8SBpSNU2D6tzLZQL+fq6mtYXYqf81kOzAlw/HnnXEc3SvRKVQxns9m1R1nxJaCys7IYSk10MI6U1sYIzkzf930sO/8UOxSiVklL0Nqo0Tv5c6biwtEDywBOa7WbXC5baBfFcBdVMVQul8VaXaj6kvNSDywJBJz+IPt7C3ga/+ljKpyezBqsXqT29w5x+gsNv6IjaQoIeHoG2HgdLzkjL9rDjNbs7u3gvTug9VkW7BUw1tQ3yIcX0XPbeVXK5bIcHEHPWXNVfZqDCSGW83f0QGswQnr+GZ0XOMQrSfR0epHW4EP145zesGJUlVEg0RYaYfPdSzbW1vE2N5UYGRWEGdTG2jondV3qAa76KpEumBAimR8cIt33p3j7/DYW6w3dO1kxnBnU1uY2n7YP6B1+A4CUMlZVVaU7ORn2MSHEEyDgcPkUZWiW5Hg/J8dfTCOnPutpY22dT9sHKEOzOFw+gGTeh67MwDJSyiAQr2npUXqHE6QmwmTeJ2lvLx1GjIByuSzp9CIndV30Dr8pQAGXG0aK4Rwun9L7IMHKzCgpzfhWV19TAnk2vh2yu7fDwRG0Bh9qc6osVFkwLVx+OIm0hUZoC40UBt5Vk4HXe3dA2xKQUl7dwKvCAVEp5ST5VwRNfYPqJa8SzQFRo0S/NJgGMAkEr91LFQ3gMmdX4VgZ00vr+76PfQtdW7CvbPv7IdWvHuMAAAAASUVORK5CYII="></image>
     
-    <image filter="url(#highlight)" x="115" y="460" height="48" width="48" opacity="1" preserveAspectRatio="none" xlink:href="https://static.arcgis.com/images/Symbols/Basic/GreenShinyPin.png"></image>
+    <image filter="url(#highlight)" x="115" y="500" height="48" width="48" opacity="1" preserveAspectRatio="none" xlink:href="https://static.arcgis.com/images/Symbols/Basic/GreenShinyPin.png"></image>
     
-    <image filter="url(#highlight)" opacity="1" height="32" width="32" x="180" y="465" preserveAspectRatio="none" xlink:href="https://static.arcgis.com/images/Symbols/Basic/GreenStickpin.png"></image>
+    <image filter="url(#highlight)" opacity="1" height="32" width="32" x="200" y="500" preserveAspectRatio="none" xlink:href="https://static.arcgis.com/images/Symbols/Basic/GreenStickpin.png"></image>
     
-    <image filter="url(#highlight)" x="50" y="525" height="48" width="48" opacity="1" preserveAspectRatio="none" xlink:href="http://image005.flaticon.com/1/svg/28/28356.svg"></image>
+    <image filter="url(#highlight)" x="50" y="580" height="48" width="48" opacity="1" preserveAspectRatio="none" xlink:href="http://image005.flaticon.com/1/svg/28/28356.svg"></image>
     
-    <image filter="url(#highlight)" x="110" y="515" height="64" width="64" opacity="1" preserveAspectRatio="none" xlink:href="http://android-ui-utils.googlecode.com/hg-history/73d67e1c1abc59eacc29f4e93e3b5f3633675844/asset-studio/dist/res/clipart/icons/map_pin.svg"></image>
+    <image filter="url(#highlight)" x="110" y="570" height="64" width="64" opacity="1" preserveAspectRatio="none" xlink:href="http://android-ui-utils.googlecode.com/hg-history/73d67e1c1abc59eacc29f4e93e3b5f3633675844/asset-studio/dist/res/clipart/icons/map_pin.svg"></image>
     
-    <image filter="url(#highlight)" x="180" y="520" height="48" width="48" opacity="1" preserveAspectRatio="none" xlink:href="http://uxrepo.com/static/icon-sets/google-material/svg/android-directions-bike.svg"></image>
+    <image filter="url(#highlight)" x="200" y="580" height="48" width="48" opacity="1" preserveAspectRatio="none" xlink:href="http://uxrepo.com/static/icon-sets/google-material/svg/android-directions-bike.svg"></image>
     
   </svg>
   
