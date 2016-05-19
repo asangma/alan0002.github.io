@@ -1,0 +1,640 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 9]>  <html class="ie lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]>     <html class="ie ie9"> <![endif]-->
+<!--[if !IE]><!--> <html> <!--<![endif]-->
+  <head>
+
+    <!-- Set encoding -->
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Use title from page frontmatter -->
+    <title>Dashboard Round 2 - Preview</title>
+
+    <!-- Link to favicon -->
+    <link rel="shortcut icon" href="../../../../_assets/img/favicon.ico">
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="../../../../_assets/css/style.css">
+
+    
+
+  </head>
+
+  <body data-url="_versions/_old/2/preview/" data-path="../../../../" class="">
+    <div class="drawer drawer-left js-drawer" data-drawer="versioner">
+      <nav class="drawer-nav">
+        <aside class="side-nav">
+          <h4 class="side-nav-title">Versions</h4>
+          <nav class="js-versions"></nav>
+          <h4 class="side-nav-title">State</h4>
+          <div class="panel panel-white panel-padded panel-bordered padding-leader-1 padding-trailer-1">
+            <label>
+              User Role
+              <select class="js-user-role">
+                <option value="viewer">Viewer</option>
+                <option value="admin">Admin</option>
+                <option value="developer">Developer</option>
+              </select>
+            </label>
+            <fieldset>
+              <legend>Authentication</legend>
+              <label>
+                <input class="js-signed-in" type="checkbox" checked> Signed In
+              </label>
+            </fieldset>
+            <a href="" class="js-requirements">View Requirements</a>
+          </div>
+        </aside>
+      </nav>
+    </div>
+
+    <!-- left drawer - navigation menu -->
+    <div class="drawer drawer-left js-drawer" data-drawer="top-nav-left">
+      <nav class="drawer-nav">
+        <aside class="side-nav">
+          <a href="../../../../" class="side-nav-link padding-trailer-half padding-leader-half">Home</a>
+          <a href="../../../../content" class="side-nav-link padding-trailer-half padding-leader-half">Content</a></a>
+          <a href="../../../../groups" class="side-nav-link padding-trailer-half padding-leader-half">Groups</a></a>
+          <a href="../../../../organization-name" class="side-nav-link padding-trailer-half padding-leader-half">Organization</a></a>
+        </aside>
+      </nav>
+    </div>
+
+    <!-- right drawer - user menu -->
+    <div class="drawer drawer-right js-drawer" data-drawer="top-nav-right">
+      <nav class="drawer-nav">
+        <aside class="side-nav">
+          <a href="../../../../account/" class="side-nav-link padding-trailer-half padding-leader-half">Account</a>
+          <a href="../../../../account/profile" class="side-nav-link padding-trailer-half padding-leader-half">Profile</a>
+          <a href="#" class="side-nav-link padding-trailer-half padding-leader-half js-sign-out">Sign Out</a>
+        </aside>
+      </nav>
+    </div>
+
+    <div class="wrapper">
+      <header class="top-nav">
+
+        <a href="#" class="versioner-toggle inline left link-light-gray  js-drawer-toggle" data-drawer="versioner">☰</a>
+
+        <div class="grid-container ">
+          <div class="column-24 ">
+            <a href="../../../../" class="top-nav-title signed-in-hide">ArcGIS</a>
+
+            <nav class="top-nav-list tablet-show">
+              <a href="#" class="top-nav-link js-drawer-toggle" data-drawer="top-nav-left">Menu</a>
+            </nav>
+
+            <nav class="top-nav-list tablet-hide">
+              <a class="top-nav-link signed-out-hide " href="../../../../">Home</a>
+              <a class="top-nav-link signed-out-hide " href="../../../../content/">Content</a>
+              <a class="top-nav-link signed-out-hide " href="../../../../groups/">Groups</a>
+              <a class="top-nav-link signed-out-hide " href="../../../../organization-name/">Organization</a>
+
+              <a class="top-nav-link signed-in-hide " href="../../../../features/">Features</a>
+              <a class="top-nav-link signed-in-hide " href="../../../../plans/">Plans</a>
+              <a class="top-nav-link signed-in-hide " href="../../../../explore/">Explore</a>
+            </nav>
+
+            <div class="top-nav-list signed-in-hide right">
+              <a href="../../../../sign-in" class="signed-in-hide">Sign In</a>
+            </div>
+
+            <nav class="top-nav-list right">
+
+              <!-- extends side-nav-link -->
+              <div class="dropdown js-dropdown tool-link top-nav-link signed-out-hide">
+                <!-- extends side-nav -->
+                <a href="#" class="top-nav-dropdown dropdown-btn js-dropdown-toggle"><img class="nav-image" src="../../../../_assets/img/top-nav-prototype/top-nav-create.png"> Create</a>
+                <!-- extends side-nav -->
+                <nav class="dropdown-menu dropdown-right">
+                  <!-- extends side-nav-link -->
+                  <a class="dropdown-link" href="/map-viewer">New Map</a>
+                  <a class="dropdown-link" href="/scene-viewer">New Scene</a>
+                  <a class="dropdown-link" href="/new">New Layer</a>
+                  <a class="dropdown-link" href="/new">New Application</a>
+                  <a class="dropdown-link" href="/new">Upload File</a>
+                </nav>
+              </div>
+
+              <a href="../../../../map-viewer" class="top-nav-link tool-link"><img class="nav-image" src="../../../../_assets/img/top-nav-prototype/top-nav-map.png"> Map</a>
+              <a href="../../../../scene-viewer" class="top-nav-link tool-link"><img class="nav-image" src="../../../../_assets/img/top-nav-prototype/top-nav-scene.png"> Scene</a>
+              <a href="../../../../notifications" class="top-nav-link signed-out-hide user-notifications" title="View All Notifications">
+              <div class="badge">
+                <span class="badge-count" id="badge-count">4</span>
+              </div>
+              </a>
+
+              <div class="dropdown js-dropdown signed-out-hide top-nav-link">
+                <div class="tablet-show">
+                  <img src="../../../../_assets/img/gravatar.jpg" alt="Sloth Aldrin" class="user-image" width="20" height="20">
+                  <a href="#" data-drawer="top-nav-right" class="js-drawer-toggle link-off-black">Patrick</a>
+                </div>
+
+                <div class="tablet-hide">
+                  <img src="../../../../_assets/img/gravatar.jpg" alt="Sloth Aldrin" class="user-image" width="20" height="20">
+                  <a class="top-nav-dropdown dropdown-btn js-dropdown-toggle">Patrick</a>
+                </div>
+
+                <nav class="dropdown-menu dropdown-right">
+                  <a href="../../../../account" class="dropdown-link">Account</a>
+                  <a href="../../../../account/profile" class="dropdown-link">Profile</a>
+                  <a href="../../../../account/billing" class="dropdown-link viewer-hide">Billing</a>
+                  <a href="#" class="dropdown-link js-sign-out">Sign Out</a>
+                </nav>
+              </div>
+            </nav>
+
+            <div class="site-search is-active right">
+              <form class="site-search-form">
+                <span class="icon-ui-search site-search-icon"></span>
+                <input class="site-search-input" type="search" placeholder="Search">
+                <span class="input-group-button">
+                  <a href="../../../../search" class="btn btn-clear site-search-button">Go</a>
+                </span>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </header>
+
+      <!DOCTYPE html>
+<!--[if lt IE 9]>  <html class="ie lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]>     <html class="ie ie9"> <![endif]-->
+<!--[if !IE]><!--> <html> <!--<![endif]-->
+  <head>
+
+    <!-- Set encoding -->
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+
+    <!-- Use title from page frontmatter -->
+    <title>Layers</title>
+
+    <!-- Link to favicon -->
+    <link rel="shortcut icon" href="../../../../_assets/img/favicon.ico">
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="../../../../_assets/css/dashboard-2.css">
+
+  </head>
+
+  <body>
+
+    <div class="wrapper">
+      <header class="top-nav">
+      <div class="container">
+        <div class="tablet-hide">
+          <a href="#" class="top-nav-title">ArcGIS</a>
+          <nav class="top-nav-list">
+            <a class="top-nav-link" href="#">Layers</a>
+            <a class="top-nav-link" href="#">Maps</a>
+            <a class="top-nav-link" href="#">Apps</a>
+            <a class="top-nav-link" href="#">Analysis</a>
+            <a class="top-nav-link" href="#">Explore</a>
+            <a class="top-nav-link" href="#">Help</a>
+          </nav>
+        </div>
+
+        <div class="dropdown js-dropdown right">
+
+          <div class="user phone-show js-drawer-toggle" data-drawer="user-nav">
+            <img src="http://f.cl.ly/items/0S1k2j2q3k3Q0d3g2i3J/a9d.jpg" alt="Patrick Arlt" class="user-image ">
+          </div>
+
+          <div class="user phone-hide js-dropdown-toggle">
+            <img src="http://f.cl.ly/items/0S1k2j2q3k3Q0d3g2i3J/a9d.jpg" alt="Patrick Arlt" class="user-image">
+            <span class="user-name">Patrick Arlt</span>
+          </div>
+
+          <nav class="dropdown-menu dropdown-right user-nav">
+            <a href="#" class="dropdown-link">Account</a>
+            <a href="#" class="dropdown-link">Profile</a>
+            <a href="#" class="dropdown-link">Billing</a>
+            <a href="#" class="dropdown-link">Organizations</a>
+            <a href="#" class="dropdown-link">Groups</a>
+            <a href="#" class="dropdown-link">Log Out</a>
+          </nav>
+        </div>
+
+      </div>
+    </header>
+
+    <header class="dashboard-banner">
+      <div class="container">
+
+        <div class="dashboard-banner-user-profile column-8 post-1">
+          <img src="http://f.cl.ly/items/0S1k2j2q3k3Q0d3g2i3J/a9d.jpg" alt="" class="left" width="100" height='100'>
+          <div class="left">
+            <h1 class="trailer-0 leader-0">Patrick Arlt <small><a href="">View Profile</a></small></h1>
+            <h3 class="trailer-0 leader-0">Esri PDX <small><a href="">View Organization</a></small></h3>
+          </div>
+        </div>
+
+        <div class="dashboard-banner-role-summary column-15 trailer-1">
+            <div class="column-4">
+                <div class="stat">
+                <div class="count">14/50</div>
+                <div class="label">Users</div>
+              </div>
+            </div>
+
+            <div class="column-6">
+                <div class="stat">
+                <div class="count">14,288</div>
+                <div class="label">Credits Remaining</div>
+              </div>
+            </div>
+
+            <div class="column-4">
+              <div class="stat">
+                <div class="count">10%</div>
+                <div class="label">Liscenses Assigned</div>
+              </div>
+            </div>
+        </div>
+
+        <nav class="column-14 dashboard-banner-role-actions">
+          <div class="block-group block-group-4-up">
+          <div class="block"><a href="" class="btn btn-fill btn-clear btn-small">Manage Users</a></div>
+          <div class="block"><a href="" class="btn btn-fill btn-clear btn-small">Credit Usage</a></div>
+          <div class="block"><a href="" class="btn btn-fill btn-clear btn-small">Purchase Credits</a></div>
+          <div class="block"><a href="" class="btn btn-fill btn-clear btn-small">Assign Liscenses</a></div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="column-8 post-1">
+        <h2>Your Groups</h2>
+        <h4><a href="">Public Demos</a></h4>
+        <div class="block-group block-group-4-up group-stats">
+          <div class="block stat">
+            <div class="count">13</div>
+            <div class="label">Apps</div>
+          </div>
+          <div class="block stat">
+            <div class="count">26</div>
+            <div class="label">Maps</div>
+          </div>
+          <div class="block stat">
+            <div class="count">6</div>
+            <div class="label">Layers</div>
+          </div>
+          <div class="block stat">
+            <div class="count">4</div>
+            <div class="label">Users</div>
+          </div>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut ipsum rutrum <a href="">More&hellip;</a></p>
+
+        <h4><a href="">Open Data</a></h4>
+        <div class="block-group block-group-4-up group-stats">
+          <div class="block stat">
+            <div class="count">0</div>
+            <div class="label">Apps</div>
+          </div>
+          <div class="block stat">
+            <div class="count">0</div>
+            <div class="label">Maps</div>
+          </div>
+          <div class="block stat">
+            <div class="count">13</div>
+            <div class="label">Layers</div>
+          </div>
+          <div class="block stat">
+            <div class="count">3</div>
+            <div class="label">Users</div>
+          </div>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut ipsum rutrum <a href="">More&hellip;</a></p>
+
+        <h4><a href="">Meetup Demos</a></h4>
+        <div class="block-group block-group-4-up group-stats">
+          <div class="block stat">
+            <div class="count">6</div>
+            <div class="label">Apps</div>
+          </div>
+          <div class="block stat">
+            <div class="count">12</div>
+            <div class="label">Maps</div>
+          </div>
+          <div class="block stat">
+            <div class="count">16</div>
+            <div class="label">Layers</div>
+          </div>
+          <div class="block stat">
+            <div class="count">6</div>
+            <div class="label">Users</div>
+          </div>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut ipsum rutrum <a href="">More&hellip;</a></p>
+
+        <a href="" class="btn btn-clear btn-small">Manage Your Groups</a>
+
+        <h2 class="leader-2">Featured Content</h2>
+        <ul class="featured-content">
+          <li>
+            <img src="../../../../_assets/img/graph.png">
+            <a href="">Portland Bicycle Explorer</a>
+          </li>
+          <li>
+            <img src="../../../../_assets/img/graph.png">
+            <a href="">City Data Browser</a>
+          </li>
+          <li>
+            <img src="../../../../_assets/img/graph.png">
+            <a href="">Parks & Trees Map</a>
+          </li>
+          <li>
+            <img src="../../../../_assets/img/graph.png">
+            <a href="">Tax Lots</a>
+          </li>
+          <li>
+            <img src="../../../../_assets/img/graph.png">
+            <a href="">2014 Crime Summary</a>
+          </li>
+        </ul>
+        <a href="" class="btn btn-clear btn-small">All Esri PDX Content</a>
+      </div>
+
+      <div class="column-15">
+        <h2>Your Content</h2>
+
+        <form method="GET" action="/search/">
+          <div class="column-9">
+            <div class="search-bar">
+              <input type='search' placeholder='Search' style="margin-top:0px;">
+              <button type="submit" class="search-submit icon-search"></button>
+            </div>
+          </div>
+
+          <div class="dropdown js-dropdown column-3">
+            <!-- extends side-nav -->
+            <a href="#" class="btn btn-clear btn-fill dropdown-btn js-dropdown-toggle">Tags</a>
+            <!-- extends side-nav -->
+            <nav class="dropdown-menu modifier-class">
+              <!-- extends side-nav-link -->
+              <a href="#" class="dropdown-link">PDX (13)</a>
+              <a href="#" class="dropdown-link">Portland (11)</a>
+              <a href="#" class="dropdown-link">Demo (9)</a>
+              <a href="#" class="dropdown-link">Testing (3)</a>
+              <a href="#" class="dropdown-link">foo (1)</a>
+            </nav>
+          </div>
+
+          <div class="dropdown js-dropdown column-3">
+            <!-- extends side-nav -->
+            <a href="#" class="btn btn-clear btn-fill dropdown-btn js-dropdown-toggle">Types</a>
+            <!-- extends side-nav -->
+            <nav class="dropdown-menu modifier-class">
+              <!-- extends side-nav-link -->
+              <a href="#" class="dropdown-link">Layers</a>
+              <a href="#" class="dropdown-link">Apps</a>
+              <a href="#" class="dropdown-link">Maps</a>
+              <a href="#" class="dropdown-link">Files</a>
+              <a href="#" class="dropdown-link">Tools</a>
+            </nav>
+          </div>
+        </form>
+
+        <div class="column-15 font-size--1 layer-header leader-half">
+          <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox" name="gender" value="female"></div>
+          <div class="column-6"><a href="#" class="link-dark-gray">Name &#x25BE;</a></div>
+          <div class="column-3"><a href="#" class="link-dark-gray">Modified</a></div>
+          <div class="column-3"><a href="#" class="link-dark-gray">Type</a></div>
+        </div>
+
+        <div class="column-15 font-size--1 layer-item text-darkest-gray  is-selected">
+          <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox" name="gender" value="female"></div>
+          <div class="column-1"><img src="../../../../_assets/img/document.png" ></div>
+          <div class="column-5"><a href="is-selected.html">Title of Layer</a></div>
+          <div class="column-3">Dec 12, 2014</div>
+          <div class="column-3">Features</div>
+          <div class="column-2"><a href="preview.html" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+        </div>
+
+
+        <div class="panel panel-white column-15 preview">
+          <div class="column-5"><img src="http://f.cl.ly/items/051P061Y3T1K1F44301N/Screen%20Shot%202015-02-19%20at%2010.43.54%20AM.png" alt=""></div>
+          <div class="column-9">
+            <h4 class="header-light leader-0 trailer-half">Title of Layer</h4>
+            <p class="font-size--2">Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <p class="font-size--2 trailer-0">Owner: Sloth Aldrin</p>
+            <p class="font-size--2 trailer-0">Tags: <a href="">water</a>, <a href="">land cover</a>, <a href="">soil</a>
+            <p>
+              <a href="#" class="btn leader-half btn-small btn-clear">View Item</a>
+              <a href="#" class="btn leader-half btn-small btn-clear">Download Data</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="column-15 font-size--1 layer-item text-darkest-gray">
+          <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox" name="gender" value="female"></div>
+          <div class="column-1"><img src="../../../../_assets/img/graph.png" ></div>
+          <div class="column-5"><a href="is-selected.html">Title of Layer</a></div>
+          <div class="column-3">Feb 20, 2015</div>
+          <div class="column-3">Imagery</div>
+          <div class="column-2"><small class="item-preview-affordance text-gray">preview</small></div>
+        </div>
+
+        <div class="column-15 font-size--1 layer-item text-darkest-gray">
+          <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox" name="gender" value="female"></div>
+          <div class="column-1"><img src="../../../../_assets/img/document.png" ></div>
+          <div class="column-5"><a href="is-selected.html">Title of Layer</a></div>
+          <div class="column-3">Dec 12, 2014</div>
+          <div class="column-3">Features</div>
+          <div class="column-2"><small class="item-preview-affordance text-gray">preview</small></div>
+        </div>
+        <div class="column-15 font-size--1 layer-item text-darkest-gray">
+          <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox" name="gender" value="female"></div>
+          <div class="column-1"><img src="../../../../_assets/img/graph.png" ></div>
+          <div class="column-5"><a href="is-selected.html">Title of Layer</a></div>
+          <div class="column-3">Feb 20, 2015</div>
+          <div class="column-3">Features</div>
+          <div class="column-2"><small class="item-preview-affordance text-gray">preview</small></div>
+        </div>
+        <div class="column-15 font-size--1 layer-item text-darkest-gray">
+          <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox" name="gender" value="female"></div>
+          <div class="column-1"><img src="../../../../_assets/img/graph.png" ></div>
+          <div class="column-5"><a href="is-selected.html">Title of Layer</a></div>
+          <div class="column-3">Feb 20, 2015</div>
+          <div class="column-3">Tiles</div>
+          <div class="column-2"><small class="item-preview-affordance text-gray">preview</small></div>
+        </div>
+        <div class="column-15 font-size--1 layer-item text-darkest-gray">
+          <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox" name="gender" value="female"></div>
+          <div class="column-1"><img src="../../../../_assets/img/graph.png" ></div>
+          <div class="column-5"><a href="is-selected.html">Title of Layer</a></div>
+          <div class="column-3">Feb 20, 2015</div>
+          <div class="column-3">Imagery</div>
+          <div class="column-2"><small class="item-preview-affordance text-gray">preview</small></div>
+        </div>
+        <div class="column-15 font-size--1 layer-item text-darkest-gray">
+          <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox" name="gender" value="female"></div>
+          <div class="column-1"><img src="../../../../_assets/img/graph.png" ></div>
+          <div class="column-5"><a href="is-selected.html">Title of Layer</a></div>
+          <div class="column-3">Feb 20, 2015</div>
+          <div class="column-3">Basemap</div>
+          <div class="column-2"><small class="item-preview-affordance text-gray">preview</small></div>
+        </div>
+
+        <div class="column-15 font-size--1 layer-item text-darkest-gray">
+          <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox" name="gender" value="female"></div>
+          <div class="column-1"><img src="../../../../_assets/img/graph.png" ></div>
+          <div class="column-5"><a href="is-selected.html">Title of Layer</a></div>
+          <div class="column-3">Feb 20, 2015</div>
+          <div class="column-3">Basemap</div>
+          <div class="column-2"><small class="item-preview-affordance text-gray">preview</small></div>
+        </div>
+
+        <div class="column-15 font-size--1 layer-item text-darkest-gray">
+          <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox" name="gender" value="female"></div>
+          <div class="column-1"><img src="../../../../_assets/img/document.png" ></div>
+          <div class="column-5"><a href="is-selected.html">Title of Layer</a></div>
+          <div class="column-3">Dec 12, 2014</div>
+          <div class="column-3">Features</div>
+          <div class="column-2"><a href="preview.html" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+        </div>
+
+        <div class="column-15 font-size--1 layer-item text-darkest-gray">
+          <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox" name="gender" value="female"></div>
+          <div class="column-1"><img src="../../../../_assets/img/graph.png" ></div>
+          <div class="column-5"><a href="is-selected.html">Title of Layer</a></div>
+          <div class="column-3">Feb 20, 2015</div>
+          <div class="column-3">Imagery</div>
+          <div class="column-2"><small class="item-preview-affordance text-gray">preview</small></div>
+        </div>
+
+        <div class="column-15 font-size--1 layer-item text-darkest-gray">
+          <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox" name="gender" value="female"></div>
+          <div class="column-1"><img src="../../../../_assets/img/document.png" ></div>
+          <div class="column-5"><a href="is-selected.html">Title of Layer</a></div>
+          <div class="column-3">Dec 12, 2014</div>
+          <div class="column-3">Features</div>
+          <div class="column-2"><small class="item-preview-affordance text-gray">preview</small></div>
+        </div>
+        <div class="column-15 font-size--1 layer-item text-darkest-gray">
+          <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox" name="gender" value="female"></div>
+          <div class="column-1"><img src="../../../../_assets/img/graph.png" ></div>
+          <div class="column-5"><a href="is-selected.html">Title of Layer</a></div>
+          <div class="column-3">Feb 20, 2015</div>
+          <div class="column-3">Features</div>
+          <div class="column-2"><small class="item-preview-affordance text-gray">preview</small></div>
+        </div>
+        <div class="column-15 font-size--1 layer-item text-darkest-gray">
+          <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox" name="gender" value="female"></div>
+          <div class="column-1"><img src="../../../../_assets/img/graph.png" ></div>
+          <div class="column-5"><a href="is-selected.html">Title of Layer</a></div>
+          <div class="column-3">Feb 20, 2015</div>
+          <div class="column-3">Tiles</div>
+          <div class="column-2"><small class="item-preview-affordance text-gray">preview</small></div>
+        </div>
+        <div class="column-15 font-size--1 layer-item text-darkest-gray">
+          <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox" name="gender" value="female"></div>
+          <div class="column-1"><img src="../../../../_assets/img/graph.png" ></div>
+          <div class="column-5"><a href="is-selected.html">Title of Layer</a></div>
+          <div class="column-3">Feb 20, 2015</div>
+          <div class="column-3">Imagery</div>
+          <div class="column-2"><small class="item-preview-affordance text-gray">preview</small></div>
+        </div>
+        <div class="column-15 font-size--1 layer-item text-darkest-gray">
+          <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox" name="gender" value="female"></div>
+          <div class="column-1"><img src="../../../../_assets/img/graph.png" ></div>
+          <div class="column-5"><a href="is-selected.html">Title of Layer</a></div>
+          <div class="column-3">Feb 20, 2015</div>
+          <div class="column-3">Basemap</div>
+          <div class="column-2"><small class="item-preview-affordance text-gray">preview</small></div>
+        </div>
+
+        <div class="column-15 font-size--1 layer-item text-darkest-gray">
+          <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox" name="gender" value="female"></div>
+          <div class="column-1"><img src="../../../../_assets/img/graph.png" ></div>
+          <div class="column-5"><a href="is-selected.html">Title of Layer</a></div>
+          <div class="column-3">Feb 20, 2015</div>
+          <div class="column-3">Basemap</div>
+          <div class="column-2"><small class="item-preview-affordance text-gray">preview</small></div>
+        </div>
+
+        <div class="trailer-1 leader-1 column-15" style="text-align:center;">
+          <a href="#" class="btn btn-transparent btn-disabled">Previous</a>
+          <a href="#" class="btn">1</a>
+          <a href="#" class="btn btn-transparent">2</a>
+          <a href="#" class="btn btn-transparent">3</a>
+          <span class="header-light text-light-gray">...</span>
+          <a href="#" class="btn btn-transparent">12</a>
+          <a href="#" class="btn btn-transparent btn-arrow">Next</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/v0.0.9/js/calcite-web.min.js"></script>
+    <script>calcite.init();</script>
+  </body>
+
+</html>
+
+      
+    </div>
+
+   <footer class="footer avenir-regular padding-leader-1">
+      <div class="grid-container ">
+        <nav class="column-6">
+          <h6>Arc<span>GIS</span></h6>
+          <ul class="list-bulleted">
+            <li><a href="http://www.arcgis.com/about/">Home</a></li>
+            <li><a href="http://www.arcgis.com/about/features.html">Features</a></li>
+            <li><a href="http://www.arcgis.com/about/pricing.html">Pricing</a></li>
+          </ul>
+        </nav>
+
+        <nav class="column-6">
+          <h6>Arc<span>GIS</span> for Developers</h6>
+          <ul>
+            <li><a href="/en/">Home</a></li>
+            <li><a href="/en/features/">Features</a></li>
+            <li><a href="http://blogs.esri.com/esri/arcgis/category/developer/">Blog</a></li>
+          </ul>
+        </nav>
+
+        <nav class="column-6">
+          <h6>About Esri</h6>
+          <ul>
+            <li><a href="http://www.esri.com/about-esri/">About Us</a></li>
+            <li><a href="http://www.esri.com/careers/">Careers</a></li>
+            <li><a href="http://blogs.esri.com/esri/esri-insider/">Insiders Blog</a></li>
+            <li><a href="http://www.esri.com/events/user-conference/index.html">User Conference</a></li>
+            <li><a href="http://www.esri.com/events/devsummit/index.html">Developer Summit</a></li>
+          </ul>
+        </nav>
+
+        <nav class="column-6 padding-leader-half">
+          <a class="esri-logo" href="http://esri.com"></a>
+          <section class="footer-social-nav">
+            <a class="icon-twitter" href="https://twitter.com/Esri/"></a>
+            <a class="icon-facebook" href="https://www.facebook.com/esrigis/"></a>
+            <a class="icon-github" href="http://esri.github.com/"></a>
+            <a class="icon-email" href="http://www.esri.com/about-esri/contact/"></a>
+          </section>
+        </nav>
+        <div class="">
+          <p><small>© Copyright 2013 Environmental Systems Research Institute, Inc. | <a href="http://www.esri.com/legal/privacy">Privacy</a> | <a href="http://www.esri.com/legal/software-license">Legal</a></small></p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../../../../_assets/js/common.js"></script>
+    <script src="../../../../_assets/js/main.js"></script>
+
+    
+  </body>
+
+</html>

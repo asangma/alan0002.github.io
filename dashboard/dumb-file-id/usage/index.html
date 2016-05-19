@@ -1,0 +1,593 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 9]>  <html class="ie lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]>     <html class="ie ie9"> <![endif]-->
+<!--[if !IE]><!--> <html> <!--<![endif]-->
+  <head>
+
+    <!-- Set encoding -->
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Use title from page frontmatter -->
+    <title>Item Page | Unpublishable File</title>
+
+    <!-- Link to favicon -->
+    <link rel="shortcut icon" href="../../_assets/img/favicon.ico">
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="../../_assets/css/style.css">
+
+    
+
+  </head>
+
+  <body data-url="dumb-file-id/usage/" data-path="../../" class="">
+    <div class="drawer drawer-left js-drawer" data-drawer="versioner">
+      <nav class="drawer-nav">
+        <aside class="side-nav">
+          <h4 class="side-nav-title">Versions</h4>
+          <nav class="js-versions"></nav>
+          <h4 class="side-nav-title">State</h4>
+          <div class="panel panel-white panel-padded panel-bordered padding-leader-1 padding-trailer-1">
+            <label>
+              User Role
+              <select class="js-user-role">
+                <option value="viewer">Viewer</option>
+                <option value="admin">Admin</option>
+                <option value="developer">Developer</option>
+              </select>
+            </label>
+            <fieldset>
+              <legend>Authentication</legend>
+              <label>
+                <input class="js-signed-in" type="checkbox" checked> Signed In
+              </label>
+            </fieldset>
+            <a href="" class="js-requirements">View Requirements</a>
+          </div>
+        </aside>
+      </nav>
+    </div>
+
+    <!-- left drawer - navigation menu -->
+    <div class="drawer drawer-left js-drawer" data-drawer="top-nav-left">
+      <nav class="drawer-nav">
+        <aside class="side-nav">
+          <a href="../../" class="side-nav-link padding-trailer-half padding-leader-half">Home</a>
+          <a href="../../content" class="side-nav-link padding-trailer-half padding-leader-half">Content</a></a>
+          <a href="../../groups" class="side-nav-link padding-trailer-half padding-leader-half">Groups</a></a>
+          <a href="../../organization-name" class="side-nav-link padding-trailer-half padding-leader-half">Organization</a></a>
+        </aside>
+      </nav>
+    </div>
+
+    <!-- right drawer - user menu -->
+    <div class="drawer drawer-right js-drawer" data-drawer="top-nav-right">
+      <nav class="drawer-nav">
+        <aside class="side-nav">
+          <a href="../../account/" class="side-nav-link padding-trailer-half padding-leader-half">Account</a>
+          <a href="../../account/profile" class="side-nav-link padding-trailer-half padding-leader-half">Profile</a>
+          <a href="#" class="side-nav-link padding-trailer-half padding-leader-half js-sign-out">Sign Out</a>
+        </aside>
+      </nav>
+    </div>
+
+    <div class="wrapper">
+      <header class="top-nav">
+
+        <a href="#" class="versioner-toggle inline left link-light-gray  js-drawer-toggle" data-drawer="versioner">☰</a>
+
+        <div class="grid-container ">
+          <div class="column-24 ">
+            <a href="../../" class="top-nav-title signed-in-hide">ArcGIS</a>
+
+            <nav class="top-nav-list tablet-show">
+              <a href="#" class="top-nav-link js-drawer-toggle" data-drawer="top-nav-left">Menu</a>
+            </nav>
+
+            <nav class="top-nav-list tablet-hide">
+              <a class="top-nav-link signed-out-hide " href="../../">Home</a>
+              <a class="top-nav-link signed-out-hide " href="../../content/">Content</a>
+              <a class="top-nav-link signed-out-hide " href="../../groups/">Groups</a>
+              <a class="top-nav-link signed-out-hide " href="../../organization-name/">Organization</a>
+
+              <a class="top-nav-link signed-in-hide " href="../../features/">Features</a>
+              <a class="top-nav-link signed-in-hide " href="../../plans/">Plans</a>
+              <a class="top-nav-link signed-in-hide " href="../../explore/">Explore</a>
+            </nav>
+
+            <div class="top-nav-list signed-in-hide right">
+              <a href="../../sign-in" class="signed-in-hide">Sign In</a>
+            </div>
+
+            <nav class="top-nav-list right">
+
+              <!-- extends side-nav-link -->
+              <div class="dropdown js-dropdown tool-link top-nav-link signed-out-hide">
+                <!-- extends side-nav -->
+                <a href="#" class="top-nav-dropdown dropdown-btn js-dropdown-toggle"><img class="nav-image" src="../../_assets/img/top-nav-prototype/top-nav-create.png"> Create</a>
+                <!-- extends side-nav -->
+                <nav class="dropdown-menu dropdown-right">
+                  <!-- extends side-nav-link -->
+                  <a class="dropdown-link" href="/map-viewer">New Map</a>
+                  <a class="dropdown-link" href="/scene-viewer">New Scene</a>
+                  <a class="dropdown-link" href="/new">New Layer</a>
+                  <a class="dropdown-link" href="/new">New Application</a>
+                  <a class="dropdown-link" href="/new">Upload File</a>
+                </nav>
+              </div>
+
+              <a href="../../map-viewer" class="top-nav-link tool-link"><img class="nav-image" src="../../_assets/img/top-nav-prototype/top-nav-map.png"> Map</a>
+              <a href="../../scene-viewer" class="top-nav-link tool-link"><img class="nav-image" src="../../_assets/img/top-nav-prototype/top-nav-scene.png"> Scene</a>
+              <a href="../../notifications" class="top-nav-link signed-out-hide user-notifications" title="View All Notifications">
+              <div class="badge">
+                <span class="badge-count" id="badge-count">4</span>
+              </div>
+              </a>
+
+              <div class="dropdown js-dropdown signed-out-hide top-nav-link">
+                <div class="tablet-show">
+                  <img src="../../_assets/img/gravatar.jpg" alt="Sloth Aldrin" class="user-image" width="20" height="20">
+                  <a href="#" data-drawer="top-nav-right" class="js-drawer-toggle link-off-black">Patrick</a>
+                </div>
+
+                <div class="tablet-hide">
+                  <img src="../../_assets/img/gravatar.jpg" alt="Sloth Aldrin" class="user-image" width="20" height="20">
+                  <a class="top-nav-dropdown dropdown-btn js-dropdown-toggle">Patrick</a>
+                </div>
+
+                <nav class="dropdown-menu dropdown-right">
+                  <a href="../../account" class="dropdown-link">Account</a>
+                  <a href="../../account/profile" class="dropdown-link">Profile</a>
+                  <a href="../../account/billing" class="dropdown-link viewer-hide">Billing</a>
+                  <a href="#" class="dropdown-link js-sign-out">Sign Out</a>
+                </nav>
+              </div>
+            </nav>
+
+            <div class="site-search is-active right">
+              <form class="site-search-form">
+                <span class="icon-ui-search site-search-icon"></span>
+                <input class="site-search-input" type="search" placeholder="Search">
+                <span class="input-group-button">
+                  <a href="../../search" class="btn btn-clear site-search-button">Go</a>
+                </span>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </header>
+
+      <div class="versioner" data-version="current">
+  
+  
+  <header class="sub-nav trailer-1 " >
+  <div class="grid-container ">
+    <div class="column-24 ">
+      <h1 class="sub-nav-title">
+         <a href="#" class="font-size-0 text-white">– Edit</a>
+        <span class="admin-hide developer-hide"></span>
+      </h1>
+
+      <nav class="sub-nav-list">
+        <a href="../../dumb-file-id/" class="sub-nav-link ">Overview</a>
+        
+        
+        
+        <a href="../../dumb-file-id/settings/" class="sub-nav-link viewer-hide signed-out-hide ">Settings</a>
+      </nav>
+    </div>
+  </div>
+</header>
+  
+<!-- The title section lives in ../sub-nav.html -->
+
+<!-- The grid container provides the structural container for the content of the page. -->
+<section class="grid-container">
+
+  <!-- This is the Main item details introduction area.  -->
+  <div class="column-17 post-1">
+
+    <!-- This is prototype specific logic for the thumbnail. As long as we put the proper thumbnail in the following html it will work:
+        ```
+        <div class="column-4">
+          <img class="img-full-width v2-item-thumbnail trailer-1" src="" alt="">
+        </div>
+        ```
+     -->
+
+    
+
+
+    <!-- This checks for items that have no thumbnail, and makes the item snippet fill the div if there is no image. -->
+    <div class="column-17 post-1">
+      <!-- Item type icon -->
+      <p class="trailer-half">
+        <img src="../_assets/img/arcgis-online-icons/Web Map.png" alt="" width="16" height="16">
+        <a href="#"></a> by <a href="../../dumb-file-idusers/"></a>
+      </p>
+      <p class="trailer-half " aria-label="Edit Item Snippet">
+        <span class="js-edit-this-content">
+          <a href="#" class="font-size--1 link-gray js-edit-this-toggle">—&nbsp;Edit</a>
+        </span>
+
+      </p>
+    </div>
+  </div>
+
+
+  <!-- This ends the Main Column -->
+
+
+  <!-- This is the side bar, the primary actions and further details -->
+  <div class="column-6 right">
+    <!-- These actions are contextual. If an item can not perform an action, the button is not present. There are no dropdowns. -->
+    <!-- If we need to support the four open options, we should have a conversation about how to do this as smoothly as possible. -->
+
+    <!-- If this is a Scene Layer or Scene Map, default to open in scene viewer -->
+    
+
+    <!-- If this item can not be opened, only downloaded, surface that option immediately. -->
+    
+      <a href="#" class="trailer-half btn btn-fill">Download Item</a>
+    
+
+    <!-- This is a speculative action for apps. -->
+    
+
+
+    <!-- Publishing an item can take place in a modal. -->
+    
+    <a class="trailer-half btn btn-fill btn-clear viewer-hide signed-out-hide js-modal-toggle btn" href="#" data-modal="copy">Copy Item</a>
+    <div class="js-modal modal-overlay modifier-class" data-modal="copy">
+      <div class="modal-content column-12" role="dialog" aria-labelledby="modal" role="dialog">
+        <a class="js-modal-toggle icon-ui-close font-size-1 right" href="#" aria-label="close-modal" ></a>
+        <h3 class='trailer-half'>Copy Item</h3>
+        <label for="copy-title">
+          New item title:
+          <input type="text" value=" Copy">
+        </label>
+        <label for="copy-snippet">
+          New item summary:
+          <input type="text" value="">
+        </label>
+        <label for="copy-tags">
+          New item tags:
+          <input type="text" value="">
+        </label>
+        <label for="copy-description">
+          <textarea name="copy-description" id="copy-description" rows="3"></textarea>
+        </label>
+
+        <div class="action-bar text-right">
+            <button class="btn-clear js-modal-toggle">cancel</button>
+            <a href="../map-id-copy"class="btn">copy</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exporting an Item can take place in a modal. -->
+    
+
+    <!-- If an item can be updated, this button initautes that workflow. -->
+    
+      <a href="" class="trailer-half btn btn-fill btn-clear viewer-hide signed-out-hide">Update</a>
+    
+
+<!-- Follow / Watch / Future Feature -->
+    <a href="" class="trailer-half btn btn-clear btn-fill js-modal-toggle" data-modal="watch">Watch</a>
+    <div class="js-modal modal-overlay modifier-class" data-modal="watch">
+      <div class="modal-content column-8" role="dialog" aria-labelledby="modal" role="dialog">
+        <a class="js-modal-toggle icon-ui-close font-size-1 right" href="#" aria-label="close-modal" ></a>
+        <h3 class='trailer-half'>Watch item</h3>
+        <p class="trailer-half">Recieve notifications regarding this item to your account. Subscribe to recieve notifications when:</p>
+        <fieldset>
+          <label>
+            <input checked type="checkbox" value="public" name="008"> Metadata is Updated
+          </label>
+          <label>
+            <input checked type="checkbox" value="public" name="008"> Data is Edited
+          </label>
+          <label>
+            <input checked type="checkbox" value="public" name="008"> Item is Deleted
+          </label>
+          <label>
+            <input checked type="checkbox" value="public" name="008"> Item is Copied
+          </label>
+        </fieldset>
+        <div class="action-bar text-right">
+            <button class="btn-clear js-modal-toggle">cancel</button>
+            <button class="btn js-modal-toggle">Watch Item</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- The current SHARE button can live right here -->
+    <a href="#" class="trailer-half btn btn-clear btn-fill js-modal-toggle" data-modal="share">Share</a>
+
+    <div class="js-modal modal-overlay modifier-class js-sharing-modal" data-modal="share">
+      <div class="modal-content sharing-modal-content column-11" role="dialog" aria-labelledby="modal" role="dialog">
+        <a class="js-modal-toggle js-sharing-cancel icon-ui-close icon-ui-flush font-size-1 right" href="#" aria-label="close-modal" ></a>
+        <h3 class='trailer-half'>Share item</h3>
+        <div class="loader js-sharing-loader sharing-loader padding-leader-3 padding-trailer-3">
+          <div class="loader-bars"></div>
+          <div class="loader-text">Updating Item</div>
+        </div>
+
+        <label>
+          Item can be accessed by:
+          <select class="js-sharing-select">
+            <option value="me">Me</option>
+            <option value="org">EsriPDX</option>
+            <option value="public">Everyone</option>
+          </select>
+        </label>
+
+        <section class="js-sharing-dropdown js-filter-dropdown filter-dropdown-inline trailer-1">
+          <header>
+            <h6 class="filter-dropdown-title">And members of these groups:</h6>
+            <a class="filter-dropdown-clear hide" href="#">clear</a>
+          </header>
+
+          <label class="trailer-half filter-dropdown-container">
+            <input class="filter-dropdown-input" type="text" placeholder="Select group to share with">
+            <div class="filter-dropdown-list filter-dropdown-list-short">
+              <a href="#" class="filter-dropdown-link js-sharing-group">Africa Focus Group</a>
+              <a href="#" class="filter-dropdown-link js-sharing-group">Madagascar Conservation</a>
+              <a href="#" class="filter-dropdown-link js-sharing-group">Key Global Projects</a>
+              <a href="#" class="filter-dropdown-link js-sharing-group">Portland Water</a>
+              <a href="#" class="filter-dropdown-link js-sharing-group">Portland Transportation</a>
+              <a href="#" class="filter-dropdown-link js-sharing-group">Northwest Urban Planning</a>
+              <a href="#" class="filter-dropdown-link js-sharing-group">Key Global Projects</a>
+              <a href="#" class="filter-dropdown-link js-sharing-group">Census 2015</a>
+            </div>
+          </label>
+        </section>
+
+        <p class="trailer-1">
+          This item can be accessed by <strong class="js-sharing-summary">only you.</strong>
+        </p>
+
+        <div class="js-sharing-link hide trailer-half">
+          <p class="leader-1 trailer-half">Item URL</p>
+          <div class="input-group trailer-1">
+            <input class="input-group-input" type="text" value="www.arcgis.com/dumb-file-id/usage/">
+            <span class="input-group-button">
+              <button class="btn btn-clear icon-ui-duplicate"></button>
+            </span>
+          </div>
+          <p>
+            <!-- Social Sharing Icons.  -->
+            <span class="icon-social-facebook" aria-label="facebook"></span>
+            <span class="icon-social-geonet" aria-label="geonet"></span>
+            <span class="icon-social-google-plus" aria-label="google plus"></span>
+            <span class="icon-social-instagram" aria-label="instagram"></span>
+            <span class="icon-social-linkedin" aria-label="linkedin"></span>
+            <span class="icon-social-pinterest" aria-label="pinterest"></span>
+            <span class="icon-social-rss" aria-label="rss"></span>
+            <span class="icon-social-twitter" aria-label="twitter"></span>
+          </p>
+        </div>
+
+        <div class="action-bar text-right hide js-sharing-action-bar">
+          <button class="btn-clear js-modal-toggle js-sharing-cancel">cancel</button>
+          <button class="btn js-sharing-save">save changes</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- This section is for apps only, and is taken directly from app functionality in developers.arcgis.com -->
+    
+    <!-- If an item has a REST url, we should surface that with a copy-to-clipboard action -->
+    
+
+
+
+    <!-- Technical Item Details are surfaced below the action buttons. -->
+    <h5 class="leader-half trailer-half">Details</h5>
+    <section class="font-size--1">
+      <p class="trailer-0">Authored by </p>
+      <!-- Time item created -->
+      <p class="trailer-0">Created: November 20, 2015</p>
+      <!-- Time item last updated -->
+      <p class="trailer-0">Last Modified: November 20, 2015</p>
+      <!-- Public or Private? Shared with whom? -->
+      <p class="trailer-half">This item is <strong>.</strong></p>
+      <a href="settings" class="btn btn-small btn-clear trailer-half">Edit item details</a>
+      <!-- Item owner -->
+      <!-- Rating. Put existing star component in here rather than raw numbers. -->
+      <span class="" aria-label="This item is awesome.">
+        <img src="../../_assets/img/items/rating-dijit.png" alt="Rating">
+      </span>
+
+
+      <!-- Number of views. -->
+      <p class="trailer-half"> views</p>
+
+      <!-- If comments, how many comments? -->
+      
+
+      <!-- Item size -->
+      <p class="trailer-half">Size:  <small>MB</small></p>
+
+
+      <!-- If there is an extent, check and display that extent. -->
+      
+
+      <!-- Tag cloud lives here. -->
+      <h5 class="leader-half trailer-half">Tags <a href="#" class="font-size--1 link-gray">—&nbsp;Edit</a></h5>
+      <p  class="" aria-label="Edit Item Tags">
+        
+      </p>
+
+      <h5>Credits <a href="#" class="font-size--1 link-gray">—&nbsp;Edit</a></h5>
+      <p  class="" aria-label="Edit Item Credits"></p>
+
+    </section>
+  </div>
+  <!-- This is the end of the sidebar actions and details -->
+
+  <!-- This is the Main column description, liscencsing, and comments section.
+       The main column is split into two section to highlight hierarchy and tab flow through the page.
+       The actions for tabbing through the content need to hit the favorite actions, and other top-level links first.
+       Then the tab flow needs to progress through the action buttons before getting to the description and comments section.
+  -->
+  <div class="column-17 post-1 leader-1">
+    <div class="column-17">
+
+      <!-- If an item has multiple layers (like a map or something) they are listed here with links to their own details pages. -->
+      
+
+      
+
+      
+
+
+      <!-- Item Description lives here. -->
+      
+
+      <!-- Liscensing info goes here. -->
+      <!-- Suggestion to revert to current language, adding credits below this item. -->
+      
+
+      <!-- The comments section if comments are enabled. -->
+      
+
+    </div>
+  </div>
+  <!-- This is the end of the comment section -->
+
+</section>
+</div>
+
+      
+        <div class="js-requirements-content hide">
+          <div class="grid-container grid-full">
+            <div class="column-12 pre-6 leader-1">
+              <h1>Item Details Page</h1>
+<ul>
+<li><a href="https://devtopia.esri.com/WebGIS/arcgis-online-ux-design/wiki/Item-Types">List of Item Types</a></li>
+<li><a href="https://devtopia.esri.com/WebGIS/arcgis-online-ux-design/wiki/Feature-Layer-Page">Feature Layers</a></li>
+<li><a href="https://devtopia.esri.com/WebGIS/arcgis-online-ux-design/wiki/Feature-Layer-Group-Page">Feature Layers with Sublayers</a></li>
+<li><a href="https://devtopia.esri.com/WebGIS/arcgis-online-ux-design/wiki/Map-Service-Page">Map Services</a></li>
+<li><a href="https://devtopia.esri.com/WebGIS/arcgis-online-ux-design/wiki/Web-Map-Item-Details">Web Maps</a></li>
+<li><a href="https://devtopia.esri.com/WebGIS/arcgis-online-ux-design/wiki/Application-Item-Details-Page">Applications</a></li>
+</ul>
+<h2>Workflows</h2>
+<h2>Actions</h2>
+<ul>
+<li>[ ] Who is the maps author?</li>
+<li>[ ] What is the maps rating?</li>
+<li>[ ] Can this map be viewed by the public?</li>
+<li>[ ] When was this map made?</li>
+<li>[ ] When was this map last edited?</li>
+<li>[ ] What layers are in this map?</li>
+<li>[ ] Flag this map so can be aware of future updates.</li>
+<li>[ ] What suggestions have been made to improve this map?</li>
+<li>[ ] Make a suggestion that this map could be updated more frequently</li>
+<li>[ ] Make of a copy of this map called 'My USA Food Map'</li>
+<li>[ ] How many times has this item been viewed in the past 3 months?</li>
+<li>[ ] How much bandwidth has this layer consumed in the past year?</li>
+<li>[ ] How many credits has this layer consumed in the past month?</li>
+<li>[ ] Add '2015' to this layers title</li>
+<li>[ ] Add '2015' to this layers tags</li>
+<li>[ ] Set the privileges for this item so that only member of your organization can see it.</li>
+<li>[ ] Modify this layer so it can not be downloaded.</li>
+<li>[ ] Ensure this layer can not be deleted</li>
+<li>[ ] Enable others to modify the data</li>
+<li>[ ] Allow only the author and the group called 'R&amp;D' to make changes</li>
+<li>[ ] Automatically update the layer when changes to it's source are made</li>
+<li>[ ] Arrange to be alerted when edits are made to this layer</li>
+</ul>
+<h2>Item properties</h2>
+<h3>Details</h3>
+<ul>
+<li>Name</li>
+<li>Owner</li>
+<li>Type</li>
+<li>Last Modified Date</li>
+<li>Rating</li>
+<li>No. Views</li>
+<li>Description</li>
+<li>Tags</li>
+<li>Summary</li>
+<li>Properties</li>
+<li>Use</li>
+<li>Comments</li>
+</ul>
+<h3>Actions</h3>
+<ul>
+<li>Social Media</li>
+<li>Share to Group</li>
+<li>Edit</li>
+<li>Move Folder</li>
+<li>Change Owner</li>
+<li>Usage</li>
+<li>Metadata</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      
+    </div>
+
+   <footer class="footer avenir-regular padding-leader-1">
+      <div class="grid-container ">
+        <nav class="column-6">
+          <h6>Arc<span>GIS</span></h6>
+          <ul class="list-bulleted">
+            <li><a href="http://www.arcgis.com/about/">Home</a></li>
+            <li><a href="http://www.arcgis.com/about/features.html">Features</a></li>
+            <li><a href="http://www.arcgis.com/about/pricing.html">Pricing</a></li>
+          </ul>
+        </nav>
+
+        <nav class="column-6">
+          <h6>Arc<span>GIS</span> for Developers</h6>
+          <ul>
+            <li><a href="/en/">Home</a></li>
+            <li><a href="/en/features/">Features</a></li>
+            <li><a href="http://blogs.esri.com/esri/arcgis/category/developer/">Blog</a></li>
+          </ul>
+        </nav>
+
+        <nav class="column-6">
+          <h6>About Esri</h6>
+          <ul>
+            <li><a href="http://www.esri.com/about-esri/">About Us</a></li>
+            <li><a href="http://www.esri.com/careers/">Careers</a></li>
+            <li><a href="http://blogs.esri.com/esri/esri-insider/">Insiders Blog</a></li>
+            <li><a href="http://www.esri.com/events/user-conference/index.html">User Conference</a></li>
+            <li><a href="http://www.esri.com/events/devsummit/index.html">Developer Summit</a></li>
+          </ul>
+        </nav>
+
+        <nav class="column-6 padding-leader-half">
+          <a class="esri-logo" href="http://esri.com"></a>
+          <section class="footer-social-nav">
+            <a class="icon-twitter" href="https://twitter.com/Esri/"></a>
+            <a class="icon-facebook" href="https://www.facebook.com/esrigis/"></a>
+            <a class="icon-github" href="http://esri.github.com/"></a>
+            <a class="icon-email" href="http://www.esri.com/about-esri/contact/"></a>
+          </section>
+        </nav>
+        <div class="">
+          <p><small>© Copyright 2013 Environmental Systems Research Institute, Inc. | <a href="http://www.esri.com/legal/privacy">Privacy</a> | <a href="http://www.esri.com/legal/software-license">Legal</a></small></p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../../_assets/js/common.js"></script>
+    <script src="../../_assets/js/main.js"></script>
+
+    
+  </body>
+
+</html>

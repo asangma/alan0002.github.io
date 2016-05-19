@@ -1,0 +1,19 @@
+.card-recent-activity article {
+  clear: both;
+  padding: .5rem 0 .5rem 2rem;
+  box-sizing: border-box;
+  border-bottom: 1px solid #cccccc;
+  background-size: 24px; }
+  .card-recent-activity article p {
+    font-size: 0.9375rem;
+    line-height: 1.55rem; }
+  .card-recent-activity article .timestamp {
+    display: block;
+    font-size: 0.8125rem;
+    line-height: 1.55rem; }
+  .card-recent-activity article .thumb-wrapper {
+    margin-left: 1rem;
+    width: 15%;
+    height: 100%;
+    padding-top: 10.02506%;
+    float: right; }

@@ -1,0 +1,1547 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 9]>  <html class="ie lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]>     <html class="ie ie9"> <![endif]-->
+<!--[if !IE]><!--> <html> <!--<![endif]-->
+  <head>
+
+    <!-- Set encoding -->
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Use title from page frontmatter -->
+    <title>Content | Favorites</title>
+
+    <!-- Link to favicon -->
+    <link rel="shortcut icon" href="../../_assets/img/favicon.ico">
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="../../_assets/css/style.css">
+
+    
+      <link rel="stylesheet" href="../../_assets/css/components/content-list.css">
+    
+
+  </head>
+
+  <body data-url="content/favorites/" data-path="../../" class="">
+    <div class="drawer drawer-left js-drawer" data-drawer="versioner">
+      <nav class="drawer-nav">
+        <aside class="side-nav">
+          <h4 class="side-nav-title">Versions</h4>
+          <nav class="js-versions"></nav>
+          <h4 class="side-nav-title">State</h4>
+          <div class="panel panel-white panel-padded panel-bordered padding-leader-1 padding-trailer-1">
+            <label>
+              User Role
+              <select class="js-user-role">
+                <option value="viewer">Viewer</option>
+                <option value="admin">Admin</option>
+                <option value="developer">Developer</option>
+              </select>
+            </label>
+            <fieldset>
+              <legend>Authentication</legend>
+              <label>
+                <input class="js-signed-in" type="checkbox" checked> Signed In
+              </label>
+            </fieldset>
+            <a href="" class="js-requirements">View Requirements</a>
+          </div>
+        </aside>
+      </nav>
+    </div>
+
+    <!-- left drawer - navigation menu -->
+    <div class="drawer drawer-left js-drawer" data-drawer="top-nav-left">
+      <nav class="drawer-nav">
+        <aside class="side-nav">
+          <a href="../../" class="side-nav-link padding-trailer-half padding-leader-half">Home</a>
+          <a href="../../content" class="side-nav-link padding-trailer-half padding-leader-half">Content</a></a>
+          <a href="../../groups" class="side-nav-link padding-trailer-half padding-leader-half">Groups</a></a>
+          <a href="../../organization-name" class="side-nav-link padding-trailer-half padding-leader-half">Organization</a></a>
+        </aside>
+      </nav>
+    </div>
+
+    <!-- right drawer - user menu -->
+    <div class="drawer drawer-right js-drawer" data-drawer="top-nav-right">
+      <nav class="drawer-nav">
+        <aside class="side-nav">
+          <a href="../../account/" class="side-nav-link padding-trailer-half padding-leader-half">Account</a>
+          <a href="../../account/profile" class="side-nav-link padding-trailer-half padding-leader-half">Profile</a>
+          <a href="#" class="side-nav-link padding-trailer-half padding-leader-half js-sign-out">Sign Out</a>
+        </aside>
+      </nav>
+    </div>
+
+    <div class="wrapper">
+      <header class="top-nav">
+
+        <a href="#" class="versioner-toggle inline left link-light-gray  js-drawer-toggle" data-drawer="versioner">☰</a>
+
+        <div class="grid-container ">
+          <div class="column-24 ">
+            <a href="../../" class="top-nav-title signed-in-hide">ArcGIS</a>
+
+            <nav class="top-nav-list tablet-show">
+              <a href="#" class="top-nav-link js-drawer-toggle" data-drawer="top-nav-left">Menu</a>
+            </nav>
+
+            <nav class="top-nav-list tablet-hide">
+              <a class="top-nav-link signed-out-hide " href="../../">Home</a>
+              <a class="top-nav-link signed-out-hide " href="../../content/">Content</a>
+              <a class="top-nav-link signed-out-hide " href="../../groups/">Groups</a>
+              <a class="top-nav-link signed-out-hide " href="../../organization-name/">Organization</a>
+
+              <a class="top-nav-link signed-in-hide " href="../../features/">Features</a>
+              <a class="top-nav-link signed-in-hide " href="../../plans/">Plans</a>
+              <a class="top-nav-link signed-in-hide " href="../../explore/">Explore</a>
+            </nav>
+
+            <div class="top-nav-list signed-in-hide right">
+              <a href="../../sign-in" class="signed-in-hide">Sign In</a>
+            </div>
+
+            <nav class="top-nav-list right">
+
+              <!-- extends side-nav-link -->
+              <div class="dropdown js-dropdown tool-link top-nav-link signed-out-hide">
+                <!-- extends side-nav -->
+                <a href="#" class="top-nav-dropdown dropdown-btn js-dropdown-toggle"><img class="nav-image" src="../../_assets/img/top-nav-prototype/top-nav-create.png"> Create</a>
+                <!-- extends side-nav -->
+                <nav class="dropdown-menu dropdown-right">
+                  <!-- extends side-nav-link -->
+                  <a class="dropdown-link" href="/map-viewer">New Map</a>
+                  <a class="dropdown-link" href="/scene-viewer">New Scene</a>
+                  <a class="dropdown-link" href="/new">New Layer</a>
+                  <a class="dropdown-link" href="/new">New Application</a>
+                  <a class="dropdown-link" href="/new">Upload File</a>
+                </nav>
+              </div>
+
+              <a href="../../map-viewer" class="top-nav-link tool-link"><img class="nav-image" src="../../_assets/img/top-nav-prototype/top-nav-map.png"> Map</a>
+              <a href="../../scene-viewer" class="top-nav-link tool-link"><img class="nav-image" src="../../_assets/img/top-nav-prototype/top-nav-scene.png"> Scene</a>
+              <a href="../../notifications" class="top-nav-link signed-out-hide user-notifications" title="View All Notifications">
+              <div class="badge">
+                <span class="badge-count" id="badge-count">4</span>
+              </div>
+              </a>
+
+              <div class="dropdown js-dropdown signed-out-hide top-nav-link">
+                <div class="tablet-show">
+                  <img src="../../_assets/img/gravatar.jpg" alt="Sloth Aldrin" class="user-image" width="20" height="20">
+                  <a href="#" data-drawer="top-nav-right" class="js-drawer-toggle link-off-black">Patrick</a>
+                </div>
+
+                <div class="tablet-hide">
+                  <img src="../../_assets/img/gravatar.jpg" alt="Sloth Aldrin" class="user-image" width="20" height="20">
+                  <a class="top-nav-dropdown dropdown-btn js-dropdown-toggle">Patrick</a>
+                </div>
+
+                <nav class="dropdown-menu dropdown-right">
+                  <a href="../../account" class="dropdown-link">Account</a>
+                  <a href="../../account/profile" class="dropdown-link">Profile</a>
+                  <a href="../../account/billing" class="dropdown-link viewer-hide">Billing</a>
+                  <a href="#" class="dropdown-link js-sign-out">Sign Out</a>
+                </nav>
+              </div>
+            </nav>
+
+            <div class="site-search is-active right">
+              <form class="site-search-form">
+                <span class="icon-ui-search site-search-icon"></span>
+                <input class="site-search-input" type="search" placeholder="Search">
+                <span class="input-group-button">
+                  <a href="../../search" class="btn btn-clear site-search-button">Go</a>
+                </span>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </header>
+
+      <div class="versioner" data-version="v1">
+  
+
+  <header class="sub-nav trailer-1">
+    <div class="grid-container">
+      <div class="column-24">
+        <h1 class="sub-nav-title">Content</h1>
+        <nav class="sub-nav-list">
+          
+            <a href="../../content/" class="sub-nav-link">My Content</a>
+          
+          
+            <a href="../../content/organization-name/" class="sub-nav-link developer-hide">EsriPDX</a>
+          
+          
+            <a href="../../content/groups/" class="sub-nav-link developer-hide">Groups</a>
+          
+          
+            <a href="../../content/favorites/" class="sub-nav-link is-active">Favorites</a>
+          
+          
+            <a href="../../content/living-atlas/" class="sub-nav-link">Living Atlas</a>
+          
+
+        </nav>
+      </div>
+    </div>
+  </header>
+
+<div class="grid-container">
+  <sidebar class="column-5">
+    <a class="btn btn-clear js-content-create icon-ui-add" href="../content/add">New</a>
+
+    <div class="leader-1">
+      <section class="js-filter-tree filter-tree trailer-1">
+  <header class="filter-header">
+    <h6 class="filter-title">Type</h6>
+    <a class="filter-clear" href="#">clear</a>
+  </header>
+
+  <ul class="filter-tree-list list-plain">
+    <li><a href="#">Layer</a></li>
+    <li><a href="#">Map</a></li>
+    <li><a href="#">Scene</a></li>
+    <li><a href="#">App</a></li>
+    <li><a href="#">File</a></li>
+  </ul>
+</section>
+
+      <section class="js-filter-tree filter-tree trailer-1">
+  <header class="filter-header">
+    <h6 class="filter-title">Categories</h6>
+    <a class="filter-clear" href="#">clear</a>
+  </header>
+
+  <ul class="filter-tree-list">
+    <li><a href="#">Imagery</a>
+      <ul class="filter-tree-list">
+        <li><a href="#">Basemap Imagery</a>
+          <ul class="filter-tree-list">
+            <li><a href="#">Cool Imagery</a></li>
+            <li><a href="#">Bad Imagery</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Multispectral Imagery</a></li>
+        <li><a href="#">Temporal Imagery</a></li>
+        <li><a href="#">Event Imagery</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Basemaps</a>
+      <ul class="filter-tree-list">
+        <li><a href="#">Esri Basemaps</a></li>
+        <li><a href="#">Partner Basemaps</a></li>
+        <li><a href="#">User Basemaps</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Historical Maps</a></li>
+    <li><a href="#">Demographics & Lifestyle</a>
+      <ul class="filter-tree-list">
+        <li><a href="#">Income & Spending</a></li>
+        <li><a href="#">Population & Housing</a></li>
+        <li><a href="#">Segmentation & Behaviors</a></li>
+        <li><a href="#">Business and Jobs</a></li>
+        <li><a href="#">At Risk</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Landscape</a>
+      <ul class="filter-tree-list">
+        <li><a href="#">Climate & Weather</a></li>
+        <li><a href="#">Ecology</a></li>
+        <li><a href="#">Species Biology</a></li>
+        <li><a href="#">Disturbance & Impact</a></li>
+        <li><a href="#">Elevation</a></li>
+        <li><a href="#">Land Cover</a></li>
+        <li><a href="#">Natural Hazards</a></li>
+        <li><a href="#">Oceans</a></li>
+        <li><a href="#">Soils/Geology</a></li>
+        <li><a href="#">Subsurface</a></li>
+        <li><a href="#">Water</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Earth Observations</a></li>
+    <li><a href="#">Urban Systems</a>
+      <ul class="filter-tree-list">
+        <li><a href="#">3D Cities</a></li>
+        <li><a href="#">Movement</a></li>
+        <li><a href="#">Parcels</a></li>
+        <li><a href="#">People</a></li>
+        <li><a href="#">Planning</a></li>
+        <li><a href="#">Public</a></li>
+        <li><a href="#">Work</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Transportation</a></li>
+    <li><a href="#">Boundaries & Places</a>
+      <ul class="filter-tree-list">
+        <li><a href="#">Boundaries</a></li>
+        <li><a href="#">Places</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Story Maps</a></li>
+    <li><a href="#">Scenes</a></li>
+  </ul>
+</section>
+
+      <section class="js-filter-dropdown">
+  <header>
+    <h6 class="filter-dropdown-title">Tags</h6>
+    <a class="filter-dropdown-clear" href="#">clear</a>
+  </header>
+
+  <label class="trailer-half filter-dropdown-container">
+    <input class="filter-dropdown-input" type="text" placeholder="Filter by Tag">
+    <div class="filter-dropdown-list">
+      <a href="#" class="filter-dropdown-link is-active">Lorem</a>
+      <a href="#" class="filter-dropdown-link is-active">ipsum</a>
+      <a href="#" class="filter-dropdown-link">dolor</a>
+      <a href="#" class="filter-dropdown-link">sit</a>
+      <a href="#" class="filter-dropdown-link">amet</a>
+      <a href="#" class="filter-dropdown-link">consectetur</a>
+      <a href="#" class="filter-dropdown-link">adipisicing</a>
+      <a href="#" class="filter-dropdown-link">elit</a>
+      <a href="#" class="filter-dropdown-link">sed</a>
+      <a href="#" class="filter-dropdown-link">do</a>
+      <a href="#" class="filter-dropdown-link">eiusmod</a>
+      <a href="#" class="filter-dropdown-link">tempor</a>
+      <a href="#" class="filter-dropdown-link">incididunt</a>
+      <a href="#" class="filter-dropdown-link">ut</a>
+      <a href="#" class="filter-dropdown-link">labore</a>
+      <a href="#" class="filter-dropdown-link">et</a>
+    </div>
+  </label>
+</section>
+      <section class="js-filter-dropdown leader-1">
+  <header>
+    <h6 class="filter-dropdown-title">Locations</h6>
+    <a class="filter-dropdown-clear" href="#">clear</a>
+  </header>
+
+  <label class="trailer-half filter-dropdown-container">
+    <input class="filter-dropdown-input" type="text" placeholder="Filter by Tag">
+    <div class="filter-dropdown-list">
+      <a href="#" class="filter-dropdown-link is-active">Lorem</a>
+      <a href="#" class="filter-dropdown-link is-active">ipsum</a>
+      <a href="#" class="filter-dropdown-link">dolor</a>
+      <a href="#" class="filter-dropdown-link">sit</a>
+      <a href="#" class="filter-dropdown-link">amet</a>
+      <a href="#" class="filter-dropdown-link">consectetur</a>
+      <a href="#" class="filter-dropdown-link">adipisicing</a>
+      <a href="#" class="filter-dropdown-link">elit</a>
+      <a href="#" class="filter-dropdown-link">sed</a>
+      <a href="#" class="filter-dropdown-link">do</a>
+      <a href="#" class="filter-dropdown-link">eiusmod</a>
+      <a href="#" class="filter-dropdown-link">tempor</a>
+      <a href="#" class="filter-dropdown-link">incididunt</a>
+      <a href="#" class="filter-dropdown-link">ut</a>
+      <a href="#" class="filter-dropdown-link">labore</a>
+      <a href="#" class="filter-dropdown-link">et</a>
+    </div>
+  </label>
+</section>
+    </div>
+
+  </sidebar>
+
+  <div class="js-content-view"></div>
+</div>
+</div>
+
+<div class="versioner" data-version="v0">
+<div class="grid-container leader-1">
+  <div class="column-24">
+    <aside class="column-5">
+      <a href="../../content/add" class="btn btn-clear icon-ui-upload">Upload</a>
+      <a href="../../add" class="btn btn-clear icon-ui-add">Create</a>
+      <div class="leader-1">
+        <section class="js-filter-tree filter-tree trailer-1">
+  <header class="filter-header">
+    <h6 class="filter-title">Type</h6>
+    <a class="filter-clear" href="#">clear</a>
+  </header>
+
+  <ul class="filter-tree-list list-plain">
+    <li><a href="#">Layer</a></li>
+    <li><a href="#">Map</a></li>
+    <li><a href="#">Scene</a></li>
+    <li><a href="#">App</a></li>
+    <li><a href="#">File</a></li>
+  </ul>
+</section>
+
+        <section class="js-filter-tree filter-tree trailer-1">
+  <header class="filter-header">
+    <h6 class="filter-title">Categories</h6>
+    <a class="filter-clear" href="#">clear</a>
+  </header>
+
+  <ul class="filter-tree-list">
+    <li><a href="#">Imagery</a>
+      <ul class="filter-tree-list">
+        <li><a href="#">Basemap Imagery</a>
+          <ul class="filter-tree-list">
+            <li><a href="#">Cool Imagery</a></li>
+            <li><a href="#">Bad Imagery</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Multispectral Imagery</a></li>
+        <li><a href="#">Temporal Imagery</a></li>
+        <li><a href="#">Event Imagery</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Basemaps</a>
+      <ul class="filter-tree-list">
+        <li><a href="#">Esri Basemaps</a></li>
+        <li><a href="#">Partner Basemaps</a></li>
+        <li><a href="#">User Basemaps</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Historical Maps</a></li>
+    <li><a href="#">Demographics & Lifestyle</a>
+      <ul class="filter-tree-list">
+        <li><a href="#">Income & Spending</a></li>
+        <li><a href="#">Population & Housing</a></li>
+        <li><a href="#">Segmentation & Behaviors</a></li>
+        <li><a href="#">Business and Jobs</a></li>
+        <li><a href="#">At Risk</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Landscape</a>
+      <ul class="filter-tree-list">
+        <li><a href="#">Climate & Weather</a></li>
+        <li><a href="#">Ecology</a></li>
+        <li><a href="#">Species Biology</a></li>
+        <li><a href="#">Disturbance & Impact</a></li>
+        <li><a href="#">Elevation</a></li>
+        <li><a href="#">Land Cover</a></li>
+        <li><a href="#">Natural Hazards</a></li>
+        <li><a href="#">Oceans</a></li>
+        <li><a href="#">Soils/Geology</a></li>
+        <li><a href="#">Subsurface</a></li>
+        <li><a href="#">Water</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Earth Observations</a></li>
+    <li><a href="#">Urban Systems</a>
+      <ul class="filter-tree-list">
+        <li><a href="#">3D Cities</a></li>
+        <li><a href="#">Movement</a></li>
+        <li><a href="#">Parcels</a></li>
+        <li><a href="#">People</a></li>
+        <li><a href="#">Planning</a></li>
+        <li><a href="#">Public</a></li>
+        <li><a href="#">Work</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Transportation</a></li>
+    <li><a href="#">Boundaries & Places</a>
+      <ul class="filter-tree-list">
+        <li><a href="#">Boundaries</a></li>
+        <li><a href="#">Places</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Story Maps</a></li>
+    <li><a href="#">Scenes</a></li>
+  </ul>
+</section>
+
+        <section class="js-filter-dropdown">
+  <header>
+    <h6 class="filter-dropdown-title">Tags</h6>
+    <a class="filter-dropdown-clear" href="#">clear</a>
+  </header>
+
+  <label class="trailer-half filter-dropdown-container">
+    <input class="filter-dropdown-input" type="text" placeholder="Filter by Tag">
+    <div class="filter-dropdown-list">
+      <a href="#" class="filter-dropdown-link is-active">Lorem</a>
+      <a href="#" class="filter-dropdown-link is-active">ipsum</a>
+      <a href="#" class="filter-dropdown-link">dolor</a>
+      <a href="#" class="filter-dropdown-link">sit</a>
+      <a href="#" class="filter-dropdown-link">amet</a>
+      <a href="#" class="filter-dropdown-link">consectetur</a>
+      <a href="#" class="filter-dropdown-link">adipisicing</a>
+      <a href="#" class="filter-dropdown-link">elit</a>
+      <a href="#" class="filter-dropdown-link">sed</a>
+      <a href="#" class="filter-dropdown-link">do</a>
+      <a href="#" class="filter-dropdown-link">eiusmod</a>
+      <a href="#" class="filter-dropdown-link">tempor</a>
+      <a href="#" class="filter-dropdown-link">incididunt</a>
+      <a href="#" class="filter-dropdown-link">ut</a>
+      <a href="#" class="filter-dropdown-link">labore</a>
+      <a href="#" class="filter-dropdown-link">et</a>
+    </div>
+  </label>
+</section>
+        <section class="js-filter-dropdown leader-1">
+  <header>
+    <h6 class="filter-dropdown-title">Locations</h6>
+    <a class="filter-dropdown-clear" href="#">clear</a>
+  </header>
+
+  <label class="trailer-half filter-dropdown-container">
+    <input class="filter-dropdown-input" type="text" placeholder="Filter by Tag">
+    <div class="filter-dropdown-list">
+      <a href="#" class="filter-dropdown-link is-active">Lorem</a>
+      <a href="#" class="filter-dropdown-link is-active">ipsum</a>
+      <a href="#" class="filter-dropdown-link">dolor</a>
+      <a href="#" class="filter-dropdown-link">sit</a>
+      <a href="#" class="filter-dropdown-link">amet</a>
+      <a href="#" class="filter-dropdown-link">consectetur</a>
+      <a href="#" class="filter-dropdown-link">adipisicing</a>
+      <a href="#" class="filter-dropdown-link">elit</a>
+      <a href="#" class="filter-dropdown-link">sed</a>
+      <a href="#" class="filter-dropdown-link">do</a>
+      <a href="#" class="filter-dropdown-link">eiusmod</a>
+      <a href="#" class="filter-dropdown-link">tempor</a>
+      <a href="#" class="filter-dropdown-link">incididunt</a>
+      <a href="#" class="filter-dropdown-link">ut</a>
+      <a href="#" class="filter-dropdown-link">labore</a>
+      <a href="#" class="filter-dropdown-link">et</a>
+    </div>
+  </label>
+</section>
+      </div>
+    </aside>
+    <div class="column-18 pre-1">
+      <div class="input-group trailer-half leader-0">
+  <input class="input-group-input" type="text" placeholder="Filter Results">
+  <span class="input-group-button">
+    <button class="btn">Filter</button>
+  </span>
+</div>
+
+
+      <div class="font-size--1 leader-1 layer-header clearfix trailer-half">
+
+        <div class="column-6 pre-2"><a href="#" class="link-dark-gray">Name &#x25BE;</a></div>
+        <div class="column-3"><a href="#" class="link-dark-gray">Modified</a></div>
+        <div class="column-3"><a href="#" class="link-dark-gray">Type</a></div>
+        <div class="column-2"><a href="#" class="link-dark-gray">Owner</a></div>
+      </div>
+      
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Oregon Rivers</a></div>
+  <div class="column-3">1408137673000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Eliot Building Footprints GeoJSON</a></div>
+  <div class="column-3">1429108702000</div>
+  <div class="column-3">GeoJson</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Find Locations in Portland Streets</a></div>
+  <div class="column-3">1429293486000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Taxlots, Lower Albina Plus GEojson</a></div>
+  <div class="column-3">1429112838000</div>
+  <div class="column-3">GeoJson</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">PortlandCafesAudit</a></div>
+  <div class="column-3">1400190883000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">USA Rail Network</a></div>
+  <div class="column-3">1409955394000</div>
+  <div class="column-3">Shapefile</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">central_city_projects geojson</a></div>
+  <div class="column-3">1427393362000</div>
+  <div class="column-3">GeoJson</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Zoning Data geojson</a></div>
+  <div class="column-3">1427393700000</div>
+  <div class="column-3">GeoJson</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Lower Albina - River</a></div>
+  <div class="column-3">1429740439000</div>
+  <div class="column-3">GeoJson</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">PortlandCafesAudit</a></div>
+  <div class="column-3">1400190354000</div>
+  <div class="column-3">CSV</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">affordable_housing</a></div>
+  <div class="column-3">1427389256000</div>
+  <div class="column-3">GeoJson</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Lower Albina Impart Study?</a></div>
+  <div class="column-3">1432914147000</div>
+  <div class="column-3">Web Mapping Application</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Portland Streets</a></div>
+  <div class="column-3">1407972664000</div>
+  <div class="column-3">Shapefile</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">affordable_housing</a></div>
+  <div class="column-3">1427224461000</div>
+  <div class="column-3">Shapefile</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Lower Albina Base</a></div>
+  <div class="column-3">1429740011000</div>
+  <div class="column-3">Web Map</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Lower Albina - Zoning Data</a></div>
+  <div class="column-3">1429909472000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Building_Footprints_pdx geojson</a></div>
+  <div class="column-3">1427394838000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Lower Albina - Light Rail Geojson</a></div>
+  <div class="column-3">1429740395000</div>
+  <div class="column-3">GeoJson</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">taxlots</a></div>
+  <div class="column-3">1427230898000</div>
+  <div class="column-3">Shapefile</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Portland Freight Facillities</a></div>
+  <div class="column-3">1408379858000</div>
+  <div class="column-3">Shapefile</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">business_licenses geojson</a></div>
+  <div class="column-3">1427397516000</div>
+  <div class="column-3">GeoJson</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Rail Lines</a></div>
+  <div class="column-3">1410211629000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">AAAAAAAAFind Locations in Portland Contours - Contours_5ft_pdx_(1)</a></div>
+  <div class="column-3">1429114510000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Find Locations in taxlots</a></div>
+  <div class="column-3">1428770124000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Find Locations in taxlots by addr</a></div>
+  <div class="column-3">1428770556000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Zoning Data</a></div>
+  <div class="column-3">1408061350000</div>
+  <div class="column-3">Shapefile</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Portland Curbs</a></div>
+  <div class="column-3">1408145665000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">contours csv</a></div>
+  <div class="column-3">1429195839000</div>
+  <div class="column-3">CSV Collection</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Find Locations in Portland Streets GeoJSON</a></div>
+  <div class="column-3">1429294724000</div>
+  <div class="column-3">GeoJson</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Find Locations in Portland Contours - Contours_5ft_pdx_(1)</a></div>
+  <div class="column-3">1435084801000</div>
+  <div class="column-3">File Geodatabase</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Find Locations in New Construction Residential Permits in Portland Oregon</a></div>
+  <div class="column-3">1428871429000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Scenic Resource Zoning</a></div>
+  <div class="column-3">1429912519000</div>
+  <div class="column-3">Web Map</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Portland Freight Facillities</a></div>
+  <div class="column-3">1408379889000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Contours_5ft_pdx (1)</a></div>
+  <div class="column-3">1399320256000</div>
+  <div class="column-3">Shapefile</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Lower Albina - Light Rail</a></div>
+  <div class="column-3">1429731401000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Find Locations in taxlots strimer</a></div>
+  <div class="column-3">1428770970000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Lower Albina</a></div>
+  <div class="column-3">1416521556000</div>
+  <div class="column-3">Application</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Portland Light Rail Lines</a></div>
+  <div class="column-3">1409953654000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Building_Footprints_pdx</a></div>
+  <div class="column-3">1408138198000</div>
+  <div class="column-3">Shapefile</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">contuors geojson</a></div>
+  <div class="column-3">1429196021000</div>
+  <div class="column-3">GeoJson</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Portland Curbs</a></div>
+  <div class="column-3">1408143566000</div>
+  <div class="column-3">Shapefile</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Vacant Lots</a></div>
+  <div class="column-3">1427512117000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">residential_permits</a></div>
+  <div class="column-3">1427224759000</div>
+  <div class="column-3">Shapefile</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">tile test two</a></div>
+  <div class="column-3">1429114947000</div>
+  <div class="column-3">Map Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Portland Water Bodies</a></div>
+  <div class="column-3">1425490890000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Lower Albina - Rail Lines</a></div>
+  <div class="column-3">1429740417000</div>
+  <div class="column-3">GeoJson</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Lower Albina - River</a></div>
+  <div class="column-3">1429731169000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Central_City_Development.gdb</a></div>
+  <div class="column-3">1427220977000</div>
+  <div class="column-3">File Geodatabase</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Web App Builder App</a></div>
+  <div class="column-3">1432936797000</div>
+  <div class="column-3">Web Mapping Application</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Portland Light Rail Lines</a></div>
+  <div class="column-3">1409953633000</div>
+  <div class="column-3">Shapefile</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">2010_Census_Data.gdb</a></div>
+  <div class="column-3">1427221553000</div>
+  <div class="column-3">File Geodatabase</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Enriched Eliot Building Footprints</a></div>
+  <div class="column-3">1421630281000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">contours .shp</a></div>
+  <div class="column-3">1429195694000</div>
+  <div class="column-3">Shapefile</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Zoning Map-Copy</a></div>
+  <div class="column-3">1403736976000</div>
+  <div class="column-3">Web Map</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Eliot Building Footprints</a></div>
+  <div class="column-3">1408378466000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Building_Footprints_pdx geojson</a></div>
+  <div class="column-3">1427394837000</div>
+  <div class="column-3">GeoJson</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Portland Rivers</a></div>
+  <div class="column-3">1408136556000</div>
+  <div class="column-3">Shapefile</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Central_City_Development.gdb</a></div>
+  <div class="column-3">1427221003000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">residential_permits geojson</a></div>
+  <div class="column-3">1427396993000</div>
+  <div class="column-3">GeoJson</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Zoning Map-Copy-Copy</a></div>
+  <div class="column-3">1404107643000</div>
+  <div class="column-3">Web Map</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">central_city_projects_bps</a></div>
+  <div class="column-3">1428621006000</div>
+  <div class="column-3">GeoJson</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Web App Builder App</a></div>
+  <div class="column-3">1432936742000</div>
+  <div class="column-3">Code Attachment</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">USA Rail Network</a></div>
+  <div class="column-3">1409957942000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Lower Albina - Neighborhoods</a></div>
+  <div class="column-3">1429732192000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Portland Contours</a></div>
+  <div class="column-3">1408143573000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Lower Albina - Business Liscenses</a></div>
+  <div class="column-3">1429731962000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">2010_Census_Data.gdb</a></div>
+  <div class="column-3">1427222522000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Lower Albina - Neighborhoods</a></div>
+  <div class="column-3">1429740404000</div>
+  <div class="column-3">GeoJson</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">New Const. Sw foot greatter than 3000</a></div>
+  <div class="column-3">1428871747000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Comp_Plan_BPS_150319.gdb</a></div>
+  <div class="column-3">1427222695000</div>
+  <div class="column-3">File Geodatabase</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">business_licenses</a></div>
+  <div class="column-3">1399414454000</div>
+  <div class="column-3">CSV</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Comprehensive Plan geojson</a></div>
+  <div class="column-3">1427393327000</div>
+  <div class="column-3">GeoJson</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Summarize taxlots within Map Notes_Areas</a></div>
+  <div class="column-3">1427241222000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Summarize Map Notes_Areas within USA Detailed Water Bodies</a></div>
+  <div class="column-3">1426786720000</div>
+  <div class="column-3">Feature Collection</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Lower Albina Contours</a></div>
+  <div class="column-3">1429112698000</div>
+  <div class="column-3">GeoJson</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Portland Neighborhoods</a></div>
+  <div class="column-3">1408144094000</div>
+  <div class="column-3">Shapefile</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Lower Albina - Rail Lines</a></div>
+  <div class="column-3">1429731812000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Lower Albina - Rail Nods</a></div>
+  <div class="column-3">1429740399000</div>
+  <div class="column-3">GeoJson</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Zoning - Copy</a></div>
+  <div class="column-3">1406077416000</div>
+  <div class="column-3">Map Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Rail Lines</a></div>
+  <div class="column-3">1410208239000</div>
+  <div class="column-3">Shapefile</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Scenic Resource Zoning-Copy</a></div>
+  <div class="column-3">1432665202000</div>
+  <div class="column-3">Web Map</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Taxlots, Lower Albina Plus</a></div>
+  <div class="column-3">1429110146000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">Lower Albina - Rail Nods</a></div>
+  <div class="column-3">1429740256000</div>
+  <div class="column-3">Feature Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">contours</a></div>
+  <div class="column-3">1428602948000</div>
+  <div class="column-3">Map Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+        
+<div class="column-18 font-size--1 item text-darkest-gray gutter-left-0 gutter-right-0">
+  <div class="column-1"><label class="item-checkbox font-size--2"><input type="checkbox"></div>
+  <div class="column-7"><a href="/layers/item">contour tiles one</a></div>
+  <div class="column-3">1429114594000</div>
+  <div class="column-3">Map Service</div>
+  <div class="column-3">NikolasWise</div>
+  <div class="column-1"><a href="#" class="link-gray"><small class="item-preview-affordance">preview</small></a></div>
+</div>
+
+      
+    </div>
+  </div>
+</div>
+</div>
+
+      
+        <div class="js-requirements-content hide">
+          <div class="grid-container grid-full">
+            <div class="column-12 pre-6 leader-1">
+              <h1><a href="https://devtopia.esri.com/WebGIS/arcgis-online-ux-design/wiki/My-Content">My Content</a></h1>
+<ul>
+<li>New Item</li>
+<li>My Items/Owned</li>
+<li>My Groups</li>
+<li>My Organization</li>
+<li>My Favorites</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      
+    </div>
+
+   <footer class="footer avenir-regular padding-leader-1">
+      <div class="grid-container ">
+        <nav class="column-6">
+          <h6>Arc<span>GIS</span></h6>
+          <ul class="list-bulleted">
+            <li><a href="http://www.arcgis.com/about/">Home</a></li>
+            <li><a href="http://www.arcgis.com/about/features.html">Features</a></li>
+            <li><a href="http://www.arcgis.com/about/pricing.html">Pricing</a></li>
+          </ul>
+        </nav>
+
+        <nav class="column-6">
+          <h6>Arc<span>GIS</span> for Developers</h6>
+          <ul>
+            <li><a href="/en/">Home</a></li>
+            <li><a href="/en/features/">Features</a></li>
+            <li><a href="http://blogs.esri.com/esri/arcgis/category/developer/">Blog</a></li>
+          </ul>
+        </nav>
+
+        <nav class="column-6">
+          <h6>About Esri</h6>
+          <ul>
+            <li><a href="http://www.esri.com/about-esri/">About Us</a></li>
+            <li><a href="http://www.esri.com/careers/">Careers</a></li>
+            <li><a href="http://blogs.esri.com/esri/esri-insider/">Insiders Blog</a></li>
+            <li><a href="http://www.esri.com/events/user-conference/index.html">User Conference</a></li>
+            <li><a href="http://www.esri.com/events/devsummit/index.html">Developer Summit</a></li>
+          </ul>
+        </nav>
+
+        <nav class="column-6 padding-leader-half">
+          <a class="esri-logo" href="http://esri.com"></a>
+          <section class="footer-social-nav">
+            <a class="icon-twitter" href="https://twitter.com/Esri/"></a>
+            <a class="icon-facebook" href="https://www.facebook.com/esrigis/"></a>
+            <a class="icon-github" href="http://esri.github.com/"></a>
+            <a class="icon-email" href="http://www.esri.com/about-esri/contact/"></a>
+          </section>
+        </nav>
+        <div class="">
+          <p><small>© Copyright 2013 Environmental Systems Research Institute, Inc. | <a href="http://www.esri.com/legal/privacy">Privacy</a> | <a href="http://www.esri.com/legal/software-license">Legal</a></small></p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../../_assets/js/common.js"></script>
+    <script src="../../_assets/js/main.js"></script>
+
+    
+      
+        <script src="../../_assets/js/content.js"></script>
+      
+
+    
+  </body>
+
+</html>

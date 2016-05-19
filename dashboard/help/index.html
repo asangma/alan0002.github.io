@@ -1,0 +1,428 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 9]>  <html class="ie lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]>     <html class="ie ie9"> <![endif]-->
+<!--[if !IE]><!--> <html> <!--<![endif]-->
+  <head>
+
+    <!-- Set encoding -->
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Use title from page frontmatter -->
+    <title>Help</title>
+
+    <!-- Link to favicon -->
+    <link rel="shortcut icon" href="../_assets/img/favicon.ico">
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="../_assets/css/style.css">
+
+    
+
+  </head>
+
+  <body data-url="help/" data-path="../" class="">
+    <div class="drawer drawer-left js-drawer" data-drawer="versioner">
+      <nav class="drawer-nav">
+        <aside class="side-nav">
+          <h4 class="side-nav-title">Versions</h4>
+          <nav class="js-versions"></nav>
+          <h4 class="side-nav-title">State</h4>
+          <div class="panel panel-white panel-padded panel-bordered padding-leader-1 padding-trailer-1">
+            <label>
+              User Role
+              <select class="js-user-role">
+                <option value="viewer">Viewer</option>
+                <option value="admin">Admin</option>
+                <option value="developer">Developer</option>
+              </select>
+            </label>
+            <fieldset>
+              <legend>Authentication</legend>
+              <label>
+                <input class="js-signed-in" type="checkbox" checked> Signed In
+              </label>
+            </fieldset>
+            <a href="" class="js-requirements">View Requirements</a>
+          </div>
+        </aside>
+      </nav>
+    </div>
+
+    <!-- left drawer - navigation menu -->
+    <div class="drawer drawer-left js-drawer" data-drawer="top-nav-left">
+      <nav class="drawer-nav">
+        <aside class="side-nav">
+          <a href="../" class="side-nav-link padding-trailer-half padding-leader-half">Home</a>
+          <a href="../content" class="side-nav-link padding-trailer-half padding-leader-half">Content</a></a>
+          <a href="../groups" class="side-nav-link padding-trailer-half padding-leader-half">Groups</a></a>
+          <a href="../organization-name" class="side-nav-link padding-trailer-half padding-leader-half">Organization</a></a>
+        </aside>
+      </nav>
+    </div>
+
+    <!-- right drawer - user menu -->
+    <div class="drawer drawer-right js-drawer" data-drawer="top-nav-right">
+      <nav class="drawer-nav">
+        <aside class="side-nav">
+          <a href="../account/" class="side-nav-link padding-trailer-half padding-leader-half">Account</a>
+          <a href="../account/profile" class="side-nav-link padding-trailer-half padding-leader-half">Profile</a>
+          <a href="#" class="side-nav-link padding-trailer-half padding-leader-half js-sign-out">Sign Out</a>
+        </aside>
+      </nav>
+    </div>
+
+    <div class="wrapper">
+      <header class="top-nav">
+
+        <a href="#" class="versioner-toggle inline left link-light-gray  js-drawer-toggle" data-drawer="versioner">☰</a>
+
+        <div class="grid-container ">
+          <div class="column-24 ">
+            <a href="../" class="top-nav-title signed-in-hide">ArcGIS</a>
+
+            <nav class="top-nav-list tablet-show">
+              <a href="#" class="top-nav-link js-drawer-toggle" data-drawer="top-nav-left">Menu</a>
+            </nav>
+
+            <nav class="top-nav-list tablet-hide">
+              <a class="top-nav-link signed-out-hide " href="../">Home</a>
+              <a class="top-nav-link signed-out-hide " href="../content/">Content</a>
+              <a class="top-nav-link signed-out-hide " href="../groups/">Groups</a>
+              <a class="top-nav-link signed-out-hide " href="../organization-name/">Organization</a>
+
+              <a class="top-nav-link signed-in-hide " href="../features/">Features</a>
+              <a class="top-nav-link signed-in-hide " href="../plans/">Plans</a>
+              <a class="top-nav-link signed-in-hide " href="../explore/">Explore</a>
+            </nav>
+
+            <div class="top-nav-list signed-in-hide right">
+              <a href="../sign-in" class="signed-in-hide">Sign In</a>
+            </div>
+
+            <nav class="top-nav-list right">
+
+              <!-- extends side-nav-link -->
+              <div class="dropdown js-dropdown tool-link top-nav-link signed-out-hide">
+                <!-- extends side-nav -->
+                <a href="#" class="top-nav-dropdown dropdown-btn js-dropdown-toggle"><img class="nav-image" src="../_assets/img/top-nav-prototype/top-nav-create.png"> Create</a>
+                <!-- extends side-nav -->
+                <nav class="dropdown-menu dropdown-right">
+                  <!-- extends side-nav-link -->
+                  <a class="dropdown-link" href="/map-viewer">New Map</a>
+                  <a class="dropdown-link" href="/scene-viewer">New Scene</a>
+                  <a class="dropdown-link" href="/new">New Layer</a>
+                  <a class="dropdown-link" href="/new">New Application</a>
+                  <a class="dropdown-link" href="/new">Upload File</a>
+                </nav>
+              </div>
+
+              <a href="../map-viewer" class="top-nav-link tool-link"><img class="nav-image" src="../_assets/img/top-nav-prototype/top-nav-map.png"> Map</a>
+              <a href="../scene-viewer" class="top-nav-link tool-link"><img class="nav-image" src="../_assets/img/top-nav-prototype/top-nav-scene.png"> Scene</a>
+              <a href="../notifications" class="top-nav-link signed-out-hide user-notifications" title="View All Notifications">
+              <div class="badge">
+                <span class="badge-count" id="badge-count">4</span>
+              </div>
+              </a>
+
+              <div class="dropdown js-dropdown signed-out-hide top-nav-link">
+                <div class="tablet-show">
+                  <img src="../_assets/img/gravatar.jpg" alt="Sloth Aldrin" class="user-image" width="20" height="20">
+                  <a href="#" data-drawer="top-nav-right" class="js-drawer-toggle link-off-black">Patrick</a>
+                </div>
+
+                <div class="tablet-hide">
+                  <img src="../_assets/img/gravatar.jpg" alt="Sloth Aldrin" class="user-image" width="20" height="20">
+                  <a class="top-nav-dropdown dropdown-btn js-dropdown-toggle">Patrick</a>
+                </div>
+
+                <nav class="dropdown-menu dropdown-right">
+                  <a href="../account" class="dropdown-link">Account</a>
+                  <a href="../account/profile" class="dropdown-link">Profile</a>
+                  <a href="../account/billing" class="dropdown-link viewer-hide">Billing</a>
+                  <a href="#" class="dropdown-link js-sign-out">Sign Out</a>
+                </nav>
+              </div>
+            </nav>
+
+            <div class="site-search is-active right">
+              <form class="site-search-form">
+                <span class="icon-ui-search site-search-icon"></span>
+                <input class="site-search-input" type="search" placeholder="Search">
+                <span class="input-group-button">
+                  <a href="../search" class="btn btn-clear site-search-button">Go</a>
+                </span>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </header>
+
+      <div class="versioner" data-version="current">
+  
+  
+<header class="sub-nav trailer-1">
+  <div class="grid-container">
+    <div class="column-24 padding-leader-2">
+      <h1 class="leader-half trailer-half">Help</h1>
+      <p class="text-size-3">Browse help and guides for ArcGIS Online.</p>
+      <nav class="sub-nav-list">
+        <a href="../help/" class="sub-nav-link is-active">Overview</a>
+        <a href="../help/questions/" class="sub-nav-link ">Questions</a>
+        <a href="../help/guides/" class="sub-nav-link ">Guides</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+  <div class="grid-container">
+    <div class="column-24 leader-1">
+      <input type="search" placeholder="Search for Help" class="column-20 pre-1"><a href="" class="btn btn-fill column-2 post-1">Filter</a>
+      <small class="text-gray pre-1">showing 150 of 150 help topics</small>
+    </div>
+    <div class="column-24 leader-2">
+      <h2 class="padding-trailer-half"><a href="../help/faq/" class="link-off-black">Common Questions</a></h2>
+      <div class="block-group block-group-2-up">
+        <div class="block">
+          <h4>General</h4>
+          <ul class="font-size--1">
+            <li class="js-filter-item"><a href="../help/questions/">What is ArcGIS Online?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">Does ArcGIS Online require a subscription?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">Why don't I see an option to open maps in ArcGIS Explorer Online?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">Can I transfer my data directly from one organization to another?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">Can I transfer a map from my public account to my organizational account?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">How much does it cost to use ArcGIS Online?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">Can I use ArcGIS Online for free?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">What is an ArcGIS account and how is it different from an Esri Account?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">How secure is ArcGIS Online?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">Can I back up my organization?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">How do I report data problems?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">I see inappropriate content on the website. What can I do?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">What are the terms of use for maps, apps, layers, and tools I find on the website?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">How can I make my profile private?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">What does beta mean?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">When do members see contact information for the administrator of their organization?</a></li>
+          </ul>
+        </div>
+        <div class="block">
+          <h4>Maps</h4>
+          <ul class="font-size--1">
+            <li class="js-filter-item"><a href="../help/questions/">Can I change the default styles in my map?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">Why did Esri change the authoring tools in the map viewer?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">When I use the Change Style option, why don’t I see the same choices every time?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">What is the source of the Disasters, General Infrastructure, and Damage symbols?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">What kinds of layers can I add to a map?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">What's the difference between features stored in the map and features stored in an ArcGIS Server feature service layer?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">What's the best way to add features to a map?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">How can I tell if a map is time enabled?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">What's the difference between Save and Save As?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">What is the difference between building a map with an ArcGIS Web API and the map viewer?</a></li>
+          </ul>
+        </div>
+        <div class="block">
+          <h4>Scenes</h4>
+          <ul class="font-size--1">
+            <li class="js-filter-item"><a href="../help/questions/">What is a scene?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">What is the scene viewer?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">How do I create a scene?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">What's the difference between a scene and a map?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">Do I need ArcGIS Pro to create a scene?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">How can I use the scene viewer with my 2D data?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">Can I share 3D geometry in feature layers?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">Can I share my own terrain models in scenes?</a></li>
+          </ul>
+        </div>
+        <div class="block">
+          <h4>Apps</h4>
+          <ul class="font-size--1">
+            <li class="js-filter-item"><a href="../help/questions/">Can I still use a retired configurable app template?</a></li>
+          </ul>
+        </div>
+        <div class="block">
+          <h4>My content</h4>
+          <ul class="font-size--1">
+            <li class="js-filter-item"><a href="../help/questions/">How much storage space do I get?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">What can I share?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">What's the best way to share my ArcGIS for Desktop content?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">Can I share a URL of my map or app?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">Do common search engines find the items I've added to ArcGIS Online?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">What happened to the layer packages and other ArcGIS for Desktop files I shared? I no longer see them.</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">Why can't I see layer packages or other files used in ArcGIS for Desktop and ArcGIS Explorer Desktop?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">What is the difference between a map and a web app within the context of the website?</a></li>
+          </ul>
+        </div>
+        <div class="block">
+          <h4>Esri featured content</h4>
+          <ul class="font-size--1">
+            <li class="js-filter-item"><a href="../help/questions/">What are ready-to-use maps?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">What is premium content?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">Are ArcGIS Online basemaps available through HTTPS?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">How do I find out when aerial photos were taken for a specific location?</a></li>
+          </ul>
+        </div>
+        <div class="block">
+          <h4>Bing Maps</h4>
+          <ul class="font-size--1">
+            <li class="js-filter-item"><a href="../help/questions/">Can I use Bing Maps with ArcGIS?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">How do I contact Microsoft to get pricing information?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">Is there a fee to use Bing Maps?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">How do I add a Bing Maps key to ArcGIS for Desktop?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">How do I add a Bing Maps key to ArcGIS Explorer Desktop?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">How do I add a Bing Maps key to my web app?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">How do I add a Bing Maps key to my ArcGIS Online organization?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">What maps other than Bing Maps can I use?</a></li>
+          </ul>
+        </div>
+        <div class="block">
+          <h4>Developer resources</h4>
+          <ul class="font-size--1">
+            <li class="js-filter-item"><a href="../help/questions/">What environments are available for developing web apps?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">What environments are available for developing mobile apps?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">Do I need an account to use ArcGIS Web APIs and ArcGIS Runtime SDKs?</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+    </div>
+    <div class="column-24">
+      <h2 class="padding-trailer-half"><a href="../help/faq/" class="link-off-black">Guides</a></h2>
+      <div class="block-group block-group-3-up">
+        <div class="block">
+          <h4>General</h4>
+          <ul class="font-size--1">
+            <li class="js-filter-item"><a href="../help/questions/">What is ArcGIS Online?</a></li>
+            <li class="js-filter-item"><a href="../help/questions/">Does ArcGIS Online require a subscription?</a></li>
+          </ul>
+        </div>
+        <div class="block">
+          <h4>Create</h4>
+          <ul class="font-size--1">
+            <li class="js-filter-item"><a href="../help/topic/">Make your first map</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Choose basemap</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Add layers</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Change style</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Configure pop-ups</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Save maps</a></li>
+          </ul>
+        </div>
+        <div class="block">
+          <h4>Share</h4>
+          <ul class="font-size--1">
+            <li class="js-filter-item"><a href="../help/topic/">What can you add to ArcGIS Online?</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Add items</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Item details</a></li>
+          </ul>
+        </div>
+        <div class="block">
+          <h4>Administer</h4>
+          <ul class="font-size--1">
+            <li class="js-filter-item"><a href="../help/topic/">Configure website</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Configure general settings</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Configure home page</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Configure map viewer</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Configure gallery</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Configure groups</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Configure item details</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Configure utility services</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Configure roles</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Configure security settings</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Configure Open Data</a></li>
+          </ul>
+        </div>
+        <div class="block">
+          <h4>Use</h4>
+          <ul class="font-size--1">
+            <li class="js-filter-item"><a href="../help/topic/">View maps in the map viewer</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">View pop-ups</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">View legend</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">View time maps</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Change transparency</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Apply filters</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Show tables</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Work with fields</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Get directions</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Measure</a></li>
+            <li class="js-filter-item"><a href="../help/topic/">Control stream feature layers</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+        <div class="js-requirements-content hide">
+          <div class="grid-container grid-full">
+            <div class="column-12 pre-6 leader-1">
+              <h1>Help</h1>
+<ul>
+<li>Link to help/guides</li>
+<li>Search help</li>
+<li>View common help topics</li>
+<li>View FAQ's</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      
+    </div>
+
+   <footer class="footer avenir-regular padding-leader-1">
+      <div class="grid-container ">
+        <nav class="column-6">
+          <h6>Arc<span>GIS</span></h6>
+          <ul class="list-bulleted">
+            <li><a href="http://www.arcgis.com/about/">Home</a></li>
+            <li><a href="http://www.arcgis.com/about/features.html">Features</a></li>
+            <li><a href="http://www.arcgis.com/about/pricing.html">Pricing</a></li>
+          </ul>
+        </nav>
+
+        <nav class="column-6">
+          <h6>Arc<span>GIS</span> for Developers</h6>
+          <ul>
+            <li><a href="/en/">Home</a></li>
+            <li><a href="/en/features/">Features</a></li>
+            <li><a href="http://blogs.esri.com/esri/arcgis/category/developer/">Blog</a></li>
+          </ul>
+        </nav>
+
+        <nav class="column-6">
+          <h6>About Esri</h6>
+          <ul>
+            <li><a href="http://www.esri.com/about-esri/">About Us</a></li>
+            <li><a href="http://www.esri.com/careers/">Careers</a></li>
+            <li><a href="http://blogs.esri.com/esri/esri-insider/">Insiders Blog</a></li>
+            <li><a href="http://www.esri.com/events/user-conference/index.html">User Conference</a></li>
+            <li><a href="http://www.esri.com/events/devsummit/index.html">Developer Summit</a></li>
+          </ul>
+        </nav>
+
+        <nav class="column-6 padding-leader-half">
+          <a class="esri-logo" href="http://esri.com"></a>
+          <section class="footer-social-nav">
+            <a class="icon-twitter" href="https://twitter.com/Esri/"></a>
+            <a class="icon-facebook" href="https://www.facebook.com/esrigis/"></a>
+            <a class="icon-github" href="http://esri.github.com/"></a>
+            <a class="icon-email" href="http://www.esri.com/about-esri/contact/"></a>
+          </section>
+        </nav>
+        <div class="">
+          <p><small>© Copyright 2013 Environmental Systems Research Institute, Inc. | <a href="http://www.esri.com/legal/privacy">Privacy</a> | <a href="http://www.esri.com/legal/software-license">Legal</a></small></p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../_assets/js/common.js"></script>
+    <script src="../_assets/js/main.js"></script>
+
+    
+  </body>
+
+</html>

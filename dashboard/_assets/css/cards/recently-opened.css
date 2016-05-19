@@ -1,0 +1,16 @@
+.card-recently-opened ul {
+  margin: .25rem;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+  -webkit-column-width: 15em;
+  -moz-column-width: 15em;
+  column-width: 15em; }
+  .card-recently-opened ul li {
+    margin: 0; }
+    .card-recently-opened ul li + li {
+      margin-top: .25rem; }
+
+.card-recently-opened img {
+  vertical-align: text-top;
+  padding-right: .25em; }

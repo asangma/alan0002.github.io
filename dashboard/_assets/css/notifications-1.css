@@ -1,0 +1,467 @@
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css";
+.feed-day {
+  margin: 0 0 1rem 0; }
+  .feed-day .feed-day-title {
+    background: #fff;
+    position: relative;
+    z-index: 100;
+    padding: .5rem 0;
+    margin-bottom: 0.5rem;
+    font-weight: 500; }
+  .feed-day .esri-event .event-time {
+    width: 12%; }
+  .feed-day .esri-event .event-bullet {
+    margin-left: .5em; }
+
+.user-image {
+  float: left;
+  margin-top: 1px;
+  margin-right: .25em; }
+
+.dropdown-btn:after {
+  right: .1rem; }
+
+.homepage-link {
+  text-align: right;
+  font-size: 14px;
+  font-weight: 300; }
+
+@-webkit-keyframes fresh-event {
+  0% {
+    background-color: #ffffff; }
+  1% {
+    background-color: #e2f1fb; }
+  90% {
+    background-color: #e2f1fb; }
+  100% {
+    background-color: #ffffff; } }
+
+keyframes fresh-event 0% {
+  background-color: #ffffff; }
+
+keyframes fresh-event 1% {
+  background-color: #e2f1fb; }
+
+keyframes fresh-event 90% {
+  background-color: #e2f1fb; }
+
+keyframes fresh-event 100% {
+  background-color: #ffffff; }
+
+@-webkit-keyframes fresh-event-earmark {
+  0% {
+    opacity: 0; }
+  90% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+keyframes fresh-event-earmark 0% {
+  opacity: 0; }
+
+keyframes fresh-event-earmark 90% {
+  opacity: 0; }
+
+keyframes fresh-event-earmark 100% {
+  opacity: 1; }
+
+.esri-event {
+  font-size: 14px;
+  border-top: solid 1px #cccccc;
+  padding: 10px 1% 5px 1%;
+  margin: 0;
+  width: 98%;
+  height: auto;
+  position: relative; }
+  .esri-event:after {
+    content: '';
+    display: block;
+    clear: both; }
+  .esri-event.unread {
+    opacity: 1;
+    /* -webkit-animation: fresh-event $fresh-time ease-in-out 1ms; 
+      -moz-animation: fresh-event $fresh-time ease-in-out 1ms; 
+      -o-animation: fresh-event $fresh-time ease-in-out 1ms; 
+      animation: fresh-event $fresh-time ease-in-out 1ms;  */ }
+    .esri-event.unread:before {
+      /* -webkit-animation: fresh-event-earmark $fresh-time ease-in-out 1ms; 
+        -moz-animation: fresh-event-earmark $fresh-time ease-in-out 1ms; 
+        -o-animation: fresh-event-earmark $fresh-time ease-in-out 1ms; 
+        animation: fresh-event-earmark $fresh-time ease-in-out 1ms;  */ }
+  .esri-event .event-meta {
+    width: 4%;
+    float: left;
+    text-align: center; }
+    .esri-event .event-meta .event-bullet {
+      font-size: 1.2em; }
+  .esri-event .event-body {
+    width: 96%;
+    float: right;
+    display: table; }
+  .esri-event .event-body:after {
+    content: '';
+    display: block;
+    clear: both; }
+  .esri-event .event-content {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 0 0 0;
+    width: 50%; }
+  .esri-event .event-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 0 00;
+    padding: 0;
+    line-height: 1.33em; }
+  .esri-event .event-item-label {
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.2em;
+    padding: 0.1em 0.5em;
+    background-color: #e7e7e7;
+    text-transform: lowercase;
+    vertical-align: 0.1em;
+    white-space: nowrap; }
+  .esri-event .event-message {
+    margin: 0 0 0 0; }
+  .esri-event .event-info {
+    margin: 0 0 0 0.25em; }
+  .esri-event .item-type,
+  .esri-event .event-count {
+    font-weight: 500;
+    text-transform: capitalize; }
+  .esri-event .event-actions {
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0 0 0 0;
+    width: 35%;
+    /* .btn-grouped + .btn-grouped {
+        margin-left:2px;
+      } */
+    text-align: right; }
+    .esri-event .event-actions .event-action {
+      font-size: 12px;
+      margin-left: 2px;
+      line-height: 1.5em; }
+  .esri-event .event-follow-toggle {
+    font-size: 12px;
+    text-align: right;
+    display: table-cell;
+    vertical-align: middle;
+    width: 10%; }
+    .esri-event .event-follow-toggle .event-unfollow-label {
+      display: none; }
+    .esri-event .event-follow-toggle.hovered .event-unfollow-label {
+      display: block; }
+    .esri-event .event-follow-toggle.hovered .event-following-label {
+      display: none; }
+    .esri-event .event-follow-toggle:hover {
+      cursor: pointer; }
+  .esri-event .event-actor {
+    margin: 0 0 0 0;
+    font-size: 12px;
+    line-height: 1.2em;
+    display: table-cell;
+    vertical-align: middle;
+    width: 4%;
+    max-width: 32px; }
+    .esri-event .event-actor:hover {
+      cursor: pointer; }
+    .esri-event .event-actor .event-actor-avatar,
+    .esri-event .event-actor a {
+      vertical-align: middle; }
+    .esri-event .event-actor .event-actor-avatar {
+      height: auto;
+      width: 100%;
+      max-width: 32px;
+      float: right;
+      border: solid 1px #e0e0e0; }
+    .esri-event .event-actor .esri-icon-user {
+      font-size: 18px; }
+  .esri-event .event-time {
+    padding: 0 8px 0 0;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+    font-size: 12px;
+    line-height: 1em;
+    color: #cccccc; }
+    .esri-event .event-time .esri-icon-time-clock {
+      margin-right: -.125rem; }
+  .esri-event .event-footer {
+    float: none;
+    width: 100%; }
+
+.sparkline-wrapper {
+  margin-left: 5%;
+  margin-right: 5%; }
+
+.notification-date {
+  font-size: 12px; }
+
+.notification-year {
+  font-size: 10px; }
+
+.archived-tooltip {
+  position: absolute;
+  z-index: 10000;
+  opacity: 0;
+  font-size: 14px; }
+
+.check-ani {
+  position: absolute;
+  z-index: 10000;
+  -webkit-animation: checkAnimation 600ms ease-in-out;
+  -moz-animation: checkAnimation 600ms ease-in-out;
+  -o-animation: checkAnimation 600ms ease-in-out;
+  animation: checkAnimation 600ms ease-in-out;
+  text-shadow: 0 0px 0px rgba(0, 0, 0, 0.75);
+  color: #595959; }
+  .check-ani span {
+    font-size: 24px; }
+
+@-webkit-keyframes checkAnimation {
+  0% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    text-shadow: 0 0px 0px rgba(0, 0, 0, 0.75); }
+  50% {
+    -webkit-transform: scale(3);
+    -moz-transform: scale(3);
+    -ms-transform: scale(3);
+    -o-transform: scale(3);
+    transform: scale(3);
+    text-shadow: 10px 30px 30px rgba(0, 0, 0, 0.75); }
+  90% {
+    -webkit-transform: scale(3);
+    -moz-transform: scale(3);
+    -ms-transform: scale(3);
+    -o-transform: scale(3);
+    transform: scale(3);
+    text-shadow: 10px 30px 30px rgba(0, 0, 0, 0.75); }
+  100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    text-shadow: 0 0px 0px transparent; } }
+
+.is-ani-target {
+  background-color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  color: #000 !important; }
+
+.notifications {
+  margin-top: -2px;
+  border-bottom: solid 1px #cccccc; }
+  .notifications .notifications-header {
+    margin-bottom: 0; }
+  .notifications.empty-notifications {
+    min-height: 280px; }
+  .notifications .esri-event.is-new:hover {
+    background: #f8f8f8; }
+  .notifications .esri-event.is-new .event-actions {
+    padding-right: 10px; }
+  .notifications .esri-event.is-new .event-count {
+    color: #de2900; }
+
+.congrats-message {
+  display: none; }
+
+.notifications-feed-page .mark-all-as-viewed {
+  color: #0079c1;
+  display: table;
+  font-size: 14px; }
+  .notifications-feed-page .mark-all-as-viewed * {
+    display: table-cell;
+    vertical-align: middle; }
+  .notifications-feed-page .mark-all-as-viewed .mark-all-as-read-text {
+    padding-right: .5em; }
+  .notifications-feed-page .mark-all-as-viewed:hover {
+    text-decoration: none;
+    cursor: pointer;
+    color: #005e95; }
+
+.notifications-feed-page .esri-event {
+  width: 99%;
+  padding-left: 1%;
+  padding-right: 0;
+  overflow: hidden; }
+  .notifications-feed-page .esri-event .event-body {
+    float: left;
+    width: 97%; }
+  .notifications-feed-page .esri-event .event-content {
+    width: 35%; }
+  .notifications-feed-page .esri-event .fa:before {
+    padding-right: 0.51667rem;
+    line-height: 1;
+    position: relative;
+    top: -3px;
+    left: -1px; }
+  .notifications-feed-page .esri-event .event-archive-toggle {
+    display: table-cell;
+    vertical-align: middle;
+    width: 15%;
+    text-align: right; }
+    .notifications-feed-page .esri-event .event-archive-toggle * {
+      vertical-align: middle; }
+    .notifications-feed-page .esri-event .event-archive-toggle a {
+      font-size: 14px;
+      color: #959595; }
+      .notifications-feed-page .esri-event .event-archive-toggle a:hover {
+        cursor: pointer;
+        text-decoration: none; }
+    .notifications-feed-page .esri-event .event-archive-toggle .event-archive-toggle-text {
+      font-size: 12px;
+      display: none; }
+  .notifications-feed-page .esri-event .event-meta {
+    width: 3%;
+    text-align: left; }
+
+.notifications-feed-page .is-new .event-archive {
+  display: block; }
+
+.notifications-feed-page .is-new .event-unarchive {
+  display: none; }
+
+.notifications-feed-page .is-archived {
+  background-color: #efefef;
+  padding-top: 2px;
+  padding-bottom: 2px; }
+  .notifications-feed-page .is-archived .event-archive {
+    display: none; }
+  .notifications-feed-page .is-archived .event-unarchive {
+    display: block; }
+  .notifications-feed-page .is-archived .event-bullet {
+    position: relative;
+    top: 4px; }
+  .notifications-feed-page .is-archived .event-message {
+    display: none; }
+  .notifications-feed-page .is-archived .event-content .event-title {
+    font-weight: 300;
+    font-size: 14px; }
+  .notifications-feed-page .is-archived .event-actions {
+    display: none; }
+
+.feed .esri-event {
+  width: 94%;
+  border: solid 1px #cccccc;
+  margin: 0 0 5px 4%;
+  padding: 5px 5px 5px 0;
+  position: relative; }
+  .feed .esri-event.unread:before {
+    right: -1px; }
+  .feed .esri-event .event-dot {
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    background: #cccccc;
+    border-radius: 50%;
+    left: -20px;
+    top: 47%;
+    z-index: 10; }
+    .feed .esri-event .event-dot:before {
+      position: absolute;
+      top: 5px;
+      content: '';
+      display: block;
+      border-bottom: solid 1px #cccccc;
+      width: 20px;
+      z-index: 5; }
+    .feed .esri-event .event-dot:after {
+      position: absolute;
+      top: -70px;
+      left: 5px;
+      content: '';
+      display: block;
+      border-left: solid 1px #cccccc;
+      height: 140px; }
+  .feed .esri-event:last-child .event-dot:after {
+    height: 120px; }
+  .feed .esri-event .event-meta {
+    width: 6%; }
+  .feed .esri-event .event-content {
+    width: 70%;
+    margin: 0; }
+  .feed .esri-event .event-list {
+    margin: .25em 0 0 0;
+    padding: 0; }
+    .feed .esri-event .event-list li {
+      list-style: none;
+      font-size: 12px;
+      line-height: 1.33em;
+      margin: 0 0 0.2em 0;
+      padding: 0; }
+
+.top-nav-link.user-notifications .badge-count {
+  float: none;
+  width: 1em;
+  height: 1em;
+  padding: .3em .55em;
+  line-height: 0;
+  background-color: #de2900;
+  color: #fff;
+  border: none; }
+  .top-nav-link.user-notifications .badge-count.no-notifications {
+    background-color: #a9a9a9; }
+
+.esri-loading-indicator {
+  width: 32px;
+  margin: 10% auto; }
+
+.notifications-search {
+  width: 25%; }
+  .notifications-search input {
+    font-size: 0.875rem;
+    line-height: 1.55rem;
+    padding: 0.2rem 0 0.1rem 0.5rem;
+    margin-top: 0;
+    margin-bottom: .25rem; }
+
+.sharing-graph {
+  width: 100%; }
+
+.hidden-actions {
+  max-height: 0px;
+  overflow: hidden;
+  opacity: 0; }
+
+.hide-actions {
+  display: none; }
+
+.reveal-hidden-actions {
+  font-size: 12px;
+  line-height: 1.2em;
+  margin: -5px 0 0 0; }
+  .reveal-hidden-actions a:hover {
+    text-decoration: none; }
+  .reveal-hidden-actions a span i.esri-icon-down-arrow:before,
+  .reveal-hidden-actions a span i.esri-icon-up-arrow:before {
+    padding-right: 0; }
+
+.more-actions-showing .reveal-hidden-actions {
+  margin-top: 5px; }
+
+.more-actions-showing .hide-actions {
+  display: block; }
+
+.more-actions-showing .show-actions {
+  display: none; }
+
+.more-actions-showing .hidden-actions {
+  max-height: 100px;
+  opacity: 1;
+  -webkit-transition: all 500ms ease;
+  -moz-transition: all 500ms ease;
+  -ms-transition: all 500ms ease;
+  -o-transition: all 500ms ease;
+  transition: all 500ms ease; }
+
+.clearfix:after {
+  display: block;
+  content: '';
+  clear: both; }

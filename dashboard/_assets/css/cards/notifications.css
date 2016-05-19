@@ -1,0 +1,36 @@
+.card-notifications article {
+  padding: .5rem 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+  .card-notifications article + article {
+    border-top: 1px solid #efefef; }
+  .card-notifications article .activity-icon {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 1.25rem;
+    -ms-flex: 0 0 1.25rem;
+    flex: 0 0 1.25rem;
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center; }
+    .card-notifications article .activity-icon:before {
+      font-size: 1.25rem; }
+  .card-notifications article p {
+    -webkit-box-flex: 3;
+    -webkit-flex: 3 1 auto;
+    -ms-flex: 3 1 auto;
+    flex: 3 1 auto;
+    padding: 0 1rem;
+    margin: 0;
+    line-height: 1.5rem; }
+  .card-notifications article .view-notification {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center;
+    text-align: center;
+    min-width: 4rem; }

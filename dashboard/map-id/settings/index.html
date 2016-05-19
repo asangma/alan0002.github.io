@@ -1,0 +1,848 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 9]>  <html class="ie lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]>     <html class="ie ie9"> <![endif]-->
+<!--[if !IE]><!--> <html> <!--<![endif]-->
+  <head>
+
+    <!-- Set encoding -->
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Use title from page frontmatter -->
+    <title>Item Page | Map</title>
+
+    <!-- Link to favicon -->
+    <link rel="shortcut icon" href="../../_assets/img/favicon.ico">
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="../../_assets/css/style.css">
+
+    
+      <link rel="stylesheet" href="../../_assets/css/comments.css">
+    
+
+  </head>
+
+  <body data-url="map-id/settings/" data-path="../../" class="">
+    <div class="drawer drawer-left js-drawer" data-drawer="versioner">
+      <nav class="drawer-nav">
+        <aside class="side-nav">
+          <h4 class="side-nav-title">Versions</h4>
+          <nav class="js-versions"></nav>
+          <h4 class="side-nav-title">State</h4>
+          <div class="panel panel-white panel-padded panel-bordered padding-leader-1 padding-trailer-1">
+            <label>
+              User Role
+              <select class="js-user-role">
+                <option value="viewer">Viewer</option>
+                <option value="admin">Admin</option>
+                <option value="developer">Developer</option>
+              </select>
+            </label>
+            <fieldset>
+              <legend>Authentication</legend>
+              <label>
+                <input class="js-signed-in" type="checkbox" checked> Signed In
+              </label>
+            </fieldset>
+            <a href="" class="js-requirements">View Requirements</a>
+          </div>
+        </aside>
+      </nav>
+    </div>
+
+    <!-- left drawer - navigation menu -->
+    <div class="drawer drawer-left js-drawer" data-drawer="top-nav-left">
+      <nav class="drawer-nav">
+        <aside class="side-nav">
+          <a href="../../" class="side-nav-link padding-trailer-half padding-leader-half">Home</a>
+          <a href="../../content" class="side-nav-link padding-trailer-half padding-leader-half">Content</a></a>
+          <a href="../../groups" class="side-nav-link padding-trailer-half padding-leader-half">Groups</a></a>
+          <a href="../../organization-name" class="side-nav-link padding-trailer-half padding-leader-half">Organization</a></a>
+        </aside>
+      </nav>
+    </div>
+
+    <!-- right drawer - user menu -->
+    <div class="drawer drawer-right js-drawer" data-drawer="top-nav-right">
+      <nav class="drawer-nav">
+        <aside class="side-nav">
+          <a href="../../account/" class="side-nav-link padding-trailer-half padding-leader-half">Account</a>
+          <a href="../../account/profile" class="side-nav-link padding-trailer-half padding-leader-half">Profile</a>
+          <a href="#" class="side-nav-link padding-trailer-half padding-leader-half js-sign-out">Sign Out</a>
+        </aside>
+      </nav>
+    </div>
+
+    <div class="wrapper">
+      <header class="top-nav">
+
+        <a href="#" class="versioner-toggle inline left link-light-gray  js-drawer-toggle" data-drawer="versioner">☰</a>
+
+        <div class="grid-container ">
+          <div class="column-24 ">
+            <a href="../../" class="top-nav-title signed-in-hide">ArcGIS</a>
+
+            <nav class="top-nav-list tablet-show">
+              <a href="#" class="top-nav-link js-drawer-toggle" data-drawer="top-nav-left">Menu</a>
+            </nav>
+
+            <nav class="top-nav-list tablet-hide">
+              <a class="top-nav-link signed-out-hide " href="../../">Home</a>
+              <a class="top-nav-link signed-out-hide " href="../../content/">Content</a>
+              <a class="top-nav-link signed-out-hide " href="../../groups/">Groups</a>
+              <a class="top-nav-link signed-out-hide " href="../../organization-name/">Organization</a>
+
+              <a class="top-nav-link signed-in-hide " href="../../features/">Features</a>
+              <a class="top-nav-link signed-in-hide " href="../../plans/">Plans</a>
+              <a class="top-nav-link signed-in-hide " href="../../explore/">Explore</a>
+            </nav>
+
+            <div class="top-nav-list signed-in-hide right">
+              <a href="../../sign-in" class="signed-in-hide">Sign In</a>
+            </div>
+
+            <nav class="top-nav-list right">
+
+              <!-- extends side-nav-link -->
+              <div class="dropdown js-dropdown tool-link top-nav-link signed-out-hide">
+                <!-- extends side-nav -->
+                <a href="#" class="top-nav-dropdown dropdown-btn js-dropdown-toggle"><img class="nav-image" src="../../_assets/img/top-nav-prototype/top-nav-create.png"> Create</a>
+                <!-- extends side-nav -->
+                <nav class="dropdown-menu dropdown-right">
+                  <!-- extends side-nav-link -->
+                  <a class="dropdown-link" href="/map-viewer">New Map</a>
+                  <a class="dropdown-link" href="/scene-viewer">New Scene</a>
+                  <a class="dropdown-link" href="/new">New Layer</a>
+                  <a class="dropdown-link" href="/new">New Application</a>
+                  <a class="dropdown-link" href="/new">Upload File</a>
+                </nav>
+              </div>
+
+              <a href="../../map-viewer" class="top-nav-link tool-link"><img class="nav-image" src="../../_assets/img/top-nav-prototype/top-nav-map.png"> Map</a>
+              <a href="../../scene-viewer" class="top-nav-link tool-link"><img class="nav-image" src="../../_assets/img/top-nav-prototype/top-nav-scene.png"> Scene</a>
+              <a href="../../notifications" class="top-nav-link signed-out-hide user-notifications" title="View All Notifications">
+              <div class="badge">
+                <span class="badge-count" id="badge-count">4</span>
+              </div>
+              </a>
+
+              <div class="dropdown js-dropdown signed-out-hide top-nav-link">
+                <div class="tablet-show">
+                  <img src="../../_assets/img/gravatar.jpg" alt="Sloth Aldrin" class="user-image" width="20" height="20">
+                  <a href="#" data-drawer="top-nav-right" class="js-drawer-toggle link-off-black">Patrick</a>
+                </div>
+
+                <div class="tablet-hide">
+                  <img src="../../_assets/img/gravatar.jpg" alt="Sloth Aldrin" class="user-image" width="20" height="20">
+                  <a class="top-nav-dropdown dropdown-btn js-dropdown-toggle">Patrick</a>
+                </div>
+
+                <nav class="dropdown-menu dropdown-right">
+                  <a href="../../account" class="dropdown-link">Account</a>
+                  <a href="../../account/profile" class="dropdown-link">Profile</a>
+                  <a href="../../account/billing" class="dropdown-link viewer-hide">Billing</a>
+                  <a href="#" class="dropdown-link js-sign-out">Sign Out</a>
+                </nav>
+              </div>
+            </nav>
+
+            <div class="site-search is-active right">
+              <form class="site-search-form">
+                <span class="icon-ui-search site-search-icon"></span>
+                <input class="site-search-input" type="search" placeholder="Search">
+                <span class="input-group-button">
+                  <a href="../../search" class="btn btn-clear site-search-button">Go</a>
+                </span>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </header>
+
+      <div class="versioner" data-version="v2">
+  
+  
+  <header class="sub-nav  " >
+  <div class="grid-container ">
+    <div class="column-24 ">
+      <h1 class="sub-nav-title">
+        USA Food Expenditures at Home vs. Away from Home <a href="#" class="font-size-0 text-white">– Edit</a>
+        <span class="admin-hide developer-hide">USA Food Expenditures at Home vs. Away from Home</span>
+      </h1>
+
+      <nav class="sub-nav-list">
+        <a href="../../map-id/" class="sub-nav-link ">Overview</a>
+        
+        
+        <a href="../../map-id/usage/" class="sub-nav-link viewer-hide signed-out-hide ">Usage</a>
+        <a href="../../map-id/settings/" class="sub-nav-link viewer-hide signed-out-hide is-active">Settings</a>
+      </nav>
+    </div>
+  </div>
+</header>
+  <header class="third-nav js-sticky" data-top="0">
+  <div class="grid-container">
+    <nav class="column-24" role="navigation" aria-labelledby="thirdnav">
+      <a class="third-nav-link is-active" href="#">Change Owner</a>
+      <a class="third-nav-link" href="#">Data</a>
+      <a class="third-nav-link" href="#">Permissions</a>
+      <a class="third-nav-link" href="#">Delete</a>
+    </nav>
+  </div>
+</header>
+
+
+<div class="grid-container leader-1">
+  <div class="alert alert-green js-item-updated trailer-1">
+    Item succesfully updated.
+    <a href="#" class="alert-close js-close-alert">close</a>
+  </div>
+
+  <div class="column-24">
+    <h3>Item Owner: NikolasWise</h3>
+  </div>
+
+  <div class="column-24">
+    <hr class="leader-0 trailer-1">
+  </div>
+  <div class="column-12">
+    <a id="owner"></a>
+    <p><a href="" class="btn btn-clear text-size--1 js-modal-toggle" data-modal="change-owner">Change Owner</a></p>
+  </div>
+  <div class="column-12">
+    <p>The items owner has complete administrative control over the item.</p>
+  </div>
+
+  <div class="column-24 leader-2">
+    <h3>Data Settings</h3>
+  </div>
+  <div class="column-24">
+    <hr class="leader-0 trailer-1">
+  </div>
+
+  <div class="column-24">
+    <div class="column-12">
+      <a id="editing"></a>
+      <h5>Data is Editable By:</h5>
+       <fieldset class="trailer-0">
+        <label>
+          <input type="checkbox" value="private" name="009"> Owners <small>(Sloth Aldrin)</small>
+        </label>
+        <label>
+          <input type="checkbox" value="org" name="00A"> Group <small>(Esri Portland R&amp;D)</small>
+        </label>
+        <label>
+          <input type="checkbox" value="org" name="00A"> Organization <small>(Esri Portland R&amp;D)</small>
+        </label>
+        <label>
+          <input type="checkbox" value="public" name="008"> Public <small>(everybody)</small>
+        </label>
+      </fieldset>
+    </div>
+
+    <div class="column-12">
+      <p class="leader-2">Editing data changes the data set of the layer permanantly. If the layer is a view, reference, or analysis layer, the data may not be stored in the layer at all. If this is the case the data for the layer must be edited at the source layer.</p>
+    </div>
+  </div>
+
+  <div class="column-24 leader-1">
+    <div class="column-12">
+      <a id="track"></a>
+      <h5>Track Edits:</h5>
+      <fieldset>
+        <label>
+          <input type="checkbox" value="public" name="008"> Edits are tracked
+      </fieldset>
+    </div>
+    <div class="column-12">
+      <p class="leader-1"> Tracking edits presumably provides the layers owner with a record of what has happened to the data in the layer.</p>
+    </div>
+  </div>
+
+  <div class="column-24">
+    <div class="column-12">
+      <a id="sync"></a>
+      <h5>Data Sync:</h5>
+      <fieldset>
+        <label>
+          <input type="checkbox" value="public" name="008"> Data is synced to source
+      </fieldset>
+    </div>
+    <div class="column-12">
+      <p class="leader-1"> This layers data is a reference from a source layer. Enabling sync will autmatically update this layers data any time the data at the source layer is updated.</p>
+    </div>
+  </div>
+
+  <div class="column-24">
+    <div class="column-12">
+      <a id="export"></a>
+      <h5>Export:</h5>
+      <fieldset>
+        <label>
+          <input type="checkbox" value="public" name="008"> Data can be exported
+      </fieldset>
+      <a href="#" class="btn btn-disabled">Update</a>
+    </div>
+    <div class="column-12">
+      <p class="leader-1"> Disabling export allows for proprietary data to stay in the control of it's owner / organization. Only a layers owner can change this property.</p>
+    </div>
+  </div>
+
+  <div class="column-24 leader-2">
+    <a id="sharing"></a>
+    <h3>Item Access</h3>
+  </div>
+  <div class="column-24">
+    <hr class="leader-0 trailer-1">
+  </div>
+
+  <div class="column-24">
+    <div class="column-12">
+      <p>This item is <strong>Public</strong> to everybody</p>
+      <h6>Lock Permissions:</h6>
+      <fieldset class="trailer-1">
+        <label>
+          <input type="checkbox" value="protected" name="008"> This layer cannot be made public.
+        </label>
+      </fieldset>
+      <a href="#" class="btn btn-clear js-modal-toggle" data-modal="permissions">Edit Permissions</a>
+    </div>
+    <div class="column-12">
+      <p>Configure who can access your layer through the sharing settings. Layers are always accessible to the user who created them.</p>
+      <p>The 'Edit Permissions' button will prompt you to ensure that item permissions are correct.</p>
+    </div>
+  </div>
+
+  <div class="column-24 leader-2">
+    <h3>Delete Settings</h3>
+  </div>
+  <div class="column-24">
+    <hr class="leader-0 trailer-1">
+  </div>
+
+  <div class="column-24 trailer-2">
+    <div class="column-12">
+      <h6>Delete Prevention:</h6>
+      <fieldset class="trailer-0">
+        <label>
+          <input type="checkbox" value="protected" name="008"> This layer cannot be deleted
+        </label>
+      </fieldset>
+      <a href="#" class="btn btn-clear leader-1 js-modal-toggle" data-modal="delete-item">Delete</a>
+    </div>
+    <div class="column-12">
+      <p>If your layer is being used in production or has a number of derived view layers, we recommend using 'Delete Prevention' to make it harder to remove.</p>
+      <p>The 'Delete' button will prompt you to ensure that you want to delete the item.</p>
+    </div>
+  </div>
+
+  <div class="js-modal modal-overlay modifier-class" data-modal="change-owner">
+    <div class="modal-content column-6" role="dialog" aria-labelledby="modal" role="dialog">
+      <a class="js-modal-toggle icon-ui-close font-size-1 right" href="#" aria-label="close-modal" ></a>
+      <h3 class='trailer-half'>Change Owner</h3>
+      <p>An item's owner has full admisinistrative control over the item. Once you assign a new owner for this item, only the new Owner will be able to revert this change.</p>
+
+      <section class="js-filter-dropdown filter-dropdown trailer-1">
+        <header class="filter-header">
+          <h6 class="filter-title">New Owner</h6>
+          <a class="js-filter-clear filter-clear" href="#">clear</a>
+        </header>
+
+
+          <label class='js-filter-list trailer-half' for="filters">
+            <input class="js-filter-input" type="text" placeholder="Filter by Tag">
+            <div class="filter-dropdown-list">
+              <a href="#" class="filter-link">Patrick Arlt</a>
+              <a href="#" class="filter-link">Nikolas Wise</a>
+              <a href="#" class="filter-link">Paul C Pederson</a>
+              <a href="#" class="filter-link">Nate Goldman</a>
+            </div>
+          </label>
+
+      </section>
+
+
+      <div class="action-bar text-right">
+          <button class="btn-clear js-modal-toggle">cancel</button>
+          <button class="btn js-modal-toggle">okay</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="js-modal modal-overlay modifier-class" data-modal="permissions">
+    <div class="modal-content column-8" role="dialog" aria-labelledby="modal" role="dialog">
+      <a class="js-modal-toggle icon-ui-close font-size-1 right" href="#" aria-label="close-modal" ></a>
+      <h3 class='trailer-half'>Edit Item Permissions</h3>
+      <div class="alert alert-red is-active trailer-half">
+        <p class="trailer-0 icon-ui-notice-round"><strong>Sharing an item publicly will make your item accessible to the entire internet.</strong></p>
+      </div>
+      <h6 class="leader-0 trailer-0">This layer can be accessed by:</h6>
+      <fieldset class="trailer-0">
+        <label>
+          <input checked="" type="radio" value="public" name="access"> Public <small>(everybody)</small>
+        </label>
+        <label>
+          <input type="radio" value="private" name="access"> Private* <small>(nobody)</small>
+        </label>
+        <label>
+          <input type="radio" value="org" name="access"> Organization* <small>(Esri Portland R&amp;D)</small>
+        </label>
+      </fieldset>
+
+      <div class="action-bar text-right leader-1">
+          <button class="btn-clear js-modal-toggle">cancel</button>
+          <button class="btn btn-red js-modal-toggle">Set Permissions</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="js-modal modal-overlay modifier-class" data-modal="delete-item">
+    <div class="modal-content column-8" role="dialog" aria-labelledby="modal" role="dialog">
+      <a class="js-modal-toggle icon-ui-close font-size-1 right" href="#" aria-label="close-modal" ></a>
+      <h3 class='trailer-half'>Delete Item</h3>
+      <div class="alert alert-red is-active trailer-half">
+        <p class="trailer-0 icon-ui-notice-round"><strong>Deleting this item can not be undone.</strong></p>
+      </div>
+      <p>Are you sure you want to delete this item?</p>
+
+
+      <div class="action-bar text-right">
+          <button class="btn-clear js-modal-toggle">cancel</button>
+          <button class="btn btn-red js-modal-toggle">Delete Item</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="versioner" data-version="v1">
+  
+  
+  <header class="sub-nav  " >
+  <div class="grid-container ">
+    <div class="column-24 ">
+      <h1 class="sub-nav-title">
+        <a href="settings#sharing" class="tooltip tooltip-right link-white" aria-label="This item can only be viewed by you.">
+          <span class="icon-ui-locked font-size-6"></span>
+        </a>
+        USA Food Expenditures at Home vs. Away from Home <a href="#" class="font-size--2">Edit</a>
+      </h1>
+      <a href="settings" class="right link-white leader-1 tooltip tooltip-left" aria-label="Edit this item">
+        <span class="icon-ui-edit font-size-2"></span>
+      </a>
+      <nav class="sub-nav-list">
+        <a href="../../map-id/" class="sub-nav-link ">Overview</a>
+        
+        
+        <a href="../../map-id/usage/" class="sub-nav-link viewer-hide signed-out-hide ">Usage</a>
+        <a href="../../map-id/settings/" class="sub-nav-link viewer-hide signed-out-hide is-active">Settings</a>
+      </nav>
+    </div>
+  </div>
+</header>
+  <header class="third-nav js-sticky" data-top="0">
+  <div class="grid-container">
+    <nav class="column-24" role="navigation" aria-labelledby="thirdnav">
+      <a class="third-nav-link is-active" href="#">Item Details</a>
+      <a class="third-nav-link" href="#">Change Owner</a>
+      <a class="third-nav-link" href="#">Data</a>
+      <a class="third-nav-link" href="#">Permissions</a>
+      <a class="third-nav-link" href="#">Delete</a>
+    </nav>
+  </div>
+</header>
+
+<div class="grid-container leader-1">
+  <div class="alert alert-green js-item-updated trailer-1">
+    Item succesfully updated.
+    <a href="#" class="alert-close js-close-alert">close</a>
+  </div>
+
+  <div class="column-24">
+    <h3>General</h3>
+    <hr class="leader-0 trailer-1">
+  </div>
+
+  <div class="column-12 js-updater">
+    <div class="column-6 post-6 trailer-1">
+      <img class="img-full-width v2-item-thumbnail" src="../../_assets/img/web-layer-thumbnail.jpg" alt="USA Food Expenditures at Home vs. Away from Home">
+      <a href="#" class="font-size--2">Change Thumbnail</a>
+    </div>
+    <label>
+      Title:
+      <input class="title-input" type="text" value="USA Food Expenditures at Home vs. Away from Home">
+    </label>
+    <label>
+      Tags:
+      <input class="tag-input" type="text" value="food, consumer spending, demographics, food at home, food desert, spending, health, dollars, USA, U.S., United States, food away from home, ">
+    </label>
+    <label>
+      Description:
+      <textarea class="description-input"><span><span><span><span><span><span><span><span><span><p>This web map displays a ratio of the average annual household expenditure on &quot;food at home&quot; to &quot;food away from home.&quot;  Some of the patterns are quite interesting.<br /></p><p>Red area households spend noticeably more at home, blue area households spend noticeably more away from home. Households in an &quot;average&quot; area tend to spend $1.38 on food at home for every $1.00 on food away from home.  Red areas are above this average, and blue areas are below this average.  Yellow areas are average.<br /></p><p><span><span><span><span>Data is shown at the county, tract and block group levels using consistent colors and classifications.  Put this map in your web browser or <a href='http://www.esri.com/software/arcgis/ios/index.html' target='_blank'>Esri iPhone/iPad app.</a></span></span></span></span></p><p>There's a very nice <a href='http://www.visualeconomics.com/how-the-average-us-consumer-spends-their-paycheck/' target='_blank'>visual of consumer expenditures data here</a>.</p><p><span><span><span><span><span><span>These are just two of the <a href='http://www.esri.com/data/esri_data/pdfs/2010-esri-consumer-spending-data-list.pdf' target='_blank'>hundreds of variables</a> available in the Esri Consumer Spending database.  <br /></span></span></span></span></span></span></p><p><span><span><span><span><span><span></span></span></span></span></span></span>Esri combined the 2005-2006 <a href='http://www.bls.gov/cex/home.htm' target='_blank'>Consumer Expenditure Surveys from the Bureau of Labor Statistics</a> to estimate current spending patterns. The continuing surveys include a Diary Survey for daily purchases and an Interview Survey for general purchases. The Diary Survey represents record keeping by consumer units for two consecutive weeklong periods. This component collects data on small daily purchases that could be overlooked by the quarterly Interview Survey. The Interview Survey collects expenditure data from consumers in five interviews conducted every three months. <br /></p><p>Esri integrates data from both surveys to provide a comprehensive database on all consumer expenditures. To compensate for the relatively small survey bases and the variability of single-year data, expenditures are averaged from the 2005–2006 surveys.</p>Esri's 2010<b> </b>Consumer Spending database details which products and services area consumers buy. Updated annually, the Consumer Spending database contains more than 760 items in 15 categories such as apparel, food, and financial. The database includes information about total dollars spent, the average amount spent by household, and a Spending Potential Index that compares local average product expenditures to the national average.<br /></span></span></span></span></span></span></span></span></span></textarea>
+    </label>
+    <label>
+      Attribution:
+      <textarea class="description-input"><span><span><span><span><span><span><span><span><span style='overflow: auto'><span>This work is licensed under a <a href='http://creativecommons.org/licenses/by-nc-sa/3.0/us/' style='font-weight: bold'>Creative Commons Attribution-Noncommercial-Share Alike 3.0 United States License</a>.</span></span></span></span></span></span></span></span></span></span></textarea>
+    </label>
+    <label>
+      Credits:
+      <input class="title-input" type="text" value="Copyright: ©2010 ESRI">
+    </label>
+    <a href="#" class="btn btn-disabled">Update</a>
+  </div>
+
+  <div class="column-11 pre-1 leader-1">
+    <p>General settings include metadata about your layer, such as a title, description, or tags. If your layer is public, this information will help other ArcGIS Online users find your layer.</p>
+  </div>
+
+  <div class="column-24 leader-2">
+    <h3>Item Owner: NikolasWise</h3>
+  </div>
+  <div class="column-24">
+    <hr class="leader-0 trailer-1">
+  </div>
+  <div class="column-11 post-1">
+    <a id="owner"></a>
+    <p><a href="" class="btn btn-clear text-size--1 js-modal-toggle" data-modal="change-owner">Change Owner</a></p>
+  </div>
+  <div class="column-12">
+    <p>The items owner has complete administrative control over the item.</p>
+  </div>
+
+
+  <div class="column-24 leader-2">
+    <h3>Data Settings</h3>
+  </div>
+  <div class="column-24">
+    <hr class="leader-0 trailer-1">
+  </div>
+
+  <div class="column-24">
+    <div class="column-12">
+      <a id="editing"></a>
+      <h5>Editing:</h5>
+      <fieldset>
+        <label>
+          <input type="checkbox" value="public" name="008"> Data is Editable
+      </fieldset>
+      <p class="trailer-half">Data is Editable By:</p>
+       <fieldset class="trailer-0">
+        <label>
+          <input type="checkbox" value="private" name="009"> Owners <small>(Sloth Aldrin)</small>
+        </label>
+        <label>
+          <input type="checkbox" value="org" name="00A"> Group <small>(Esri Portland R&amp;D)</small>
+        </label>
+        <label>
+          <input type="checkbox" value="org" name="00A"> Organization <small>(Esri Portland R&amp;D)</small>
+        </label>
+        <label>
+          <input type="checkbox" value="public" name="008"> Public <small>(everybody)</small>
+        </label>
+      </fieldset>
+    </div>
+
+    <div class="column-12">
+      <p class="leader-2">Editing data changes the data set of the layer permanantly. If the layer is a view, reference, or analysis layer, the data may not be stored in the layer at all. If this is the case the data for the layer must be edited at the source layer.</p>
+    </div>
+  </div>
+
+  <div class="column-24 leader-2">
+    <div class="column-12">
+      <a id="track"></a>
+      <h5>Track Edits:</h5>
+      <fieldset>
+        <label>
+          <input type="checkbox" value="public" name="008"> Edits are tracked
+      </fieldset>
+    </div>
+    <div class="column-12">
+      <p class="leader-1"> Tracking edits presumably provides the layers owner with a record of what has happened to the data in the layer.</p>
+    </div>
+  </div>
+
+  <div class="column-24">
+    <div class="column-12">
+      <a id="sync"></a>
+      <h5>Data Sync:</h5>
+      <fieldset>
+        <label>
+          <input type="checkbox" value="public" name="008"> Data is synced to source
+      </fieldset>
+    </div>
+    <div class="column-12">
+      <p class="leader-1"> This layers data is a reference from a source layer. Enabling sync will autmatically update this layers data any time the data at the source layer is updated.</p>
+    </div>
+  </div>
+
+  <div class="column-24">
+    <div class="column-12">
+      <a id="export"></a>
+      <h5>Export:</h5>
+      <fieldset>
+        <label>
+          <input type="checkbox" value="public" name="008"> Data can be exported
+      </fieldset>
+
+      <a href="#" class="btn btn-disabled">Update</a>
+    </div>
+    <div class="column-12">
+      <p class="leader-1"> Disabling export allows for proprietary data to stay in the control of it's owner / organization. Only a layers owner can change this property.</p>
+    </div>
+  </div>
+
+  <div class="column-24 leader-2">
+    <h3>Delete Settings</h3>
+  </div>
+  <div class="column-24">
+    <hr class="leader-0 trailer-1">
+  </div>
+
+  <div class="column-24">
+    <div class="column-12">
+      <h6>Delete Prevention:</h6>
+      <fieldset class="trailer-0">
+        <label>
+          <input type="checkbox" value="protected" name="008"> This layer cannot be deleted
+        </label>
+      </fieldset>
+      <a href="#" class="btn btn-clear leader-1 js-modal-toggle" data-modal="delete-item">Delete</a>
+    </div>
+    <div class="column-12">
+      <p>If your layer is being used in production or has a number of derived view layers, we recommend using 'Delete Prevention' to make it harder to remove.</p>
+      <p>The 'Delete' button will prompt you to ensure that you want to delete the item.</p>
+    </div>
+  </div>
+
+  <div class="column-24 leader-2">
+    <a id="sharing"></a>
+    <h3>Item Access</h3>
+  </div>
+  <div class="column-24">
+    <hr class="leader-0 trailer-1">
+  </div>
+
+  <div class="column-24">
+    <div class="column-12">
+      <p>This item is <strong>Public</strong> to everybody</p>
+      <a href="#" class="btn btn-clear js-modal-toggle" data-modal="permissions">Edit Permissions</a>
+    </div>
+    <div class="column-12">
+      <p>Configure who can access your layer through the sharing settings. Layers are always accessible to the user who created them.</p>
+      <p>The 'Edit Permissions' button will prompt you to ensure that item permissions are correct.</p>
+    </div>
+  </div>
+
+
+  <div class="js-modal modal-overlay modifier-class" data-modal="change-owner">
+    <div class="modal-content column-6" role="dialog" aria-labelledby="modal" role="dialog">
+      <a class="js-modal-toggle icon-ui-close font-size-1 right" href="#" aria-label="close-modal" ></a>
+      <h3 class='trailer-half'>Change Owner</h3>
+      <p>An item's owner has full admisinistrative control over the item. Once you assign a new owner for this item, only the new Owner will be able to revert this change.</p>
+
+      <section class="js-filter-dropdown filter-dropdown trailer-1">
+        <header class="filter-header">
+          <h6 class="filter-title">New Owner</h6>
+          <a class="js-filter-clear filter-clear" href="#">clear</a>
+        </header>
+
+
+          <label class='js-filter-list trailer-half' for="filters">
+            <input class="js-filter-input" type="text" placeholder="Filter by Tag">
+            <div class="filter-dropdown-list">
+              <a href="#" class="filter-link">Patrick Arlt</a>
+              <a href="#" class="filter-link">Nikolas Wise</a>
+              <a href="#" class="filter-link">Paul C Pederson</a>
+              <a href="#" class="filter-link">Nate Goldman</a>
+            </div>
+          </label>
+
+      </section>
+
+
+      <div class="action-bar text-right">
+          <button class="btn-clear js-modal-toggle">cancel</button>
+          <button class="btn js-modal-toggle">okay</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="js-modal modal-overlay modifier-class" data-modal="permissions">
+    <div class="modal-content column-8" role="dialog" aria-labelledby="modal" role="dialog">
+      <a class="js-modal-toggle icon-ui-close font-size-1 right" href="#" aria-label="close-modal" ></a>
+      <h3 class='trailer-half'>Edit Item Permissions</h3>
+      <div class="alert alert-red is-active trailer-half">
+        <p class="trailer-0 icon-ui-notice-round"><strong>Sharing an item publicly will make your item accessible to the entire internet.</strong></p>
+      </div>
+      <h6 class="leader-0 trailer-0">This layer can be accessed by:</h6>
+      <fieldset class="trailer-0">
+        <label>
+          <input checked="" type="radio" value="public" name="access"> Public <small>(everybody)</small>
+        </label>
+        <label>
+          <input type="radio" value="private" name="access"> Private* <small>(nobody)</small>
+        </label>
+        <label>
+          <input type="radio" value="org" name="access"> Organization* <small>(Esri Portland R&amp;D)</small>
+        </label>
+      </fieldset>
+
+      <div class="action-bar text-right leader-1">
+          <button class="btn-clear js-modal-toggle">cancel</button>
+          <button class="btn btn-red js-modal-toggle">Set Permissions</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="js-modal modal-overlay modifier-class" data-modal="delete-item">
+    <div class="modal-content column-8" role="dialog" aria-labelledby="modal" role="dialog">
+      <a class="js-modal-toggle icon-ui-close font-size-1 right" href="#" aria-label="close-modal" ></a>
+      <h3 class='trailer-half'>Delete Item</h3>
+      <div class="alert alert-red is-active trailer-half">
+        <p class="trailer-0 icon-ui-notice-round"><strong>Deleting this item can not be undone.</strong></p>
+      </div>
+      <p>Are you sure you want to delete this item?</p>
+
+
+      <div class="action-bar text-right">
+          <button class="btn-clear js-modal-toggle">cancel</button>
+          <button class="btn btn-red js-modal-toggle">Delete Item</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+      
+        <div class="js-requirements-content hide">
+          <div class="grid-container grid-full">
+            <div class="column-12 pre-6 leader-1">
+              <h1>Item Details Page</h1>
+<ul>
+<li><a href="https://devtopia.esri.com/WebGIS/arcgis-online-ux-design/wiki/Item-Types">List of Item Types</a></li>
+<li><a href="https://devtopia.esri.com/WebGIS/arcgis-online-ux-design/wiki/Feature-Layer-Page">Feature Layers</a></li>
+<li><a href="https://devtopia.esri.com/WebGIS/arcgis-online-ux-design/wiki/Feature-Layer-Group-Page">Feature Layers with Sublayers</a></li>
+<li><a href="https://devtopia.esri.com/WebGIS/arcgis-online-ux-design/wiki/Map-Service-Page">Map Services</a></li>
+<li><a href="https://devtopia.esri.com/WebGIS/arcgis-online-ux-design/wiki/Web-Map-Item-Details">Web Maps</a></li>
+<li><a href="https://devtopia.esri.com/WebGIS/arcgis-online-ux-design/wiki/Application-Item-Details-Page">Applications</a></li>
+</ul>
+<h2>Workflows</h2>
+<h2>Actions</h2>
+<ul>
+<li>[ ] Who is the maps author?</li>
+<li>[ ] What is the maps rating?</li>
+<li>[ ] Can this map be viewed by the public?</li>
+<li>[ ] When was this map made?</li>
+<li>[ ] When was this map last edited?</li>
+<li>[ ] What layers are in this map?</li>
+<li>[ ] Flag this map so can be aware of future updates.</li>
+<li>[ ] What suggestions have been made to improve this map?</li>
+<li>[ ] Make a suggestion that this map could be updated more frequently</li>
+<li>[ ] Make of a copy of this map called 'My USA Food Map'</li>
+<li>[ ] How many times has this item been viewed in the past 3 months?</li>
+<li>[ ] How much bandwidth has this layer consumed in the past year?</li>
+<li>[ ] How many credits has this layer consumed in the past month?</li>
+<li>[ ] Add '2015' to this layers title</li>
+<li>[ ] Add '2015' to this layers tags</li>
+<li>[ ] Set the privileges for this item so that only member of your organization can see it.</li>
+<li>[ ] Modify this layer so it can not be downloaded.</li>
+<li>[ ] Ensure this layer can not be deleted</li>
+<li>[ ] Enable others to modify the data</li>
+<li>[ ] Allow only the author and the group called 'R&amp;D' to make changes</li>
+<li>[ ] Automatically update the layer when changes to it's source are made</li>
+<li>[ ] Arrange to be alerted when edits are made to this layer</li>
+</ul>
+<h2>Item properties</h2>
+<h3>Details</h3>
+<ul>
+<li>Name</li>
+<li>Owner</li>
+<li>Type</li>
+<li>Last Modified Date</li>
+<li>Rating</li>
+<li>No. Views</li>
+<li>Description</li>
+<li>Tags</li>
+<li>Summary</li>
+<li>Properties</li>
+<li>Use</li>
+<li>Comments</li>
+</ul>
+<h3>Actions</h3>
+<ul>
+<li>Social Media</li>
+<li>Share to Group</li>
+<li>Edit</li>
+<li>Move Folder</li>
+<li>Change Owner</li>
+<li>Usage</li>
+<li>Metadata</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      
+    </div>
+
+   <footer class="footer avenir-regular padding-leader-1">
+      <div class="grid-container ">
+        <nav class="column-6">
+          <h6>Arc<span>GIS</span></h6>
+          <ul class="list-bulleted">
+            <li><a href="http://www.arcgis.com/about/">Home</a></li>
+            <li><a href="http://www.arcgis.com/about/features.html">Features</a></li>
+            <li><a href="http://www.arcgis.com/about/pricing.html">Pricing</a></li>
+          </ul>
+        </nav>
+
+        <nav class="column-6">
+          <h6>Arc<span>GIS</span> for Developers</h6>
+          <ul>
+            <li><a href="/en/">Home</a></li>
+            <li><a href="/en/features/">Features</a></li>
+            <li><a href="http://blogs.esri.com/esri/arcgis/category/developer/">Blog</a></li>
+          </ul>
+        </nav>
+
+        <nav class="column-6">
+          <h6>About Esri</h6>
+          <ul>
+            <li><a href="http://www.esri.com/about-esri/">About Us</a></li>
+            <li><a href="http://www.esri.com/careers/">Careers</a></li>
+            <li><a href="http://blogs.esri.com/esri/esri-insider/">Insiders Blog</a></li>
+            <li><a href="http://www.esri.com/events/user-conference/index.html">User Conference</a></li>
+            <li><a href="http://www.esri.com/events/devsummit/index.html">Developer Summit</a></li>
+          </ul>
+        </nav>
+
+        <nav class="column-6 padding-leader-half">
+          <a class="esri-logo" href="http://esri.com"></a>
+          <section class="footer-social-nav">
+            <a class="icon-twitter" href="https://twitter.com/Esri/"></a>
+            <a class="icon-facebook" href="https://www.facebook.com/esrigis/"></a>
+            <a class="icon-github" href="http://esri.github.com/"></a>
+            <a class="icon-email" href="http://www.esri.com/about-esri/contact/"></a>
+          </section>
+        </nav>
+        <div class="">
+          <p><small>© Copyright 2013 Environmental Systems Research Institute, Inc. | <a href="http://www.esri.com/legal/privacy">Privacy</a> | <a href="http://www.esri.com/legal/software-license">Legal</a></small></p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../../_assets/js/common.js"></script>
+    <script src="../../_assets/js/main.js"></script>
+
+    
+  </body>
+
+</html>

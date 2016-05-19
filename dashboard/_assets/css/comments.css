@@ -1,0 +1,9 @@
+.comment-avatar {
+  width: 3.1rem;
+  float: left;
+  padding-left: 0.775rem;
+  padding-right: 0.775rem; }
+
+.comment-block {
+  width: calc(100% - 5rem);
+  float: right; }

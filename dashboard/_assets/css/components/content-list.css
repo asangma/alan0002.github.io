@@ -1,0 +1,28 @@
+.content-header {
+  font-size: 0.9375rem;
+  line-height: 1.55rem;
+  padding-bottom: 0.3875rem;
+  margin-bottom: 0.3875rem;
+  border-bottom: 1px solid #cccccc; }
+
+.content-row {
+  font-size: 0.9375rem;
+  line-height: 1.55rem;
+  padding-top: 0.19375rem;
+  padding-bottom: 0.19375rem; }
+
+.content-item {
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+  border-bottom: 1px solid #efefef;
+  margin-top: -1px;
+  line-height: 1.75rem; }
+  .content-item.is-selected {
+    background-color: #d2e9f9; }
+  .content-item.is-hidden {
+    display: none; }
+
+.content-item-icon {
+  width: 1em;
+  padding-left: 0.33em;
+  padding-right: 0.33em; }

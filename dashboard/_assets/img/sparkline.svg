@@ -1,0 +1,78 @@
+<svg id="Layer_1" onload="draw()" xmlns="http://www.w3.org/2000/svg" viewBox="0 561 247 20"><script><![CDATA[
+    if(typeof Array.prototype.map!=="function"){Array.prototype.map=function(a){for(var b=this,c=b.length,d=[],e=0,f;e<b;)d[e]=e in b?a.call(arguments[1],b[e],e++,b):f;return d}};
+    function scale(max, min, num) {return (100 * (num - min) / (max - min)) || 0;}
+    function draw() {
+      var elem
+		]]><![CDATA[ = document.getElementsByTagName("svg")[0],
+          dotSize = 2,
+          search = location.search.substr(1),
+          segments = search.split('&amp;'),
+          data = segments[0]
+                  .split(",")
+                  .map(function (n) {
+                    return parseFloat(n, 10) || 0;
+                  }),
+          range = 96,
+          color = "rgba(0,0,0,0.5)",
+          show_color = (search.indexOf('rgba:') != -1),
+          show_current = (search.indexOf('current') != -1),
+          show_min = (search.indexOf('min') != -1),
+          show_max = (search.indexOf('max') != -1),
+          max = Math.max.apply(null, data),
+          min = Math.min.apply(null, data);
+      if ( show_color ) {
+        for (var i=0; i < segments.length; i++) {
+          if (segments[i].indexOf('rgba:') != -1) {
+            color = "rgba("+segments[i].replace('rgba:','')+")";
+          }
+        }
+      }
+      var parts = data.map(function (num) { return scale(max, min, num); }),
+          div = 100 / parts.length,
+          x1 = 0, y1 = 0, x2 = div / 2, y2 = range - parts[0];
+      for (var i=0; i < parts.length; i++) {
+        var ln = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        x1 = x2; y1 = y2;
+        x2 = range * (i / parts.length) + (div / 2);
+        y2 = range - parts[i];
+        ln.setAttribute("x1", x1 + "%");
+        ln.setAttribute("x2", x2 + "%");
+        ln.setAttribute("y1", y1 + "%");
+        ln.setAttribute("y2", y2 + "%");
+        ln.setAttribute("stroke", color);
+        ln.setAttribute("stroke-width", "1");
+        elem.appendChild(ln);
+        if( show_current &amp;&amp; i+1 === parts.length ) {
+          var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+          circle.setAttribute("cx", x2 - dotSize + "%");
+          circle.setAttribute("cy", y2 + "%");
+          circle.setAttribute("r", dotSize + "%");
+          circle.setAttribute("fill", "rgba(255,0,0,1)");
+          circle.setAttribute("stroke", "rgba(255,0,0,.2)");
+          elem.appendChild(circle);
+        }
+        if( show_max &amp;&amp; parts[i] === 100 ) {
+          var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+          circle.setAttribute("cx", x2 + "%");
+          circle.setAttribute("cy", 3 + "%");
+          circle.setAttribute("r", dotSize + "%");
+          circle.setAttribute("fill", "rgba(0,150,0,1)");
+          circle.setAttribute("stroke", "rgba(0,150,0,1)");
+          elem.appendChild(circle);
+        }
+        if( show_min &amp;&amp; parts[i] === 0) {
+          if( i > 0 &amp;&amp; parts[i - 1] === 0 ) { /* ignore, only show min once */ }
+          else {
+            var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            circle.setAttribute("cx", x2 + "%");
+            circle.setAttribute("cy", 97 + "%");
+            circle.setAttribute("r", dotSize + "%");
+            circle.setAttribute("fill", "rgba(0,150,0,1)");
+            circle.setAttribute("stroke", "rgba(0,150,0,1)");
+            elem.appendChild(circle);
+          }
+        }
+      }
+    }
+  
+		]]></script><path fill="none" stroke="#4C4C4C" stroke-miterlimit="10" d="M.105 564.672l5.146 6.205c.006.007.015.01.02.018.005.004.004.01.008.013.022.023.052.04.078.06.024.02.045.04.073.058.038.024.083.043.128.063.027.01.052.025.08.036.054.02.11.03.168.043.026.005.05.014.078.018.086.014.174.022.264.022.08 0 .16-.007.238-.018.026-.004.05-.01.075-.016.045-.01.09-.015.13-.028.008-.002.012-.006.02-.008l.032-.008 4.65-1.588 4.654 1.59c.043.014.09.02.134.032.03.007.055.016.085.02.09.017.183.026.275.026h.003c.108 0 .212-.014.314-.035.013-.003.026 0 .04-.004L21.94 570h.004c.12-.027.232-.068.33-.124 0 0 .002 0 .002-.002l4.688-2.67 4.37.996 5 2.847.02.007.01.01c.06.03.128.047.193.068.037.012.07.03.11.04.115.026.235.04.355.04.136 0 .27-.018.396-.05.042-.01.073-.032.11-.046.076-.027.155-.05.22-.09.004-.003.006-.008.01-.01.006-.004.012-.005.017-.008l5.08-3.47 5.018-2.285 5.085-1.737 4.736-1.618 4.473 1.018 4.983 3.405c.01.008.024.01.035.016.012.007.016.017.028.024l5.146 2.93c.022.013.05.017.074.028.05.023.1.042.156.06.064.02.126.036.194.047.028.005.05.016.08.02l5.06.575 4.928 1.122 5.032 2.292c.036.017.08.024.117.037.034.013.065.024.1.033.126.032.256.053.387.053h.002c.132 0 .26-.02.386-.053.036-.01.067-.02.1-.032.04-.012.082-.02.118-.036l5.032-2.292 4.747-1.08 4.87.553c.06.007.123.01.184.01h.002c.12 0 .237-.014.347-.038h.007l5.146-1.173c.025-.006.04-.018.065-.024.063-.018.128-.032.185-.06l5.1-2.32 4.853-1.66h4.545l4.88 2.223c.022.01.047.013.07.022.016.006.024.016.04.02l5.147 1.76 5.146 1.757c.04.014.084.02.126.03.03.01.06.018.092.024.09.016.182.025.274.025h.003c.107 0 .21-.013.313-.034.013-.003.026 0 .04-.004l4.627-1.054 4.705 2.143s.002 0 .003.002l.002.002c.06.027.13.043.196.06.03.01.06.023.092.03.102.02.207.03.312.03.15 0 .302-.02.44-.06.046-.015.08-.043.122-.062.082-.035.17-.064.234-.115v-.002h.004l4.472-3.566 4.333 2.465.018.007.012.01c.058.03.127.047.192.068.038.012.072.03.112.04.113.026.233.04.353.04.136 0 .27-.018.396-.05.04-.01.07-.032.11-.046.074-.027.153-.05.217-.09.005-.003.007-.008.012-.01.004-.004.01-.005.015-.008l5.08-3.47 5.018-2.286 5.085-1.737 4.737-1.618 4.473 1.018 4.983 3.405c.01.007.025.01.036.015.012.007.016.017.028.024l5.147 2.93c.023.013.05.017.075.028.05.023.1.042.156.06.065.02.127.036.195.047.028.005.05.016.08.02l5.06.575 4.927 1.122 4.84 2.203 5.042 6.316c.02.023.05.042.073.064.02.017.035.034.057.05.075.056.16.104.26.14.003 0 .005.003.008.004.05.017.102.027.154.038.03.007.055.016.084.02.088.016.177.023.266.023h.005c.135 0 .266-.022.39-.054.012-.003.026-.002.04-.005.007 0 .012-.006.02-.008.1-.03.192-.072.273-.123.02-.014.034-.027.052-.04.03-.023.06-.042.086-.067l5.118-5.244 4.94-3.938 4.876-1.11c.025-.006.04-.018.065-.024.062-.018.127-.032.184-.06l5.098-2.32 5.086-1.738"/><circle fill="#5A9359" cx="243.9" cy="564.45" r="3"/></svg>
