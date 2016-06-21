@@ -64,12 +64,8 @@
     var view = new MapView({
       container: "viewDiv",
       map: map,
-    });
-    view.then(function(){
-      view.goTo({
-        center:  [2.3487990000046706, 48.85345172824479],
-        zoom: 13
-      })
+      center:  [2.3487990000046706, 48.85345172824479],
+      zoom: 13
     });
 
     /*--------------------------------------*/
@@ -102,20 +98,20 @@
 
     /*--------------------------------------*/
     //  Add widgets to corners
-    view.ui.add(search, "top-right");
-    view.ui.add(home, "top-left");
-    view.ui.add(locate, "bottom-left");
+    // view.ui.add(search, "top-right");
+    // view.ui.add(home, "top-left");
+    // view.ui.add(locate, "bottom-left");
 
 
     /*--------------------------------------*/
     //  Use jQuery. That's right jQuery!
-    var image_button = jQuery('.image-button');
+    // var image_button = jQuery('.image-button');
 
-    // Add that node to one of the corners
-    view.ui.add(image_button[0], "bottom-right");
+    // // Add that node to one of the corners
+    // view.ui.add(image_button[0], "bottom-right");
 
-    // Fade it in!
-    jQuery(image_button).delay(3000).fadeIn("fast");
+    // // Fade it in!
+    // jQuery(image_button).delay(3000).fadeIn("fast");
   });
   </script>
 </head>
