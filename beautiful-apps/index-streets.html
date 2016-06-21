@@ -30,48 +30,66 @@
   </style>
   <link rel="stylesheet" href="https://js.arcgis.com/4.0/esri/css/main.css">
   <script src="https://js.arcgis.com/4.0/"></script>
-  <script src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.0.0.min.js" crossorigin="anonymous"></script>
   <script>
   require([
-    "esri/Map", "esri/views/SceneView",
+    "esri/Map", "esri/views/MapView",
 
-    "esri/widgets/BasemapToggle",
     "esri/widgets/Home",
     "esri/widgets/Search",
+    "esri/widgets/Locate",
+    "esri/widgets/BasemapToggle",
 
     "dojo/domReady!"
-  ], function(Map, SceneView,
 
-    BasemapToggle,
+  ], function(Map, MapView,
+
     Home,
-    Search
+    Search,
+    Locate,
+    BasemapToggle
   ) {
 
+    /*--------------------------------------*/
     // Make the map
     var map = new Map({
       //  Try one of these:
       //  "streets", "satellite", "hybrid", "terrain", "topo", "gray", "dark-gray", "oceans", "national-geographic", "osm", "dark-gray-vector", "gray-vector", "streets-vector", "topo-vector", "streets-night-vector", "streets-relief-vector", "streets-navigation-vector"
-      basemap: "streets",
+      basemap: "streets-vector",
       ground: "world-elevation"
     });
-    // Make the scene
-    var view = new SceneView({
+
+    /*--------------------------------------*/
+    // Make the view
+    var view = new MapView({
       container: "viewDiv",
       map: map,
-      // scale: 50000,
-      center: [-106.4508651185194, 31.763963987428166],
-      zoom: 16
+    });
+    view.then(function(){
+      view.goTo({
+        center:  [2.3487990000046706, 48.85345172824479],
+        zoom: 13
+      })
     });
 
+    /*--------------------------------------*/
+    //  Popup Settings
     view.popup.dockOptions = {
       position: "bottom-center"
     };
 
+
+    /*--------------------------------------*/
     //  Instantiate widgets
     var basemapToggle = new BasemapToggle({
       view: view,
       nextBasemap: "hybrid"
     });
+
+    var locate = new Locate({
+      view: view
+    });
+    locate.startup();
 
     var search = new Search({
       view: view
@@ -79,30 +97,32 @@
 
     var home = new Home({
       view: view
-    })
+    });
 
+
+    /*--------------------------------------*/
     //  Add widgets to corners
-    // view.ui.add(basemapToggle, "bottom-left");
-    // view.ui.add(search, "top-right");
-    // view.ui.add(home, "top-left");
+    view.ui.add(search, "top-right");
+    view.ui.add(home, "top-left");
+    view.ui.add(locate, "bottom-left");
 
 
-    //  Use jQuery to grab an existing node in the DOM.
-    //  That's right jQuery!
-    // var image_button = jQuery('.image-button');
+    /*--------------------------------------*/
+    //  Use jQuery. That's right jQuery!
+    var image_button = jQuery('.image-button');
 
-    //  Add that node to one of the corners
-    // view.ui.add(image_button[0], "bottom-right");
+    // Add that node to one of the corners
+    view.ui.add(image_button[0], "bottom-right");
 
-    //  Fade it in!
-    // jQuery(image_button).delay(3000).fadeIn("fast");
+    // Fade it in!
+    jQuery(image_button).delay(3000).fadeIn("fast");
   });
   </script>
 </head>
 
 <body>
   <div class="image-button">
-    <a href="http://esri.com" title="Go to Esri.com"><img src="https://placekitten.com/60/60" alt=""></a>
+    <!-- <a href="http://esri.com" title="Go to Esri.com"><img src="https://placekitten.com/60/60" alt=""></a> -->
   </div>
   <div id="viewDiv"></div>
 </body>
