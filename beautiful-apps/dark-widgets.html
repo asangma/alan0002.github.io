@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Designing Beautiful Web Apps - 4.0</title>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.0/esri/css/main.css">
+  <script src="https://js.arcgis.com/4.0/"></script>
+  <script src="https://code.jquery.com/jquery-3.0.0.min.js" crossorigin="anonymous"></script>
+  <style>
+  html,
+  body,
+  #viewDiv {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  .image-button {
+    display: none;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+    line-height: 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    -webkit-transition: border-color 250ms ease-in-out;
+    -moz-transition: border-color 250ms ease-in-out;
+    -ms-transition: border-color 250ms ease-in-out;
+    -o-transition: border-color 250ms ease-in-out;
+    transition: border-color 250ms ease-in-out;
+  }
+
+  .esri-ui-corner .esri-widget,
+  .esri-ui-corner .esri-widget-button,
+  .esri-ui-corner .esri-menu,
+  .esri-popup .esri-popup-main {
+    background-color: #323232;
+    color: #e7e7e7;
+  }
+  .esri-popup .esri-button {
+    color: #a9a9a9;
+  }
+  .esri-popup .esri-button:hover {
+    color: #e7e7e7;
+  }
+  .esri-ui-corner .esri-widget-button:hover,
+  .esri-widget .esri-menu li:hover,
+  .esri-widget .esri-menu li:focus {
+    background-color: #333;
+    color: #fff;
+  }
+  .esri-zoom .esri-widget-button:last-child {
+    border-top-color: rgba(255, 255, 255, 0.125);
+  }
+  .esri-search .esri-search__submit-button {
+    border-left-color: rgba(255, 255, 255, 0.125);
+  }
+  </style>
+  <script>
+  require([
+    "esri/Map", "esri/views/MapView",
+
+    "esri/widgets/Home",
+    "esri/widgets/Search",
+    "esri/widgets/Locate",
+    "esri/widgets/BasemapToggle",
+
+    "dojo/domReady!"
+
+  ], function(Map, MapView,
+
+    Home,
+    Search,
+    Locate,
+    BasemapToggle
+  ) {
+
+    /*--------------------------------------*/
+    // Make the map
+    var map = new Map({
+      //  Try one of these:
+      //  "streets", "satellite", "hybrid", "terrain", "topo", "gray", "dark-gray", "oceans", "national-geographic", "osm", "dark-gray-vector", "gray-vector", "streets-vector", "topo-vector", "streets-night-vector", "streets-relief-vector", "streets-navigation-vector"
+      basemap: "streets-night-vector",
+      ground: "world-elevation"
+    });
+
+    /*--------------------------------------*/
+    // Make the view
+    var view = new MapView({
+      container: "viewDiv",
+      map: map,
+    });
+    view.then(function(){
+      view.goTo({
+        center:  [2.3487990000046706, 48.85345172824479],
+        zoom: 13
+      })
+    });
+
+    /*--------------------------------------*/
+    //  Popup Settings
+    view.popup.dockOptions = {
+      position: "bottom-center"
+    };
+
+
+    /*--------------------------------------*/
+    //  Instantiate widgets
+    var basemapToggle = new BasemapToggle({
+      view: view,
+      nextBasemap: "hybrid"
+    });
+
+    var locate = new Locate({
+      view: view
+    });
+    locate.startup();
+
+    var search = new Search({
+      view: view
+    });
+
+    var home = new Home({
+      view: view
+    });
+
+
+    /*--------------------------------------*/
+    //  Add widgets to corners
+    view.ui.add(search, "top-right");
+    view.ui.add(home, "top-left");
+    view.ui.add(locate, "bottom-left");
+
+
+    /*--------------------------------------*/
+    //  Use jQuery. That's right jQuery!
+    var image_button = jQuery('.image-button');
+
+    // Add that node to one of the corners
+    view.ui.add(image_button[0], "bottom-right");
+
+    // Fade it in!
+    jQuery(image_button).delay(3000).fadeIn("fast");
+  });
+  </script>
+</head>
+
+<body>
+  <div class="image-button">
+    <a href="http://esri.com" title="Go to Esri.com"><img src="https://placekitten.com/60/60" alt=""></a>
+  </div>
+  <div id="viewDiv"></div>
+</body>
+
+</html>
