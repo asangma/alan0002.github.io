@@ -33,20 +33,20 @@
   <script src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>
   <script>
   require([
-    "esri/Map", "esri/views/SceneView", "esri/Graphic", "esri/symbols/SimpleMarkerSymbol",
+    "esri/Map", "esri/views/SceneView",
 
     "esri/widgets/BasemapToggle",
     "esri/widgets/Home",
     "esri/widgets/Search",
-    "esri/widgets/Track",
+    "esri/widgets/Locate",
 
     "dojo/domReady!"
-  ], function(Map, SceneView, Graphic, SimpleMarkerSymbol,
+  ], function(Map, SceneView,
 
     BasemapToggle,
     Home,
     Search,
-    Track
+    Locate
   ) {
 
     // Make the map
@@ -77,13 +77,10 @@
     //   view: view,
     //   nextBasemap: "hybrid"
     // });
-    var track = new Track({
-      view: view,
-      graphic: new Graphic({
-        symbol: new SimpleMarkerSymbol()
-      })
+    var locate = new Locate({
+      view: view
     });
-    track.startup();
+    locate.startup();
 
     var search = new Search({
       view: view
@@ -94,7 +91,7 @@
     })
 
     //  Add widgets to corners
-    view.ui.add(track, "bottom-left");
+    view.ui.add(locate, "bottom-left");
     view.ui.add(search, "top-right");
     view.ui.add(home, "top-left");
 
