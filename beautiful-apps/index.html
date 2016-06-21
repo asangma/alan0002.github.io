@@ -57,7 +57,7 @@
     var map = new Map({
       //  Try one of these:
       //  "streets", "satellite", "hybrid", "terrain", "topo", "gray", "dark-gray", "oceans", "national-geographic", "osm", "dark-gray-vector", "gray-vector", "streets-vector", "topo-vector", "streets-night-vector", "streets-relief-vector", "streets-navigation-vector"
-      basemap: "dark-gray",
+      basemap: "dark-gray-vector",
       ground: "world-elevation"
     });
 
@@ -108,9 +108,9 @@
 
     /*--------------------------------------*/
     //  Add widgets to corners
-    // view.ui.add(search, "top-right");
-    // view.ui.add(home, "top-left");
-    // view.ui.add(locate, "bottom-left");
+    view.ui.add(search, "top-right");
+    view.ui.add(home, "top-left");
+    view.ui.add(locate, "bottom-left");
     // view.ui.add(navToggle, "top-left");
 
 
