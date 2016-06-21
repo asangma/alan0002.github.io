@@ -33,22 +33,20 @@
   <script src="https://code.jquery.com/jquery-3.0.0.min.js" crossorigin="anonymous"></script>
   <script>
   require([
-    "esri/Map", "esri/views/SceneView",
+    "esri/Map", "esri/views/MapView",
 
     "esri/widgets/Home",
     "esri/widgets/Search",
     "esri/widgets/Locate",
-    "esri/widgets/NavigationToggle",
     "esri/widgets/BasemapToggle",
 
     "dojo/domReady!"
 
-  ], function(Map, SceneView,
+  ], function(Map, MapView,
 
     Home,
     Search,
     Locate,
-    NavigationToggle,
     BasemapToggle
   ) {
 
@@ -57,13 +55,13 @@
     var map = new Map({
       //  Try one of these:
       //  "streets", "satellite", "hybrid", "terrain", "topo", "gray", "dark-gray", "oceans", "national-geographic", "osm", "dark-gray-vector", "gray-vector", "streets-vector", "topo-vector", "streets-night-vector", "streets-relief-vector", "streets-navigation-vector"
-      basemap: "dark-gray-vector",
+      basemap: "streets-night-vector",
       ground: "world-elevation"
     });
 
     /*--------------------------------------*/
     // Make the view
-    var view = new SceneView({
+    var view = new MapView({
       container: "viewDiv",
       map: map,
     });
@@ -76,9 +74,9 @@
 
     /*--------------------------------------*/
     //  Popup Settings
-    // view.popup.dockOptions = {
-    //   position: "bottom-center"
-    // };
+    view.popup.dockOptions = {
+      position: "bottom-center"
+    };
 
 
     /*--------------------------------------*/
@@ -101,17 +99,12 @@
       view: view
     });
 
-    var navToggle = new NavigationToggle({
-      view: view
-    });
-
 
     /*--------------------------------------*/
     //  Add widgets to corners
     view.ui.add(search, "top-right");
     view.ui.add(home, "top-left");
     view.ui.add(locate, "bottom-left");
-    // view.ui.add(navToggle, "top-left");
 
 
     /*--------------------------------------*/
