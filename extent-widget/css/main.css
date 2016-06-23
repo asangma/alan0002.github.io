@@ -5,7 +5,6 @@ body,
     width: 100%;
     margin: 0;
     padding: 0;
-    font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 #toggle-mode {
@@ -32,7 +31,7 @@ body,
 }
 
 .extent-widget p {
-    margin: 0 0 .3em 0;
+    margin: 0 0 .5em 0;
 }
 
 .extent-widget hr {
@@ -52,25 +51,24 @@ body,
 
 .coord-val {
     padding: 0 5px;
-    border: solid 1px #e0e0e0;
+    border: solid 1px #efefef;
+    font-size: 12px;
 }
 
-#xmin/*,
-#long*/ {
-    border-left: solid 1px #828282;
+#xmin {
+    border-left: solid 1px #959595;
 }
 
-#ymin/*,
-#lat*/ {
-    border-top: solid 1px #828282;
+#ymin {
+    border-top: solid 1px #959595;
 }
 
 #xmax {
-    border-right: solid 1px #828282;
+    border-right: solid 1px #959595;
 }
 
 #ymax {
-    border-bottom: solid 1px #828282;
+    border-bottom: solid 1px #959595;
 }
 
 .coord-title {
@@ -148,35 +146,33 @@ body,
     transition: all 250ms ease;
 }
 
-.options-menu {
+.options-menu.esri-menu {
     max-height: 0;
     min-width: 250px;
     transition: max-height 250ms ease-out;
 }
 
-.options-menu input[type="text"] {
+.options-menu.esri-menu input[type="text"] {
     width: 100%;
-    padding: .5em;
+    padding: .5em 0;
+    text-indent: 0.5em;
     border: solid 1px #ccc;
     color: #6e6e6e;
     font-size: 12px;
 }
 
-.show-options-menu .options-menu {
+.show-options-menu .options-menu.esri-menu {
     max-height: 300px;
     visibility: visible;
-    padding: 10px;
+    padding: 0.5em 0.5em 0.5em;
 }
 
 .options-section {
     padding: .5em;
-    -webkit-box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
     margin-bottom: 5px;
     /*border: solid 1px #959595;*/
-}
-.options-section:last-child {
-    margin-bottom: 0;
 }
 
 .options-section.copy-paste-module {
