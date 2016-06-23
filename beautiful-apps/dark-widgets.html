@@ -31,31 +31,32 @@
     transition: border-color 250ms ease-in-out;
   }
 
-  .esri-ui-corner .esri-widget,
-  .esri-ui-corner .esri-widget-button,
-  .esri-ui-corner .esri-menu,
-  .esri-popup .esri-popup-main {
-    background-color: #121212;
-    color: #e0e0e0;
-  }
+    .esri-ui-corner .esri-widget,
+    .esri-ui-corner .esri-widget-button,
+    .esri-ui-corner .esri-menu {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+    .esri-ui-corner .esri-widget-button:hover,
+    .esri-widget .esri-menu li:hover,
+    .esri-widget .esri-menu li:focus {
+      background-color: #333;
+      color: #fff;
+    }
+
+
   .esri-popup .esri-button {
     color: #a9a9a9;
   }
   .esri-popup .esri-button:hover {
     color: #e7e7e7;
   }
-  .esri-ui-corner .esri-widget-button:hover,
-  .esri-widget .esri-menu li:hover,
-  .esri-widget .esri-menu li:focus {
-    background-color: #333;
-    color: #fff;
-  }
-  .esri-zoom .esri-widget-button:last-child {
-    border-top-color: rgba(255, 255, 255, 0.125);
-  }
-  .esri-search .esri-search__submit-button {
-    border-left-color: rgba(255, 255, 255, 0.125);
-  }
+    .esri-zoom .esri-widget-button:last-child {
+      border-top-color: rgba(255, 255, 255, 0.125);
+    }
+    .esri-search .esri-search__submit-button {
+      border-left-color: rgba(255, 255, 255, 0.125);
+    }
   </style>
   <script>
   require([
@@ -104,12 +105,11 @@
       position: "bottom-center"
     };
 
-
     /*--------------------------------------*/
     //  Instantiate widgets
-    var basemapToggle = new BasemapToggle({
-      view: view,
-      nextBasemap: "hybrid"
+
+    var search = new Search({
+      view: view
     });
 
     var locate = new Locate({
@@ -117,39 +117,41 @@
     });
     locate.startup();
 
-    var search = new Search({
+    var home = new Home({
       view: view
     });
 
-    var home = new Home({
-      view: view
+    var basemapToggle = new BasemapToggle({
+      view: view,
+      nextBasemap: "hybrid"
     });
 
 
     /*--------------------------------------*/
     //  Add widgets to corners
     view.ui.add(search, "top-right");
+    view.ui.add(locate, "top-left");
     view.ui.add(home, "top-left");
-    view.ui.add(locate, "bottom-left");
+    view.ui.add(basemapToggle, "bottom-left");
 
 
     /*--------------------------------------*/
     //  Use jQuery. That's right jQuery!
-    var image_button = jQuery('.image-button');
+    // var image_button = jQuery('.image-button');
 
-    // Add that node to one of the corners
-    view.ui.add(image_button[0], "bottom-right");
+    // // Add that node to one of the corners
+    // view.ui.add(image_button[0], "bottom-right");
 
-    // Fade it in!
-    jQuery(image_button).delay(3000).fadeIn("fast");
+    // // Fade it in!
+    // jQuery(image_button).delay(3000).fadeIn("fast");
   });
   </script>
 </head>
 
 <body>
-  <div class="image-button">
+  <!-- <div class="image-button">
     <a href="http://esri.com" title="Go to Esri.com"><img src="https://placekitten.com/60/60" alt=""></a>
-  </div>
+  </div> -->
   <div id="viewDiv"></div>
 </body>
 
