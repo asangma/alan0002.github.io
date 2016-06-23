@@ -90,18 +90,18 @@
       view: view
     });
 
-    var basemapToggle = new BasemapToggle({
-      view: view,
-      nextBasemap: "hybrid"
-    });
+    // var basemapToggle = new BasemapToggle({
+    //   view: view,
+    //   nextBasemap: "hybrid"
+    // });
 
 
     /*--------------------------------------*/
     //  Add widgets to corners
     view.ui.add(search, "top-right");
-    view.ui.add(locate, "top-left");
     view.ui.add(home, "top-left");
-    view.ui.add(basemapToggle, "bottom-left");
+    view.ui.add(locate, "bottom-left");
+    // view.ui.add(basemapToggle, "bottom-left");
 
 
     /*--------------------------------------*/
