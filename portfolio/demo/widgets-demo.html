@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Designing Beautiful Web Apps - 4.0</title>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.0/esri/css/main.css">
+  <style>
+  html,
+  body,
+  #viewDiv {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+  }
+  .esri-legend {
+    padding: 5px 0;
+  }
+  /*.esri-view-height-medium .esri-ui-corner .esri-legend {
+    max-height: 540px;
+  }*/
+  .esri-ui-corner .esri-widget,
+  .esri-ui-corner .esri-widget-button,
+  .esri-ui-corner .esri-menu,
+  .esri-popup .esri-popup-main,
+  .esri-popup .esri-pointer .esri-pointer-direction {
+    outline: none;
+    -webkit-transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+       -moz-transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+        -ms-transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+         -o-transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+            transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+  }
+  .esri-popup .esri-button:focus {
+    outline: none;
+  }
+
+  .dark-theme .esri-ui-corner .esri-widget,
+  .dark-theme .esri-ui-corner .esri-widget-button,
+  .dark-theme .esri-ui-corner .esri-menu,
+  .dark-theme .esri-popup .esri-popup-main,
+  .dark-theme .esri-popup .esri-pointer .esri-pointer-direction {
+    background-color: #242424;
+    color: #bdbdbd;
+  }
+  .dark-theme .esri-ui-corner .esri-widget-button:hover,
+  .dark-theme .esri-widget .esri-menu li:hover,
+  .dark-theme .esri-widget .esri-menu li:focus {
+    background-color: #333;
+    color: #d1d1d1;
+  }
+  .dark-theme .esri-popup .esri-button:hover,
+  .dark-theme .esri-popup .esri-button:focus {
+    color: #d1d1d1;
+  }
+  .dark-theme .esri-zoom .esri-widget-button:last-child {
+    border-top-color: rgba(255, 255, 255, 0.125);
+  }
+  .dark-theme .esri-search .esri-search__submit-button {
+    border-left-color: rgba(255, 255, 255, 0.125);
+  }
+
+  .dark-theme .esri-ui-corner .esri-basemap-toggle {
+    background-color: transparent;
+  }
+  </style>
+  <script src="https://js.arcgis.com/4.0/"></script>
+  <script src="https://code.jquery.com/jquery-3.0.0.min.js" crossorigin="anonymous"></script>
+  <script>
+  require([
+    "esri/WebMap", "esri/views/MapView",
+
+    "esri/widgets/Home",
+    "esri/widgets/Search",
+    "esri/widgets/Locate",
+    "esri/widgets/BasemapToggle",
+    "esri/widgets/Legend",
+
+    "dojo/domReady!"
+
+  ], function(WebMap, MapView,
+
+    Home,
+    Search,
+    Locate,
+    BasemapToggle,
+    Legend
+  ) {
+
+    /*--------------------------------------*/
+    // Make the map
+    // var map = new Map({
+    //   //  Try one of these:
+    //   //  "streets", "satellite", "hybrid", "terrain", "topo", "gray", "dark-gray", "oceans", "national-geographic", "osm", "dark-gray-vector", "gray-vector", "streets-vector", "topo-vector", "streets-night-vector", "streets-relief-vector", "streets-navigation-vector"
+    //   basemap: "streets-night-vector"
+    // });
+    var map = new WebMap({
+          portalItem: { // autocasts as new PortalItem()
+            id: "4abe6a830b8f466dacf8abfde567a781"
+          },
+          basemap: "gray-vector"
+        });
+    /*--------------------------------------*/
+    // Make the view
+    var view = new MapView({
+      container: "viewDiv",
+      map: map,
+      zoom: 10
+    });
+    view.canZoomIn = false;
+    view.canZoomOut = false;
+    /*--------------------------------------*/
+    //  Popup Settings
+    view.popup.dockOptions = {
+      position: "bottom-center"
+    };
+
+
+    /*--------------------------------------*/
+    //  Instantiate widgets
+
+    var search = new Search({
+      view: view
+    });
+
+    var locate = new Locate({
+      view: view
+    });
+    locate.startup();
+
+    var home = new Home({
+      view: view
+    });
+
+    var basemapToggle = new BasemapToggle({
+      view: view,
+      nextBasemap: "streets-night-vector"
+    });
+    basemapToggle.on('toggle', function(e){
+      // console.log(e.current.title);
+      // jQuery('.esri-ui-corner').fadeOut('fast', function(){
+        // jQuery('#viewDiv').toggleClass('dark-theme');
+        if(e.current.title == 'World Street Map (Night)') {
+          jQuery('#viewDiv').addClass('dark-theme');
+        } else {
+          jQuery('#viewDiv').removeClass('dark-theme');
+        }
+        // jQuery('.esri-ui-corner').delay(1000).fadeIn('fast');
+      // });
+      // 
+      /*switch (e.current.title) {
+        case 'Light Gray Canvas':
+        break;
+
+        case '':
+        break;
+      }*/
+    });
+
+
+    view.then(function() {
+      // get the first layer in the collection of operational layers in the WebMap
+      // when the resources in the MapView have loaded.
+      var featureLayer = map.layers.getItemAt(0);
+
+      var legend = new Legend({
+        view: view,
+        layerInfos: [{
+          layer: featureLayer,
+          title: "NY Educational Attainment"
+        }]
+      });
+
+      // Adds an instance of Legend widget to the
+      // bottom right of the view.
+      view.ui.add(legend, "bottom-right");
+      view.zoom = 12;
+    });
+
+
+    /*--------------------------------------*/
+    //  Add widgets to corners
+    view.ui.add(search, "top-right");
+    view.ui.add(home, "top-left");
+    view.ui.add(locate, "top-left");
+    view.ui.add(basemapToggle, "bottom-left");
+
+
+    /*--------------------------------------*/
+    //  Use jQuery. That's right jQuery!
+    // var image_button = jQuery('.image-button');
+
+    // // Add that node to one of the corners
+    // view.ui.add(image_button[0], "bottom-right");
+
+    // // Fade it in!
+    // jQuery(image_button).delay(3000).fadeIn("fast");
+  });
+  </script>
+</head>
+
+<body class="body">
+  <div id="viewDiv"></div>
+</body>
+
+</html>
