@@ -13,7 +13,7 @@
 
         <!-- [2] Enlarge source graphic by 4px -->
         <feMorphology in="OpaqueSource" result="DilatedSource" id="spread"
-                      operator="dilate" radius="4"></feMorphology>
+                      operator="dilate" radius="2"></feMorphology>
         
         <feGaussianBlur in="DilatedSource" result="BlurredSource" id="blur"
                         stdDeviation="0" />
