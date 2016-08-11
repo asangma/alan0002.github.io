@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+jQuery(document).ready(function(readyEvent) {
 
     ////////////////////////////////////////////////
     //  INIT SKROLLR
@@ -55,8 +55,8 @@ jQuery(document).ready(function($) {
         jQuery('.project-banner').height(w / 2.5);
     });
     jQuery(window).trigger('resize');
-    // if($('.zoom-gallery').length > 0) {
-        $('.zoom-gallery').magnificPopup({
+    // if(jQuery('.zoom-gallery').length > 0) {
+        jQuery('.zoom-gallery').magnificPopup({
             delegate: 'a',
             type: 'image',
             closeOnContentClick: false,
@@ -98,6 +98,6 @@ function getFooter() {
 /*jQuery(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
     event.preventDefault();
     jQuery(this).ekkoLightbox({
-        //footer: $(this).attr('title');
+        //footer: jQuery(this).attr('title');
     });
 }); */

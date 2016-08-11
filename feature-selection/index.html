@@ -1,251 +1,195 @@
 <!DOCTYPE html>
-<html>
+<html dir="ltr">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>SVG Buffered Mask Effect</title>
-  <style type="text/css" media="screen">
-    html, body {
-      width: 100%;
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <title>Popup</title>
+  <link rel="stylesheet" href="https://jsdev.arcgis.com/4.1/esri/themes/light/main.css">
+  <style>
+    html,
+    body,
+    #sceneDiv {
       height: 100%;
-      padding: 0;
+      width: 100%;
       margin: 0;
-      font-family: sans-serif;
-      font-size: 14px;
+      padding: 0;
     }
-    body {
-      background:url(http://asangma.github.io/assets/images/dark-basemap-jersey.jpg) top left no-repeat;
+
+    .options-widget {
+        padding: 12px 15px;
     }
-    .container,
-    .normal-container {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      /*background-size: cover;*/
+    .options-widget ul {
+        padding: 0;
+        margin: 0;
     }
-    .container {
-      z-index: 100;
-      display: none;
+    .options-widget li {
+        list-style: none;
     }
-    .normal-container {
-      z-index: 50;
+
+    .esri-widget label {
+      margin: 10px 0 0 0;
+      display: block;
     }
-    .purple-fill {
-      fill: #d49cca;
-    }
-    .white-fill {
-      fill: #fff;
-    }
-    .msg {
-      position: absolute;
-      top: 20px;
-      left: 450px;
-      width: 200px;
-      color: #fff;
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 15px;
-      
+
+    .esri-widget input {
+      font-size: 12px;
+      padding: 0.5em;
     }
   </style>
+  <script>
+    /*var dojoConfig = {
+      paths: {
+        "esri": "../esri"
+      }
+    };*/
+  </script>
+  <script src="https://jsdev.arcgis.com/4.1"></script>
+
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    var map, view, featureLayer, defNode;
+
+    require([
+        "esri/Map",
+        "esri/views/MapView",
+
+        "esri/layers/FeatureLayer",
+
+        "esri/PopupTemplate",
+
+        "dojo/dom-attr",
+
+        "dojo/domReady!"
+      ],
+      function (
+        Map, MapView,
+        FeatureLayer,
+        PopupTemplate,
+        domAttr
+      ) {
+
+        map = new Map({
+          basemap: "gray"
+        });
+
+        view = new MapView({
+          container: "sceneDiv",
+          map: map,
+          center: [-73.950, 40.702],
+          zoom: 11
+        });
+
+        view.popup.dockOptions = {
+          position: "bottom-center"
+        };
+
+        /********************
+         * Add feature layer
+         ********************/
+
+        //Create the PopupTemplate
+        var tpl = new PopupTemplate({
+          title: "Marriage in NY, Zip Code: {ZIP}",
+          content: "<p><b> Marriage Rate: {MARRIEDRATE}% </b></p>" +
+            "<p> Married: {MARRIED_CY}</p>" +
+            "<p> Never Married: {NEVMARR_CY}</p>" +
+            "<p> Divorced: {DIVORCD_CY}</p>"
+        });
+
+        //Create the FeatureLayer using the popupTemplate
+        featureLayer = new FeatureLayer({
+          url: "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/NYCDemographics1/FeatureServer/0",
+          outFields: ["*"],
+          popupTemplate: tpl
+        });
+        map.add(featureLayer);
+
+       /* view.whenLayerView(featureLayer).then(function(layerView) {
+          window.layerView = layerView;
+
+          // console.dir(layerView._graphicsView.group);
+          // var svgDefNode = layerView._graphicsView.group.surface.parent.defNode;
+        });*/
+
+        featureLayer.then(function(evt){
+          setTimeout(function(){
+            defNode = jQuery('defs')[0];
+            jQuery(defNode).load('includes/svg-defs.html');
+          }, 3000);
+        });
+
+        view.on('click', function(evt){
+          jQuery('.curr_svg_node').each(function(index){
+            jQuery(this).attr('filter', '');
+            jQuery(this).removeClass('curr_svg_node');
+          });
+
+          var uid = view.popup.selectedFeature.uid;
+          var vector = view.layerViews.items[0]._graphicsView._vectors[uid].shape.getNode();
+
+          jQuery(vector).attr('filter', 'url(#highlight)');
+          jQuery(vector).addClass('curr_svg_node');
+          jQuery(vector).parent().append(jQuery(vector));
+        });
+
+        view.ui.add(jQuery('.options-widget')[0], 'top-right');
+
+      });
+      // var colors = {
+      //   black : '0, 0, 0',
+      //   white : '255, 255, 255',
+
+      // }
+      var curr_color, curr_alpha;
+
+      jQuery(document).ready(function() {
+        curr_alpha = jQuery('input[name="opacity"').val();
+        curr_color = jQuery('.color_select option:selected').attr('data-color');
+
+        jQuery('input[name="spread"').change(function(){
+          jQuery('#spread').attr('radius', jQuery(this).val());
+        });
+        jQuery('input[name="blur"').change(function(){
+          jQuery('#blur').attr('stdDeviation', jQuery(this).val());
+        });
+        jQuery('input[name="opacity"').change(function(){
+          curr_alpha = jQuery(this).val();
+          jQuery('#color').attr('flood-color', 'rgba('+ curr_color +', '+ curr_alpha +')');
+        });
+
+        jQuery('.color_select').change(function(){
+          curr_color = jQuery('.color_select option:selected').attr('data-color');
+          jQuery('#color').attr('flood-color', 'rgba('+ curr_color +', '+ curr_alpha +')');
+        });
+      });
+  </script>
+
 </head>
-  
+
 <body>
-  
-<!--
-  References: 
-  http://www.benknowscode.com/2013/09/using-svg-filters-to-create-shape-outlines.html 
-  http://stackoverflow.com/questions/9630008/how-can-i-create-a-glow-around-a-rectangle-with-svg
-  https://docs.webplatform.org/wiki/svg/tutorials/smarter_svg_filters
-  http://stackoverflow.com/questions/13943905/using-svg-for-additive-color-mixing-additive-blending
--->
+  <div id="sceneDiv"></div>
+  <div class="options-widget esri-widget">
+    <h4>Configure Highlight</h4>
+    <label class="esri-clearfix" for="spread">Spread</label>
+    <input type="number" name="spread" value="4">
 
-<div class="container">
-  
-  <svg version="1.1" width="100%" height="100%">
-    <defs>
-      <filter id="highlight" filterUnits="userSpaceOnUse" width="100%" height="100%">
-        <!-- [1] Make the source graphic opaque -->
-        <!-- 
-          This is required to cleanly carve out the glow ring at step [5]
-          in cases where the source graphic is partially transparent.
-        -->
-        <feColorMatrix in="SourceGraphic" result="OpaqueSource" 
-                       type="matrix" values="1 0 0 0 0
-                                             0 1 0 0 0
-                                             0 0 1 0 0
-                                             1 1 1 1 0">
-        </feColorMatrix>
+    <label class="esri-clearfix" for="blur">Blur</label>
+    <input type="number" name="blur" value="0">
 
-        <!-- [2] Enlarge source graphic by 6px -->
-        <feMorphology in="OpaqueSource" result="DilatedSource" 
-                      operator="dilate" radius="8"></feMorphology>
-        
-        <!-- Removed blur step -->
-         <feGaussianBlur in="DilatedSource" result="BlurredSource"
-                        stdDeviation="0" />
-        
-        <!-- [3] Create a rectangle filled with mask color -->
-        <feFlood result="FloodedRect" 
-                 flood-color="rgba(255, 255, 255, 0.8)" />
-        
-        <!-- [4] Trim glow rectange to the shape of enlarged source -->
-        <feComposite in="FloodedRect" in2="BlurredSource" 
-                     operator="in" result="Underlay" />
-                
-        <!-- [5] Clear out the shape of original source from the result of [4] -->
-        <feComposite in="Underlay" in2="OpaqueSource" 
-                     operator="xor" result="Ring" />
-        
-        <!-- [6] Fit original source inside the glow ring -->
-        <feComposite in="SourceGraphic" in2="Ring" 
-                     operator="over" />
-        
-      </filter>
-    </defs>
+    <label class="esri-clearfix" for="opacity">Opacity</label>
+    <input type="number" name="opacity" value="0.85">
 
-    <circle class="purple-fill" r="8" cx="50" cy="60" stroke="black" stroke-width="2px" 
-             fill-opacity="1" 
-            filter="url(#highlight)" >
-    </circle>
-
-    <circle class="purple-fill" r="16" cx="125" cy="60" stroke="black" stroke-width="2px" 
-             fill-opacity="1" 
-            filter="url(#highlight)" >
-    </circle>
-
-    <circle class="purple-fill" r="32" cx="225" cy="60" stroke="black" stroke-width="2px" 
-             fill-opacity="1" 
-            filter="url(#highlight)" >
-    </circle>
-
-    <circle class="purple-fill" r="32" cx="345" cy="60" stroke="white" stroke-width="2px" 
-             fill-opacity="0.4" 
-            filter="url(#highlight)" >
-    </circle>
-    
-    <rect class="white-fill" x="45" y="150" width="16" height="16"
-          fill-opacity="1" 
-          stroke="black" stroke-width="2px"
-          filter="url(#highlight)" />
-    
-    <rect class="white-fill" x="110" y="150" width="32" height="32"
-          fill-opacity="1" 
-          stroke="black" stroke-width="2px"
-          filter="url(#highlight)" />
-    
-    <rect class="white-fill" x="200" y="150" width="64" height="64"
-          fill-opacity="1" 
-          stroke="black" stroke-width="2px" 
-          filter="url(#highlight)" />
-    
-    <rect class="white-fill" x="315" y="150" width="64" height="64"
-          fill-opacity="0.4" 
-          stroke="white" stroke-width="2px" 
-          filter="url(#highlight)" />
-    
-    <path class="purple-fill" filter="url(#highlight)" fill-rule="evenodd" stroke-dasharray="none" d="M 488 127 487 129 483 127 479 124 477 131 464 150 466 152 464 153 464 155 461 157 459 156 454 159 452 157 452 160 443 163 440 160 436 163 429 161 426 156 426 154 422 153 421 151 419 150 411 136 412 133 412 129 418 128 419 124 421 123 421 118 425 111 427 112 428 115 429 113 431 114 429 110 431 109 433 104 435 104 438 100 440 101 443 100 451 93 457 73 456 65 459 63 459 90 483 90 483 106 491 98 494 99 499 93 501 96 506 96 507 93 510 93 512 91 517 94 520 94 520 97 522 97 521 99 523 102 520 108 509 98 506 108 503 113 500 114 497 119 494 116 488 127" stroke-miterlimit="4" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="2" stroke-opacity="1" stroke="black" fill-opacity="1"  transform="translate(-200, 250)"></path>
-    
-    <path filter="url(#highlight)" fill-rule="evenodd" stroke-dasharray="none" d="M 488 127 487 129 483 127 479 124 477 131 464 150 466 152 464 153 464 155 461 157 459 156 454 159 452 157 452 160 443 163 440 160 436 163 429 161 426 156 426 154 422 153 421 151 419 150 411 136 412 133 412 129 418 128 419 124 421 123 421 118 425 111 427 112 428 115 429 113 431 114 429 110 431 109 433 104 435 104 438 100 440 101 443 100 451 93 457 73 456 65 459 63 459 90 483 90 483 106 491 98 494 99 499 93 501 96 506 96 507 93 510 93 512 91 517 94 520 94 520 97 522 97 521 99 523 102 520 108 509 98 506 108 503 113 500 114 497 119 494 116 488 127" stroke-miterlimit="4" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="2" stroke-opacity="1" stroke="black" fill-opacity="1" fill="none" transform="translate(-50, 250)"></path>
-    
-    <path filter="url(#highlight)" stroke-dasharray="none" d="M 474 498 469 500 463 498 460 499 449 499 444 494 439 494 436 494 428 499 418 501 409 495 405 497 402 501 401 505 391 516 382 517 380 520 374 521 365 531" stroke-miterlimit="4" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="3" stroke-opacity="1" stroke="#8c8ec7" fill-opacity="0" fill="none" transform="translate(-320, -50)"></path>
-    
-    <path filter="url(#highlight)" stroke-dasharray="none" d="M 474 498 469 500 463 498 460 499 449 499 444 494 439 494 436 494 428 499 418 501 409 495 405 497 402 501 401 505 391 516 382 517 380 520 374 521 365 531" stroke-miterlimit="4" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="2" stroke-opacity="1" stroke="black" fill-opacity="0" fill="none" transform="translate(-150, -50)"></path>
-    
-    <image filter="url(#highlight)" x="50" y="500" width="37" height="37" preserveAspectRatio="none" opacity="1" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAYAAACoPemuAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAABGlJREFUWIXtmM9LW1kUxz/XpElG/JHESJRqrMhEBAdfQWQWpSQuszD9C5xllya7YrGllXZrXLp0toVSLbg0UlwMQyGxE5BKh6idouKv+IOOSdXbhXmZZ/LeS3QcamG+q5fk3JwP555z7j3PyjWV9VsDGOl/sIvqUmBSylvAPSAMKICzyCQDJIEp4JUQYvk/BZNSKsAYEChj6szbBIAxKeUcEBVCJK8UTErplFI+BiLqd+u//8rWwjSZpTjHn3fO/2m1G6c/iKdngMafwlh+qA8AidPT05gQ4okQIvOvwaSUTiAuhFAAVmZG+RiPUesAV72bFr8Pm+3Hc2tyuSz7ewtsvI7z4UWU1mCEttAIQogIEJBSBsvBmYKpUIBytLtKaiKMZX+Rbn8XNpvdcJ3NZsfTaMfT2EAulyU9/4zNdy/pvj+Fw+VTgHg5OEMwLdThXwskx/u52VCLt1PRtbffeQRAdv5pCWRnp8LG2jpvn99GGZqlpqWnLJwZ2GMhhHK0u0pyvB+f142nscEQytIROnvWgQPwNjdhsd4gOd5P73ACh8un5PM2WjFYvvoiAKmJMDcbaiuCArB0hAzhPI0NnBx/ITURpvdBAiFEREo5qVetRhEbg7NEt+wvmm6fFqoSOG9zE5n3SVZmRmkLjai+gmXB8s0zcPL3Hh/jMbr9XQbsecd559W//AbA58mfDe1Vtbd3kYrHVLCAlPJWcRPWi9g9gM0/pqh1YFp9l5XNZqfWcdYLm/oGVZ+xcmBhgK2FaVz17pIf7Xce6W6RmfTWuOrdbC1Mq2DhSsAUgMxSnBa/r8SBpSNU2D6tzLZQL+fq6mtYXYqf81kOzAlw/HnnXEc3SvRKVQxns9m1R1nxJaCys7IYSk10MI6U1sYIzkzf930sO/8UOxSiVklL0Nqo0Tv5c6biwtEDywBOa7WbXC5baBfFcBdVMVQul8VaXaj6kvNSDywJBJz+IPt7C3ga/+ljKpyezBqsXqT29w5x+gsNv6IjaQoIeHoG2HgdLzkjL9rDjNbs7u3gvTug9VkW7BUw1tQ3yIcX0XPbeVXK5bIcHEHPWXNVfZqDCSGW83f0QGswQnr+GZ0XOMQrSfR0epHW4EP145zesGJUlVEg0RYaYfPdSzbW1vE2N5UYGRWEGdTG2jondV3qAa76KpEumBAimR8cIt33p3j7/DYW6w3dO1kxnBnU1uY2n7YP6B1+A4CUMlZVVaU7ORn2MSHEEyDgcPkUZWiW5Hg/J8dfTCOnPutpY22dT9sHKEOzOFw+gGTeh67MwDJSyiAQr2npUXqHE6QmwmTeJ2lvLx1GjIByuSzp9CIndV30Dr8pQAGXG0aK4Rwun9L7IMHKzCgpzfhWV19TAnk2vh2yu7fDwRG0Bh9qc6osVFkwLVx+OIm0hUZoC40UBt5Vk4HXe3dA2xKQUl7dwKvCAVEp5ST5VwRNfYPqJa8SzQFRo0S/NJgGMAkEr91LFQ3gMmdX4VgZ00vr+76PfQtdW7CvbPv7IdWvHuMAAAAASUVORK5CYII="></image>
-    
-    <image filter="url(#highlight)" x="115" y="500" height="48" width="48" opacity="1" preserveAspectRatio="none" xlink:href="https://static.arcgis.com/images/Symbols/Basic/GreenShinyPin.png"></image>
-    
-    <image filter="url(#highlight)" opacity="1" height="32" width="32" x="200" y="500" preserveAspectRatio="none" xlink:href="https://static.arcgis.com/images/Symbols/Basic/GreenStickpin.png"></image>
-    
-    <image filter="url(#highlight)" x="50" y="580" height="48" width="48" opacity="1" preserveAspectRatio="none" xlink:href="http://image005.flaticon.com/1/svg/28/28356.svg"></image>
-    
-    <image filter="url(#highlight)" x="110" y="570" height="64" width="64" opacity="1" preserveAspectRatio="none" xlink:href="http://android-ui-utils.googlecode.com/hg-history/73d67e1c1abc59eacc29f4e93e3b5f3633675844/asset-studio/dist/res/clipart/icons/map_pin.svg"></image>
-    
-    <image filter="url(#highlight)" x="200" y="580" height="48" width="48" opacity="1" preserveAspectRatio="none" xlink:href="http://uxrepo.com/static/icon-sets/google-material/svg/android-directions-bike.svg"></image>
-    
-  </svg>
-  
-</div>
-<div class="normal-container">
- <svg version="1.1" width="100%" height="100%">
-
-    <circle class="purple-fill" r="8" cx="50" cy="60" stroke="black" stroke-width="2px" 
-             fill-opacity="1" 
-             >
-    </circle>
-
-    <circle class="purple-fill" r="16" cx="125" cy="60" stroke="black" stroke-width="2px" 
-             fill-opacity="1" 
-             >
-    </circle>
-
-    <circle class="purple-fill" r="32" cx="225" cy="60" stroke="black" stroke-width="2px" 
-             fill-opacity="1" 
-             >
-    </circle>
-
-    <circle class="purple-fill" r="32" cx="345" cy="60" stroke="white" stroke-width="2px" 
-             fill-opacity="0.4" 
-             >
-    </circle>
-    
-    <rect class="white-fill" x="45" y="150" width="16" height="16"
-          fill-opacity="1" 
-          stroke="black" stroke-width="2px"
-           />
-    
-    <rect class="white-fill" x="110" y="150" width="32" height="32"
-          fill-opacity="1" 
-          stroke="black" stroke-width="2px"
-           />
-    
-    <rect class="white-fill" x="200" y="150" width="64" height="64"
-          fill-opacity="1" 
-          stroke="black" stroke-width="2px" 
-           />
-    
-    <rect class="white-fill" x="315" y="150" width="64" height="64"
-          fill-opacity="0.4" 
-          stroke="white" stroke-width="2px" 
-           />
-    
-    <path class="purple-fill"  fill-rule="evenodd" stroke-dasharray="none" d="M 488 127 487 129 483 127 479 124 477 131 464 150 466 152 464 153 464 155 461 157 459 156 454 159 452 157 452 160 443 163 440 160 436 163 429 161 426 156 426 154 422 153 421 151 419 150 411 136 412 133 412 129 418 128 419 124 421 123 421 118 425 111 427 112 428 115 429 113 431 114 429 110 431 109 433 104 435 104 438 100 440 101 443 100 451 93 457 73 456 65 459 63 459 90 483 90 483 106 491 98 494 99 499 93 501 96 506 96 507 93 510 93 512 91 517 94 520 94 520 97 522 97 521 99 523 102 520 108 509 98 506 108 503 113 500 114 497 119 494 116 488 127" stroke-miterlimit="4" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="2" stroke-opacity="1" stroke="black" fill-opacity="1"  transform="translate(-200, 250)"></path>
-    
-    <path  fill-rule="evenodd" stroke-dasharray="none" d="M 488 127 487 129 483 127 479 124 477 131 464 150 466 152 464 153 464 155 461 157 459 156 454 159 452 157 452 160 443 163 440 160 436 163 429 161 426 156 426 154 422 153 421 151 419 150 411 136 412 133 412 129 418 128 419 124 421 123 421 118 425 111 427 112 428 115 429 113 431 114 429 110 431 109 433 104 435 104 438 100 440 101 443 100 451 93 457 73 456 65 459 63 459 90 483 90 483 106 491 98 494 99 499 93 501 96 506 96 507 93 510 93 512 91 517 94 520 94 520 97 522 97 521 99 523 102 520 108 509 98 506 108 503 113 500 114 497 119 494 116 488 127" stroke-miterlimit="4" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="2" stroke-opacity="1" stroke="black" fill-opacity="1" fill="none" transform="translate(-50, 250)"></path>
-    
-    <path  stroke-dasharray="none" d="M 474 498 469 500 463 498 460 499 449 499 444 494 439 494 436 494 428 499 418 501 409 495 405 497 402 501 401 505 391 516 382 517 380 520 374 521 365 531" stroke-miterlimit="4" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="3" stroke-opacity="1" stroke="#8c8ec7" fill-opacity="0" fill="none" transform="translate(-320, -50)"></path>
-    
-    <path  stroke-dasharray="none" d="M 474 498 469 500 463 498 460 499 449 499 444 494 439 494 436 494 428 499 418 501 409 495 405 497 402 501 401 505 391 516 382 517 380 520 374 521 365 531" stroke-miterlimit="4" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="2" stroke-opacity="1" stroke="black" fill-opacity="0" fill="none" transform="translate(-150, -50)"></path>
-    
-    <image  x="50" y="500" width="37" height="37" preserveAspectRatio="none" opacity="1" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAYAAACoPemuAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAABGlJREFUWIXtmM9LW1kUxz/XpElG/JHESJRqrMhEBAdfQWQWpSQuszD9C5xllya7YrGllXZrXLp0toVSLbg0UlwMQyGxE5BKh6idouKv+IOOSdXbhXmZZ/LeS3QcamG+q5fk3JwP555z7j3PyjWV9VsDGOl/sIvqUmBSylvAPSAMKICzyCQDJIEp4JUQYvk/BZNSKsAYEChj6szbBIAxKeUcEBVCJK8UTErplFI+BiLqd+u//8rWwjSZpTjHn3fO/2m1G6c/iKdngMafwlh+qA8AidPT05gQ4okQIvOvwaSUTiAuhFAAVmZG+RiPUesAV72bFr8Pm+3Hc2tyuSz7ewtsvI7z4UWU1mCEttAIQogIEJBSBsvBmYKpUIBytLtKaiKMZX+Rbn8XNpvdcJ3NZsfTaMfT2EAulyU9/4zNdy/pvj+Fw+VTgHg5OEMwLdThXwskx/u52VCLt1PRtbffeQRAdv5pCWRnp8LG2jpvn99GGZqlpqWnLJwZ2GMhhHK0u0pyvB+f142nscEQytIROnvWgQPwNjdhsd4gOd5P73ACh8un5PM2WjFYvvoiAKmJMDcbaiuCArB0hAzhPI0NnBx/ITURpvdBAiFEREo5qVetRhEbg7NEt+wvmm6fFqoSOG9zE5n3SVZmRmkLjai+gmXB8s0zcPL3Hh/jMbr9XQbsecd559W//AbA58mfDe1Vtbd3kYrHVLCAlPJWcRPWi9g9gM0/pqh1YFp9l5XNZqfWcdYLm/oGVZ+xcmBhgK2FaVz17pIf7Xce6W6RmfTWuOrdbC1Mq2DhSsAUgMxSnBa/r8SBpSNU2D6tzLZQL+fq6mtYXYqf81kOzAlw/HnnXEc3SvRKVQxns9m1R1nxJaCys7IYSk10MI6U1sYIzkzf930sO/8UOxSiVklL0Nqo0Tv5c6biwtEDywBOa7WbXC5baBfFcBdVMVQul8VaXaj6kvNSDywJBJz+IPt7C3ga/+ljKpyezBqsXqT29w5x+gsNv6IjaQoIeHoG2HgdLzkjL9rDjNbs7u3gvTug9VkW7BUw1tQ3yIcX0XPbeVXK5bIcHEHPWXNVfZqDCSGW83f0QGswQnr+GZ0XOMQrSfR0epHW4EP145zesGJUlVEg0RYaYfPdSzbW1vE2N5UYGRWEGdTG2jondV3qAa76KpEumBAimR8cIt33p3j7/DYW6w3dO1kxnBnU1uY2n7YP6B1+A4CUMlZVVaU7ORn2MSHEEyDgcPkUZWiW5Hg/J8dfTCOnPutpY22dT9sHKEOzOFw+gGTeh67MwDJSyiAQr2npUXqHE6QmwmTeJ2lvLx1GjIByuSzp9CIndV30Dr8pQAGXG0aK4Rwun9L7IMHKzCgpzfhWV19TAnk2vh2yu7fDwRG0Bh9qc6osVFkwLVx+OIm0hUZoC40UBt5Vk4HXe3dA2xKQUl7dwKvCAVEp5ST5VwRNfYPqJa8SzQFRo0S/NJgGMAkEr91LFQ3gMmdX4VgZ00vr+76PfQtdW7CvbPv7IdWvHuMAAAAASUVORK5CYII="></image>
-    
-    <image  x="115" y="500" height="48" width="48" opacity="1" preserveAspectRatio="none" xlink:href="https://static.arcgis.com/images/Symbols/Basic/GreenShinyPin.png"></image>
-    
-    <image  opacity="1" height="32" width="32" x="200" y="500" preserveAspectRatio="none" xlink:href="https://static.arcgis.com/images/Symbols/Basic/GreenStickpin.png"></image>
-    
-    <image  x="50" y="580" height="48" width="48" opacity="1" preserveAspectRatio="none" xlink:href="http://image005.flaticon.com/1/svg/28/28356.svg"></image>
-    
-    <image  x="110" y="570" height="64" width="64" opacity="1" preserveAspectRatio="none" xlink:href="http://android-ui-utils.googlecode.com/hg-history/73d67e1c1abc59eacc29f4e93e3b5f3633675844/asset-studio/dist/res/clipart/icons/map_pin.svg"></image>
-    
-    <image  x="200" y="580" height="48" width="48" opacity="1" preserveAspectRatio="none" xlink:href="http://uxrepo.com/static/icon-sets/google-material/svg/android-directions-bike.svg"></image>
-    
-  </svg>
-  <div class="msg">
-    The animation is <strong>not</strong> meant to be part of the highlight style.  It is to show what it looks like with and without highlighting.
+    <label class="esri-clearfix" for="color">Color</label>
+    <select name="color" class="color_select">
+      <option value="black" data-color="0, 0, 0" selected="selected">Black</option>
+      <option value="white" data-color="255, 255, 255">White</option>
+      <option value="blue" data-color="0, 122, 194">Blue</option>
+      <option value="purple" data-color="241, 133, 255">Purple</option>
+      <option value="orange" data-color="255, 100, 46">Orange</option>
+      <option value="yellow" data-color="255, 240, 0">Yellow</option>
+    </select>
   </div>
-</div>
-  
-<script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
-<script  type="text/javascript" charset="utf-8">
-jQuery(document).ready(function($) {
-  
-  loopNormal();
-});
-function loopNormal() {
-  jQuery('.container').delay(2000).fadeIn('fast', function(){
-    jQuery('.container').delay(2000).fadeOut('fast', loopNormal);
-  });
-}
-</script>
 </body>
+
 </html>

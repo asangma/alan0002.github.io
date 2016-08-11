@@ -16,6 +16,13 @@
     height: 100%;
     width: 100%;
   }
+  .demo-loader {
+    font-family: "Avenir Next W00", "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 15%;
+  }
   .esri-legend {
     padding: 5px 0;
   }
@@ -107,11 +114,9 @@
     // Make the view
     var view = new MapView({
       container: "viewDiv",
-      map: map,
-      zoom: 10
+      map: map/*,
+      zoom: 12*/
     });
-    view.canZoomIn = false;
-    view.canZoomOut = false;
     /*--------------------------------------*/
     //  Popup Settings
     view.popup.dockOptions = {
@@ -203,7 +208,9 @@
 </head>
 
 <body class="body">
-  <div id="viewDiv"></div>
+  <div id="viewDiv">
+    <span class="demo-loader">Loading.</span>
+  </div>
 </body>
 
 </html>
