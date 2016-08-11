@@ -48,7 +48,7 @@
 
   <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
   <script type="text/javascript">
-    var map, view, featureLayer, defNode;
+    var map, view, featureLayer, defNode, bmt;
 
     require([
         "esri/Map",
@@ -58,6 +58,8 @@
 
         "esri/PopupTemplate",
 
+        "esri/widgets/BasemapToggle",
+
         "dojo/dom-attr",
 
         "dojo/domReady!"
@@ -66,6 +68,7 @@
         Map, MapView,
         FeatureLayer,
         PopupTemplate,
+        BasemapToggle,
         domAttr
       ) {
 
@@ -133,14 +136,16 @@
           jQuery(vector).parent().append(jQuery(vector));
         });
 
+        bmt = new BasemapToggle({
+          view: view,
+          nextBasemap: "dark-gray"
+        });
+        view.ui.add(bmt, "bottom-left");
         view.ui.add(jQuery('.options-widget')[0], 'top-right');
 
       });
-      // var colors = {
-      //   black : '0, 0, 0',
-      //   white : '255, 255, 255',
 
-      // }
+
       var curr_color, curr_alpha;
 
       jQuery(document).ready(function() {
