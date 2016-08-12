@@ -162,16 +162,16 @@
 
 
   jQuery(document).ready(function() {
-    curr_alpha = jQuery('input[name="opacity"').val();
-    curr_color = jQuery('.color_select option:selected').attr('data-color');
 
-    jQuery('input[name="size"').change(function() {
+    jQuery('input[name=size]').on('change', function() {
       jQuery('#size').attr('radius', jQuery(this).val());
+      // console.log('size: ' + jQuery(this).val());
     });
-    jQuery('input[name="blur"').change(function() {
+    jQuery('input[name=blur]').on('change', function() {
       jQuery('#blur').attr('stdDeviation', jQuery(this).val());
+      // console.log('blur: ' + jQuery(this).val());
     });
-    jQuery('input[name="color"]').change(setColor);
+    jQuery('input[name=color]').on('change', setColor);
 
 
 
@@ -187,6 +187,7 @@
     var hex_re = /^#[0-9A-Fa-f]{6}$/i;
     var value = jQuery(this).val();
     var color = false;
+    // console.log('color: ' + value);
 
     if (value.indexOf('rgba') !== -1) {
       if ((value.match(/,/g) || []).length == 3) color = value;
@@ -211,8 +212,6 @@
     <input type="number" name="size" value="2">
     <label class="esri-clearfix" for="blur">Blur</label>
     <input type="number" name="blur" value="0">
-    <!-- <label class="esri-clearfix" for="opacity">Opacity</label>
-    <input type="number" name="opacity" value="0.85"> -->
     <label class="esri-clearfix" for="color">Color <span class="text-small">(rgba or hex)</span></label>
     <input type="text" name="color" value="rgba(0, 0, 0, 0.85)" placeholder="RGBA or Hex">
   </div>
