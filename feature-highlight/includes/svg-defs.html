@@ -12,7 +12,7 @@
         </feColorMatrix>
 
         <!-- [2] Enlarge source graphic by 4px -->
-        <feMorphology in="OpaqueSource" result="DilatedSource" id="spread"
+        <feMorphology in="OpaqueSource" result="DilatedSource" id="size"
                       operator="dilate" radius="2"></feMorphology>
         
         <feGaussianBlur in="DilatedSource" result="BlurredSource" id="blur"
