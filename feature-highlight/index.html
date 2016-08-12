@@ -66,7 +66,7 @@
   <script src="https://jsdev.arcgis.com/4.1"></script>
   <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
   <script type="text/javascript">
-  var map, view, featureLayer, bmt;
+  var map, view, svgDefNode, featureLayer, bmt;
 
   require([
       "esri/Map",
@@ -79,8 +79,13 @@
 
       "esri/widgets/BasemapToggle",
 
+      "dojo/dom-construct",
       "dojo/dom-attr",
+      "dojo/dom-class",
+      "dojo/query",
+      "dojo/NodeList-traverse",
 
+      "dojo/text!./includes/svg-defs.html",
       "dojo/domReady!"
     ],
     function(
@@ -89,7 +94,12 @@
       FeatureLayer,
       PopupTemplate,
       BasemapToggle,
-      domAttr
+      domConstruct,
+      domAttr,
+      domClass,
+      query,
+      traverse,
+      svgDefs
     ) {
 
       map = new Map({
@@ -131,23 +141,41 @@
       view.whenLayerView(featureLayer).then(function(layerView) {
         window.layerView = layerView;
         watchUtils.when(layerView, "_graphicsView.container.surface", function() {
-          var svgDefNode = layerView._graphicsView.group.surface.parent.defNode;
+          svgDefNode = layerView._graphicsView.group.surface.parent.defNode;
+
+          // Need Dojo help here
           jQuery(svgDefNode).load('includes/svg-defs.html');
+          // domConstruct.place(jQuery('defs')[0], svgDefs);
         });
       });
 
       view.on('click', function(evt) {
-        jQuery('.curr_svg_node').each(function(index) {
-          jQuery(this).attr('filter', '');
-          jQuery(this).removeClass('curr_svg_node');
-        });
+        var curr_nodes = query('.curr_svg_node');
+        if(curr_nodes.length > 0) {
+          for(var i = 0; i < curr_nodes.length; i++) {
+            var node = curr_nodes[i];
+
+            // console.log(node);
+            domAttr.remove(node, 'filter');
+
+            // Need Dojo help here
+            // domClass.remove(node, 'curr_svg_node');
+            jQuery(node).removeClass('curr_svg_node');
+
+          }
+        }
 
         var uid = view.popup.selectedFeature.uid;
         var vector = view.layerViews.items[0]._graphicsView._vectors[uid].shape.getNode();
+        domAttr.set(vector, 'filter', "url(#highlight)");
+        // jQuery(vector).attr('filter', "url(#highlight)");
 
-        jQuery(vector).attr('filter', 'url(#highlight)');
+        // Need Dojo help here
+        // domClass.add(vector, 'curr_svg_node');
         jQuery(vector).addClass('curr_svg_node');
-        jQuery(vector).parent().append(jQuery(vector));
+
+        domConstruct.place(vector, query(vector).parent()[0], 'last');
+
       });
 
       bmt = new BasemapToggle({
@@ -165,11 +193,9 @@
 
     jQuery('input[name=size]').on('change', function() {
       jQuery('#size').attr('radius', jQuery(this).val());
-      // console.log('size: ' + jQuery(this).val());
     });
     jQuery('input[name=blur]').on('change', function() {
       jQuery('#blur').attr('stdDeviation', jQuery(this).val());
-      // console.log('blur: ' + jQuery(this).val());
     });
     jQuery('input[name=color]').on('change', setColor);
 
@@ -187,7 +213,6 @@
     var hex_re = /^#[0-9A-Fa-f]{6}$/i;
     var value = jQuery(this).val();
     var color = false;
-    // console.log('color: ' + value);
 
     if (value.indexOf('rgba') !== -1) {
       if ((value.match(/,/g) || []).length == 3) color = value;

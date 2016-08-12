@@ -1,36 +1,21 @@
 <filter id="highlight" filterUnits="userSpaceOnUse" width="200%" height="200%">
-        <!-- [1] Make the source graphic opaque -->
-        <!-- 
-          This is required to cleanly carve out the glow ring at step [5]
-          in cases where the source graphic is partially transparent.
-        -->
         <feColorMatrix in="SourceGraphic" result="OpaqueSource" 
                        type="matrix" values="1 0 0 0 0
                                              0 1 0 0 0
                                              0 0 1 0 0
                                              1 1 1 1 0">
         </feColorMatrix>
-
-        <!-- [2] Enlarge source graphic by 4px -->
         <feMorphology in="OpaqueSource" result="DilatedSource" id="size"
                       operator="dilate" radius="2"></feMorphology>
         
         <feGaussianBlur in="DilatedSource" result="BlurredSource" id="blur"
                         stdDeviation="0" />
-        
-        <!-- [3] Create a rectangle filled with glow color -->
         <feFlood result="FloodedRect" id="color"
                  flood-color="rgba(0, 0, 0, .85)" />
-        
-        <!-- [4] Trim glow rectange to the shape of enlarged source -->
         <feComposite in="FloodedRect" in2="BlurredSource" 
                      operator="in" result="GlowUnderlay" />
-                
-        <!-- [5] Clear out the shape of original source from the result of [4] -->
         <feComposite in="GlowUnderlay" in2="OpaqueSource" 
                      operator="xor" result="GlowRing" />
-        
-        <!-- [6] Fit original source inside the glow ring -->
         <feComposite in="SourceGraphic" in2="GlowRing" 
                      operator="over" />
         
