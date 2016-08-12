@@ -176,13 +176,9 @@
 
 
     jQuery('#sceneDiv').keydown(function(event) {
-      console.log('keypress');
-      // if(!jQuery('#sceneDiv').hasClass('keynav-mode')) {
       jQuery('#sceneDiv').addClass('keynav-mode');
-      // }
     });
     jQuery(document).click(function(event) {
-      console.log('mouse');
       jQuery('#sceneDiv').removeClass('keynav-mode');
     });
   });
