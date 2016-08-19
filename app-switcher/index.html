@@ -6,7 +6,13 @@
   <link rel="stylesheet" href="https://jsdev.arcgis.com/4.0/esri/css/main.css">
   <style>
   html,
-  body,
+  body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: "Avenir Next W00", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
   #view {
     width: 100%;
     height: 100%;
@@ -43,9 +49,6 @@
     display: flex;
     -webkit-align-items: flex-start;
     align-items: flex-start;
-    -webkit-flex-wrap: wrap;
-        -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
   }
 
   .app-module {
@@ -129,6 +132,25 @@
   .gray .hexagon {
     fill: #464646;
   }
+
+
+  .fake-header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 80px;
+    background: #efefef;
+    z-index: 100;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
   </style>
   <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
   <script src="https://jsdev.arcgis.com/4.1"></script>
@@ -152,7 +174,10 @@
         container: "view",
         map: map,
         center: [-73.950, 40.702],
-        zoom: 11
+        zoom: 11,
+        padding: {
+          top: 80
+        }
       })
 
       app_switcher = query('.app-switcher')[0];
@@ -167,6 +192,9 @@
   <div class="app-switcher esri-widget">
     <h2>Your Apps</h2>
     <div class="apps-container"></div>
+  </div>
+  <div class="fake-header">
+    I am totally a realistic header.
   </div>
   <script type="text/javascript">
   var colors = ["blue", "red", "green", "purple", "gray"];
