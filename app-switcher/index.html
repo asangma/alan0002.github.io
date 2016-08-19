@@ -6,21 +6,22 @@
   <link rel="stylesheet" href="https://jsdev.arcgis.com/4.0/esri/css/main.css">
   <style>
   html,
-  body {
+  body,
+  #view {
     width: 100%;
     height: 100%;
     padding: 0;
     margin: 0;
     font-family: "Avenir Next W00", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
-  #view {
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
+
+  h1, h2, h3, h4 {
+    font-weight: 400;
+    margin: 0 0 10px 0;
   }
 
   .app-switcher {
+    /*  Standard styles for non-button widgets. */
     background: #fff;
     padding: 15px;
     -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -57,9 +58,7 @@
     display: block;
     float: left;
   }
-  .app-module:nth-child(3) {
-    break-after: always;
-  }
+
   .app-module:first-child {
     margin-left: 0;
   }
@@ -100,19 +99,14 @@
     color: #4c4c4c;
   }
 
-  h2,
-  h3 {
-    /*font-size: 20px;*/
-    font-weight: 400;
-    margin: 0 0 10px 0;
-  }
-
   .app-module--row-last:after {
     display: block;
     content: "";
     clear: both;
   }
 
+  /*--------------*/
+  /*  SVG Colors  */
   .red .hexagon {
     fill: #de2900;
   }
@@ -132,7 +126,7 @@
   .gray .hexagon {
     fill: #464646;
   }
-
+  /*--------------*/
 
   .fake-header {
     position: absolute;
@@ -198,6 +192,7 @@
   </div>
   <script type="text/javascript">
   var colors = ["blue", "red", "green", "purple", "gray"];
+
   var apps = [{
     name: "Open Data",
     letters: "OD"
@@ -214,12 +209,12 @@
     name: "All the Things",
     letters: "AT"
   }];
-  jQuery(document).ready(function() {
+
+  jQuery(document).ready(function() { // You wish you could use jQuery
     var i = 0;
     jQuery.each(apps, function(index, app) {
       var color = colors[i];
-      console.dir(app);
-      jQuery('.apps-container').append('<div class="app-module" id="app-no-'+index+'"><div class="app-icon-container ' + color + '"><div class="app-letters">' + app.letters + '</div><div class="app-icon"></div></div><span class="app-title">' + app.name + '</span></div>');
+      jQuery('.apps-container').append('<div class="app-module" id="app-no-' + index + '"><div class="app-icon-container ' + color + '"><div class="app-icon"></div><div class="app-letters">' + app.letters + '</div></div><span class="app-title">' + app.name + '</span></div>');
       if (i < colors.length - 1) i++;
       else i = 0;
     });
