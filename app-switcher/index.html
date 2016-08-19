@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>App Switcher - Design Demo</title>
+  <link rel="stylesheet" href="https://jsdev.arcgis.com/4.0/esri/css/main.css">
+  <style>
+  html,
+  body,
+  #view {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .app-switcher {
+    background: #fff;
+    padding: 15px;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .app-switcher:after {
+    bottom: 100%;
+    right: 50px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: #fff;
+    border-width: 10px;
+    margin-left: -10px;
+  }
+
+  .apps-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+  }
+
+  .app-module {
+    width: 70px;
+    margin: 10px 10px;
+    display: block;
+    float: left;
+  }
+  .app-module:nth-child(3) {
+    break-after: always;
+  }
+  .app-module:first-child {
+    margin-left: 0;
+  }
+
+  .app-module:last-child {
+    margin-right: 0;
+  }
+
+  .app-icon-container {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 8px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .app-icon {
+    width: 48px;
+    height: 48px;
+    position: relative;
+  }
+
+  .app-letters {
+    position: absolute;
+    width: 100%;
+    color: #fff;
+    z-index: 1;
+    text-align: center;
+    top: 31%;
+    font-size: 16px;
+  }
+
+  .app-title {
+    font-size: 12px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: #4c4c4c;
+  }
+
+  h2,
+  h3 {
+    /*font-size: 20px;*/
+    font-weight: 400;
+    margin: 0 0 10px 0;
+  }
+
+  .app-module--row-last:after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+
+  .red .hexagon {
+    fill: #de2900;
+  }
+
+  .blue .hexagon {
+    fill: #004575;
+  }
+
+  .green .hexagon {
+    fill: #2a7433;
+  }
+
+  .purple .hexagon {
+    fill: #6b1978;
+  }
+
+  .gray .hexagon {
+    fill: #464646;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+  <script src="https://jsdev.arcgis.com/4.1"></script>
+  <script>
+  var map, view, app_switcher;
+  require([
+      "esri/Map",
+      "esri/views/MapView",
+      "dojo/query"
+    ],
+    function(
+      Map,
+      MapView,
+      query
+    ) {
+      map = new Map({
+        basemap: "dark-gray"
+      });
+
+      view = new MapView({
+        container: "view",
+        map: map,
+        center: [-73.950, 40.702],
+        zoom: 11
+      })
+
+      app_switcher = query('.app-switcher')[0];
+
+      view.ui.add(app_switcher, 'top-right');
+    });
+  </script>
+</head>
+
+<body>
+  <div id="view"></div>
+  <div class="app-switcher esri-widget">
+    <h2>Your Apps</h2>
+    <div class="apps-container"></div>
+  </div>
+  <script type="text/javascript">
+  var colors = ["blue", "red", "green", "purple", "gray"];
+  var apps = [{
+    name: "Open Data",
+    letters: "OD"
+  }, {
+    name: "GeoPlanner",
+    letters: "GP"
+  }, {
+    name: "Community Analyst",
+    letters: "CA"
+  }, {
+    name: "Story Maps",
+    letters: "SM"
+  }, {
+    name: "All the Things",
+    letters: "AT"
+  }];
+  jQuery(document).ready(function() {
+    var i = 0;
+    jQuery.each(apps, function(index, app) {
+      var color = colors[i];
+      console.dir(app);
+      jQuery('.apps-container').append('<div class="app-module" id="app-no-'+index+'"><div class="app-icon-container ' + color + '"><div class="app-letters">' + app.letters + '</div><div class="app-icon"></div></div><span class="app-title">' + app.name + '</span></div>');
+      if (i < colors.length - 1) i++;
+      else i = 0;
+    });
+    jQuery('.app-icon').load('assets/Hexagon-48.html');
+  });
+  </script>
+</body>
+
+</html>
