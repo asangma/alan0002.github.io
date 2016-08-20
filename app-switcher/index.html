@@ -54,11 +54,23 @@
 
   .app-module {
     width: 70px;
-    margin: 10px 10px;
+    padding: 10px 10px;
     display: block;
     float: left;
+    color: #4c4c4c;
+    font-size: 12px;
+    -webkit-transition: all 125ms ease-in-out;
+       -moz-transition: all 125ms ease-in-out;
+        -ms-transition: all 125ms ease-in-out;
+         -o-transition: all 125ms ease-in-out;
+            transition: all 125ms ease-in-out;
   }
 
+  .app-module:hover {
+    cursor: pointer;
+    color: #000;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
   .app-module:first-child {
     margin-left: 0;
   }
@@ -93,17 +105,31 @@
   }
 
   .app-title {
-    font-size: 12px;
+    /*font-size: 12px;*/
     display: block;
     width: 100%;
     text-align: center;
-    color: #4c4c4c;
   }
 
   .app-module--row-last:after {
     display: block;
     content: "";
     clear: both;
+  }
+  .hexagon {
+    -webkit-transition: all 250ms ease-in-out;
+       -moz-transition: all 250ms ease-in-out;
+        -ms-transition: all 250ms ease-in-out;
+         -o-transition: all 250ms ease-in-out;
+            transition: all 250ms ease-in-out;
+  }
+
+  .esri-hover .hexagon {
+    /*filter: url("#drop-shadow");*/
+    /*stroke: #323232;*/
+    /*stroke: rgba(0, 0, 0, 0.5);
+    stroke-width: 1px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);*/
   }
 
   /*--------------*/
@@ -128,6 +154,29 @@
     fill: #464646;
   }
   /*--------------*/
+
+  .see-all {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-flex-flow: column;
+        -ms-flex-flow: column;
+            flex-flow: column;
+  }
+  .see-all__icon {
+    font-size: 24px;
+    padding: 10px 0 0;
+    flex-basis: 48px;
+  }
+  .see-all__text {
+    margin-top: auto;
+    /*font-size: 12px;*/
+  }
 
   .fake-header {
     position: absolute;
@@ -206,10 +255,10 @@
   }, {
     name: "Story Maps",
     letters: "SM"
-  }, {
+  }/*, {
     name: "All the Things",
     letters: "AT"
-  }];
+  }*/];
 
   jQuery(document).ready(function() { // You wish you could use jQuery
     var i = 0;
@@ -219,7 +268,23 @@
       if (i < colors.length - 1) i++;
       else i = 0;
     });
-    jQuery('.app-icon').load('assets/Hexagon-48.html');
+    jQuery('.app-icon').load('assets/Hexagon-48.html', function(event){
+      console.dir(jQuery(this).find('svg'));
+      jQuery(this).find('svg').prepend('<defs></defs>');
+      jQuery(this).find('svg').find('defs').load('assets/svg-defs.html');
+    });
+
+    jQuery('.apps-container').append('<div class="app-module see-all"><span class="see-all__icon esri-icon-handle-horizontal"></span><span class="see-all__text">See all</span></div>');
+
+    jQuery('.app-module').hover(
+      function(){
+        jQuery(this).addClass('esri-hover');
+
+      },
+      function(){
+        jQuery(this).removeClass('esri-hover');
+      }
+      );
   });
   </script>
 </body>
