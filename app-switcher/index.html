@@ -14,35 +14,98 @@
     margin: 0;
     font-family: "Avenir Next W00", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
-
-  h1, h2, h3, h4 {
+  
+  h1,
+  h2,
+  h3,
+  h4 {
     font-weight: 400;
     margin: 0 0 10px 0;
   }
-
-  .app-switcher {
-    /*  Standard styles for non-button widgets. */
-    background: #fff;
-    padding: 15px;
-    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  
+  .trigger {
+    position: absolute;
+    z-index: 10;
+    right: 15px;
+    top: 15px;
+    display: inline-block;
+    padding: 0.31rem 0.9rem;
+    width: auto;
+    color: white;
+    border: 1px solid #0079c1;
+    background-color: #0079c1;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all 0.05s linear;
+    transition: all 0.05s linear;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 0.9375rem;
+    line-height: 1.55rem;
+    text-decoration: none;
   }
 
-  .app-switcher:after {
-    bottom: 100%;
+  .cover {
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  
+  .app-switcher {
+    position: absolute;
+    top: 65px;
+    right: 15px;
+    z-index: 10;
+    /*background: #fff;*/
+    /*padding: 15px;*/
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    -webkit-transition: opacity 125ms ease-in-out;
+    -moz-transition: opacity 125ms ease-in-out;
+    -ms-transition: opacity 125ms ease-in-out;
+    -o-transition: opacity 125ms ease-in-out;
+    transition: opacity 125ms ease-in-out;
+    background-color: #fff;
+    opacity: 0;
+  }
+  .app-switcher--visible .app-switcher {
+    opacity: 1;
+  }
+  .app-switcher--visible .cover {
+    display: block;
+  }
+  .app-switcher__content {
+    padding: 15px;
+    background: #fff;
+    position: relative;
+    z-index: 5;
+  }
+
+  .app-switcher__pointer {
+    top: -7px;
     right: 50px;
-    border: solid transparent;
+    background-color: #fff;
     content: " ";
-    height: 0;
-    width: 0;
+    height: 15px;
+    width: 15px;
     position: absolute;
     pointer-events: none;
-    border-color: rgba(255, 255, 255, 0);
-    border-bottom-color: #fff;
-    border-width: 10px;
-    margin-left: -10px;
+    -webkit-transform: scale(0.9, 1) rotate(45deg);
+    -moz-transform: scale(0.9, 1) rotate(45deg);
+    -ms-transform: scale(0.9, 1) rotate(45deg);
+    -o-transform: scale(0.9, 1) rotate(45deg);
+    transform: scale(0.9, 1) rotate(45deg);
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    z-index: 0;
   }
-
+  
   .apps-container {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -51,7 +114,7 @@
     -webkit-align-items: flex-start;
     align-items: flex-start;
   }
-
+  
   .app-module {
     width: 70px;
     padding: 10px 10px;
@@ -60,25 +123,26 @@
     color: #4c4c4c;
     font-size: 12px;
     -webkit-transition: all 125ms ease-in-out;
-       -moz-transition: all 125ms ease-in-out;
-        -ms-transition: all 125ms ease-in-out;
-         -o-transition: all 125ms ease-in-out;
-            transition: all 125ms ease-in-out;
+    -moz-transition: all 125ms ease-in-out;
+    -ms-transition: all 125ms ease-in-out;
+    -o-transition: all 125ms ease-in-out;
+    transition: all 125ms ease-in-out;
   }
-
+  
   .app-module:hover {
     cursor: pointer;
     color: #000;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
+  
   .app-module:first-child {
     margin-left: 0;
   }
-
+  
   .app-module:last-child {
     margin-right: 0;
   }
-
+  
   .app-icon-container {
     width: 48px;
     height: 48px;
@@ -86,13 +150,13 @@
     overflow: hidden;
     position: relative;
   }
-
+  
   .app-icon {
     width: 48px;
     height: 48px;
     position: relative;
   }
-
+  
   .app-letters {
     position: absolute;
     width: 100%;
@@ -103,58 +167,44 @@
     font-size: 16px;
     letter-spacing: .1em;
   }
-
+  
   .app-title {
-    /*font-size: 12px;*/
     display: block;
     width: 100%;
     text-align: center;
   }
-
-  /*.app-module--row-last:after {
-    display: block;
-    content: "";
-    clear: both;
-  }*/
+  
   .hexagon {
     -webkit-transition: all 250ms ease-in-out;
-       -moz-transition: all 250ms ease-in-out;
-        -ms-transition: all 250ms ease-in-out;
-         -o-transition: all 250ms ease-in-out;
-            transition: all 250ms ease-in-out;
+    -moz-transition: all 250ms ease-in-out;
+    -ms-transition: all 250ms ease-in-out;
+    -o-transition: all 250ms ease-in-out;
+    transition: all 250ms ease-in-out;
   }
-
-  .esri-hover .hexagon {
-    /*filter: url("#drop-shadow");*/
-    /*stroke: #323232;*/
-    /*stroke: rgba(0, 0, 0, 0.5);
-    stroke-width: 1px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);*/
-  }
-
   /*--------------*/
   /*  SVG Colors  */
+  
   .red .hexagon {
     fill: #de2900;
   }
-
+  
   .blue .hexagon {
     fill: #004575;
   }
-
+  
   .green .hexagon {
     fill: #2a7433;
   }
-
+  
   .purple .hexagon {
     fill: #6b1978;
   }
-
+  
   .gray .hexagon {
     fill: #464646;
   }
   /*--------------*/
-
+  
   .see-all {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -165,27 +215,29 @@
     -webkit-justify-content: center;
     justify-content: center;
     -webkit-flex-flow: column;
-        -ms-flex-flow: column;
-            flex-flow: column;
+    -ms-flex-flow: column;
+    flex-flow: column;
   }
+  
   .see-all__icon {
     font-size: 24px;
     padding: 10px 0 0;
     flex-basis: 48px;
   }
+  
   .see-all__text {
     margin-top: auto;
     /*font-size: 12px;*/
   }
-
+  
   .fake-header {
     position: absolute;
     top: 0;
     right: 0;
     left: 0;
     height: 80px;
-    background: #efefef;
-    z-index: 100;
+    background: #fff;
+    z-index: 5;
     display: -webkit-box;
     display: -ms-flexbox;
     display: -webkit-flex;
@@ -222,43 +274,46 @@
         padding: {
           top: 80
         }
-      })
-
-      app_switcher = query('.app-switcher')[0];
-
-      view.ui.add(app_switcher, 'top-right');
+      });
     });
   </script>
 </head>
 
 <body>
   <div id="view"></div>
-  <div class="app-switcher esri-widget">
-    <h2>Your Apps</h2>
-    <div class="apps-container"></div>
+  <div class="app-switcher esri-widget hidden">
+    <div class="app-switcher__content">
+      <h2>Your Apps</h2>
+      <div class="apps-container"></div>
+    </div>
+    <div class="app-switcher__pointer"></div>
   </div>
+  <div class="cover"></div>
   <div class="fake-header">
     I am totally a realistic header.
+    <a href="" title="" class="trigger">App Switcher Button</a>
   </div>
   <script type="text/javascript">
   var colors = ["blue", "red", "green", "purple", "gray"];
 
   var apps = [{
-    name: "Open Data",
-    letters: "OD"
-  }, {
-    name: "GeoPlanner",
-    letters: "GP"
-  }, {
-    name: "Community Analyst",
-    letters: "CA"
-  }, {
-    name: "Story Maps",
-    letters: "SM"
-  }/*, {
-    name: "All the Things",
-    letters: "AT"
-  }*/];
+      name: "Open Data",
+      letters: "OD"
+    }, {
+      name: "GeoPlanner",
+      letters: "GP"
+    }, {
+      name: "Community Analyst",
+      letters: "CA"
+    }, {
+      name: "Story Maps",
+      letters: "SM"
+    }
+    /*, {
+        name: "All the Things",
+        letters: "AT"
+      }*/
+  ];
 
   jQuery(document).ready(function() { // You wish you could use jQuery
     var i = 0;
@@ -268,7 +323,7 @@
       if (i < colors.length - 1) i++;
       else i = 0;
     });
-    jQuery('.app-icon').load('assets/Hexagon-48.html', function(event){
+    jQuery('.app-icon').load('assets/Hexagon-48.html', function(event) {
       console.dir(jQuery(this).find('svg'));
       jQuery(this).find('svg').prepend('<defs></defs>');
       jQuery(this).find('svg').find('defs').load('assets/svg-defs.html');
@@ -276,15 +331,13 @@
 
     jQuery('.apps-container').append('<div class="app-module see-all"><span class="see-all__icon esri-icon-handle-horizontal"></span><span class="see-all__text">See all</span></div>');
 
-    /*jQuery('.app-module').hover(
-      function(){
-        jQuery(this).addClass('esri-hover');
-
-      },
-      function(){
-        jQuery(this).removeClass('esri-hover');
-      }
-      );*/
+    jQuery('.trigger').on('click', function(event) {
+      event.preventDefault();
+      jQuery('body').toggleClass('app-switcher--visible');
+    });
+    jQuery('.cover').on('click', function(event){
+      jQuery('body').removeClass('app-switcher--visible');
+    });
   });
   </script>
 </body>
