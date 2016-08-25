@@ -136,15 +136,15 @@
 
   /*//////////////////////*/
   /*    HOVER STYLES      */
-  .hover-style-1 .app-module:hover {
+  .hover-style-3 .app-module:hover {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
   .hover-style-2 .app-icon-container {
-    -webkit-transition: all 125ms ease-in-out;
-       -moz-transition: all 125ms ease-in-out;
-        -ms-transition: all 125ms ease-in-out;
-         -o-transition: all 125ms ease-in-out;
-            transition: all 125ms ease-in-out;
+    -webkit-transition: all 200ms ease-in-out;
+       -moz-transition: all 200ms ease-in-out;
+        -ms-transition: all 200ms ease-in-out;
+         -o-transition: all 200ms ease-in-out;
+            transition: all 200ms ease-in-out;
   }
   .hover-style-2 .app-module:hover .app-icon-container {
     -webkit-transform: scale(1.2);
@@ -153,19 +153,19 @@
          -o-transform: scale(1.2);
             transform: scale(1.2);
   }
-  .hover-style-3 .app-icon-container {
+  .hover-style-1 .app-icon-container {
     -webkit-transition: all 200ms ease-in-out;
        -moz-transition: all 200ms ease-in-out;
         -ms-transition: all 200ms ease-in-out;
          -o-transition: all 200ms ease-in-out;
             transition: all 200ms ease-in-out;
   }
-  .hover-style-3 .app-module:hover .app-icon-container {
-    -webkit-transform: translate(0, -5px);
-       -moz-transform: translate(0, -5px);
-        -ms-transform: translate(0, -5px);
-         -o-transform: translate(0, -5px);
-            transform: translate(0, -5px);
+  .hover-style-1 .app-module:hover .app-icon-container {
+    -webkit-transform: translate(0, -4px);
+       -moz-transform: translate(0, -4px);
+        -ms-transform: translate(0, -4px);
+         -o-transform: translate(0, -4px);
+            transform: translate(0, -4px);
   }
   .hover-style-4 .app-module:hover {
     background-color: #efefef;
@@ -182,11 +182,49 @@
             transition: all 1000ms ease-in-out;
   }
   .hover-style-6 .app-module:hover .app-icon-container {
-    -webkit-transform: scale(2) rotate(720deg) translate(0, -25px);
-       -moz-transform: scale(2) rotate(720deg) translate(0, -25px);
-        -ms-transform: scale(2) rotate(720deg) translate(0, -25px);
-         -o-transform: scale(2) rotate(720deg) translate(0, -25px);
-            transform: scale(2) rotate(720deg) translate(0, -25px);
+    -webkit-animation: lol-animation 1000ms infinite;
+       -moz-animation: lol-animation 1000ms infinite;
+         -o-animation: lol-animation 1000ms infinite;
+            animation: lol-animation 1000ms infinite;
+  }
+  @-webkit-keyframes lol-animation {
+    0% {
+      -webkit-transform: scale(1) rotate(0deg) translate(0, 0);
+         -moz-transform: scale(1) rotate(0deg) translate(0, 0);
+          -ms-transform: scale(1) rotate(0deg) translate(0, 0);
+           -o-transform: scale(1) rotate(0deg) translate(0, 0);
+              transform: scale(1) rotate(0deg) translate(0, 0);
+    }
+    50% {
+      -webkit-transform: scale(2) rotate(720deg) translate(0, -25px);
+         -moz-transform: scale(2) rotate(720deg) translate(0, -25px);
+          -ms-transform: scale(2) rotate(720deg) translate(0, -25px);
+           -o-transform: scale(2) rotate(720deg) translate(0, -25px);
+              transform: scale(2) rotate(720deg) translate(0, -25px);
+    }
+    0% {
+      -webkit-transform: scale(1) rotate(0deg) translate(0, 0);
+         -moz-transform: scale(1) rotate(0deg) translate(0, 0);
+          -ms-transform: scale(1) rotate(0deg) translate(0, 0);
+           -o-transform: scale(1) rotate(0deg) translate(0, 0);
+              transform: scale(1) rotate(0deg) translate(0, 0);
+    }
+  }
+  @-keyframes lol-animation {
+    0% {
+      -webkit-transform: scale(1) rotate(0deg) translate(0, 0);
+         -moz-transform: scale(1) rotate(0deg) translate(0, 0);
+          -ms-transform: scale(1) rotate(0deg) translate(0, 0);
+           -o-transform: scale(1) rotate(0deg) translate(0, 0);
+              transform: scale(1) rotate(0deg) translate(0, 0);
+    }
+    100% {
+      -webkit-transform: scale(2) rotate(720deg) translate(0, -25px);
+         -moz-transform: scale(2) rotate(720deg) translate(0, -25px);
+          -ms-transform: scale(2) rotate(720deg) translate(0, -25px);
+           -o-transform: scale(2) rotate(720deg) translate(0, -25px);
+              transform: scale(2) rotate(720deg) translate(0, -25px);
+    }
   }
   /*    HOVER STYLES      */
   /*//////////////////////*/
