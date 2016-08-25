@@ -182,10 +182,10 @@
             transition: all 1000ms ease-in-out;
   }
   .hover-style-6 .app-module:hover .app-icon-container {
-    -webkit-animation: lol-animation 1000ms infinite;
-       -moz-animation: lol-animation 1000ms infinite;
-         -o-animation: lol-animation 1000ms infinite;
-            animation: lol-animation 1000ms infinite;
+    -webkit-animation: lol-animation 2000ms infinite;
+       -moz-animation: lol-animation 2000ms infinite;
+         -o-animation: lol-animation 2000ms infinite;
+            animation: lol-animation 2000ms infinite;
   }
   @-webkit-keyframes lol-animation {
     0% {
@@ -195,14 +195,28 @@
            -o-transform: scale(1) rotate(0deg) translate(0, 0);
               transform: scale(1) rotate(0deg) translate(0, 0);
     }
-    50% {
-      -webkit-transform: scale(2) rotate(720deg) translate(0, -25px);
-         -moz-transform: scale(2) rotate(720deg) translate(0, -25px);
-          -ms-transform: scale(2) rotate(720deg) translate(0, -25px);
-           -o-transform: scale(2) rotate(720deg) translate(0, -25px);
-              transform: scale(2) rotate(720deg) translate(0, -25px);
+    25% {
+      -webkit-transform: scale(1) rotate(0deg) translate(0, -25px);
+         -moz-transform: scale(1) rotate(0deg) translate(0, -25px);
+          -ms-transform: scale(1) rotate(0deg) translate(0, -25px);
+           -o-transform: scale(1) rotate(0deg) translate(0, -25px);
+              transform: scale(1) rotate(0deg) translate(0, -25px);
     }
-    0% {
+    40% {
+      -webkit-transform: scale(1) rotate(0deg) translate(0, 0);
+         -moz-transform: scale(1) rotate(0deg) translate(0, 0);
+          -ms-transform: scale(1) rotate(0deg) translate(0, 0);
+           -o-transform: scale(1) rotate(0deg) translate(0, 0);
+              transform: scale(1) rotate(0deg) translate(0, 0);
+    }
+    50% {
+      -webkit-transform: scale(2) rotate(720deg) translate(0, 0);
+         -moz-transform: scale(2) rotate(720deg) translate(0, 0);
+          -ms-transform: scale(2) rotate(720deg) translate(0, 0);
+           -o-transform: scale(2) rotate(720deg) translate(0, 0);
+              transform: scale(2) rotate(720deg) translate(0, 0);
+    }
+    100% {
       -webkit-transform: scale(1) rotate(0deg) translate(0, 0);
          -moz-transform: scale(1) rotate(0deg) translate(0, 0);
           -ms-transform: scale(1) rotate(0deg) translate(0, 0);
@@ -437,7 +451,7 @@
         <a class="style-trigger" href="5" title="">Hover Style 5</a>
       </li>
       <li>
-        <a class="style-trigger" href="6" title="">Hover Style LOL</a>
+        <a class="style-trigger" href="6" title="">Hover Style 6</a>
       </li>
     </ul>
   </footer>
