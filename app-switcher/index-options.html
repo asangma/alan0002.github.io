@@ -23,7 +23,7 @@
     margin: 0 0 10px 0;
   }
   
-  .app-trigger {
+  .trigger {
     position: absolute;
     z-index: 10;
     right: 15px;
@@ -134,23 +134,113 @@
     color: #007ac2;
   }
 
-  /*/////////////////////*/
-  /*    HOVER STYLE      */
-  .app-icon-container {
+  /*//////////////////////*/
+  /*    HOVER STYLES      */
+  .hover-style-3 .app-module:hover {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  .hover-style-2 .app-icon-container {
     -webkit-transition: all 200ms ease-in-out;
        -moz-transition: all 200ms ease-in-out;
         -ms-transition: all 200ms ease-in-out;
          -o-transition: all 200ms ease-in-out;
             transition: all 200ms ease-in-out;
   }
-  .app-module:hover .app-icon-container {
+  .hover-style-2 .app-module:hover .app-icon-container {
+    -webkit-transform: scale(1.2);
+       -moz-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+         -o-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  .hover-style-1 .app-icon-container {
+    -webkit-transition: all 200ms ease-in-out;
+       -moz-transition: all 200ms ease-in-out;
+        -ms-transition: all 200ms ease-in-out;
+         -o-transition: all 200ms ease-in-out;
+            transition: all 200ms ease-in-out;
+  }
+  .hover-style-1 .app-module:hover .app-icon-container {
     -webkit-transform: translate(0, -4px);
        -moz-transform: translate(0, -4px);
         -ms-transform: translate(0, -4px);
          -o-transform: translate(0, -4px);
             transform: translate(0, -4px);
   }
-  /*    HOVER STYLE      */
+  .hover-style-4 .app-module:hover {
+    background-color: #efefef;
+  }
+
+  .hover-style-5 .app-module:hover {
+    opacity: 0.8;
+  }
+  .hover-style-6 .app-icon-container {
+    -webkit-transition: all 1000ms ease-in-out;
+       -moz-transition: all 1000ms ease-in-out;
+        -ms-transition: all 1000ms ease-in-out;
+         -o-transition: all 1000ms ease-in-out;
+            transition: all 1000ms ease-in-out;
+  }
+  .hover-style-6 .app-module:hover .app-icon-container {
+    -webkit-animation: lol-animation 2000ms infinite;
+       -moz-animation: lol-animation 2000ms infinite;
+         -o-animation: lol-animation 2000ms infinite;
+            animation: lol-animation 2000ms infinite;
+  }
+  @-webkit-keyframes lol-animation {
+    0% {
+      -webkit-transform: scale(1) rotate(0deg) translate(0, 0);
+         -moz-transform: scale(1) rotate(0deg) translate(0, 0);
+          -ms-transform: scale(1) rotate(0deg) translate(0, 0);
+           -o-transform: scale(1) rotate(0deg) translate(0, 0);
+              transform: scale(1) rotate(0deg) translate(0, 0);
+    }
+    25% {
+      -webkit-transform: scale(1) rotate(0deg) translate(0, -25px);
+         -moz-transform: scale(1) rotate(0deg) translate(0, -25px);
+          -ms-transform: scale(1) rotate(0deg) translate(0, -25px);
+           -o-transform: scale(1) rotate(0deg) translate(0, -25px);
+              transform: scale(1) rotate(0deg) translate(0, -25px);
+    }
+    40% {
+      -webkit-transform: scale(1) rotate(0deg) translate(0, 0);
+         -moz-transform: scale(1) rotate(0deg) translate(0, 0);
+          -ms-transform: scale(1) rotate(0deg) translate(0, 0);
+           -o-transform: scale(1) rotate(0deg) translate(0, 0);
+              transform: scale(1) rotate(0deg) translate(0, 0);
+    }
+    50% {
+      -webkit-transform: scale(2) rotate(720deg) translate(0, 0);
+         -moz-transform: scale(2) rotate(720deg) translate(0, 0);
+          -ms-transform: scale(2) rotate(720deg) translate(0, 0);
+           -o-transform: scale(2) rotate(720deg) translate(0, 0);
+              transform: scale(2) rotate(720deg) translate(0, 0);
+    }
+    100% {
+      -webkit-transform: scale(1) rotate(0deg) translate(0, 0);
+         -moz-transform: scale(1) rotate(0deg) translate(0, 0);
+          -ms-transform: scale(1) rotate(0deg) translate(0, 0);
+           -o-transform: scale(1) rotate(0deg) translate(0, 0);
+              transform: scale(1) rotate(0deg) translate(0, 0);
+    }
+  }
+  @-keyframes lol-animation {
+    0% {
+      -webkit-transform: scale(1) rotate(0deg) translate(0, 0);
+         -moz-transform: scale(1) rotate(0deg) translate(0, 0);
+          -ms-transform: scale(1) rotate(0deg) translate(0, 0);
+           -o-transform: scale(1) rotate(0deg) translate(0, 0);
+              transform: scale(1) rotate(0deg) translate(0, 0);
+    }
+    100% {
+      -webkit-transform: scale(2) rotate(720deg) translate(0, -25px);
+         -moz-transform: scale(2) rotate(720deg) translate(0, -25px);
+          -ms-transform: scale(2) rotate(720deg) translate(0, -25px);
+           -o-transform: scale(2) rotate(720deg) translate(0, -25px);
+              transform: scale(2) rotate(720deg) translate(0, -25px);
+    }
+  }
+  /*    HOVER STYLES      */
   /*//////////////////////*/
   .app-module:first-child {
     margin-left: 0;
@@ -272,6 +362,31 @@
     height: 80px;
   }
 
+  footer {
+    bottom: 0px;
+    height: 60px;
+  }
+
+  footer ul {
+    margin: 0 0 0 0;
+    padding: 0;
+    font-size: 13px;
+  }
+  footer ul li {
+    display: inline-block;
+    list-style: none;
+    margin: 0 1em;
+    padding: 0 0 0.2em 0;
+  }
+  footer ul li a {
+    color: #007ac2;
+    text-decoration: none;
+  }
+  footer ul li:hover,
+  footer ul li.current-hover-style {
+    border-bottom: 2px solid #007ac2;
+    
+  }
   </style>
   <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
   <script src="https://jsdev.arcgis.com/4.1"></script>
@@ -304,7 +419,7 @@
   </script>
 </head>
 
-<body class="app-switcher--visible">
+<body class="hover-style-1 app-switcher--visible">
   <div id="view"></div>
   <div class="app-switcher esri-widget hidden">
     <div class="app-switcher__content">
@@ -316,8 +431,30 @@
   <div class="cover"></div>
   <div class="fake-header">
     I am totally a realistic header.
-    <a href="" title="" class="app-trigger">App Switcher Button</a>
+    <a href="" title="" class="trigger">App Switcher Button</a>
   </div>
+  <footer>
+    <ul>
+      <li class="current-hover-style">
+        <a class="style-trigger" href="1" title="">Hover Style 1</a>
+      </li>
+      <li>
+        <a class="style-trigger" href="2" title="">Hover Style 2</a>
+      </li>
+      <li>
+        <a class="style-trigger" href="3" title="">Hover Style 3</a>
+      </li>
+      <li>
+        <a class="style-trigger" href="4" title="">Hover Style 4</a>
+      </li>
+      <li>
+        <a class="style-trigger" href="5" title="">Hover Style 5</a>
+      </li>
+      <li>
+        <a class="style-trigger" href="6" title="">Hover Style 6</a>
+      </li>
+    </ul>
+  </footer>
   <script type="text/javascript">
   var colors = ["blue", "red", "green", "purple", "gray"];
 
@@ -356,12 +493,25 @@
 
     jQuery('.apps-container').append('<div class="app-module see-all"><span class="see-all__icon esri-icon-handle-horizontal"></span><span class="see-all__text">See all</span></div>');
 
-    jQuery('.app-trigger').on('click', function(event) {
+    jQuery('.trigger').on('click', function(event) {
       event.preventDefault();
       jQuery('body').toggleClass('app-switcher--visible');
     });
     jQuery('.cover').on('click', function(event){
       jQuery('body').removeClass('app-switcher--visible');
+    });
+
+    jQuery('.style-trigger').on('click', function(event){
+      event.preventDefault();
+      jQuery('.current-hover-style').removeClass('current-hover-style');
+      console.log(jQuery(this).attr('href'));
+
+      jQuery.each(jQuery('.style-trigger'), function(index, node) {
+        jQuery('body').removeClass('hover-style-' + jQuery(node).attr('href'));
+      });
+
+      jQuery('body').addClass('hover-style-'+jQuery(this).attr('href'));
+      jQuery(this).parent().addClass('current-hover-style');
     });
   });
   </script>
