@@ -28,12 +28,18 @@
     z-index: 10;
     right: 65px;
     top: 30px;
-    background: url(http://cdndev.arcgis.com/cdn/20008/js/arcgisonline/sharing/dijit/css/images/app-icons/grid-view-9.png) no-repeat center;
     width: 16px;
     height: 16px;
     overflow: hidden;
-    text-indent: -10000px;
     display: block;
+  }
+
+  .app-trigger path {
+    fill: #6e6e6e;
+  }
+  .app-trigger:hover path,
+  .app-switcher--visible .app-trigger path {
+    fill: #0079c1; /*  Calcite Highlight Blue 350  */
   }
 
   .cover {
@@ -62,6 +68,8 @@
     background-color: #fff;
     opacity: 0;
   }
+
+
   .app-switcher--visible .app-switcher {
     opacity: 1;
   }
@@ -189,23 +197,23 @@
   /*--------------*/
   /*  SVG Colors  */
   
-  .red .hexagon {
+  .red path {
     fill: #de2900;
   }
   
-  .blue .hexagon {
+  .blue path {
     fill: #004575;
   }
   
-  .green .hexagon {
+  .green path {
     fill: #2a7433;
   }
   
-  .purple .hexagon {
+  .purple path {
     fill: #6b1978;
   }
   
-  .gray .hexagon {
+  .gray path {
     fill: #464646;
   }
   /*--------------*/
@@ -335,9 +343,10 @@
     });
     jQuery('.app-icon').load('assets/Hexagon-48.html', function(event) {
       console.dir(jQuery(this).find('svg'));
-      jQuery(this).find('svg').prepend('<defs></defs>');
-      jQuery(this).find('svg').find('defs').load('assets/svg-defs.html');
+      // jQuery(this).find('svg').prepend('<defs></defs>');
+      // jQuery(this).find('svg').find('defs').load('assets/svg-defs.html');
     });
+    jQuery('.app-trigger').load('assets/app-switcher.html', function(){});
 
     jQuery('.apps-container').append('<div class="app-module see-all"><span class="see-all__icon esri-icon-handle-horizontal"></span><span class="see-all__text">See all</span></div>');
 
