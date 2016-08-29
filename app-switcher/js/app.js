@@ -1,18 +1,18 @@
 var colors = ["blue", "red", "green", "purple", "gray"];
 
-var apps = [{
+var apps = [/*{
     name: "Marketplace",
     image: "images/product-icons/marketplace-48.png"
-  }, {
+  },*/ {
     name: "Developers",
     letters: "D"
   }, {
     name: "Insights",
     image: "images/product-icons/Insights48.png"
-  }, {
+  },/* {
     name: "GeoPlanner",
     letters: "GeoP"
-  }, {
+  },*/ {
     name: "Business Analyst",
     image: "images/product-icons/BAO_Android_Launch_48.png"
   }, {
