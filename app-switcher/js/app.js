@@ -58,12 +58,12 @@ jQuery(document).ready(function() { // You wish you could use jQuery
     }
     if (app.letters) {
       node_str += '<div class="app-icon-svg"></div><div class="app-letters">' + app.letters + '</div>';
+      if (i < colors.length - 1) i++;
+      else i = 0;
     }
     node_str += '</div><span class="app-title">' + app.name + '</span></div>'
     jQuery('.apps-container').append(node_str);
 
-    if (i < colors.length - 1) i++;
-    else i = 0;
   });
   jQuery('.app-icon-svg').load('assets/Hexagon-48.html', function(event) {
     // console.dir(jQuery(this).find('svg'));
@@ -90,7 +90,7 @@ jQuery(document).ready(function() { // You wish you could use jQuery
   });
   jQuery('.app-trigger').load('assets/app-switcher.html', function() {});
 
-  jQuery('.apps-container').append('<div class="app-module see-all"><span class="see-all__icon esri-icon-handle-horizontal"></span><span class="see-all__text">See all</span></div>');
+  // jQuery('.apps-container').append('<div class="app-module see-all"><span class="see-all__icon esri-icon-handle-horizontal"></span><span class="see-all__text">See all</span></div>');
 
   jQuery('.app-trigger').on('click', function(event) {
     event.preventDefault();

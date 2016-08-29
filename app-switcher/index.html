@@ -38,6 +38,8 @@
   .all-gray .purple path,
   .all-gray .gray path {
     fill: url(#svg-gradient-gray);
+    /*stroke: #333;*/
+    /*stroke-width: 1px;*/
   }
 
   .all-blue .red path,
@@ -46,6 +48,8 @@
   .all-blue .purple path,
   .all-blue .gray path {
     fill: url(#svg-gradient-blue);
+    /*stroke: #004575;*/
+    /*stroke-width: 1px;*/
   }
 
   .stroke-only-gray .app-letters {
@@ -108,7 +112,7 @@
   </script>
 </head>
 
-<body class="app-switcher--visible assorted-colors">
+<body class="app-switcher--visible all-blue">
   <div id="view"></div>
   <div class="app-switcher esri-widget hidden">
     <div class="app-switcher__content">
@@ -125,13 +129,13 @@
   <footer>
     <ul>
       <li class="current-style">
-        <a class="style-trigger" href="assorted-colors" title="">Assorted Colors</a>
+        <a class="style-trigger" href="all-blue" title="">All Esri Blue</a>
       </li>
       <li>
         <a class="style-trigger" href="all-gray" title="">All Gray</a>
       </li>
       <li>
-        <a class="style-trigger" href="all-blue" title="">All Esri Blue</a>
+        <a class="style-trigger" href="assorted-colors" title="">Assorted Colors</a>
       </li>
       <li>
         <a class="style-trigger" href="stroke-only-gray" title="">Gray Stroke</a>
