@@ -4,266 +4,62 @@
 <head>
   <title>App Switcher - Design Demo</title>
   <link rel="stylesheet" href="https://jsdev.arcgis.com/4.0/esri/css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
   <style>
-  html,
-  body,
-  #view {
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    font-family: "Avenir Next W00", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  }
-  
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-weight: 400;
-    margin: 0 0 10px 0;
-  }
-  
-  .app-trigger {
-    position: absolute;
-    z-index: 10;
-    right: 65px;
-    top: 30px;
-    width: 16px;
-    height: 16px;
-    overflow: hidden;
-    display: block;
-  }
-
-  .app-trigger path {
-    fill: #6e6e6e;
-  }
-  .app-trigger:hover path,
-  .app-switcher--visible .app-trigger path {
-    fill: #0079c1; /*  Calcite Highlight Blue 350  */
-  }
-
-  .cover {
-    position: absolute;
-    z-index: 4;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: none;
-    background-color: rgba(0, 0, 0, 0);
-  }
-  
-  .app-switcher {
-    position: absolute;
-    top: 65px;
-    right: 15px;
-    z-index: 10;
-    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
-    -webkit-transition: opacity 125ms ease-in-out;
-    -moz-transition: opacity 125ms ease-in-out;
-    -ms-transition: opacity 125ms ease-in-out;
-    -o-transition: opacity 125ms ease-in-out;
-    transition: opacity 125ms ease-in-out;
-    background-color: #fff;
-    opacity: 0;
-  }
-
-
-  .app-switcher--visible .app-switcher {
-    opacity: 1;
-  }
-  .app-switcher--visible .cover {
-    display: block;
-  }
-  .app-switcher__content {
-    padding: 15px;
-    background: #fff;
-    position: relative;
-    z-index: 5;
-  }
-
-  .app-switcher__pointer {
-    top: -7px;
-    right: 50px;
-    background-color: #fff;
-    content: " ";
-    height: 15px;
-    width: 15px;
-    position: absolute;
-    pointer-events: none;
-    -webkit-transform: scale(0.9, 1) rotate(45deg);
-    -moz-transform: scale(0.9, 1) rotate(45deg);
-    -ms-transform: scale(0.9, 1) rotate(45deg);
-    -o-transform: scale(0.9, 1) rotate(45deg);
-    transform: scale(0.9, 1) rotate(45deg);
-    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-    z-index: 0;
-  }
-  
   .apps-container {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-align-items: flex-start;
-    align-items: flex-start;
-  }
-  
-  .app-module {
-    width: 70px;
-    padding: 10px 10px;
-    display: block;
-    float: left;
-    color: #6e6e6e;
-    font-size: 12px;
-    -webkit-transition: all 125ms ease-in-out;
-    -moz-transition: all 125ms ease-in-out;
-    -ms-transition: all 125ms ease-in-out;
-    -o-transition: all 125ms ease-in-out;
-    transition: all 125ms ease-in-out;
-  }
-  
-  .app-module:hover {
-    cursor: pointer;
-    color: #0079c1; /*  Calcite Highlight Blue 350  */
-  }
-
-  /*/////////////////////*/
-  /*    HOVER STYLE      */
-  .app-icon-container {
-    -webkit-transition: all 200ms ease-in-out;
-       -moz-transition: all 200ms ease-in-out;
-        -ms-transition: all 200ms ease-in-out;
-         -o-transition: all 200ms ease-in-out;
-            transition: all 200ms ease-in-out;
-  }
-  .app-module:hover .app-icon-container {
-    -webkit-transform: translate(0, -4px);
-       -moz-transform: translate(0, -4px);
-        -ms-transform: translate(0, -4px);
-         -o-transform: translate(0, -4px);
-            transform: translate(0, -4px);
-  }
-  /*    HOVER STYLE      */
-  /*//////////////////////*/
-  .app-module:first-child {
-    margin-left: 0;
-  }
-  
-  .app-module:last-child {
-    margin-right: 0;
-  }
-  
-  .app-icon-container {
-    width: 48px;
-    height: 48px;
-    margin: 0 auto 8px;
-    overflow: hidden;
-    position: relative;
-  }
-  
-  .app-icon {
-    width: 48px;
-    height: 48px;
-    position: relative;
-  }
-  
-  .app-letters {
-    position: absolute;
-    width: 100%;
-    color: #fff;
-    z-index: 1;
-    text-align: center;
-    top: 31%;
-    font-size: 14px;
-    /*letter-spacing: .1em;*/
-  }
-  
-  .app-title {
-    display: block;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .hexagon {
-    -webkit-transition: all 250ms ease-in-out;
-    -moz-transition: all 250ms ease-in-out;
-    -ms-transition: all 250ms ease-in-out;
-    -o-transition: all 250ms ease-in-out;
-    transition: all 250ms ease-in-out;
+    max-width: 450px;
   }
   /*--------------*/
   /*  SVG Colors  */
   
-  .red path {
+  .assorted-colors .red path {
     fill: #de2900;
   }
   
-  .blue path {
+  .assorted-colors .blue path {
     fill: #004575;
   }
   
-  .green path {
+  .assorted-colors .green path {
     fill: #2a7433;
   }
   
-  .purple path {
+  .assorted-colors .purple path {
     fill: #6b1978;
   }
   
-  .gray path {
+  .assorted-colors .gray path {
     fill: #464646;
   }
+
+  .all-gray .red path,
+  .all-gray .blue path,
+  .all-gray .green path,
+  .all-gray .purple path,
+  .all-gray .gray path {
+    fill: #4c4c4c;
+  }
+
+  .all-blue .red path,
+  .all-blue .blue path,
+  .all-blue .green path,
+  .all-blue .purple path,
+  .all-blue .gray path {
+    fill: #0079c1;
+  }
+  .stroke-only-blue .app-letters {
+    color: #0079c2;
+  }
+  .stroke-only-blue .red path,
+  .stroke-only-blue .blue path,
+  .stroke-only-blue .green path,
+  .stroke-only-blue .purple path,
+  .stroke-only-blue .gray path {
+    fill: none;
+    stroke: #0079c2;
+    stroke-width: 1px;
+  }
   /*--------------*/
-  
-  .see-all {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-flex-flow: column;
-    -ms-flex-flow: column;
-    flex-flow: column;
-  }
-  
-  .see-all__icon {
-    font-size: 24px;
-    padding: 10px 0 0;
-    flex-basis: 48px;
-  }
-  
-  .see-all__text {
-    margin-top: auto;
-    /*font-size: 12px;*/
-  }
-  
-  .fake-header,
-  footer {
-    position: absolute;
-    right: 0;
-    left: 0;
-    top: 0;
-    height: 80px;
-    background: #fff;
-    z-index: 5;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-flex-flow: column nowrap;
-        -ms-flex-flow: column nowrap;
-            flex-flow: column nowrap;
-  }
 
   </style>
   <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
@@ -297,7 +93,7 @@
   </script>
 </head>
 
-<body class="app-switcher--visible">
+<body class="app-switcher--visible assorted-colors">
   <div id="view"></div>
   <div class="app-switcher esri-widget hidden">
     <div class="app-switcher__content">
@@ -311,21 +107,76 @@
     I am totally a realistic header.
     <a href="" title="App Switcher" class="app-trigger">App Switcher Button</a>
   </div>
+  <footer>
+    <ul>
+      <li class="current-style">
+        <a class="style-trigger" href="assorted-colors" title="">Assorted Colors</a>
+      </li>
+      <li>
+        <a class="style-trigger" href="all-gray" title="">All Gray</a>
+      </li>
+      <li>
+        <a class="style-trigger" href="all-blue" title="">All Esri Blue</a>
+      </li>
+      <li>
+        <a class="style-trigger" href="stroke-only-blue" title="">Blue Stroke</a>
+      </li>
+    </ul>
+  </footer>
   <script type="text/javascript">
   var colors = ["blue", "red", "green", "purple", "gray"];
 
   var apps = [{
-      name: "Open Data",
-      letters: "ODa"
-    }, {
+      name: "Marketplace",
+      image: "images/product-icons/marketplace-48.png"
+    },
+    {
+      name: "Developers",
+      letters: "D"
+    },
+    {
+      name: "Insights",
+      image: "images/product-icons/Insights48.png"
+    },
+    {
       name: "GeoPlanner",
       letters: "GeoP"
-    }, {
+    },
+    {
+      name: "Business Analyst",
+      image: "images/product-icons/BAO_Android_Launch_48.png"
+    },
+    {
       name: "Community Analyst",
       letters: "CA"
-    }, {
+    },
+    {
+      name: "Workforce",
+      image: "images/product-icons/workforce_android_48.png"
+    },
+    {
+      name: "Survey123",
+      image: "images/product-icons/Survey123_Windows_48.png"
+    },
+    // {
+    //   name: "AppStudio",
+    //   image: "images/product-icons/"
+    // },
+    {
+      name: "Open Data",
+      letters: "ODa"
+    },
+    {
+      name: "Operations Dashboard",
+      image: "images/product-icons/Operations_Dashboard_48.png"
+    },
+    {
       name: "Story Maps",
       letters: "SM"
+    },
+    {
+      name: "Some App",
+      letters: "SA"
     }
     /*, {
         name: "All the Things",
@@ -337,11 +188,23 @@
     var i = 0;
     jQuery.each(apps, function(index, app) {
       var color = colors[i];
-      jQuery('.apps-container').append('<div class="app-module" id="app-no-' + index + '"><div class="app-icon-container ' + color + '"><div class="app-icon"></div><div class="app-letters">' + app.letters + '</div></div><span class="app-title">' + app.name + '</span></div>');
+      var node_str = '<div class="app-module" id="app-no-' + index + '"><div class="app-icon-container ' + color + '">';
+      if(app.image) {
+        node_str += '<div class="app-icon"><img src="'+app.image+'"/></div>';
+      }
+      if(app.letters) {
+        node_str += '<div class="app-icon-svg"></div><div class="app-letters">' + app.letters + '</div>';
+      }
+      // if(app.image) {
+      //   node_str += '';
+      // }
+      node_str += '</div><span class="app-title">' + app.name + '</span></div>'
+      jQuery('.apps-container').append(node_str);
+
       if (i < colors.length - 1) i++;
       else i = 0;
     });
-    jQuery('.app-icon').load('assets/Hexagon-48.html', function(event) {
+    jQuery('.app-icon-svg').load('assets/Hexagon-48.html', function(event) {
       console.dir(jQuery(this).find('svg'));
       // jQuery(this).find('svg').prepend('<defs></defs>');
       // jQuery(this).find('svg').find('defs').load('assets/svg-defs.html');
@@ -356,6 +219,19 @@
     });
     jQuery('.cover').on('click', function(event){
       jQuery('body').removeClass('app-switcher--visible');
+    });
+
+    jQuery('.style-trigger').on('click', function(event){
+      event.preventDefault();
+      jQuery('.current-style').removeClass('current-style');
+      console.log(jQuery(this).attr('href'));
+
+      jQuery.each(jQuery('.style-trigger'), function(index, node) {
+        jQuery('body').removeClass(jQuery(node).attr('href'));
+      });
+
+      jQuery('body').addClass(jQuery(this).attr('href'));
+      jQuery(this).parent().addClass('current-style');
     });
   });
   </script>

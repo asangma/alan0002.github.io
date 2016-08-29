@@ -4,24 +4,9 @@
 <head>
   <title>App Switcher - Design Demo</title>
   <link rel="stylesheet" href="https://jsdev.arcgis.com/4.0/esri/css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
   <style>
-  html,
-  body,
-  #view {
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    font-family: "Avenir Next W00", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  }
-  
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-weight: 400;
-    margin: 0 0 10px 0;
-  }
+
   
   .trigger {
     position: absolute;
@@ -44,94 +29,6 @@
     font-size: 0.9375rem;
     line-height: 1.55rem;
     text-decoration: none;
-  }
-
-  .cover {
-    position: absolute;
-    z-index: 4;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: none;
-    background-color: rgba(0, 0, 0, 0);
-  }
-  
-  .app-switcher {
-    position: absolute;
-    top: 65px;
-    right: 15px;
-    z-index: 10;
-    /*background: #fff;*/
-    /*padding: 15px;*/
-    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
-    -webkit-transition: opacity 125ms ease-in-out;
-    -moz-transition: opacity 125ms ease-in-out;
-    -ms-transition: opacity 125ms ease-in-out;
-    -o-transition: opacity 125ms ease-in-out;
-    transition: opacity 125ms ease-in-out;
-    background-color: #fff;
-    opacity: 0;
-  }
-  .app-switcher--visible .app-switcher {
-    opacity: 1;
-  }
-  .app-switcher--visible .cover {
-    display: block;
-  }
-  .app-switcher__content {
-    padding: 15px;
-    background: #fff;
-    position: relative;
-    z-index: 5;
-  }
-
-  .app-switcher__pointer {
-    top: -7px;
-    right: 50px;
-    background-color: #fff;
-    content: " ";
-    height: 15px;
-    width: 15px;
-    position: absolute;
-    pointer-events: none;
-    -webkit-transform: scale(0.9, 1) rotate(45deg);
-    -moz-transform: scale(0.9, 1) rotate(45deg);
-    -ms-transform: scale(0.9, 1) rotate(45deg);
-    -o-transform: scale(0.9, 1) rotate(45deg);
-    transform: scale(0.9, 1) rotate(45deg);
-    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-    z-index: 0;
-  }
-  
-  .apps-container {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-align-items: flex-start;
-    align-items: flex-start;
-  }
-  
-  .app-module {
-    width: 70px;
-    padding: 10px 10px;
-    display: block;
-    float: left;
-    color: #6e6e6e;
-    font-size: 12px;
-    -webkit-transition: all 125ms ease-in-out;
-    -moz-transition: all 125ms ease-in-out;
-    -ms-transition: all 125ms ease-in-out;
-    -o-transition: all 125ms ease-in-out;
-    transition: all 125ms ease-in-out;
-  }
-  
-  .app-module:hover {
-    cursor: pointer;
-    color: #0079c1;
   }
 
   /*//////////////////////*/
@@ -337,56 +234,6 @@
     /*font-size: 12px;*/
   }
   
-  .fake-header,
-  footer {
-    position: absolute;
-    right: 0;
-    left: 0;
-    background: #fff;
-    z-index: 5;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-flex-flow: column nowrap;
-        -ms-flex-flow: column nowrap;
-            flex-flow: column nowrap;
-  }
-
-  .fake-header {
-    top: 0;
-    height: 80px;
-  }
-
-  footer {
-    bottom: 0px;
-    height: 60px;
-  }
-
-  footer ul {
-    margin: 0 0 0 0;
-    padding: 0;
-    font-size: 13px;
-  }
-  footer ul li {
-    display: inline-block;
-    list-style: none;
-    margin: 0 1em;
-    padding: 0 0 0.2em 0;
-  }
-  footer ul li a {
-    color: #007ac2;
-    text-decoration: none;
-  }
-  footer ul li:hover,
-  footer ul li.current-hover-style {
-    border-bottom: 2px solid #007ac2;
-    
-  }
   </style>
   <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
   <script src="https://jsdev.arcgis.com/4.1"></script>
@@ -435,7 +282,7 @@
   </div>
   <footer>
     <ul>
-      <li class="current-hover-style">
+      <li class="current-style">
         <a class="style-trigger" href="1" title="">Hover Style 1</a>
       </li>
       <li>
@@ -503,7 +350,7 @@
 
     jQuery('.style-trigger').on('click', function(event){
       event.preventDefault();
-      jQuery('.current-hover-style').removeClass('current-hover-style');
+      jQuery('.current-style').removeClass('current-style');
       console.log(jQuery(this).attr('href'));
 
       jQuery.each(jQuery('.style-trigger'), function(index, node) {
@@ -511,7 +358,7 @@
       });
 
       jQuery('body').addClass('hover-style-'+jQuery(this).attr('href'));
-      jQuery(this).parent().addClass('current-hover-style');
+      jQuery(this).parent().addClass('current-style');
     });
   });
   </script>
