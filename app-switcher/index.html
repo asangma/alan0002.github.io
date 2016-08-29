@@ -47,6 +47,20 @@
   .all-blue .gray path {
     fill: #0079c1;
   }
+
+  .stroke-only-gray .app-letters {
+    color: #4c4c4c;
+  }
+  .stroke-only-gray .red path,
+  .stroke-only-gray .blue path,
+  .stroke-only-gray .green path,
+  .stroke-only-gray .purple path,
+  .stroke-only-gray .gray path {
+    fill: none;
+    stroke: #4c4c4c;
+    stroke-width: 1px;
+  }
+
   .stroke-only-blue .app-letters {
     color: #0079c2;
   }
@@ -117,6 +131,9 @@
       </li>
       <li>
         <a class="style-trigger" href="all-blue" title="">All Esri Blue</a>
+      </li>
+      <li>
+        <a class="style-trigger" href="stroke-only-gray" title="">Gray Stroke</a>
       </li>
       <li>
         <a class="style-trigger" href="stroke-only-blue" title="">Blue Stroke</a>
