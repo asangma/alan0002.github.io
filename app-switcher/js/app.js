@@ -9,10 +9,10 @@ var apps = [/*{
   }, {
     name: "Insights",
     image: "images/product-icons/Insights48.png"
-  },/* {
+  }, {
     name: "GeoPlanner",
     letters: "GeoP"
-  },*/ {
+  }, {
     name: "Business Analyst",
     image: "images/product-icons/BAO_Android_Launch_48.png"
   }, {
@@ -38,10 +38,10 @@ var apps = [/*{
   }, {
     name: "Story Maps",
     letters: "SM"
-  }, {
+  }/*, {
     name: "Some App",
     letters: "SA"
-  }
+  }*/
   /*, {
       name: "All the Things",
       letters: "AT"
