@@ -65,7 +65,7 @@ jQuery(document).ready(function() { // You wish you could use jQuery
     jQuery('.apps-container').append(node_str);
 
   });
-  jQuery('.app-icon-svg').load('assets/Hexagon-48.html', function(event) {
+  jQuery('.app-icon-svg').load('assets/app_bg.html', function(event) {
     // console.dir(jQuery(this).find('svg'));
     createGradient(jQuery(this).find('svg')[0],
       'svg-gradient-blue',
