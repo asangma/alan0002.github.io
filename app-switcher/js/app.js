@@ -50,6 +50,12 @@ var apps = [/*{
 
 jQuery(document).ready(function() { // You wish you could use jQuery
   var i = 0;
+  var fontSizes = [
+    28, // 1 char
+    20, // 2 char
+    16,  // 3 char
+    14// <= 4 char 
+  ]
   jQuery.each(apps, function(index, app) {
     var color = colors[i];
     var node_str = '<div class="app-module" id="app-no-' + index + '"><div class="app-icon-container ' + color + '">';
@@ -57,7 +63,9 @@ jQuery(document).ready(function() { // You wish you could use jQuery
       node_str += '<div class="app-icon"><img src="' + app.image + '"/></div>';
     }
     if (app.letters) {
-      node_str += '<div class="app-icon-svg"></div><div class="app-letters">' + app.letters + '</div>';
+      var fontSize = app.letters.length <= fontSizes.length  ? fontSizes[app.letters.length-1]  : fontSizes[fontSizes.length-1];
+      console.log(app.letters.length + ' : ' + fontSize);
+      node_str += '<div class="app-icon-svg"></div><div class="app-letters" style="font-size:'+fontSize+'px;">' + app.letters + '</div>';
       if (i < colors.length - 1) i++;
       else i = 0;
     }
@@ -67,7 +75,7 @@ jQuery(document).ready(function() { // You wish you could use jQuery
   });
   jQuery('.app-icon-svg').load('assets/app_bg.html', function(event) {
     // console.dir(jQuery(this).find('svg'));
-    createGradient(jQuery(this).find('svg')[0],
+    /*createGradient(jQuery(this).find('svg')[0],
       'svg-gradient-blue',
       [{
         offset:'0%',
@@ -86,13 +94,13 @@ jQuery(document).ready(function() { // You wish you could use jQuery
         offset:'75%',
         'stop-color':'rgb(51, 51, 51)'
       }
-      ]);
+      ]);*/
   });
   jQuery('.app-trigger').load('assets/app-switcher.html', function() {});
 
   // jQuery('.apps-container').append('<div class="app-module see-all"><span class="see-all__icon esri-icon-handle-horizontal"></span><span class="see-all__text">See all</span></div>');
 
-  jQuery('.app-trigger').on('click', function(event) {
+  /*jQuery('.app-trigger').on('click', function(event) {
     event.preventDefault();
     jQuery('body').toggleClass('app-switcher--visible');
   });
@@ -111,10 +119,10 @@ jQuery(document).ready(function() { // You wish you could use jQuery
 
     jQuery('body').addClass(jQuery(this).attr('href'));
     jQuery(this).parent().addClass('current-style');
-  });
+  });*/
 });
 
-function createGradient(svg, id, stops) {
+/*function createGradient(svg, id, stops) {
   var svgNS = svg.namespaceURI;
   var grad = document.createElementNS(svgNS, 'linearGradient');
   grad.setAttribute('id', id);
@@ -133,4 +141,4 @@ function createGradient(svg, id, stops) {
   var defs = svg.querySelector('defs') ||
     svg.insertBefore(document.createElementNS(svgNS, 'defs'), svg.firstChild);
   return defs.appendChild(grad);
-}
+}*/
