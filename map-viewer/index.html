@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Map Viewer for ArcGIS</title>
+  <link rel="stylesheet" href="node_modules/calcite-web/dist/css/calcite-web.min.css">
+  <link rel="stylesheet" type="text/css" href="css/map-viewer-stylez.css">
+  <link rel="stylesheet" href="https://jsdev.arcgis.com/4.0/esri/css/main.css">
+  <script src="node_modules/calcite-web/dist/js/calcite-web.min.js"></script>
+  <script src="https://jsdev.arcgis.com/4.1"></script>
+  <script type="text/javascript">
+  var basemapToggle, view, map;
+
+  require([
+    "dojo/dom-class",
+    "esri/Map",
+    "esri/views/MapView",
+    "esri/widgets/BasemapToggle",
+    "dojo/domReady!"
+  ], function(
+    domClass,
+    Map,
+    MapView,
+    BasemapToggle
+  ) {
+
+    // setup the map
+    map = new Map({
+      basemap: "topo",
+    });
+
+    view = new MapView({
+      container: "viewDiv",
+      map: map,
+      center: [-117.049, 34.485],
+      zoom: 12
+    });
+
+    basemapToggle = new BasemapToggle({
+      // titleVisible: true,
+      view: view,
+      nextBasemap: "dark-gray"
+    }, "BasemapToggle");
+    basemapToggle.startup();
+
+    view.ui.add(basemapToggle, 'bottom-left');
+
+  });
+  </script>
+  <style>
+  #viewDiv {
+    width: 100%;
+    height: 100%;
+  }
+  </style>
+</head>
+
+<body>
+  <header class="top-nav">
+    <!-- <div class="grid-container"> -->
+    <!-- <div class="column-24"> -->
+    <!-- <div class="tablet-hide"> -->
+    <div class="branding-module"><img class="app-icon" src="images/app_bg.svg" alt=""> <a href="#" class="top-nav-title">MapViewer for ArcGIS</a></div>
+    <!-- <div class="dropdown js-dropdown"> -->
+    <a href="" class="top-nav-link user-nav-link">
+      <img src="images/alan-hat-120.jpg" alt="User Avatar" class="user-nav-image"> Alan
+    </a>
+    <!-- <nav class="dropdown-menu dropdown-right">
+              <div class="dropdown-link">
+                <p class="trailer-0">Sloth Aldrin</p>
+                <small>username</small>
+              </div>
+              <a class="dropdown-link" href="/account/profile/">Password and Profile</a>
+              <a class="dropdown-link" href="/account/profile/">Change Plan</a>
+              <a class="dropdown-link" href="/support/">Support</a>
+              <a class="dropdown-link" href="/feedback/">Feedback</a>
+              <a class="dropdown-link" href="#">Sign Out</a>
+            </nav> -->
+    <!-- </div> -->
+    <!-- </div> -->
+    <!-- <div class="tablet-show">
+          <a href="/" class="icon-ui-menu top-nav-title js-drawer-toggle" data-drawer="top-nav">Map Viewer for ArcGIS</a>
+        </div> -->
+    <!-- </div> -->
+    <!-- </div> -->
+  </header>
+  <div class="app-container">
+    <div class="list-panel">
+      <div class="list-panel__header">
+        <button class="btn-clear">One Action</button>
+        <button class="btn-clear">Another Action</button>
+      </div>
+      <div class="list-panel__content list-panel__content--is-empty">
+        <button class="btn"><span class="esri-icon-plus"></span> Add Content</button>
+        <!-- <div class="modifier-class trailer-2 js-tab-group">
+          <nav class="tab-nav">
+            <a class="tab-title is-active js-tab">Tab 1</a>
+            <a class="tab-title js-tab">Tab 2</a>
+            <a class="tab-title js-tab">Tab 3</a>
+          </nav>
+          <section class="tab-contents">
+            <article class="tab-section js-tab-section is-active">
+              <p>Tab 1 section</p>
+            </article>
+            <article class="tab-section js-tab-section">
+              <p>Tab 2 section</p>
+            </article>
+            <article class="tab-section js-tab-section">
+              <p>Tab 3 section</p>
+            </article>
+          </section>
+        </div> -->
+      </div>
+    </div>
+    <div class="map-panel">
+      <div id="viewDiv"></div>
+    </div>
+  </div>
+</body>
+
+</html>
