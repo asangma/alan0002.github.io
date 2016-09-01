@@ -7,23 +7,27 @@
   <link rel="stylesheet" type="text/css" href="css/map-viewer-stylez.css">
   <link rel="stylesheet" href="https://jsdev.arcgis.com/4.0/esri/css/main.css">
   <script src="node_modules/calcite-web/dist/js/calcite-web.min.js"></script>
+  <script src="js/MapViewer.js"></script>
   <script src="https://jsdev.arcgis.com/4.1"></script>
   <script type="text/javascript">
-  var basemapToggle, view, map;
+  var basemapToggle, view, map, mapViewer;
 
   require([
-    "dojo/dom-class",
+    "dojo",
     "esri/Map",
     "esri/views/MapView",
     "esri/widgets/BasemapToggle",
     "esri/widgets/Search",
+    "dojo/on",
     "dojo/domReady!"
   ], function(
-    domClass,
+    dojo,
     Map,
     MapView,
     BasemapToggle,
-    Search
+    Search,
+
+    on
   ) {
 
     // setup the map
@@ -47,19 +51,17 @@
 
     var search = new Search({
       view: view
-    });
+    }, 'search-widget');
 
     view.ui.add(basemapToggle, 'bottom-left');
-    view.ui.add(search, 'top-right');
+    // view.ui.add(search, 'top-right');
+
+    mapViewer.init(
+      on
+    );
 
   });
   </script>
-  <style>
-  #viewDiv {
-    width: 100%;
-    height: 100%;
-  }
-  </style>
 </head>
 
 <body>
@@ -74,13 +76,31 @@
     </a>
   </header>
   <div class="app-container">
-    <div class="list-panel">
-      <div class="list-panel__header">
+    <div class="navigation-bar navigation-bar--is-collapsed">
+      <div class="navigation-bar__toggle" data-toggle-target="navigation-bar">
+        <span class="esri-icon-expand collapse-icon"></span>
+        <span class="esri-icon-collapse expand-icon"></span>
+      </div>
+      <ul class="navigation-bar__menu">
+<li class="navigation-bar__menu-item"><a><span class="navigation-bar__menu-icon esri-icon-plus"></span> <span class="navigation-bar__menu-title">Add Layer</span></a></li>
+<hr>
+<li class="navigation-bar__menu-item current"><a><span class="navigation-bar__menu-icon esri-icon-layers"></span> <span class="navigation-bar__menu-title">Layers</span></a></li>
+<li class="navigation-bar__menu-item"><a><span class="navigation-bar__menu-icon esri-icon-blank-map-pin"></span> <span class="navigation-bar__menu-title">Legend</span></a></li>
+<li class="navigation-bar__menu-item"><a><span class="navigation-bar__menu-icon esri-icon-maps"></span> <span class="navigation-bar__menu-title">Analyze</span></a></li>
+<li class="navigation-bar__menu-item"><a><span class="navigation-bar__menu-icon esri-icon-share"></span> <span class="navigation-bar__menu-title">Share</span></a></li>
+<hr>
+<li class="navigation-bar__menu-item"><a><span class="navigation-bar__menu-icon esri-icon-overview-arrow-top-right"></span> <span class="navigation-bar__menu-title">Open</span></a></li>
+<li class="navigation-bar__menu-item"><a><span class="navigation-bar__menu-icon esri-icon-plus-circled"></span> <span class="navigation-bar__menu-title">New Map</span></a></li>
+      </ul>
+    </div>
+    <div class="action-panel">
+      <div class="action-panel__header">
         <button class="btn-clear"><span class="esri-icon-layers"></span> Run Analysis</button>
-        <button class="btn-clear"><span class="esri-icon-plus"></span> Add Layer</button><!-- 
+        <button class="btn-clear"><span class="esri-icon-plus"></span> Add Layer</button>
+        <!-- 
         <button class="btn-clear">Another Action</button> -->
       </div>
-      <div class="list-panel__content ">
+      <div class="action-panel__content ">
         <h5>Content Layers</h5>
         <div class="layer-list">
           <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Hurricane Points</span></div>
@@ -103,6 +123,8 @@
     <div class="map-panel">
       <div id="viewDiv"></div>
     </div>
+
+    <div id="search-widget"></div>
   </div>
 </body>
 
