@@ -16,12 +16,14 @@
     "esri/Map",
     "esri/views/MapView",
     "esri/widgets/BasemapToggle",
+    "esri/widgets/Search",
     "dojo/domReady!"
   ], function(
     domClass,
     Map,
     MapView,
-    BasemapToggle
+    BasemapToggle,
+    Search
   ) {
 
     // setup the map
@@ -43,7 +45,12 @@
     }, "BasemapToggle");
     basemapToggle.startup();
 
+    var search = new Search({
+      view: view
+    });
+
     view.ui.add(basemapToggle, 'bottom-left');
+    view.ui.add(search, 'top-right');
 
   });
   </script>
@@ -65,51 +72,32 @@
     <a href="" class="top-nav-link user-nav-link">
       <img src="images/alan-hat-120.jpg" alt="User Avatar" class="user-nav-image"> Alan
     </a>
-    <!-- <nav class="dropdown-menu dropdown-right">
-              <div class="dropdown-link">
-                <p class="trailer-0">Sloth Aldrin</p>
-                <small>username</small>
-              </div>
-              <a class="dropdown-link" href="/account/profile/">Password and Profile</a>
-              <a class="dropdown-link" href="/account/profile/">Change Plan</a>
-              <a class="dropdown-link" href="/support/">Support</a>
-              <a class="dropdown-link" href="/feedback/">Feedback</a>
-              <a class="dropdown-link" href="#">Sign Out</a>
-            </nav> -->
-    <!-- </div> -->
-    <!-- </div> -->
-    <!-- <div class="tablet-show">
-          <a href="/" class="icon-ui-menu top-nav-title js-drawer-toggle" data-drawer="top-nav">Map Viewer for ArcGIS</a>
-        </div> -->
-    <!-- </div> -->
-    <!-- </div> -->
   </header>
   <div class="app-container">
     <div class="list-panel">
       <div class="list-panel__header">
-        <button class="btn-clear">One Action</button>
-        <button class="btn-clear">Another Action</button>
+        <button class="btn-clear">Run Analysis</button>
+        <button class="btn-clear">Another Action</button><!-- 
+        <button class="btn-clear">Another Action</button> -->
       </div>
-      <div class="list-panel__content list-panel__content--is-empty">
-        <button class="btn"><span class="esri-icon-plus"></span> Add Content</button>
-        <!-- <div class="modifier-class trailer-2 js-tab-group">
-          <nav class="tab-nav">
-            <a class="tab-title is-active js-tab">Tab 1</a>
-            <a class="tab-title js-tab">Tab 2</a>
-            <a class="tab-title js-tab">Tab 3</a>
-          </nav>
-          <section class="tab-contents">
-            <article class="tab-section js-tab-section is-active">
-              <p>Tab 1 section</p>
-            </article>
-            <article class="tab-section js-tab-section">
-              <p>Tab 2 section</p>
-            </article>
-            <article class="tab-section js-tab-section">
-              <p>Tab 3 section</p>
-            </article>
-          </section>
-        </div> -->
+      <div class="list-panel__content ">
+        <h5>Content Layers</h5>
+        <div class="layer-list">
+          <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Hurricane Points</span></div>
+          <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Hurricane Lines</span></div>
+          <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">rrc-23 updated noncomm 2219655321</span></div>
+          <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Popuplation density 2014-01-23</span></div>
+        </div>
+        <button class="btn "><span class="esri-icon-plus"></span> Add</button>
+        <hr>
+        <h5>Basemap Layers</h5>
+        <div class="layer-list">
+          <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Travel routes condensed 221</span></div>
+          <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">State Boundaries Polygons</span></div>
+          <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Waterways Census 2012</span></div>
+          <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Topo</span></div>
+        </div>
+        <button class="btn-clear"><span class="esri-icon-plus"></span> Add</button>
       </div>
     </div>
     <div class="map-panel">
