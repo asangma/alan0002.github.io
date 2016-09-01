@@ -61,11 +61,10 @@ jQuery(document).ready(function() { // You wish you could use jQuery
     var node_str = '<li class="app-module" id="app-no-'+ index +'" role="menuitem" tabindex="0">'; // open li
     node_str += '<div class="app-icon-container '+ color +'">'; // open app-icon-container
     if (app.image) {
-      node_str += '<div class="app-icon"><img src="'+ app.image +'" title="'+ app.name +'" alt=""/></div>'; // app-icon
+      node_str += '<div class="app-icon"><img src="'+ app.image +'" alt=""/></div>'; // app-icon
     }
     if (app.letters) {
       var fontSize = app.letters.length <= fontSizes.length  ? fontSizes[app.letters.length-1]  : fontSizes[fontSizes.length-1];
-      console.log(app.letters.length +' : '+ fontSize);
       node_str += '<div class="app-icon-svg" title="'+ app.name +'"></div><div class="app-letters" style="font-size:'+fontSize+'px;" aria-hidden="true">'+ app.letters +'</div>'; // app-icon-svg
       if (i < colors.length - 1) i++;
       else i = 0;
@@ -82,6 +81,8 @@ jQuery(document).ready(function() { // You wish you could use jQuery
     jQuery(this).on('click', function(e){
       e.preventDefault();
       jQuery('body').toggleClass('app-switcher--visible');
+      var tabindex = jQuery('body').hasClass('app-switcher--visible') ? '0' : '-1';
+      jQuery('.app-module').attr('tabindex', tabindex);
     });
   });
 });
