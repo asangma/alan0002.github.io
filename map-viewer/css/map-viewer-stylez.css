@@ -233,7 +233,7 @@ hr {
 }
 
 .action-panel {
-  width: 420px;
+  /*width: 320px;*/
   height: 100%;
   background-color: #f8f8f8;
   border-right: 1px solid #e0e0e0;
@@ -250,9 +250,9 @@ hr {
   -webkit-align-items: stretch;
           align-items: stretch;
   
-  -webkit-flex: 0 0 380px;
-      -ms-flex: 0 0 380px;
-          flex: 0 0 380px;
+  -webkit-flex: 0 0 320px;
+      -ms-flex: 0 0 320px;
+          flex: 0 0 320px;
   border-left: solid 4px #333;
 }
 
@@ -352,6 +352,7 @@ hr {
       -ms-flex: 0 0 100%;
           flex: 0 0 100%;
   margin: 0 0 15px 0;
+  /*white-space: nowrap;*/
 }
 
 .layer-list__item {
@@ -379,6 +380,12 @@ hr {
           align-self: center;
 }
 
+.layer-list__title {
+  max-width: 240px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 /* WIDGET FIXED */
 .esri-search .esri-search__input {
