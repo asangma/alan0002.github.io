@@ -58,87 +58,26 @@ jQuery(document).ready(function() { // You wish you could use jQuery
   ]
   jQuery.each(apps, function(index, app) {
     var color = colors[i];
-    var node_str = '<div class="app-module" id="app-no-' + index + '"><div class="app-icon-container ' + color + '">';
+    var node_str = '<li class="app-module" id="app-no-'+ index +'" role="menuitem">'; // open li
+    node_str += '<div class="app-icon-container '+ color +'">'; // open app-icon-container
     if (app.image) {
-      node_str += '<div class="app-icon"><img src="' + app.image + '"/></div>';
+      node_str += '<div class="app-icon"><img src="'+ app.image +'" title="'+ app.name +'" alt=""/></div>'; // app-icon
     }
     if (app.letters) {
       var fontSize = app.letters.length <= fontSizes.length  ? fontSizes[app.letters.length-1]  : fontSizes[fontSizes.length-1];
-      console.log(app.letters.length + ' : ' + fontSize);
-      node_str += '<div class="app-icon-svg"></div><div class="app-letters" style="font-size:'+fontSize+'px;">' + app.letters + '</div>';
+      console.log(app.letters.length +' : '+ fontSize);
+      node_str += '<div class="app-icon-svg" title="'+ app.name +'"></div><div class="app-letters" style="font-size:'+fontSize+'px;" aria-hidden="true">'+ app.letters +'</div>'; // app-icon-svg
       if (i < colors.length - 1) i++;
       else i = 0;
     }
-    node_str += '</div><span class="app-title">' + app.name + '</span></div>'
+    node_str += '</div>'; // close app-icon-container
+    node_str += '<span class="app-title">'+ app.name +'</span>';  // app-title
+    node_str += '</li>' // close li
     jQuery('.apps-container').append(node_str);
 
   });
   jQuery('.app-icon-svg').load('assets/app_bg.html', function(event) {
-    // console.dir(jQuery(this).find('svg'));
-    /*createGradient(jQuery(this).find('svg')[0],
-      'svg-gradient-blue',
-      [{
-        offset:'0%',
-        'stop-color':'rgb(0,122,194)'
-      }, {
-        offset:'75%',
-        'stop-color':'rgb(0,69,117)'
-      }
-      ]);
-    createGradient(jQuery(this).find('svg')[0],
-      'svg-gradient-gray',
-      [{
-        offset:'0%',
-        'stop-color':'rgb(110, 110, 110)'
-      }, {
-        offset:'75%',
-        'stop-color':'rgb(51, 51, 51)'
-      }
-      ]);*/
   });
   jQuery('.app-trigger').load('assets/app-switcher.html', function() {});
-
-  // jQuery('.apps-container').append('<div class="app-module see-all"><span class="see-all__icon esri-icon-handle-horizontal"></span><span class="see-all__text">See all</span></div>');
-
-  /*jQuery('.app-trigger').on('click', function(event) {
-    event.preventDefault();
-    jQuery('body').toggleClass('app-switcher--visible');
-  });
-  jQuery('.cover').on('click', function(event) {
-    jQuery('body').removeClass('app-switcher--visible');
-  });
-
-  jQuery('.style-trigger').on('click', function(event) {
-    event.preventDefault();
-    jQuery('.current-style').removeClass('current-style');
-    console.log(jQuery(this).attr('href'));
-
-    jQuery.each(jQuery('.style-trigger'), function(index, node) {
-      jQuery('body').removeClass(jQuery(node).attr('href'));
-    });
-
-    jQuery('body').addClass(jQuery(this).attr('href'));
-    jQuery(this).parent().addClass('current-style');
-  });*/
 });
 
-/*function createGradient(svg, id, stops) {
-  var svgNS = svg.namespaceURI;
-  var grad = document.createElementNS(svgNS, 'linearGradient');
-  grad.setAttribute('id', id);
-  for (var i = 0; i < stops.length; i++) {
-    var attrs = stops[i];
-    var stop = document.createElementNS(svgNS, 'stop');
-    for (var attr in attrs) {
-      if (attrs.hasOwnProperty(attr)) stop.setAttribute(attr, attrs[attr]);
-    }
-    grad.appendChild(stop);
-  }
-  var gradTransform = document.createAttribute('gradientTransform');
-  gradTransform.value = 'rotate(35)';
-  grad.setAttributeNode(gradTransform);
-
-  var defs = svg.querySelector('defs') ||
-    svg.insertBefore(document.createElementNS(svgNS, 'defs'), svg.firstChild);
-  return defs.appendChild(grad);
-}*/
