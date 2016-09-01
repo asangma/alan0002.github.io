@@ -58,7 +58,7 @@ jQuery(document).ready(function() { // You wish you could use jQuery
   ]
   jQuery.each(apps, function(index, app) {
     var color = colors[i];
-    var node_str = '<li class="app-module" id="app-no-'+ index +'" role="menuitem">'; // open li
+    var node_str = '<li class="app-module" id="app-no-'+ index +'" role="menuitem" tabindex="0">'; // open li
     node_str += '<div class="app-icon-container '+ color +'">'; // open app-icon-container
     if (app.image) {
       node_str += '<div class="app-icon"><img src="'+ app.image +'" title="'+ app.name +'" alt=""/></div>'; // app-icon
@@ -78,6 +78,11 @@ jQuery(document).ready(function() { // You wish you could use jQuery
   });
   jQuery('.app-icon-svg').load('assets/app_bg.html', function(event) {
   });
-  jQuery('.app-trigger').load('assets/app-switcher.html', function() {});
+  jQuery('.app-trigger').load('assets/app-switcher.html', function() {
+    jQuery(this).on('click', function(e){
+      e.preventDefault();
+      jQuery('body').toggleClass('app-switcher--visible');
+    });
+  });
 });
 

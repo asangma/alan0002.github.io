@@ -98,6 +98,7 @@
     left: 0;
     display: none;
     background-color: rgba(0, 0, 0, 0);
+    pointer-events: none;
   }
   
   .app-switcher {
@@ -117,7 +118,8 @@
   }
 
 
-  .app-switcher--visible .app-switcher {
+  .app-switcher--visible .app-switcher,
+  .app-switcher--visible .app-switcher__pointer {
     opacity: 1;
   }
   .app-switcher--visible .cover {
@@ -144,9 +146,17 @@
     -ms-transform: scale(0.9, 1) rotate(45deg);
     -o-transform: scale(0.9, 1) rotate(45deg);
     transform: scale(0.9, 1) rotate(45deg);
+    
+    -webkit-transition: opacity 125ms ease-in-out;
+    -moz-transition: opacity 125ms ease-in-out;
+    -ms-transition: opacity 125ms ease-in-out;
+    -o-transition: opacity 125ms ease-in-out;
+    transition: opacity 125ms ease-in-out;
+    
     -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
     z-index: 0;
+    opacity: 0;
   }
   
   .apps-container {
@@ -198,7 +208,8 @@
          -o-transition: all 200ms ease-in-out;
             transition: all 200ms ease-in-out;
   }
-  .app-module:hover .app-icon-container {
+  .app-module:hover .app-icon-container,
+  .app-module:focus .app-icon-container {
     -webkit-transform: translate(0, -4px);
        -moz-transform: translate(0, -4px);
         -ms-transform: translate(0, -4px);
