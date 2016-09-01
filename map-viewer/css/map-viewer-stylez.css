@@ -17,7 +17,14 @@ button {
   /*padding-bottom: 0.55rem;*/
 }
 
+hr {
+  margin: 1rem 0;
+}
 
+.list-panel [class^="esri-icon-"],
+.list-panel [class*=" esri-icon-"] {
+  padding-right: .5rem;
+}
 
 .btn-clear {
   background: transparent;
@@ -251,7 +258,7 @@ button {
 
 .layer-list__expand-icon {
   font-size: 12px;
-  padding: 0 0.5rem 0 0;
+  /*padding: 0 0.5rem 0 0;*/
   -webkit-align-self: center;
           align-self: center;
 }
