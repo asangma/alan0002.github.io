@@ -3,6 +3,7 @@
 @import 'mixins';
 
 $Calcite_Gray_050: #fff;
+$border_color: $Calcite_Gray_350;
 
 $size: 64px;
 
@@ -50,7 +51,7 @@ html {
 @mixin appHeader() {
   height: $size;
   background-color: $Calcite_Gray_050;
-  border-bottom: 1px solid $Calcite_Gray_300;
+  border-bottom: 1px solid $border_color;
   overflow: hidden;
   @include flexDisplay();
   @include alignItems(center);
@@ -107,7 +108,7 @@ html {
   height: 100%;
   margin-left: auto;
   padding-right: 1rem;
-  border-right: 1px solid $Calcite_Gray_300;
+  border-right: 1px solid $border_color;
 }
 
 @mixin navRightItem() {

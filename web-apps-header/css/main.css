@@ -6745,7 +6745,7 @@ html {
 .app-header {
   height: 64px;
   background-color: #fff;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #cccccc;
   overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -6810,7 +6810,7 @@ html {
   height: 100%;
   margin-left: auto;
   padding-right: 1rem;
-  border-right: 1px solid #e0e0e0; }
+  border-right: 1px solid #cccccc; }
 
 .nav-right__item {
   height: 100%; }
