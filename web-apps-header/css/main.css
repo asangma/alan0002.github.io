@@ -6873,10 +6873,10 @@ html {
   .user-profile__id .user-profile__name {
     color: #4c4c4c;
     font-weight: 600;
-    line-height: 1.1rem; }
+    line-height: 1rem; }
   .user-profile__id .user-profile__username {
     color: #6e6e6e;
-    line-height: 1.1rem; }
+    line-height: 1rem; }
 
 .breadcrumbs .breadcrumb {
   padding-left: 0; }
