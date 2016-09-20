@@ -24,7 +24,6 @@ html {
   }
   .app-header__nav-left {
     display: block;
-    // opacity: 1;
     -webkit-animation: show-item-nav 1000ms ease-out;
     -moz-animation: show-item-nav 1000ms ease-out;
     -o-animation: show-item-nav 1000ms ease-out;
@@ -34,7 +33,6 @@ html {
     display: none;
   }
   .app-header__app-name {
-    // opacity: 0;
     width: 0;
     @include translate(0, -100px);
     -webkit-animation: hide-app-name 750ms ease-in;
@@ -52,8 +50,6 @@ html {
 @mixin appHeader() {
   height: $size;
   background-color: $Calcite_Gray_050;
-  // font-size: 1rem;
-  // font-size: 16px;
   border-bottom: 1px solid $Calcite_Gray_300;
   overflow: hidden;
   @include flexDisplay();
@@ -90,9 +86,7 @@ html {
 }
 
 @mixin appName() {
-  // font-size: 16px;
   color: $Calcite_Gray_650;
-  // margin-right: 1rem;
   overflow: hidden;
 }
 
@@ -135,8 +129,8 @@ html {
 
 @mixin appSwitcher() {
   height: 100%;
-  padding-right: 1rem;
-  padding-left: 1rem;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
   @include flexDisplay();
   @include alignItems(center);
   @include justifyContent(center);
@@ -178,12 +172,12 @@ html {
 }
 
 @mixin userProfileId() {
-  // font-size: 0.9rem;
   margin-left: 0.5rem;
   @include flexDisplay();
   @include flexFlow(column);
   .user-profile__name {
     color: $Calcite_Gray_650;
+    font-weight: 600;
     line-height: 1.1rem;
   }
   .user-profile__username {

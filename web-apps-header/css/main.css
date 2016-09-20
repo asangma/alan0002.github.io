@@ -6872,6 +6872,7 @@ html {
   flex-flow: column nowrap; }
   .user-profile__id .user-profile__name {
     color: #4c4c4c;
+    font-weight: 600;
     line-height: 1.1rem; }
   .user-profile__id .user-profile__username {
     color: #6e6e6e;
@@ -6894,8 +6895,8 @@ html {
 
 .app-switcher {
   height: 100%;
-  padding-right: 1rem;
-  padding-left: 1rem;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
