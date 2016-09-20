@@ -6837,7 +6837,7 @@ html {
 .app-header__user-profile {
   height: 100%;
   margin-right: 2rem;
-  margin-left: 1rem;
+  margin-left: 0.5rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
