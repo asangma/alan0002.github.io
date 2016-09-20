@@ -41,10 +41,10 @@
 
 @mixin topNavHover() {
   color: $Calcite_Highlight_Blue_350;
-  -webkit-background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%);
-  -moz-background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%);
-  -o-background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%);
-  background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%);
+  -webkit-background-image: linear-gradient(to bottom, transparent 96%, $Calcite_Highlight_Blue_350 97%, $Calcite_Highlight_Blue_350 100%);
+  -moz-background-image: linear-gradient(to bottom, transparent 96%, $Calcite_Highlight_Blue_350 97%, $Calcite_Highlight_Blue_350 100%);
+  -o-background-image: linear-gradient(to bottom, transparent 96%, $Calcite_Highlight_Blue_350 97%, $Calcite_Highlight_Blue_350 100%);
+  background-image: linear-gradient(to bottom, transparent 96%, $Calcite_Highlight_Blue_350 97%, $Calcite_Highlight_Blue_350 100%);
 }
 
 

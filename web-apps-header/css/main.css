@@ -6829,10 +6829,10 @@ html {
   justify-content: center; }
   .nav-right__link:hover {
     color: #0079c1;
-    -webkit-background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%);
-    -moz-background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%);
-    -o-background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%);
-    background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%); }
+    -webkit-background-image: linear-gradient(to bottom, transparent 96%, #0079c1 97%, #0079c1 100%);
+    -moz-background-image: linear-gradient(to bottom, transparent 96%, #0079c1 97%, #0079c1 100%);
+    -o-background-image: linear-gradient(to bottom, transparent 96%, #0079c1 97%, #0079c1 100%);
+    background-image: linear-gradient(to bottom, transparent 96%, #0079c1 97%, #0079c1 100%); }
 
 .app-header__user-profile {
   height: 100%;
@@ -6849,10 +6849,10 @@ html {
   .app-header__user-profile:hover {
     cursor: pointer;
     color: #0079c1;
-    -webkit-background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%);
-    -moz-background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%);
-    -o-background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%);
-    background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%); }
+    -webkit-background-image: linear-gradient(to bottom, transparent 96%, #0079c1 97%, #0079c1 100%);
+    -moz-background-image: linear-gradient(to bottom, transparent 96%, #0079c1 97%, #0079c1 100%);
+    -o-background-image: linear-gradient(to bottom, transparent 96%, #0079c1 97%, #0079c1 100%);
+    background-image: linear-gradient(to bottom, transparent 96%, #0079c1 97%, #0079c1 100%); }
 
 .user-profile__button {
   height: 32px;
@@ -6911,10 +6911,10 @@ html {
     height: 24px; }
   .app-switcher:hover {
     color: #0079c1;
-    -webkit-background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%);
-    -moz-background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%);
-    -o-background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%);
-    background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%);
+    -webkit-background-image: linear-gradient(to bottom, transparent 96%, #0079c1 97%, #0079c1 100%);
+    -moz-background-image: linear-gradient(to bottom, transparent 96%, #0079c1 97%, #0079c1 100%);
+    -o-background-image: linear-gradient(to bottom, transparent 96%, #0079c1 97%, #0079c1 100%);
+    background-image: linear-gradient(to bottom, transparent 96%, #0079c1 97%, #0079c1 100%);
     cursor: pointer; }
     .app-switcher:hover .app-switcher-path {
       fill: #0079c1; }
