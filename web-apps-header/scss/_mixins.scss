@@ -1,0 +1,80 @@
+
+@mixin flexDisplay() {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex($grow, $shrink:"", $basis:"") {
+  -webkit-flex: $grow #{$shrink} #{$basis};
+  -ms-flex: $grow #{$shrink} #{$basis};
+  flex: $grow #{$shrink} #{$basis};
+}
+
+@mixin flexFlow($direction, $wrap:nowrap) {
+  -webkit-flex-flow: $direction $wrap;
+  -ms-flex-flow: $direction $wrap;
+  flex-flow: $direction $wrap;
+}
+
+@mixin alignItems($side) {
+  -webkit-align-items: $side;
+  align-items: $side;
+}
+
+@mixin justifyContent($side) {
+  -webkit-justify-content: $side;
+  justify-content: $side;
+}
+
+@mixin alignContent($side) {
+  -webkit-align-content: $side;
+  align-content: $side;
+}
+
+@mixin alignSelf($side) {
+  -webkit-align-self: $side;
+  align-self: $side;
+}
+
+
+@mixin topNavHover() {
+  color: $Calcite_Highlight_Blue_350;
+  -webkit-background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%);
+  -moz-background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%);
+  -o-background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%);
+  background-image: linear-gradient(to bottom, transparent 97%, #0079c1 98%, #0079c1 100%);
+}
+
+
+@mixin transition($prop, $time, $ease, $delay:0ms) {
+  -webkit-transition: $prop $time $ease $delay;
+  -moz-transition: $prop $time $ease $delay;
+  -ms-transition: $prop $time $ease $delay;
+  -o-transition: $prop $time $ease $delay;
+  transition: $prop $time $ease $delay;
+}
+
+@mixin translate($x, $y) {
+  -webkit-transform: translate($x, $y);
+  -moz-transform: translate($x, $y);
+  -ms-transform: translate($x, $y);
+  -o-transform: translate($x, $y);
+  transform: translate($x, $y);
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}

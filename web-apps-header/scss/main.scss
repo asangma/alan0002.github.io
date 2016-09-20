@@ -1,0 +1,319 @@
+// $generate-css: false;
+@import '../node_modules/calcite-web/dist/sass/calcite-web';
+@import 'mixins';
+
+$Calcite_Gray_050: #fff;
+
+$size: 64px;
+
+body,
+html {
+  background-color: $Calcite_Gray_100;
+}
+
+// Dashboard
+.show-item,
+.app-header__nav-left {
+  display: none;
+}
+
+// In Item
+.in-item {
+  .show-item {
+    display: block;
+  }
+  .app-header__nav-left {
+    display: block;
+    // opacity: 1;
+    -webkit-animation: show-item-nav 1000ms ease-out;
+    -moz-animation: show-item-nav 1000ms ease-out;
+    -o-animation: show-item-nav 1000ms ease-out;
+    animation: show-item-nav 1000ms ease-out;
+  }
+  .show-launch {
+    display: none;
+  }
+  .app-header__app-name {
+    // opacity: 0;
+    width: 0;
+    @include translate(0, -100px);
+    -webkit-animation: hide-app-name 750ms ease-in;
+    -moz-animation: hide-app-name 750ms ease-in;
+    -o-animation: hide-app-name 750ms ease-in;
+    animation: hide-app-name 750ms ease-in;
+  }
+}
+
+//////////////////////////////////////////////////
+// MIXINS
+
+/////////////////////////
+// APP HEADER
+@mixin appHeader() {
+  height: $size;
+  background-color: $Calcite_Gray_050;
+  // font-size: 1rem;
+  // font-size: 16px;
+  border-bottom: 1px solid $Calcite_Gray_200;
+  overflow: hidden;
+  @include flexDisplay();
+  @include alignItems(center);
+  @include justifyContent(flex-start);
+  a {
+    color: $Calcite_Gray_550;
+    &:hover {
+      text-decoration: none;
+    }
+    // transition($prop, $time, $ease, $delay:0ms)
+    @include transition(all, 250ms, ease-in-out)
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    @include flexDisplay();
+    @include alignItems(center);
+    li {
+      list-style: none;
+      margin: 0;
+      padding: 0 0.25rem;
+    }
+  }
+}
+
+@mixin appBrand() {
+  @include flexDisplay();
+  @include alignItems(center);
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@mixin appName() {
+  // font-size: 16px;
+  color: $Calcite_Gray_650;
+  // margin-right: 1rem;
+  overflow: hidden;
+}
+
+@mixin appIcon() {
+  width: $size;
+  height: $size;
+  margin-right: 1rem;
+  @include flexDisplay();
+  @include alignItems(center);
+  @include justifyContent(center);
+}
+
+@mixin navLeft() {
+  // margin-left: 1rem;
+}
+
+@mixin navRight() {
+  height: 100%;
+  margin-left: auto;
+  padding-right: 1rem;
+  border-right: 1px solid $Calcite_Gray_350;
+}
+
+@mixin navRightItem() {
+  height: 100%;
+}
+
+@mixin navRightLink() {
+  height: 100%;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  @include flexDisplay();
+  @include alignItems(center);
+  @include justifyContent(center);
+  &:hover {
+    @include topNavHover();
+  }
+}
+
+
+@mixin appSwitcher() {
+  height: 100%;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  @include flexDisplay();
+  @include alignItems(center);
+  @include justifyContent(center);
+  .app-switcher-path {
+    fill: $Calcite_Gray_550;
+  }
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+  &:hover {
+    @include topNavHover();
+    cursor: pointer;
+    .app-switcher-path {
+      fill: $Calcite_Highlight_Blue_350;
+    }
+  }
+}
+
+@mixin userProfile() {
+  height: 100%;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  @include flexDisplay();
+  @include alignItems(center);
+  @include justifyContent(center);
+  &:hover {
+    cursor: pointer;
+    @include topNavHover();
+  }
+}
+
+@mixin userProfileImage() {
+  height: 32px;
+  width: auto;
+  border: 2px solid $Calcite_Gray_250;
+  -webkit-border-radius: 50px;
+  border-radius: 50%;
+}
+
+@mixin userProfileId() {
+  // font-size: 0.9rem;
+  margin-left: 0.5rem;
+  @include flexDisplay();
+  @include flexFlow(column);
+  .user-profile__name {
+    color: $Calcite_Gray_650;
+    line-height: 1.1rem;
+  }
+  .user-profile__username {
+    color: $Calcite_Gray_550;
+    line-height: 1.1rem;
+  }
+}
+
+@mixin breadcrumbs() {
+  .breadcrumb {
+    padding-left: 0;
+    a {
+      color: $Calcite_Gray_450;
+      &:hover {
+        color: $Calcite_Gray_650;
+      }
+      &:after {
+        color: $Calcite_Gray_350;
+        content: "/";
+        padding-left: 0.5rem;
+        padding-right: 0.25rem;
+      }
+    }
+  }
+  .breadcrumb--current {
+    color: $Calcite_Gray_650;
+  }
+}
+
+
+/////////////////////////
+// App ITEMS
+
+@mixin appItems() {
+  @include flexDisplay();
+  @include alignItems(center);
+  @include justifyContent(center);
+  margin-top: 1rem;
+  height: 100%;
+}
+
+//////////////////////////////////////////////////
+// CSS
+
+.app-header {
+  @include appHeader();
+}
+
+.app-header__app-brand {
+  @include appBrand();
+}
+
+.app-header__app-name {
+  @include appName();
+}
+
+.app-header__app-icon {
+  @include appIcon();
+}
+
+.app-header__nav-left {
+  @include navLeft();
+}
+
+.app-header__nav-right {
+  @include navRight();
+}
+
+.nav-right__item {
+  @include navRightItem();
+}
+
+.nav-right__link {
+  @include navRightLink();
+}
+
+.app-header__user-profile {
+  @include userProfile();
+}
+
+.user-profile__button {
+  @include userProfileImage();
+}
+
+.user-profile__id {
+  @include userProfileId();
+}
+
+.breadcrumbs {
+  @include breadcrumbs();
+}
+
+.app-switcher {
+  @include appSwitcher();
+}
+
+
+.app-items {
+  @include appItems();
+}
+
+
+// Animations
+@include keyframes(hide-app-name) {
+  0% {
+    @include translate(0, 0);
+    width: auto;
+  }
+  50% {
+    @include translate(0, 0);
+    width: auto;
+  }
+  90% {
+    @include translate(0, -100px);
+    width: auto;
+  }
+  100% {
+    @include translate(0, -100px);
+    width: 0;
+  }
+}
+
+@include keyframes(show-item-nav) {
+  0% {
+    @include translate(0, 100px);
+  }
+  50% {
+    @include translate(0, 100px);
+  }
+  100% {
+    @include translate(0, 0px);
+  }
+}
