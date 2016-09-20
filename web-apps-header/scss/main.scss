@@ -54,7 +54,7 @@ html {
   background-color: $Calcite_Gray_050;
   // font-size: 1rem;
   // font-size: 16px;
-  border-bottom: 1px solid $Calcite_Gray_200;
+  border-bottom: 1px solid $Calcite_Gray_300;
   overflow: hidden;
   @include flexDisplay();
   @include alignItems(center);
@@ -113,7 +113,7 @@ html {
   height: 100%;
   margin-left: auto;
   padding-right: 1rem;
-  border-right: 1px solid $Calcite_Gray_350;
+  border-right: 1px solid $Calcite_Gray_300;
 }
 
 @mixin navRightItem() {
