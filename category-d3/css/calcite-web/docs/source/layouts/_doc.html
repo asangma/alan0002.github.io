@@ -1,0 +1,182 @@
+{% extends "layouts/_layout" %}
+{% set isDocumentation = true %}
+{% block subnav %}
+  <header class="sub-nav" role="banner">
+    <div class="grid-container">
+      <div class="column-24">
+        <h1 class="sub-nav-title leader-1 text-white">Documentation</h1>
+        <a href="https://github.com/ArcGIS/calcite-web/releases" class="btn btn-white icon-ui-download right leader-1 trailer-1 tablet-hide">Download Latest Release</a>
+        <nav class="sub-nav-list tablet-hide" role="navigation" aria-labelledby="subnav">
+          {% for title, sec in data.table_of_contents %}
+          {% set slug = 'documentation/' + sec.base + '/' %}
+          {% if sec.base == 'get-started' %}
+            {% set slug = 'documentation/' %}
+          {% endif %}
+            <a class="sub-nav-link {% if url == slug %}is-active{% endif %}" href="{{relativePath}}{{slug}}">{{ sec.title }}</a>
+          {% endfor %}
+        </nav>
+
+        <select class="tablet-show select-full trailer-half js-select-nav">
+          {% for title, sec in data.table_of_contents %}
+          {% set slug = 'documentation/' + sec.base + '/' %}
+          {% if sec.base == 'get-started' %}
+            {% set slug = 'documentation/' %}
+          {% endif %}
+            <option value="{{relativePath}}{{slug}}" {% if url == slug %}selected{% endif %}>{{ sec.title }}</option>
+          {% endfor %}
+        </select>
+
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+{% block content %}
+<div class="grid-container leader-1">
+  <div class="column-6 tablet-column-12">
+    <aside class="side-nav" aria-role="complementary">
+      {% for group in data.table_of_contents[section].navigation %}
+        <h4 class="side-nav-title">{{ group.group }}</h4>
+        <!-- <nav aria-role="navigation" aria-labelledby="sidenav"> -->
+        <nav aria-role="navigation">
+          {% for page in group.pages %}
+            {% if page.title == 'Overview' %}
+              <a href="#{{group.group | replace(" ", "-") | lower}}" class="side-nav-link">{{page.title}}</a>
+            {% else %}
+              <a href="#{{page.link}}" class="side-nav-link">{{page.title}}</a>
+            {% endif %}
+          {% endfor %}
+        </nav>
+      {% endfor %}
+    </aside>
+    <div class="js-sticky scroll-show tablet-hide" data-top="46">
+      <a href="#" class="btn btn-clear">Back to Top</a>
+    </div>
+  </div>
+
+  <a id="skip-to-content" tabindex="0"></a>
+  <main class="column-17 phone-column-6 tablet-column-12 pre-1 rtl-post-0 tablet-leader-1" role="main">
+
+    {% for group in data.table_of_contents[section].navigation %}
+      <h1 class="text-rule" id="{{group.group | replace(" ", "-") | lower}}" tabindex="0">{{group.group}}</h1>
+      {% for page in group.pages %}
+        <section>
+          {% if page.title != 'Overview' %}
+            <h2 id="{{page.link}}" tabindex="0">{{page.title}}</h2>
+          {% endif %}
+
+          {% markdown %}{% include 'documentation/' + data.table_of_contents[section].base + '/_' + page.link %}{% endmarkdown %}
+
+          {% if page.title == 'Social Icons' %}
+            <div class="block-group block-group-3-up">
+              {% for icon in data.icons %}
+                <div class="block">
+                  <a href="" class="icon-social-{{icon}}" aria-label="{{icon}}"></a>
+                  <p class="trailer-1 leader-half"><code>.icon-social-{{icon}}</code></p>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if page.title == 'Icon Font' %}
+            <div class="block-group block-group-3-up">
+              {% for icon in data.font %}
+                <div class="block">
+                  <span class="font-size-5 icon-ui-{{icon}}" aria-label="{{icon}}"></span>
+                  <p class="trailer-1 leader-half"><code>icon-ui-{{icon}}</code></p>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if page.title == 'Icon Font Colors' %}
+            <div class="block-group block-group-3-up">
+              <div class="block">
+                <span class="font-size-5 icon-ui-check-mark icon-ui-green" aria-label="check-mark "></span>
+                <p class="trailer-1 leader-half"><code>icon-ui-green</code></p>
+              </div>
+              <div class="block">
+                <span class="font-size-5 icon-ui-check-mark icon-ui-light-blue" aria-label="check-mark "></span>
+                <p class="trailer-1 leader-half"><code>icon-ui-light-blue</code></p>
+              </div>
+              <div class="block">
+                <span class="font-size-5 icon-ui-check-mark icon-ui-blue" aria-label="check-mark "></span>
+                <p class="trailer-1 leader-half"><code>icon-ui-blue</code></p>
+              </div>
+              <div class="block">
+                <span class="font-size-5 icon-ui-check-mark icon-ui-dark-blue" aria-label="check-mark "></span>
+                <p class="trailer-1 leader-half"><code>icon-ui-dark-blue</code></p>
+              </div>
+              <div class="block">
+                <span class="font-size-5 icon-ui-check-mark icon-ui-purple" aria-label="check-mark "></span>
+                <p class="trailer-1 leader-half"><code>icon-ui-purple</code></p>
+              </div>
+              <div class="block">
+                <span class="font-size-5 icon-ui-check-mark icon-ui-orange" aria-label="check-mark "></span>
+                <p class="trailer-1 leader-half"><code>icon-ui-orange</code></p>
+              </div>
+              <div class="block">
+                <span class="font-size-5 icon-ui-check-mark icon-ui-gray" aria-label="check-mark "></span>
+                <p class="trailer-1 leader-half"><code>icon-ui-gray</code></p>
+              </div>
+              <div class="block">
+                <span class="font-size-5 icon-ui-check-mark icon-ui-red" aria-label="check-mark "></span>
+                <p class="trailer-1 leader-half"><code>icon-ui-red</code></p>
+              </div>
+              <div class="block">
+                <span class="font-size-5 icon-ui-check-mark icon-ui-yellow" aria-label="check-mark "></span>
+                <p class="trailer-1 leader-half"><code>icon-ui-yellow</code></p>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if page.modifiers %}
+            <h3 class="leader-2" tabindex="0">Modifiers</h3>
+            <div class="styleguide-modifiers">
+              <div class="styleguide-modifier-example">
+                {% include 'documentation/' + data.table_of_contents[section].base + '/sample-code/_' + page.link %}
+              </div>
+              {% for modifier in page.modifiers %}
+                <div class="styleguide-modifier-example">
+                  {% include 'documentation/' + data.table_of_contents[section].base + '/sample-code/_' + page.link %}
+                  <code class="modifier-name">.{{ modifier }}</code>
+                </div>
+              {% endfor %}
+            </div>
+{% markdown %}
+```
+{% set modifier = "modifier-class" %}{% include 'documentation/' + data.table_of_contents[section].base + '/sample-code/_' + page.link %}
+```
+{% endmarkdown %}
+          {% endif %}
+
+          {% if page.colors %}
+            <div class="block-group block-group-4-up">
+              {% for color in page.colors %}
+                <div class="card block trailer-1">
+                  <div class="color-sample {{ color }}"></div>
+                  <div class="card-content">{{ color }}</div>
+                </div>
+
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if page.variables %}
+            <div class="block-group block-group-5-up">
+              {% for variable in page.variables %}
+                <div class="block">
+                  <p class="type-sample trailer-0 leader-1 {{variable}}"></p>
+                  <code>${{ variable }}</code>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+        </section>
+        <hr>
+      {% endfor %}
+    {% endfor %}
+  </main>
+</div>
+{% endblock %}

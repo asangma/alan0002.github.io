@@ -6745,7 +6745,7 @@ html {
 .app-header {
   height: 64px;
   background-color: #fff;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #e0e0e0;
   overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -6757,11 +6757,11 @@ html {
   justify-content: flex-start; }
   .app-header a {
     color: #6e6e6e;
-    -webkit-transition: all 250ms ease-in-out 0ms;
-    -moz-transition: all 250ms ease-in-out 0ms;
-    -ms-transition: all 250ms ease-in-out 0ms;
-    -o-transition: all 250ms ease-in-out 0ms;
-    transition: all 250ms ease-in-out 0ms; }
+    -webkit-transition: all 125ms ease-in-out 0ms;
+    -moz-transition: all 125ms ease-in-out 0ms;
+    -ms-transition: all 125ms ease-in-out 0ms;
+    -o-transition: all 125ms ease-in-out 0ms;
+    transition: all 125ms ease-in-out 0ms; }
     .app-header a:hover {
       text-decoration: none; }
   .app-header ul {
@@ -6810,7 +6810,7 @@ html {
   height: 100%;
   margin-left: auto;
   padding-right: 1rem;
-  border-right: 1px solid #cccccc; }
+  border-right: 1px solid #e0e0e0; }
 
 .nav-right__item {
   height: 100%; }

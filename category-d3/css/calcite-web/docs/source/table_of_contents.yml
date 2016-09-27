@@ -1,0 +1,523 @@
+get-started:
+  title: 'Get Started'
+  base: 'get-started'
+  navigation:
+    - group: 'Get Started'
+      pages:
+        - title: 'Overview'
+          link: get-started
+        - title: 'Static Files'
+          link: static-files
+        - title: 'Ruby Gem'
+          link: ruby-gem
+        - title: 'NPM'
+          link: npm
+
+type:
+  title: 'Type'
+  base: type
+  navigation:
+    - group: 'Typefaces'
+      pages:
+        - title: 'Overview'
+          link: overview
+        - title: 'Avenir'
+          link: avenir
+          modifiers:
+            - avenir-light
+            - avenir-regular
+            - avenir-italic
+            - avenir-demi
+            - avenir-bold
+        - title: 'Code Face'
+          link: code-face
+          modifiers:
+            - code-face
+    - group: 'Composition Helpers'
+      pages:
+        - title: 'Overview'
+          link: composition-helpers
+        - title: 'Text modifiers'
+          link: text-modifiers
+          modifiers:
+            - text-light
+            - text-ellipsis
+            - text-rule
+            - text-inline
+            - text-center
+            - text-left
+            - text-right
+        - title: 'Sizes'
+          link: text-size
+          modifiers:
+            - font-size--3
+            - font-size--2
+            - font-size--1
+            - font-size-0
+            - font-size-1
+            - font-size-2
+            - font-size-3
+            - font-size-4
+            - font-size-5
+            - font-size-6
+            - font-size-7
+            - font-size-8
+        - title: 'Color'
+          link: text-color
+          modifiers:
+            - text-red
+            - text-green
+            - text-blue
+            - text-white
+            - text-light-gray
+            - text-dark-gray
+            - text-darker-gray
+            - text-darkest-gray
+            - text-off-black
+        - title: 'Link Color'
+          link: link-color
+          modifiers:
+            - link-red
+            - link-green
+            - link-blue
+            - link-light-blue
+            - link-white
+            - link-light-gray
+            - link-dark-gray
+            - link-darker-gray
+            - link-darkest-gray
+            - link-off-black
+        - title: 'Numbered List'
+          link: list-numbered
+          modifiers:
+            - list-numbered
+        - title: 'Plain List'
+          link: list-plain
+          modifiers:
+            - list-plain
+    - group: 'Defaults'
+      pages:
+        - title: 'Overview'
+          link: type-defaults
+grid:
+  title: 'Grid'
+  base: grid
+  navigation:
+    - group: 'Grid'
+      pages:
+        - title: 'Overview'
+          link: overview
+        - title: Configuration
+          link: configuration
+        - title: 'Container'
+          link: container
+        - title: 'Columns'
+          link: columns
+        - title: 'Responsive Columns'
+          link: responsive-columns
+        - title: 'Nested Columns'
+          link: nested-columns
+        - title: 'Rows'
+          link: rows
+        - title: 'Block Groups'
+          link: block-groups
+        - title: 'Responsive Block Groups'
+          link: responsive-block-groups
+    - group: 'Grid Helpers'
+      pages:
+        - title: 'Overview'
+          link: 'helpers-overview'
+        - title: 'Pre & Post'
+          link: pre-and-post
+        - title: 'Leader & Trailer'
+          link: leader-and-trailer
+          modifiers:
+            - leader-0
+            - leader-1
+            - leader-2
+            - leader-3
+            - leader-4
+            - leader-5
+            - leader-6
+            - trailer-0
+            - trailer-1
+            - trailer-2
+            - trailer-3
+            - trailer-4
+            - trailer-5
+            - trailer-6
+            - padding-leader-0
+            - padding-leader-1
+            - padding-leader-2
+            - padding-leader-3
+            - padding-leader-4
+            - padding-leader-5
+            - padding-leader-6
+            - padding-trailer-0
+            - padding-trailer-1
+            - padding-trailer-2
+            - padding-trailer-3
+            - padding-trailer-4
+            - padding-trailer-5
+            - padding-trailer-6
+        - title: 'Gutter'
+          link: gutter
+          modifiers:
+            - rtl-padding-left-0
+            - rtl-padding-right-0
+            - padding-left-quarter
+            - padding-right-quarter
+            - padding-left-third
+            - padding-right-third
+            - padding-left-half
+            - padding-right-half
+            - padding-left-1
+            - padding-left-2
+            - padding-left-3
+            - padding-left-4
+            - padding-right-1
+            - padding-right-2
+            - padding-right-3
+            - padding-right-4
+            - rtl-margin-left-0
+            - rtl-margin-right-0
+            - margin-left-quarter
+            - margin-right-quarter
+            - margin-left-third
+            - margin-right-third
+            - margin-left-half
+            - margin-right-half
+            - margin-left-1
+            - margin-left-2
+            - margin-left-3
+            - margin-left-4
+            - margin-right-1
+            - margin-right-2
+            - margin-right-3
+            - margin-right-4
+        - title: 'First & Last'
+          link: first-and-last
+        - title: 'Show & Hide'
+          link: show-and-hide
+        - title: 'Left & Right'
+          link: left-and-right
+        - title: 'Inline Block'
+          link: inline-block
+    - group: 'Interactive Layout Helpers'
+      pages:
+        - title: 'Overview'
+          link: interactive-layout-helpers
+        - title: 'Scroll Show & Hide'
+          link: scroll-show-and-hide
+        - title: 'Scroll Sticky'
+          link: scroll-sticky
+
+icons:
+  title: 'Icons'
+  base: icons
+  navigation:
+    - group: 'Icon Sets'
+      pages:
+        - title: 'Overview'
+          link: overview
+        - title: 'Social Icons'
+          link: social-icons
+        - title: 'Icon Font'
+          link: icon-font
+        - title: 'Icon Font Colors'
+          link: icon-font-colors
+
+color:
+  title: 'Color'
+  base: color
+  navigation:
+    - group: 'Palette'
+      pages:
+        - title: 'Overview'
+          link: overview
+        - title: 'Grayscale'
+          link: grayscale
+          colors:
+            - white
+            - off-white
+            - lightest-gray
+            - lighter-gray
+            - light-gray
+            - gray
+            - dark-gray
+            - darker-gray
+            - darkest-gray
+            - off-black
+            - transparent-black
+            - black
+        - title: 'UI Colors'
+          link: ui-colors
+          colors:
+            - lightest-blue
+            - lighter-blue
+            - light-blue
+            - blue
+            - dark-blue
+            - light-green
+            - green
+            - dark-green
+            - light-red
+            - red
+            - dark-red
+            - light-orange
+            - orange
+            - dark-orange
+            - light-yellow
+            - yellow
+            - dark-yellow
+            - light-purple
+            - purple
+            - dark-purple
+            - light-brown
+            - brown
+            - dark-brown
+        - title: 'Type Colors'
+          link: type-colors
+
+components:
+  title: 'Components'
+  base: components
+  navigation:
+    - group: 'Components'
+      pages:
+        - title: 'Overview'
+          link: overview
+        - title: 'Buttons'
+          link: buttons
+          modifiers:
+            - btn-transparent
+            - btn-clear
+            - btn-clear-white
+            - btn-small
+            - btn-large
+            - btn-fill
+            - btn-half
+            - btn-disabled
+            - btn-white
+            - btn-red
+            - btn-green
+        - title: 'Button Groups'
+          link: button-groups
+          modifiers: true
+        - title: 'Labels'
+          link: label
+          modifiers:
+            - label-blue
+            - label-green
+            - label-yellow
+            - label-red
+        - title: 'Dropdowns'
+          link: dropdowns
+          modifiers:
+            - dropdown-right
+        - title: 'Loader'
+          link: loader
+          modifiers: true
+        - title: 'Alerts'
+          link: alerts
+          modifiers:
+            - alert-red
+            - alert-yellow
+            - alert-green
+        - title: 'Panels'
+          link: panels
+          modifiers:
+            - panel-no-border
+            - panel-no-padding
+            - panel-dark
+            - panel-black
+            - panel-white
+            - panel-light-blue
+            - panel-blue
+            - panel-dark-blue
+        - title: 'Cards'
+          link: card
+          modifiers: true
+        - title: 'Wide Cards'
+          link: card-wide
+          modifiers: true
+        - title: 'Breadcrumbs'
+          link: breadcrumbs
+          modifiers:
+            - breadcrumbs-white
+        - title: 'Tooltips'
+          link: tooltips
+          modifiers:
+            - tooltip-left
+            - tooltip-right
+            - tooltip-top
+        - title: 'Tables'
+          link: tables
+          modifiers:
+            - table-blue
+            - table-striped
+            - table-plain
+            - table-striped table-blue
+            - table-pricing
+        - title: 'Skip to Content'
+          link: skip
+          modifiers: true
+        - title: 'Responsive Images'
+          link: images
+          modifiers: true
+    - group: 'Forms'
+      pages:
+        - title: 'Overview'
+          link: form-overview
+          modifiers: true
+        - title: 'Text Inputs'
+          link: text-inputs
+          modifiers: true
+        - title: 'Input Groups'
+          link: input-groups
+          modifiers: true
+        - title: 'Selects'
+          link: selects
+          modifiers: true
+        - title: 'Checkboxes'
+          link: checkboxes
+          modifiers: true
+        - title: 'Radio Buttons'
+          link: radio-buttons
+          modifiers: true
+    - group: 'Animation'
+      pages:
+        - title: 'Overview'
+          link: animation
+          modifiers:
+            - animate-fade-in
+            - animate-fade-out
+            - animate-in-down
+            - animate-in-up
+            - animate-out-down
+            - animate-out-up
+    - group: 'Branding'
+      pages:
+        - title: 'Esri Logo'
+          link: esri-logo
+          modifiers:
+            - 'esri-logo-reverse'
+            - 'esri-logo-condensed'
+patterns:
+  title: 'Patterns'
+  base: patterns
+  navigation:
+    - group: 'Patterns'
+      pages:
+        - title: 'Overview'
+          link: overview
+        - title: 'Top Nav'
+          link: top-nav
+          modifiers: true
+        - title: 'User Sign In'
+          link: user-sign-in
+          modifiers: true
+        - title: 'User Nav'
+          link: user-nav
+          modifiers: true
+        - title: 'Sub Nav'
+          link: sub-nav
+          modifiers: true
+        - title: 'Responsive Sub Nav'
+          link: responsive-sub-nav
+          modifiers: true
+        - title: 'Hero'
+          link: hero
+          modifiers: true
+        - title: 'Third Nav'
+          link: third-nav
+          modifiers: true
+        - title: 'Side Nav'
+          link: side-nav
+          modifiers: true
+        - title: 'Footer'
+          link: footer
+        - title: 'Pagination'
+          link: pagination
+          modifiers: true
+    - group: 'Interactive Patterns'
+      pages:
+        - title: 'Overview'
+          link: 'interactive-overview'
+        - title: 'Modals'
+          link: modals
+          modifiers: true
+        - title: 'Tabs'
+          link: tabs
+          modifiers:
+            - 'tabs-gray'
+            - 'tabs-transparent'
+            - 'tabs-translucent'
+            - 'tabs-dark'
+        - title: 'Accordions'
+          link: accordions
+          modifiers: true
+        - title: 'Drawers'
+          link: drawers
+          modifiers: false
+        - title: 'Filter Dropdown'
+          link: 'filter-dropdown'
+          modifiers: true
+sass:
+  title: 'Sass'
+  base: sass
+  navigation:
+    - group: 'Sass'
+      pages:
+        - title: 'Overview'
+          link: overview
+    - group: 'Custom Build'
+      pages:
+        - title: 'Overview'
+          link: includes
+        - title: 'Example'
+          link: example
+    - group: 'Variables'
+      pages:
+        - title: 'Overview'
+          link: variables
+        - title: 'Breakpoints'
+          link: breakpoints
+        - title: 'UI Variables'
+          link: 'ui-variables'
+
+    - group: 'Type Composition'
+      pages:
+        - title: 'Overview'
+          link: type-composition
+        - title: 'Font Size'
+          link: font-size
+        - title: 'Modular Scale'
+          link: modular-scale
+        - title: 'Tracking'
+          link: tracking
+        - title: 'Leading'
+          link: leading
+        - title: 'Word Spacing'
+          link: word-spacing
+    - group: 'Utilities'
+      pages:
+        - title: Utility Mixins
+          link: utility-mixins
+
+javascript:
+  title: 'JavaScript'
+  base: javascript
+  navigation:
+    - group: 'Interactive Patterns'
+      pages:
+        - title: 'Overview'
+          link: overview
+        - title: 'Event Bus'
+          link: event-bus
+    - group: 'Utility Functions'
+      pages:
+        - title: 'Overview'
+          link: utility-functions
+        - title: 'DOM Utilities'
+          link: dom-utilities

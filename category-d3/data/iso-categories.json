@@ -1,0 +1,244 @@
+{
+	"name": "All",
+	"children": [
+	{
+		"name": "Farming",
+		"children": [
+			{"name": "Agriculture", "size":10},
+			{"name": "Irrigation", "size":10},
+			{"name": "Aquaculture", "size":10},
+			{"name": "Crops", "size":10},
+			{"name": "Livestock", "size":10},
+			{"name": "Pests and Diseases"}
+		]
+	},
+
+	{"name": "Fiota",
+		"children": [
+			{"name": "Wildlife", "size":10},
+			{"name": "Vegetation", "size":10},
+			{"name": "Biological Sciences", "size":10},
+			{"name": "Ecology",
+				"children": [
+					{"name": "Wilderness", "size":10},
+					{"name": "Sea Life", "size":10},
+					{"name": "Wetlands", "size":10},
+					{"name": "Habitat", "size":10},
+					{"name": "Biological Resources"}
+				]
+			}
+		]
+	},
+
+	{"name": "Boundaries",
+		"children": [
+			{"name": "Political Boundaries",
+				"children": [
+					{"name": "Voting Districts", "size":10},
+					{"name": "School Districts"}
+				]
+			},
+			{"name": "Administrative Boundaries", "size":10},
+			{"name": "Governmental Units", "size":10},
+			{"name": "Marine Boundaries", "size":10},
+			{"name": "International Boundaries"}
+		]
+	},
+
+	{"name": "Climatology, Meteorology, and Atmosphere",
+		"children": [
+			{"name": "Cloud Cover", "size":10},
+			{"name": "Weather", "size":10},
+			{"name": "Climate", "size":10},
+			{"name": "Atmospheric Conditions", "size":10},
+			{"name": "Climate Change", "size":10},
+			{"name": "Precipitation"}
+		]
+	},
+
+	{"name": "Economy",
+		"children": [
+			{"name": "Production", "size":10},
+			{"name": "Labor", "size":10},
+			{"name": "Revenue", "size":10},
+			{"name": "Business", "size":10},
+			{"name": "Commerce", "size":10},
+			{"name": "Industry", "size":10},
+			{"name": "Tourism and Ecotourism", "size":10},
+			{"name": "Forestry", "size":10},
+			{"name": "Fisheries", "size":10},
+			{"name": "Commerical Hunting", "size":10},
+			{"name": "Natual Resources",
+				"children":[
+					{"name": "Minerals",
+						"children": [
+							{"name": "Aluminum", "size":10},
+							{"name": "Copper", "size":10},
+							{"name": "Fluorite", "size":10},
+							{"name": "Indium", "size":10},
+							{"name": "Iron Ore", "size":10},
+							{"name": "Lead"}
+						]
+					},
+					{"name": "Oil", "size":10},
+					{"name": "Natual Gas"}
+				]
+			}
+		]
+	},
+
+	{"name": "Elevation",
+		"children": [
+			{"name": "Altitude", "size":10},
+			{"name": "Bathymetry", "size":10},
+			{"name": "Slope"}
+		]
+	},
+
+	{"name": "Environment",
+		"children": [
+			{"name": "Environmental Pollution", "size":10},
+			{"name": "Waste Storage and Treatment", "size":10},
+			{"name": "Environmental Impact Assessment", "size":10},
+			{"name": "Natual Reserves", "size":10},
+			{"name": "Landscape", "size":10},
+			{"name": "Water Quality", "size":10},
+			{"name": "Air Quality"}
+		]
+	},
+
+	{"name": "Geoscientific Information",
+		"children": [
+			{"name": "Geophysical Features and Processes", "size":10},
+			{"name": "Geology", "size":10},
+			{"name": "Minerals", "size":10},
+			{"name": "Earthquakes", "size":10},
+			{"name": "Volcanic Activity", "size":10},
+			{"name": "Landslides", "size":10},
+			{"name": "Soils", "size":10},
+			{"name": "Permafrost", "size":10},
+			{"name": "Hydrogeology",
+				"children":[
+					{"name": "Groundwater", "size":10},
+					{"name": "Erosion"}
+				]
+			}
+		]
+	},
+
+	{"name": "Health",
+		"children": [
+			{"name": "Disease and Illness", "size":10},
+			{"name": "Hygiene", "size":10},
+			{"name": "Substance Abuse", "size":10},
+			{"name": "Mental Health", "size":10},
+			{"name": "Physical Health", "size":10},
+			{"name": "Health Services", "size":10},
+			{"name": "Health Care Providers", "size":10},
+			{"name": "Public Health"}
+		]
+	},
+
+	{"name": "Imagery, Base Maps, and Earth Cover",
+		"children": [
+			{"name": "Land Cover", "size":10},
+			{"name": "Topographic Maps", "size":10},
+			{"name": "Imagery"}
+		]
+	},
+
+	{"name": "Intelligence and Military",
+		"children": [
+			{"name": "Barracks", "size":10},
+			{"name": "Training Grounds", "size":10},
+			{"name": "Military Transportation", "size":10},
+			{"name": "Information Collection"}
+		]
+	},
+
+	{"name": "Inland Waters",
+		"children": [
+			{"name": "Rivers", "size":10},
+			{"name": "Glaciers", "size":10},
+			{"name": "Salt Lakes", "size":10},
+			{"name": "Dams", "size":10},
+			{"name": "Floods", "size":10},
+			{"name": "Water Quality", "size":10},
+			{"name": "Watersheds"}
+		]
+	},
+
+	{"name": "Location",
+		"children": [
+			{"name": "Addresses", "size":10},
+			{"name": "Geodetic Networks", "size":10},
+			{"name": "Postal Zones", "size":10},
+			{"name": "Geographic Names"}
+		]
+	},
+
+	{"name": "Oceans",
+		"children": [
+			{"name": "Tides", "size":10},
+			{"name": "Reefs", "size":10},
+			{"name": "Shoreline"}
+		]
+	},
+
+	{"name": "Planning and Cadaster",
+		"children": [
+			{"name": "Land Use", "size":10},
+			{"name": "Zoning", "size":10},
+			{"name": "Cadastral Surveys", "size":10},
+			{"name": "Land Ownership", "size":10},
+			{"name": "Parcels"}
+		]
+	},
+
+	{"name": "Society",
+		"children": [
+			{"name": "Housing", "size":10},
+			{"name": "Education", "size":10},
+			{"name": "Demographics", "size":10},
+			{"name": "Parks", "size":10},
+			{"name": "Trails", "size":10},
+			{"name": "Crimes", "size":10},
+			{"name": "Ethnicity"}
+		]
+	},
+
+	{"name": "Structure",
+		"children": [
+			{"name": "Buildings", "size":10},
+			{"name": "Museums", "size":10},
+			{"name": "Churches", "size":10},
+			{"name": "Shops", "size":10},
+			{"name": "factories"}
+		]
+	},
+
+	{"name": "Transportation",
+		"children": [
+			{"name": "Roads", "size":10},
+			{"name": "Airports and Airstrips", "size":10},
+			{"name": "Shipping Routes", "size":10},
+			{"name": "Tunnels", "size":10},
+			{"name": "Railways"}
+		]
+	},
+
+	{"name": "Utilities and Communication",
+		"children": [
+			{"name": "Hydroelectricity", "size":10},
+			{"name": "Geothermal", "size":10},
+			{"name": "Solar Energy", "size":10},
+			{"name": "Nuclear Energy", "size":10},
+			{"name": "Water Distribution", "size":10},
+			{"name": "Sewage Collection and Disposal", "size":10},
+			{"name": "Electricity Distribution", "size":10},
+			{"name": "Telecommunication", "size":10},
+			{"name": "Radio Stations"}
+		]
+	}
+
+]}

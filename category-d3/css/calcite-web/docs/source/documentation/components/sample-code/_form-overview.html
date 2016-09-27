@@ -1,0 +1,80 @@
+<form action="" method="post">
+
+  <label>
+    Name<span class="text-red">*</span>
+    <input type="text" id="name" required aria-required="true"/>
+    <span class="form-hint">
+      <span class="form-hint-text">Just type some letters</span>
+      <span class="form-hint-icon"></span>
+    </span>
+  </label>
+
+  <label>
+    E-mail<span class="text-red">*</span>
+    <input type="email" required aria-required="true"/>
+    <span class="form-hint">
+      <span class="form-hint-text">name@domain.tld</span>
+      <span class="form-hint-icon"></span>
+    </span>
+  </label>
+
+  <label>
+    Address
+    <input type="text"/>
+  </label>
+
+  <label>
+    Card Type
+    <select>
+      <option value="">VISA</option>
+      <option value="">Mastercard</option>
+    </select>
+  </label>
+
+  <label>
+    Credit Card Number
+    <input type=text pattern="[0-9]{13,16}">
+  </label>
+
+  <fieldset class="fieldset-checkbox">
+    <legend>Email Preferences</legend>
+    <label>
+      <input type="checkbox"> Weekly Newsletter
+    </label>
+    <label>
+      <input type="checkbox"> Weekly Newsletter
+    </label>
+    <label>
+      <input type="checkbox"> Weekly Newsletter
+    </label>
+  </fieldset>
+
+  <label>Gender
+    <select name="tags" multiple>
+      <option value="basemap">Male</option>
+      <option value="esri_basemap">Female</option>
+      <option value="vector">Other</option>
+      <option value="hey">Your gender binaries cant hold me down</option>
+    </select>
+  </label>
+
+  <label>
+    Message
+    <textarea></textarea>
+  </label>
+
+  <fieldset class="fieldset-radio">
+    <legend>Subscribe to Newsletter</legend>
+    <label>
+      <input type="radio" name="subscribe" value="yeah">Please
+    </label>
+    <label>
+      <input type="radio" name="subscribe" value="nope" checked>No Way
+    </label>
+  </fieldset>
+
+  <input type="submit" class="btn btn-clear">
+
+  <button type="submit">Submit</button>
+
+</form>

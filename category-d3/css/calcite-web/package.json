@@ -1,0 +1,122 @@
+{
+  "name": "calcite-web",
+  "version": "1.0.0-beta.31",
+  "description": "SASS & CSS Framework for Esri websites",
+  "private": true,
+  "homepage": "https://github.com/esri/calcite-web",
+  "scripts": {
+    "test": "semistandard | snazzy",
+    "precssStat": "npm run sass:dist",
+    "cssStat": "cssstats dist/css/calcite-web.css dist/css/stats.json",
+    "deploy": "gh-pages -d docs/build -o upstream",
+    "a11y": "a11y local.arcgis.com:8888",
+    "gh-release": "gh-release",
+    "releaseScript": "./bin/release.sh",
+    "preacetate": "npm run cssStat",
+    "acetate": "acetate build -i docs/source -o docs/build -c docs/acetate.conf.js",
+    "prerollup": "mkdirp dist/js && mkdirp docs/build/assets/js/libs",
+    "rollup": "node bin/rollup.js",
+    "postrollup": "ncp dist/js docs/build/assets/js/libs",
+    "imagemin:lib": "imagemin-newer lib/img/ docs/build/assets/img/",
+    "imagemin:docs": "imagemin-newer docs/source/assets/img/ docs/build/assets/img/",
+    "imagemin:dist": "imagemin-newer lib/img/ dist/img/",
+    "imagemin": "npm-run-series imagemin:docs imagemin:lib imagemin:dist",
+    "sass:dist": "node-sass lib/sass/ -o dist/css/",
+    "postsass:dist": "ncp lib/sass dist/sass",
+    "sass:docs": "node-sass docs/source/assets/css/ -o docs/build/assets/css/ --include-path lib/sass",
+    "presass": "mkdirp docs/source/assets/css",
+    "sass": "npm-run-series sass:dist sass:docs",
+    "prefont": "ncp lib/fonts docs/build/assets/fonts",
+    "font": "ncp lib/fonts dist/fonts",
+    "js": "ncp docs/source/assets/js/ docs/build/assets/js/",
+    "prestart": "npm-run-series acetate sass rollup imagemin font js",
+    "pres3": "node bin/minify.js",
+    "s3": "node bin/s3.js",
+    "dist": "npm-run-series sass:dist rollup imagemin:dist font pres3",
+    "release": "npm-run-series sass:dist prestart s3 releaseScript deploy",
+    "start": "parallelshell 'rerun-script' 'live-server docs/build --port=8888 --no-browser' 'watchify docs/source/assets/js/all.js -o docs/build/assets/js/all.js'"
+  },
+  "watches": {
+    "js": "docs/source/assets/js/**/*",
+    "rollup": "lib/js/**/*.js",
+    "imagemin": [
+      "lib/img/**/*",
+      "docs/source/assets/img/**/*"
+    ],
+    "sass": [
+      "lib/sass/**/*",
+      "docs/source/assets/css/**/*"
+    ],
+    "acetate": "docs/source/**"
+  },
+  "semistandard": {
+    "ignore": [
+      "bin/",
+      "docs/"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "es2015-rollup"
+    ]
+  },
+  "main": "dist/js/calcite-web.js",
+  "js-next:main": "dist/js/source/calcite-web.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/esri/calcite-web.git"
+  },
+  "author": {
+    "name": "Esri Portland R&D Center",
+    "email": "<portland@esri.com>",
+    "url": "http://pdx.esri.com/"
+  },
+  "contributors": [
+    {
+      "name": "Paul C. Pederson",
+      "email": "ppederson@esri.com"
+    },
+    {
+      "name": "Nikolas Wise",
+      "email": "nwise@esri.com"
+    }
+  ],
+  "files": [
+    "dist/"
+  ],
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/esri/calcite-web/issues"
+  },
+  "devDependencies": {
+    "a11y": "^0.3.0",
+    "acetate": "^0.2.2",
+    "acetate-cli": "0.0.3",
+    "babel-preset-es2015-rollup": "^1.2.0",
+    "cssstats-cli": "^1.0.0-beta.2",
+    "gh-pages": "^0.11.0",
+    "gh-release": "^2.0.1",
+    "glob": "^7.0.5",
+    "imagemin-newer": "^1.0.2",
+    "live-server": "^1.0.0",
+    "minifier": "^0.8.0",
+    "mkdirp": "^0.5.1",
+    "ncp": "^2.0.0",
+    "node-sass": "^3.8.0",
+    "npm-run-series": "^1.0.0",
+    "parallelshell": "^2.0.0",
+    "request": "^2.73.0",
+    "rerun-script": "^0.6.0",
+    "rollup": "^0.34.1",
+    "rollup-plugin-babel": "^2.6.1",
+    "s3": "^4.4.0",
+    "semistandard": "*",
+    "snazzy": "^3.0.0",
+    "watchify": "^3.7.0"
+  },
+  "dependencies": {
+    "clipboard": "^1.5.12",
+    "guid": "0.0.12",
+    "tiny-emitter": "^1.0.2"
+  }
+}

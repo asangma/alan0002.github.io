@@ -3,7 +3,7 @@
 @import 'mixins';
 
 $Calcite_Gray_050: #fff;
-$border_color: $Calcite_Gray_350;
+$border_color: $Calcite_Gray_300;
 
 $size: 64px;
 
@@ -62,7 +62,7 @@ html {
       text-decoration: none;
     }
     // transition($prop, $time, $ease, $delay:0ms)
-    @include transition(all, 250ms, ease-in-out)
+    @include transition(all, 125ms, ease-in-out)
   }
   ul {
     margin: 0;
