@@ -37,7 +37,7 @@ var apps = [
     // },
     {
         name: "Open Data",
-        letters: "ODa"
+        letters: "Open"
     }, {
         name: "Operations Dashboard",
         image: "images/product-icons/Operations_Dashboard_48.png",
@@ -90,7 +90,7 @@ jQuery(document).ready(function() { // You wish you could use jQuery
         jQuery('body').toggleClass('app-switcher--visible');
         console.log(jQuery(this));
         if (jQuery('body').hasClass('app-switcher--visible')) {
-            jQuery('.app-switcher').css('left', (jQuery(this).position().left - jQuery('.app-switcher').width() + 65));
+            jQuery('.app-switcher').css('left', (jQuery(this).position().left - jQuery('.app-switcher').width() + 75));
         }
         var tabindex = jQuery('body').hasClass('app-switcher--visible') ? '0' : '-1';
         jQuery('.app-module').attr('tabindex', tabindex);
