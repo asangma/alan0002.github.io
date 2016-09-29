@@ -6796,7 +6796,6 @@ html {
 .app-header__app-icon {
   width: 64px;
   height: 64px;
-  margin-right: 1rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;

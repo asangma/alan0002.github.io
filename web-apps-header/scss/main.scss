@@ -94,7 +94,7 @@ html {
 @mixin appIcon() {
   width: $size;
   height: $size;
-  margin-right: 1rem;
+  // margin-right: 1rem;
   @include flexDisplay();
   @include alignItems(center);
   @include justifyContent(center);
