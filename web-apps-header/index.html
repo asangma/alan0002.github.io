@@ -1,68 +1,85 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Web Apps - Header Design Prototype</title>
-  <link rel="stylesheet" type="text/css" href="node_modules/calcite-web/dist/css/calcite-web.min.css">
-  <link rel="stylesheet" type="text/css" href="css/main.css">
-  <style>
+    <title>Web Apps - Header Design Prototype</title>
+    <link rel="stylesheet" type="text/css" href="node_modules/calcite-web/dist/css/calcite-web.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <style>
     /*.app-header__app-icon .app-switcher-path {
       fill: #FBB400;
     }*/
+    
     .app-header {
+      /*border: none;*/
       border-top: 3px solid #FBB400;
     }
-  </style>
-
-  <script src="js/jquery-3.1.0.min.js" type="text/javascript"></script>
-  <script src="js/app.js" type="text/javascript"></script>
-  <script type="text/javascript">
-  </script>
+    </style>
+    <script src="js/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script src="js/app.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    </script>
 </head>
-<body>
-  <div class="app-wrapper">
-    <!-- HEADER -->
-    <div class="app-header font-size--1">
-      <a class="app-header__app-brand">
-        <div class="app-header__app-icon"><img class="app-header__app-icon-image" src="images/app-logos/operations-dashboard-opt.svg" alt=""></div>
-      </a>
-      <span class="app-header__app-name" >Operations Dashboard</span>
-      <div class="app-header__nav-left">
-        <ul class="breadcrumbs">
-          <li class="breadcrumb"><a href="">Building Inspections</a></li>
-          <li class="breadcrumb breadcrumb--current">Inspection 2015-07-11</li>
-        </ul>
-      </div>
-      <div class="app-header__nav-right">
-        <ul class="nav-right__nav">
-          <li class="nav-right__item">
-            <a class="nav-right__link" href="">Resources</a>
-          </li>
-          <li class="nav-right__item">
-            <a href="" class="nav-right__link">
+
+<body class="">
+    <div class="app-wrapper">
+        <!-- HEADER -->
+        <div class="app-header font-size--1">
+            <a class="app-header__app-brand">
+                <div class="app-header__app-icon"><img class="app-header__app-icon-image" src="images/app-logos/operations-dashboard-opt.svg" alt=""></div>
+            </a>
+            <span class="app-header__app-name">Operations Dashboard</span>
+            <div class="app-header__nav-left">
+                <ul class="breadcrumbs app-header__menu">
+                    <li class="breadcrumb"><a href="">Building Inspections</a></li>
+                    <li class="breadcrumb breadcrumb--current">Inspection 2015-07-11</li>
+                </ul>
+            </div>
+            <div class="app-header__nav-right">
+                <ul class="nav-right__nav app-header__menu">
+                    <li class="nav-right__item">
+                        <a class="nav-right__link" href="">Resources</a>
+                    </li>
+                    <li class="nav-right__item">
+                        <a href="" class="nav-right__link">
               Another Thing
             </a>
-          </li>
-        </ul>
-      </div>
-      <a class="app-switcher">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path class="app-switcher-path" d="M0 0h4v4H0zM10 0h4v4h-4zM20 0h4v4h-4zM0 10h4v4H0zM10 10h4v4h-4zM20 10h4v4h-4zM0 20h4v4H0zM10 20h4v4h-4zM20 20h4v4h-4z"/></svg>
-      </a>
-      <a href="" class="app-header__user-profile">
-        <img class="user-profile__button" src="images/profile/350832-mr-bean-square.jpg" alt="Mr. Bean Profile Image">
-        <div class="user-profile__id">
-          <span class="user-profile__name font-size--2">Rowan</span>
-          <span class="user-profile__username font-size--3">ratkinson@gmail.com</span>
+                    </li>
+                </ul>
+            </div>
+            <a class="app-switcher-trigger">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path class="app-switcher-path" d="M0 0h4v4H0zM10 0h4v4h-4zM20 0h4v4h-4zM0 10h4v4H0zM10 10h4v4h-4zM20 10h4v4h-4zM0 20h4v4H0zM10 20h4v4h-4zM20 20h4v4h-4z" />
+                </svg>
+            </a>
+            <a href="" class="app-header__user-profile">
+                <img class="user-profile__button" src="images/profile/350832-mr-bean-square.jpg" alt="Mr. Bean Profile Image">
+                <div class="user-profile__id">
+                    <span class="user-profile__name font-size--2">Rowan</span>
+                    <span class="user-profile__username font-size--3">ratkinson@gmail.com</span>
+                </div>
+            </a>
         </div>
-      </a>
+        <!-- / HEADER -->
+        <!-- ITEMS -->
+        <section class="app-items">
+            <button class="app-item">
+                <span class="show-item">Show In-Item Header</span>
+                <span class="show-launch">Show Launch Screen Header</span>
+            </button>
+        </section>
+
+                <div class="app-switcher esri-widget hidden">
+                    <div class="app-switcher__content">
+                        <ul class="apps-container" role="menu">
+                            <!-- App Modules here -->
+                        </ul>
+                    </div>
+                    <div class="app-switcher__pointer"></div>
+                </div>
     </div>
-    <!-- / HEADER -->
-    <!-- ITEMS -->
-    <section class="app-items">
-      <button class="app-item">
-        <span class="show-item">Show In-Item Header</span>
-        <span class="show-launch">Show Launch Screen Header</span>
-      </button>
-    </section>
-  </div>
+    <!-- <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script> -->
+    <script src="js/app-switcher.js" type="text/javascript"></script>
 </body>
+
 </html>

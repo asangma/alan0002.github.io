@@ -56,6 +56,11 @@ html {
   @include flexDisplay();
   @include alignItems(center);
   @include justifyContent(flex-start);
+  -webkit-transition: border-color 250ms ease-in-out; 
+  -moz-transition: border-color 250ms ease-in-out; 
+  -ms-transition: border-color 250ms ease-in-out; 
+  -o-transition: border-color 250ms ease-in-out; 
+  transition: border-color 250ms ease-in-out; 
   a {
     color: $Calcite_Gray_550;
     &:hover {
@@ -64,7 +69,7 @@ html {
     // transition($prop, $time, $ease, $delay:0ms)
     @include transition(all, 125ms, ease-in-out)
   }
-  ul {
+  .app-header__menu {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -128,7 +133,8 @@ html {
 }
 
 
-@mixin appSwitcher() {
+@mixin appSwitcherTrigger() {
+  position: relative;
   height: 100%;
   padding-right: 1.5rem;
   padding-left: 1.5rem;
@@ -271,14 +277,228 @@ html {
   @include breadcrumbs();
 }
 
-.app-switcher {
-  @include appSwitcher();
+.app-switcher-trigger {
+  @include appSwitcherTrigger();
 }
 
 
 .app-items {
   @include appItems();
 }
+
+.app-switcher--visible .app-switcher-trigger {
+    @include topNavHover();
+    .app-switcher-path {
+      fill: $Calcite_Highlight_Blue_350;
+    }
+}
+
+
+
+// App Switcher Styles
+
+
+  
+  .app-switcher {
+    position: absolute;
+    top: 75px;
+    // right: 10px;
+    z-index: 10;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    background-color: #fff;
+    opacity: 0;
+    -webkit-animation: hide-app-switcher 250ms ease-in-out;
+    -moz-animation: hide-app-switcher 250ms ease-in-out;
+    -o-animation: hide-app-switcher 250ms ease-in-out;
+    animation: hide-app-switcher 250ms ease-in-out;
+  }
+
+
+  .app-switcher--visible .app-switcher,
+  .app-switcher--visible .app-switcher__pointer {
+    opacity: 1;
+    -webkit-animation: show-app-switcher 250ms ease-in-out;
+    -moz-animation: show-app-switcher 250ms ease-in-out;
+    -o-animation: show-app-switcher 250ms ease-in-out;
+    animation: show-app-switcher 250ms ease-in-out;
+  }
+  .app-switcher--visible .cover {
+    display: block;
+  }
+  .app-switcher__content {
+    padding: 15px;
+    background: #fff;
+    position: relative;
+    z-index: 5;
+  }
+
+  .app-switcher__pointer {
+    top: -7px;
+    right: 20px;
+    background-color: #fff;
+    content: " ";
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    pointer-events: none;
+    -webkit-transform: scale(0.9, 1) rotate(45deg);
+    -moz-transform: scale(0.9, 1) rotate(45deg);
+    -ms-transform: scale(0.9, 1) rotate(45deg);
+    -o-transform: scale(0.9, 1) rotate(45deg);
+    transform: scale(0.9, 1) rotate(45deg);
+    
+    -webkit-transition: opacity 125ms ease-in-out;
+    -moz-transition: opacity 125ms ease-in-out;
+    -ms-transition: opacity 125ms ease-in-out;
+    -o-transition: opacity 125ms ease-in-out;
+    transition: opacity 125ms ease-in-out;
+    
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    z-index: 0;
+    opacity: 0;
+  }
+  
+  .apps-container {
+    padding: 0;
+    margin: 0;
+    width: 505px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+    
+  }
+  .app-icon-svg svg {
+    width: 48px;
+    height: 48px;
+  }
+// @media screen and (max-width: 640px) {
+//   .apps-container {
+//     max-width: 305px;
+//   }
+// }
+
+  .app-module {
+    width: 70px;
+    margin: 12px 15px;
+    display: block;
+    float: left;
+    color: #6e6e6e;
+    font-size: 12px;
+    -webkit-transition: all 125ms ease-in-out;
+    -moz-transition: all 125ms ease-in-out;
+    -ms-transition: all 125ms ease-in-out;
+    -o-transition: all 125ms ease-in-out;
+    transition: all 125ms ease-in-out;
+  }
+  
+  .app-module:hover {
+    cursor: pointer;
+    color: #0079c1; /*  Calcite Highlight Blue 350  */
+  }
+
+  /*/////////////////////*/
+  /*    HOVER STYLE      */
+  .app-icon-container {
+    -webkit-transition: all 200ms ease-in-out;
+       -moz-transition: all 200ms ease-in-out;
+        -ms-transition: all 200ms ease-in-out;
+         -o-transition: all 200ms ease-in-out;
+            transition: all 200ms ease-in-out;
+  }
+  .app-module:hover .app-icon-container,
+  .app-module:focus .app-icon-container {
+    -webkit-transform: translate(0, -4px);
+       -moz-transform: translate(0, -4px);
+        -ms-transform: translate(0, -4px);
+         -o-transform: translate(0, -4px);
+            transform: translate(0, -4px);
+  }
+  /*    HOVER STYLE      */
+  /*//////////////////////*/
+  /*.app-module:first-child {
+    margin-left: 0;
+  }
+  
+  .app-module:last-child {
+    margin-right: 0;
+  }*/
+  
+  .app-icon-container {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  .app-icon img {
+    width: 100%;
+    height: 100%;
+  }
+  .app-icon-svg {
+    width: 48px;
+    height: 48px;
+    position: relative;
+  }
+  
+  .app-letters {
+    position: absolute;
+    width: 100%;
+    color: #fff;
+    z-index: 1;
+    text-align: center;
+    top: 26%;
+    font-size: 14px;
+    font-weight: 600;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 1);
+  }
+  
+  .app-title {
+    display: block;
+    width: 100%;
+    text-align: center;
+    line-height: 1.2rem;
+  }
+  
+  .hexagon {
+    -webkit-transition: all 250ms ease-in-out;
+    -moz-transition: all 250ms ease-in-out;
+    -ms-transition: all 250ms ease-in-out;
+    -o-transition: all 250ms ease-in-out;
+    transition: all 250ms ease-in-out;
+  }
+  
+  .see-all {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-flex-flow: column;
+    -ms-flex-flow: column;
+    flex-flow: column;
+  }
+  
+  .see-all__icon {
+    font-size: 24px;
+    padding: 10px 0 0;
+    flex-basis: 46px;
+  }
+  
+  .see-all__text {
+    margin-top: auto;
+    /*font-size: 12px;*/
+  }
 
 
 // Animations
@@ -310,5 +530,29 @@ html {
   }
   100% {
     @include translate(0, 0px);
+  }
+}
+
+@include keyframes(show-app-switcher) {
+  0% {
+    opacity: 0;
+  }
+  /* 50% {
+    opacity: 0;
+  } */
+  100% {
+    opacity: 1;
+  }
+}
+
+@include keyframes(hide-app-switcher) {
+  0% {
+    opacity: 1;
+  }
+  /* 50% {
+    opacity: 1;
+  } */
+  100% {
+    opacity: 0;
   }
 }
