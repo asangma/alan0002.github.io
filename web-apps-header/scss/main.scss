@@ -3,12 +3,14 @@
 @import "mixins";
 @import "animations";
 
-// Just for prototype
-@import "prototypeChucks";
+
+$global_width: 100%;
 
 $Calcite_Gray_050: #fff;
 $border_color: $Calcite_Gray_300;
-$app_header_width: 100%;
+$background_color: $Calcite_Gray_050;
+$app_header_width: $global_width;
+$secondary_header_width: $global_width;
 
 $size: 64px;
 
@@ -16,3 +18,7 @@ $size: 64px;
 $generate_css: true !default;
 
 @import "GlobalNav";
+
+
+// Just for prototype
+@import "prototypeChucks";

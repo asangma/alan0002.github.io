@@ -1,7 +1,7 @@
 
 /////////////////////////
 // APP HEADER
-@mixin appHeader() {
+@mixin appHeaderGrid() {
   height: $size;
   width: $app_header_width;
   background-color: $Calcite_Gray_050;
@@ -185,13 +185,14 @@
 .app-header {
   width: 100%;
   background-color: #fff;
+  border-bottom: 1px solid $border_color;
   @include flexDisplay();
   @include justifyContent(center);
 }
 
 
 .app-header-grid {
-  @include appHeader();
+  @include appHeaderGrid();
 }
 
 .app-header__app-brand {
