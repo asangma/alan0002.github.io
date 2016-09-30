@@ -18,12 +18,17 @@ button {
 }
 
 hr {
-  margin: 1rem 0;
+  margin: 0 0;
 }
 
 .action-panel [class^="esri-icon-"],
 .action-panel [class*=" esri-icon-"] {
   padding-right: .5rem;
+}
+
+[class^="icon-ui-"]:before,
+[class*=" icon-ui-"]:before {
+  padding-right: 0;
 }
 
 .btn-clear {
@@ -64,7 +69,8 @@ hr {
   -webkit-justify-content: space-between;
   justify-content: space-between;
   padding: 0 15px;
-  border-bottom: 2px solid #0079c2;
+  border-top: 3px solid #0079c2;
+  border-bottom-color: #e0e0e0;
 }
 .top-nav-title:hover,
 .top-nav-link:hover {
@@ -201,6 +207,11 @@ hr {
   border-left: solid 2px #333;
   cursor: pointer;
 }
+
+/*.navigation-bar__menu li.menu-item--primary {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}*/
 
 .navigation-bar__menu-icon {
   font-size: 14px;

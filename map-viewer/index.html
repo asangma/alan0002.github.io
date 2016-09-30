@@ -2,130 +2,130 @@
 <html>
 
 <head>
-  <title>Map Viewer for ArcGIS</title>
-  <link rel="stylesheet" href="node_modules/calcite-web/dist/css/calcite-web.min.css">
-  <link rel="stylesheet" type="text/css" href="css/map-viewer-stylez.css">
-  <link rel="stylesheet" href="https://jsdev.arcgis.com/4.0/esri/css/main.css">
-  <script src="node_modules/calcite-web/dist/js/calcite-web.min.js"></script>
-  <script src="js/MapViewer.js"></script>
-  <script src="https://jsdev.arcgis.com/4.1"></script>
-  <script type="text/javascript">
-  var basemapToggle, view, map, mapViewer;
+    <title>Map Viewer for ArcGIS</title>
+    <link rel="stylesheet" href="node_modules/calcite-web/dist/css/calcite-web.min.css">
+    <link rel="stylesheet" type="text/css" href="css/map-viewer-stylez.css">
+    <link rel="stylesheet" href="https://jsdev.arcgis.com/4.0/esri/css/main.css">
+    <script src="node_modules/calcite-web/dist/js/calcite-web.min.js"></script>
+    <script src="js/MapViewer.js"></script>
+    <script src="https://jsdev.arcgis.com/4.1"></script>
+    <script type="text/javascript">
+    var basemapToggle, view, map, mapViewer;
 
-  require([
-    "dojo",
-    "esri/Map",
-    "esri/views/MapView",
-    "esri/widgets/BasemapToggle",
-    "esri/widgets/Search",
-    "dojo/on",
-    "dojo/domReady!"
-  ], function(
-    dojo,
-    Map,
-    MapView,
-    BasemapToggle,
-    Search,
+    require([
+        "dojo",
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/widgets/BasemapToggle",
+        "esri/widgets/Search",
+        "dojo/on",
+        "dojo/domReady!"
+    ], function(
+        dojo,
+        Map,
+        MapView,
+        BasemapToggle,
+        Search,
 
-    on
-  ) {
+        on
+    ) {
 
-    // setup the map
-    map = new Map({
-      basemap: "topo",
+        // setup the map
+        map = new Map({
+            basemap: "topo",
+        });
+
+        view = new MapView({
+            container: "viewDiv",
+            map: map,
+            center: [-117.049, 34.485],
+            zoom: 12
+        });
+
+        basemapToggle = new BasemapToggle({
+            // titleVisible: true,
+            view: view,
+            nextBasemap: "dark-gray"
+        }, "BasemapToggle");
+        basemapToggle.startup();
+
+        var search = new Search({
+            view: view
+        }, 'search-widget');
+
+        view.ui.add(basemapToggle, 'bottom-left');
+        // view.ui.add(search, 'top-right');
+
+        mapViewer.init(
+            on
+        );
+
     });
-
-    view = new MapView({
-      container: "viewDiv",
-      map: map,
-      center: [-117.049, 34.485],
-      zoom: 12
-    });
-
-    basemapToggle = new BasemapToggle({
-      // titleVisible: true,
-      view: view,
-      nextBasemap: "dark-gray"
-    }, "BasemapToggle");
-    basemapToggle.startup();
-
-    var search = new Search({
-      view: view
-    }, 'search-widget');
-
-    view.ui.add(basemapToggle, 'bottom-left');
-    // view.ui.add(search, 'top-right');
-
-    mapViewer.init(
-      on
-    );
-
-  });
-  </script>
+    </script>
 </head>
 
 <body>
-  <header class="top-nav">
-    <!-- <div class="grid-container"> -->
-    <!-- <div class="column-24"> -->
-    <!-- <div class="tablet-hide"> -->
-    <div class="branding-module"><img class="app-icon" src="images/app_bg.svg" alt=""> <a href="#" class="top-nav-title">MapViewer for ArcGIS</a></div>
-    <!-- <div class="dropdown js-dropdown"> -->
-    <a href="" class="top-nav-link user-nav-link">
-      <img src="images/alan-hat-120.jpg" alt="User Avatar" class="user-nav-image"> Alan
-    </a>
-  </header>
-  <div class="app-container">
-    <div class="navigation-bar navigation-bar--is-collapsed">
-      <div class="navigation-bar__toggle" data-toggle-target="navigation-bar">
-        <span class="esri-icon-expand collapse-icon"></span>
-        <span class="esri-icon-collapse expand-icon"></span>
-      </div>
-      <ul class="navigation-bar__menu">
-<li class="navigation-bar__menu-item"><a><span class="navigation-bar__menu-icon esri-icon-plus"></span> <span class="navigation-bar__menu-title">Add Layer</span></a></li>
-<hr>
-<li class="navigation-bar__menu-item current"><a><span class="navigation-bar__menu-icon esri-icon-layers"></span> <span class="navigation-bar__menu-title">Layers</span></a></li>
-<li class="navigation-bar__menu-item"><a><span class="navigation-bar__menu-icon esri-icon-blank-map-pin"></span> <span class="navigation-bar__menu-title">Legend</span></a></li>
-<li class="navigation-bar__menu-item"><a><span class="navigation-bar__menu-icon esri-icon-maps"></span> <span class="navigation-bar__menu-title">Analyze</span></a></li>
-<li class="navigation-bar__menu-item"><a><span class="navigation-bar__menu-icon esri-icon-share"></span> <span class="navigation-bar__menu-title">Share</span></a></li>
-<hr>
-<li class="navigation-bar__menu-item"><a><span class="navigation-bar__menu-icon esri-icon-overview-arrow-top-right"></span> <span class="navigation-bar__menu-title">Open</span></a></li>
-<li class="navigation-bar__menu-item"><a><span class="navigation-bar__menu-icon esri-icon-plus-circled"></span> <span class="navigation-bar__menu-title">New Map</span></a></li>
-      </ul>
-    </div>
-    <div class="action-panel">
-      <div class="action-panel__header">
-        <button class="btn-clear"><span class="esri-icon-layers"></span> Run Analysis</button>
-        <button class="btn-clear"><span class="esri-icon-plus"></span> Add Layer</button>
-        <!-- 
+    <header class="top-nav">
+        <!-- <div class="grid-container"> -->
+        <!-- <div class="column-24"> -->
+        <!-- <div class="tablet-hide"> -->
+        <div class="branding-module"><img class="app-icon" src="images/app_bg.svg" alt=""> <a href="#" class="top-nav-title">ArcGIS Map Editor</a></div>
+        <!-- <div class="dropdown js-dropdown"> -->
+        <a href="" class="top-nav-link user-nav-link">
+            <img src="images/alan-hat-120.jpg" alt="User Avatar" class="user-nav-image"> Alan
+        </a>
+    </header>
+    <div class="app-container">
+        <div class="navigation-bar navigation-bar--is-collapsed">
+            <div class="navigation-bar__toggle" data-toggle-target="navigation-bar">
+                <span class="esri-icon-expand collapse-icon"></span>
+                <span class="esri-icon-collapse expand-icon"></span>
+            </div>
+            <ul class="navigation-bar__menu">
+                <li class="navigation-bar__menu-item menu-item--primary"><a><span class="navigation-bar__menu-icon esri-icon-plus"></span> <span class="navigation-bar__menu-title">Add Layer</span></a></li>
+                <hr>
+                <li class="navigation-bar__menu-item current"><a><span class="navigation-bar__menu-icon esri-icon-layers"></span> <span class="navigation-bar__menu-title">Layers</span></a></li>
+                <li class="navigation-bar__menu-item"><a><span class="navigation-bar__menu-icon esri-icon-blank-map-pin"></span> <span class="navigation-bar__menu-title">Legend</span></a></li>
+                <li class="navigation-bar__menu-item"><a><span class="navigation-bar__menu-icon esri-icon-maps"></span> <span class="navigation-bar__menu-title">Analyze</span></a></li>
+                <li class="navigation-bar__menu-item"><a><span class="navigation-bar__menu-icon esri-icon-share"></span> <span class="navigation-bar__menu-title">Share</span></a></li>
+                <hr>
+                <li class="navigation-bar__menu-item"><a><span class="navigation-bar__menu-icon esri-icon-overview-arrow-top-right"></span> <span class="navigation-bar__menu-title">Open</span></a></li>
+                <li class="navigation-bar__menu-item"><a><span class="navigation-bar__menu-icon esri-icon-plus-circled"></span> <span class="navigation-bar__menu-title">New Map</span></a></li>
+                <li class="navigation-bar__menu-item"><a><span class="navigation-bar__menu-icon icon-ui-save"></span> <span class="navigation-bar__menu-title">Save</span></a></li>
+            </ul>
+        </div>
+        <div class="action-panel">
+            <div class="action-panel__header">
+                <button class="btn-clear"><span class="esri-icon-layers"></span> Run Analysis</button>
+                <button class="btn-clear"><span class="esri-icon-plus"></span> Add Layer</button>
+                <!-- 
         <button class="btn-clear">Another Action</button> -->
-      </div>
-      <div class="action-panel__content ">
-        <h5>Content Layers</h5>
-        <div class="layer-list">
-          <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Hurricane Points</span></div>
-          <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Hurricane Lines</span></div>
-          <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">rrc-23 updated noncomm 2219655321 AL 29</span></div>
-          <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Popuplation density 2014-01-23</span></div>
+            </div>
+            <div class="action-panel__content ">
+                <h5>Content Layers</h5>
+                <div class="layer-list">
+                    <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Hurricane Points</span></div>
+                    <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Hurricane Lines</span></div>
+                    <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">rrc-23 updated noncomm 2219655321 AL 29</span></div>
+                    <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Popuplation density 2014-01-23</span></div>
+                </div>
+                <!-- <button class="btn "><span class="esri-icon-plus"></span> Add</button> -->
+                <hr>
+                <h5>Basemap Layers</h5>
+                <div class="layer-list">
+                    <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Travel routes condensed 221</span></div>
+                    <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">State Boundaries Polygons</span></div>
+                    <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Waterways Census 2012</span></div>
+                    <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Topo</span></div>
+                </div>
+                <!-- <button class="btn-clear"><span class="esri-icon-plus"></span> Add</button> -->
+            </div>
         </div>
-        <!-- <button class="btn "><span class="esri-icon-plus"></span> Add</button> -->
-        <hr>
-        <h5>Basemap Layers</h5>
-        <div class="layer-list">
-          <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Travel routes condensed 221</span></div>
-          <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">State Boundaries Polygons</span></div>
-          <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Waterways Census 2012</span></div>
-          <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Topo</span></div>
+        <div class="map-panel">
+            <div id="viewDiv"></div>
         </div>
-        <!-- <button class="btn-clear"><span class="esri-icon-plus"></span> Add</button> -->
-      </div>
+        <div id="search-widget"></div>
     </div>
-    <div class="map-panel">
-      <div id="viewDiv"></div>
-    </div>
-
-    <div id="search-widget"></div>
-  </div>
 </body>
 
 </html>
