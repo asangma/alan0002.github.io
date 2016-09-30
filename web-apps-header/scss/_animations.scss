@@ -1,0 +1,58 @@
+
+
+
+// Animations
+@include keyframes(hide-app-name) {
+  0% {
+    @include translate(0, 0);
+    width: auto;
+  }
+  50% {
+    @include translate(0, 0);
+    width: auto;
+  }
+  90% {
+    @include translate(0, -100px);
+    width: auto;
+  }
+  100% {
+    @include translate(0, -100px);
+    width: 0;
+  }
+}
+
+@include keyframes(show-item-nav) {
+  0% {
+    @include translate(0, 100px);
+  }
+  50% {
+    @include translate(0, 100px);
+  }
+  100% {
+    @include translate(0, 0px);
+  }
+}
+
+@include keyframes(show-app-switcher) {
+  0% {
+    opacity: 0;
+  }
+  /* 50% {
+    opacity: 0;
+  } */
+  100% {
+    opacity: 1;
+  }
+}
+
+@include keyframes(hide-app-switcher) {
+  0% {
+    opacity: 1;
+  }
+  /* 50% {
+    opacity: 1;
+  } */
+  100% {
+    opacity: 0;
+  }
+}

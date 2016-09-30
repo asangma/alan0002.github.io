@@ -11,8 +11,8 @@
     }*/
     
     .app-header {
-      /*border: none;*/
-      border-top: 3px solid #FBB400;
+        /*border: none;*/
+        border-top: 3px solid #FBB400;
     }
     </style>
     <script src="js/jquery-3.1.0.min.js" type="text/javascript"></script>
@@ -23,62 +23,100 @@
 
 <body class="">
     <div class="app-wrapper">
-        <!-- HEADER -->
-        <div class="app-header font-size--1">
-            <a class="app-header__app-brand">
-                <div class="app-header__app-icon"><img class="app-header__app-icon-image" src="images/app-logos/operations-dashboard-opt.svg" alt=""></div>
-            </a>
-            <span class="app-header__app-name">Operations Dashboard</span>
-            <div class="app-header__nav-left">
-                <ul class="breadcrumbs app-header__menu">
-                    <li class="breadcrumb"><a href="">Building Inspections</a></li>
-                    <li class="breadcrumb breadcrumb--current">Inspection 2015-07-11</li>
-                </ul>
-            </div>
-            <div class="app-header__nav-right">
-                <ul class="nav-right__nav app-header__menu">
-                    <li class="nav-right__item">
-                        <a class="nav-right__link" href="">Resources</a>
-                    </li>
-                    <li class="nav-right__item">
-                        <a href="" class="nav-right__link">
-              Another Thing
-            </a>
-                    </li>
-                </ul>
-            </div>
-            <a class="app-switcher-trigger">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path class="app-switcher-path" d="M0 0h4v4H0zM10 0h4v4h-4zM20 0h4v4h-4zM0 10h4v4H0zM10 10h4v4h-4zM20 10h4v4h-4zM0 20h4v4H0zM10 20h4v4h-4zM20 20h4v4h-4z" />
-                </svg>
-            </a>
-            <a href="" class="app-header__user-profile">
-                <img class="user-profile__button" src="images/profile/350832-mr-bean-square.jpg" alt="Mr. Bean Profile Image">
-                <div class="user-profile__id">
-                    <span class="user-profile__name font-size--2">Rowan</span>
-                    <span class="user-profile__username font-size--3">ratkinson@gmail.com</span>
+        <div class="app-header ">
+            <div class="app-header-grid font-size--1">
+                <a class="app-header__app-brand">
+                    <div class="app-header__app-icon in-item-toggle"><img class="app-header__app-icon-image" src="images/app-logos/operations-dashboard-opt.svg" alt=""></div>
+                </a>
+                <span class="app-header__app-name">Operations Dashboard</span>
+                <div class="app-header__nav-left">
+                    <ul class="breadcrumbs app-header__menu">
+                        <li class="breadcrumb"><a href="">Building Inspections</a></li>
+                        <li class="breadcrumb breadcrumb--current">Inspection 2015-07-11</li>
+                    </ul>
                 </div>
-            </a>
-        </div>
-        <!-- / HEADER -->
-        <!-- ITEMS -->
-        <section class="app-items">
-            <button class="app-item">
-                <span class="show-item">Show In-Item Header</span>
-                <span class="show-launch">Show Launch Screen Header</span>
-            </button>
-        </section>
-
-                <div class="app-switcher esri-widget hidden">
-                    <div class="app-switcher__content">
-                        <ul class="apps-container" role="menu">
-                            <!-- App Modules here -->
-                        </ul>
+                <div class="app-header__nav-right">
+                    <ul class="nav-right__nav app-header__menu">
+                        <li class="nav-right__item">
+                            <a class="nav-right__link" href="">Resources</a>
+                        </li>
+                        <li class="nav-right__item">
+                            <a href="" class="nav-right__link">Another Thing</a>
+                        </li>
+                    </ul>
+                </div>
+                <a class="app-switcher-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path class="app-switcher-path" d="M0 0h4v4H0zM10 0h4v4h-4zM20 0h4v4h-4zM0 10h4v4H0zM10 10h4v4h-4zM20 10h4v4h-4zM0 20h4v4H0zM10 20h4v4h-4zM20 20h4v4h-4z" />
+                    </svg>
+                </a>
+                <a href="" class="app-header__user-profile">
+                    <img class="user-profile__button" src="images/profile/350832-mr-bean-square.jpg" alt="Mr. Bean Profile Image">
+                    <div class="user-profile__id">
+                        <span class="user-profile__name font-size--2">Rowan</span>
+                        <span class="user-profile__username font-size--3">ratkinson@gmail.com</span>
                     </div>
-                    <!-- <div class="app-switcher__pointer"></div> -->
+                </a>
+            </div>
+        </div>
+        <div class="secondary-nav">
+            <div class="button-wrap">
+                <button class="btn btn-clear">Create</button>
+                <button class="btn btn-transparent">Destroy</button>
+                <button class="btn btn-transparent">Combine</button>
+            </div>
+        </div>
+        <section class="app-items">
+            <div class="grid-container">
+                <div class="column-18 pre-3">
+                    <div class="block-group block-group-3-up">
+                        <div class="card block in-item-toggle">
+                            <figure class="card-image-wrap">
+                                <img class="card-image" src="https://placeimg.com/300/200/arch" alt="Bridge Club, 1954">
+                                <div class="card-image-caption">
+                                    Florida, January 1954
+                                </div>
+                            </figure>
+                            <div class="card-content">
+                                <h4><a href="#">Not the Card Design</a></h4>
+                                <p class="font-size--1 card-last">Cards can have full-bleed images with optional captions.</p>
+                            </div>
+                        </div>
+                        <div class="card block in-item-toggle">
+                            <figure class="card-image-wrap">
+                                <img class="card-image" src="http://www.fillmurray.com/g/300/200" alt="Bridge Club, 1954">
+                                <div class="card-image-caption">
+                                    Florida, January 1954
+                                </div>
+                            </figure>
+                            <div class="card-content">
+                                <h4><a href="#">Not the Card Design</a></h4>
+                                <p class="font-size--1 card-last">Cards can have full-bleed images with optional captions.</p>
+                            </div>
+                        </div>
+                        <div class="card block in-item-toggle">
+                            <figure class="card-image-wrap">
+                                <img class="card-image" src="https://placekitten.com/300/200" alt="Bridge Club, 1954">
+                                <div class="card-image-caption">
+                                    Florida, January 1954
+                                </div>
+                            </figure>
+                            <div class="card-content">
+                                <h4><a href="#">Not the Card Design</a></h4>
+                                <p class="font-size--1 card-last">Cards can have full-bleed images with optional captions.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </section>
+        <div class="app-switcher esri-widget hidden">
+            <div class="app-switcher__content">
+                <ul class="apps-container" role="menu">
+                </ul>
+            </div>
+        </div>
     </div>
-    <!-- <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script> -->
     <script src="js/app-switcher.js" type="text/javascript"></script>
 </body>
 
