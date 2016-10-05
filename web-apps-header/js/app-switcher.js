@@ -12,7 +12,8 @@ var apps = [
         name: "Insights",
         image: "images/product-icons/Insights48.png",
         appIcon: "images/app-logos/insights-opt.svg",
-        color: "#FF9F33"
+        // color: "#FF9F33"
+        class: "app-color-insights"
     }, /*{
         name: "GeoPlanner",
         letters: "GeoP"
@@ -26,12 +27,15 @@ var apps = [
         name: "Workforce",
         image: "images/product-icons/workforce_android_48.png",
         appIcon: "images/app-logos/workforce-opt.svg",
-        color: "#E04F1D"
+        // color: "#E04F1D"
+        class: "app-color-workforce"
     }, {
         name: "Survey123",
         image: "images/product-icons/Survey123_Windows_48.png",
         appIcon: "images/app-logos/survey123-opt.svg",
-        color: "#50AD4E"
+        // color: "#50AD4E"
+        class: "app-color-survey"
+
     },
     // {
     //   name: "AppStudio",
@@ -44,7 +48,8 @@ var apps = [
         name: "Operations Dashboard",
         image: "images/product-icons/Operations_Dashboard_48.png",
         appIcon: "images/app-logos/operations-dashboard-opt.svg",
-        color: "#FBB400"
+        // color: "#FBB400",
+        class: "app-color-ops"
     }/*, {
         name: "Story Maps",
         letters: "SM"
@@ -69,7 +74,7 @@ jQuery(document).ready(function() { // You wish you could use jQuery
     ]
     jQuery.each(apps, function(index, app) {
         var color = colors[i];
-        var node_str = '<li class="app-module" id="app-no-' + index + '" role="menuitem" tabindex="0" data-app-name="' + app.name + '" data-app-icon="' + app.appIcon + '" data-color="' + app.color + '">'; // open li
+        var node_str = '<li class="app-module" id="app-no-' + index + '" role="menuitem" tabindex="0" data-app-name="' + app.name + '" data-app-icon="' + app.appIcon + '" data-app-class="' + app.class + '">'; // open li
         node_str += '<div class="app-icon-container ' + color + '">'; // open app-icon-container
         if (app.image) {
             node_str += '<div class="app-icon"><img src="' + app.image + '" alt=""/></div>'; // app-icon
@@ -100,12 +105,20 @@ jQuery(document).ready(function() { // You wish you could use jQuery
     jQuery('.app-module').on('click', function(event){
       jQuery('body').toggleClass('app-switcher--visible');
       var icon = jQuery(this).attr('data-app-icon');
-      var color = jQuery(this).attr('data-color');
+      var color = jQuery(this).attr('data-app-class');
       var app = jQuery(this).attr('data-app-name');
-      if(icon !== "undefined") {
+      // if(icon !== "undefined") {
         jQuery('.app-header__app-icon-image').attr('src', icon);
-        jQuery('.app-header').css('border-top-color', color);
-      }
+        var appHeader = jQuery('.app-header');
+        var classes = jQuery(appHeader).attr('class').split(' ');
+        jQuery.each(classes, function(i, class_name){
+            console.log(class_name);
+            jQuery(appHeader).removeClass(class_name);
+            jQuery(appHeader).addClass('app-header');
+            jQuery(appHeader).addClass(color);
+        });
+        // jQuery('.app-header').css('background-color', color);
+      // }
       jQuery('.app-header__app-name').html(app);
     });
 });

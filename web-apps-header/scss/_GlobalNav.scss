@@ -2,13 +2,13 @@
 /////////////////////////
 // APP HEADER
 @mixin appHeaderGrid() {
-  height: $size;
+  height: $size - $border_size;
   width: $app_header_width;
   background-color: $Calcite_Gray_050;
   border-bottom: 1px solid $border_color;
   overflow: hidden;
   @include flexDisplay();
-  @include alignItems(center);
+  @include alignItems(stretch);
   @include justifyContent(flex-start);
   // -webkit-transition: border-color 250ms ease-in-out; 
   // -moz-transition: border-color 250ms ease-in-out; 
@@ -23,18 +23,21 @@
     // transition($prop, $time, $ease, $delay:0ms)
     @include transition(all, 125ms, ease-in-out);
   }
-  .app-header__menu {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    @include flexDisplay();
-    @include alignItems(center);
-    li {
-      list-style: none;
-      margin: 0;
-      padding: 0 0.25rem;
-    }
+  li:hover a {
+      color: $Calcite_Highlight_Blue_350;
   }
+  // .app-header__menu {
+  //   margin: 0;
+  //   padding: 0;
+  //   height: 100%;
+  //   @include flexDisplay();
+  //   @include alignItems(center);
+  //   li {
+  //     list-style: none;
+  //     margin: 0;
+  //     padding: 0 0.5rem;
+  //   }
+  // }
 }
 
 @mixin appBrand() {
@@ -48,50 +51,52 @@
 @mixin appName() {
   color: $Calcite_Gray_650;
   overflow: hidden;
+  @include alignSelf(center);
 }
 
 @mixin appIcon() {
   width: $size;
   height: $size;
-  // margin-right: 1rem;
+  // margin-right: 0.5rem;
+  // border-right: 1px solid $border_color;
   @include flexDisplay();
   @include alignItems(center);
   @include justifyContent(center);
 }
 
-@mixin navLeft() {
-  // margin-left: 1rem;
-}
+// @mixin navLeft() {
+// }
 
-@mixin navRight() {
-  height: 100%;
-  margin-left: auto;
-  padding-right: 1rem;
-  border-right: 1px solid $border_color;
-}
+// @mixin navRight() {
+//   height: 100%;
+//   margin-left: auto;
+//   padding-right: 1rem;
+//   border-right: 1px solid $border_color;
+// }
 
-@mixin navRightItem() {
-  height: 100%;
-}
+// @mixin navRightItem() {
+//   height: 100%;
+// }
 
-@mixin navRightLink() {
-  height: 100%;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  @include flexDisplay();
-  @include alignItems(center);
-  @include justifyContent(center);
-  &:hover {
-    @include topNavHover();
-  }
-}
+// @mixin navRightLink() {
+//   height: 100%;
+//   margin-left: 0.5rem;
+//   margin-right: 0.5rem;
+//   @include flexDisplay();
+//   @include alignItems(center);
+//   @include justifyContent(center);
+//   &:hover {
+//     @include topNavHover();
+//   }
+// }
 
 
 @mixin appSwitcherTrigger() {
   position: relative;
-  height: 100%;
-  padding-right: 1.5rem;
-  padding-left: 1.5rem;
+  // height: 100%;
+  padding-right: 1.25rem;
+  padding-left: 1.25rem;
+  border-left: 1px solid $border_color;
   @include flexDisplay();
   @include alignItems(center);
   @include justifyContent(center);
@@ -104,7 +109,6 @@
   }
   &:hover {
     @include topNavHover();
-    cursor: pointer;
     .app-switcher-path {
       fill: $Calcite_Highlight_Blue_350;
     }
@@ -112,14 +116,13 @@
 }
 
 @mixin userProfile() {
-  height: 100%;
-  margin-right: 2rem;
+  // height: 100%;
+  margin-right: 1rem;
   margin-left: 0.5rem;
   @include flexDisplay();
   @include alignItems(center);
   @include justifyContent(center);
   &:hover {
-    cursor: pointer;
     @include topNavHover();
   }
 }
@@ -180,14 +183,83 @@
   height: 100%;
 }
 
+@mixin mediaQueries($max-width: 1024px, $hide_class: "esri-global-nav--hide-mobile", $show_class: "esri-global-nav--show-mobile", $show_def:block) {
+  @media screen and (max-width: $max-width) {
+    .#{$hide_class} {
+      display: none;
+    }
+    .#{$show_class} {
+      display: #{$show_def};
+    }
+    .app-header__app-icon {
+      border-right: none;
+      margin-right: 0;
+    }
+    // .app-header__nav-right {
+    //   border-left: none;
+    // }
+  }
+}
+
 //////////////////////////////////////////////////
 // CSS
 .app-header {
   width: 100%;
-  background-color: #fff;
-  border-bottom: 1px solid $border_color;
+  padding-top: $border_size;
+  // background-color: #fff;
+  // border-bottom: 1px solid $border_color;
+  -webkit-transition: background-color 500ms ease-in-out;
+  -moz-transition: background-color 500ms ease-in-out;
+  -ms-transition: background-color 500ms ease-in-out;
+  -o-transition: background-color 500ms ease-in-out;
+  transition: background-color 500ms ease-in-out;
+  @include gradientBackground(#FBB400);
   @include flexDisplay();
   @include justifyContent(center);
+  
+  &.app-color-ops {
+    @include gradientBackground(#FBB400);
+  }
+  &.app-color-insights {
+    @include gradientBackground(#FF9F33);
+  }
+  &.app-color-workforce {
+    @include gradientBackground(#E04F1D);
+  }
+  &.app-color-survey {
+    @include gradientBackground(#50AD4E);
+  }
+}
+
+.app-header__menu {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  @include flexDisplay();
+  @include alignItems(center);
+  li {
+    list-style: none;
+    margin: 0;
+    padding: 0 0.5rem;
+  }
+}
+
+
+.app-header__app-icon-image {
+  position: relative;
+  -webkit-transition: all 125ms ease-in-out; 
+  -moz-transition: all 125ms ease-in-out; 
+  -ms-transition: all 125ms ease-in-out; 
+  -o-transition: all 125ms ease-in-out; 
+  transition: all 125ms ease-in-out; 
+}
+
+.app-header__app-brand:hover .app-header__app-icon-image {
+  -webkit-transform: translate(0, -2px) scale(1); 
+  -moz-transform: translate(0, -2px) scale(1); 
+  -ms-transform: translate(0, -2px) scale(1); 
+  -o-transform: translate(0, -2px) scale(1); 
+  transform: translate(0, -2px) scale(1); 
 }
 
 
@@ -207,20 +279,51 @@
   @include appIcon();
 }
 
+// .app-header__nav-left {
+//   @include navLeft();
+// }
+
+// .app-header__nav-right {
+//   @include navRight();
+// }
+
+// .nav-right__item {
+//   @include navRightItem();
+// }
+
+// .nav-right__link {
+//   @include navRightLink();
+// }
+
 .app-header__nav-left {
-  @include navLeft();
+  @include flexDisplay();
+  @include alignItems(stretch);
+  @include justifyContent(space-between);
+  @include flex(1 0);
 }
+
+.nav-left__secondary-nav {
+  margin-right: 1rem;
+}
+
+.secondary-nav__item {
+  @include flexDisplay();
+  @include alignSelf(stretch);
+  @include alignItems(center);
+  &:hover {
+    @include topNavHover();
+  }
+}
+
+// .secondary-nav__link {
+//   @include alignItems(center);
+// }
 
 .app-header__nav-right {
-  @include navRight();
-}
-
-.nav-right__item {
-  @include navRightItem();
-}
-
-.nav-right__link {
-  @include navRightLink();
+  margin-left: auto;
+  // border-left: 1px solid $border_color;
+  @include flexDisplay();
+  @include alignItems(stretch);
 }
 
 .app-header__user-profile {
@@ -243,6 +346,16 @@
   @include appSwitcherTrigger();
 }
 
+.nav-right__search {
+  @include flexDisplay();
+  @include justifyContent(center);
+  @include alignItems(center);
+  padding: 0 0.5rem;
+  &:hover {
+    @include topNavHover();
+  }
+}
+
 
 .app-items {
   @include appItems();
@@ -254,3 +367,5 @@
       fill: $Calcite_Highlight_Blue_350;
     }
 }
+
+@include mediaQueries();
