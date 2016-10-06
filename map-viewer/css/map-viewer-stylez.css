@@ -26,10 +26,10 @@ hr {
   padding-right: .5rem;
 }
 
-[class^="icon-ui-"]:before,
+/*[class^="icon-ui-"]:before,
 [class*=" icon-ui-"]:before {
   padding-right: 0;
-}
+}*/
 
 .btn-clear {
   background: transparent;
