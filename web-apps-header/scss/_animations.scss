@@ -5,19 +5,19 @@
 @include keyframes(hide-app-name) {
   0% {
     @include translate(0, 0);
-    width: auto;
+    // display: block;
   }
-  50% {
-    @include translate(0, 0);
-    width: auto;
-  }
-  90% {
+  // 50% {
+  //   @include translate(0, 0);
+  //   // display: block;
+  // }
+  75% {
     @include translate(0, -100px);
-    width: auto;
+    // display: block;
   }
   100% {
     @include translate(0, -100px);
-    width: 0;
+    // display: none;
   }
 }
 
@@ -25,7 +25,7 @@
   0% {
     @include translate(0, 100px);
   }
-  50% {
+  25% {
     @include translate(0, 100px);
   }
   100% {

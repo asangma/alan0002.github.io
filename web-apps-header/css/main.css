@@ -1956,7 +1956,7 @@ html.vi input {
 
 @font-face {
   font-family: 'calcite-ui';
-  src: url("../fonts/calcite-ui.eot?#iefix") format("embedded-opentype"), url("../fonts/calcite-ui.woff") format("woff"), url("../fonts/calcite-ui.ttf") format("truetype");
+  src: url("../node_modules/calcite-web/dist/fonts/calcite-ui.eot?#iefix") format("embedded-opentype"), url("../node_modules/calcite-web/dist/fonts/calcite-ui.woff") format("woff"), url("../node_modules/calcite-web/dist/fonts/calcite-ui.ttf") format("truetype");
   font-weight: normal;
   font-style: normal; }
 
@@ -3594,29 +3594,19 @@ html.vi input {
     -moz-transform: translate(0, 0);
     -ms-transform: translate(0, 0);
     -o-transform: translate(0, 0);
-    transform: translate(0, 0);
-    width: auto; }
-  50% {
-    -webkit-transform: translate(0, 0);
-    -moz-transform: translate(0, 0);
-    -ms-transform: translate(0, 0);
-    -o-transform: translate(0, 0);
-    transform: translate(0, 0);
-    width: auto; }
-  90% {
+    transform: translate(0, 0); }
+  75% {
     -webkit-transform: translate(0, -100px);
     -moz-transform: translate(0, -100px);
     -ms-transform: translate(0, -100px);
     -o-transform: translate(0, -100px);
-    transform: translate(0, -100px);
-    width: auto; }
+    transform: translate(0, -100px); }
   100% {
     -webkit-transform: translate(0, -100px);
     -moz-transform: translate(0, -100px);
     -ms-transform: translate(0, -100px);
     -o-transform: translate(0, -100px);
-    transform: translate(0, -100px);
-    width: 0; } }
+    transform: translate(0, -100px); } }
 
 @-moz-keyframes hide-app-name {
   0% {
@@ -3624,29 +3614,19 @@ html.vi input {
     -moz-transform: translate(0, 0);
     -ms-transform: translate(0, 0);
     -o-transform: translate(0, 0);
-    transform: translate(0, 0);
-    width: auto; }
-  50% {
-    -webkit-transform: translate(0, 0);
-    -moz-transform: translate(0, 0);
-    -ms-transform: translate(0, 0);
-    -o-transform: translate(0, 0);
-    transform: translate(0, 0);
-    width: auto; }
-  90% {
+    transform: translate(0, 0); }
+  75% {
     -webkit-transform: translate(0, -100px);
     -moz-transform: translate(0, -100px);
     -ms-transform: translate(0, -100px);
     -o-transform: translate(0, -100px);
-    transform: translate(0, -100px);
-    width: auto; }
+    transform: translate(0, -100px); }
   100% {
     -webkit-transform: translate(0, -100px);
     -moz-transform: translate(0, -100px);
     -ms-transform: translate(0, -100px);
     -o-transform: translate(0, -100px);
-    transform: translate(0, -100px);
-    width: 0; } }
+    transform: translate(0, -100px); } }
 
 @-ms-keyframes hide-app-name {
   0% {
@@ -3654,29 +3634,19 @@ html.vi input {
     -moz-transform: translate(0, 0);
     -ms-transform: translate(0, 0);
     -o-transform: translate(0, 0);
-    transform: translate(0, 0);
-    width: auto; }
-  50% {
-    -webkit-transform: translate(0, 0);
-    -moz-transform: translate(0, 0);
-    -ms-transform: translate(0, 0);
-    -o-transform: translate(0, 0);
-    transform: translate(0, 0);
-    width: auto; }
-  90% {
+    transform: translate(0, 0); }
+  75% {
     -webkit-transform: translate(0, -100px);
     -moz-transform: translate(0, -100px);
     -ms-transform: translate(0, -100px);
     -o-transform: translate(0, -100px);
-    transform: translate(0, -100px);
-    width: auto; }
+    transform: translate(0, -100px); }
   100% {
     -webkit-transform: translate(0, -100px);
     -moz-transform: translate(0, -100px);
     -ms-transform: translate(0, -100px);
     -o-transform: translate(0, -100px);
-    transform: translate(0, -100px);
-    width: 0; } }
+    transform: translate(0, -100px); } }
 
 @keyframes hide-app-name {
   0% {
@@ -3684,29 +3654,19 @@ html.vi input {
     -moz-transform: translate(0, 0);
     -ms-transform: translate(0, 0);
     -o-transform: translate(0, 0);
-    transform: translate(0, 0);
-    width: auto; }
-  50% {
-    -webkit-transform: translate(0, 0);
-    -moz-transform: translate(0, 0);
-    -ms-transform: translate(0, 0);
-    -o-transform: translate(0, 0);
-    transform: translate(0, 0);
-    width: auto; }
-  90% {
+    transform: translate(0, 0); }
+  75% {
     -webkit-transform: translate(0, -100px);
     -moz-transform: translate(0, -100px);
     -ms-transform: translate(0, -100px);
     -o-transform: translate(0, -100px);
-    transform: translate(0, -100px);
-    width: auto; }
+    transform: translate(0, -100px); }
   100% {
     -webkit-transform: translate(0, -100px);
     -moz-transform: translate(0, -100px);
     -ms-transform: translate(0, -100px);
     -o-transform: translate(0, -100px);
-    transform: translate(0, -100px);
-    width: 0; } }
+    transform: translate(0, -100px); } }
 
 @-webkit-keyframes show-item-nav {
   0% {
@@ -3715,7 +3675,7 @@ html.vi input {
     -ms-transform: translate(0, 100px);
     -o-transform: translate(0, 100px);
     transform: translate(0, 100px); }
-  50% {
+  25% {
     -webkit-transform: translate(0, 100px);
     -moz-transform: translate(0, 100px);
     -ms-transform: translate(0, 100px);
@@ -3735,7 +3695,7 @@ html.vi input {
     -ms-transform: translate(0, 100px);
     -o-transform: translate(0, 100px);
     transform: translate(0, 100px); }
-  50% {
+  25% {
     -webkit-transform: translate(0, 100px);
     -moz-transform: translate(0, 100px);
     -ms-transform: translate(0, 100px);
@@ -3755,7 +3715,7 @@ html.vi input {
     -ms-transform: translate(0, 100px);
     -o-transform: translate(0, 100px);
     transform: translate(0, 100px); }
-  50% {
+  25% {
     -webkit-transform: translate(0, 100px);
     -moz-transform: translate(0, 100px);
     -ms-transform: translate(0, 100px);
@@ -3775,7 +3735,7 @@ html.vi input {
     -ms-transform: translate(0, 100px);
     -o-transform: translate(0, 100px);
     transform: translate(0, 100px); }
-  50% {
+  25% {
     -webkit-transform: translate(0, 100px);
     -moz-transform: translate(0, 100px);
     -ms-transform: translate(0, 100px);
@@ -3860,7 +3820,7 @@ html.vi input {
   100% {
     opacity: 0; } }
 
-.esri-global-nav {
+.esri-global-nav__wrapper {
   width: 100%;
   padding-top: 3px;
   -webkit-transition: background-color 500ms ease-in-out;
@@ -3881,7 +3841,7 @@ html.vi input {
   display: flex;
   -webkit-justify-content: center;
   justify-content: center; }
-  .esri-global-nav.app-color-ops {
+  .esri-global-nav__wrapper.app-color-ops {
     background: #fbb400;
     background: -moz-linear-gradient(left, #fbb400 0%, #ffd362 50%, #fbb400 60%);
     background: -webkit-gradient(left top, right top, color-stop(0%, #fbb400), color-stop(50%, #ffd362), color-stop(60%, #fbb400));
@@ -3889,7 +3849,7 @@ html.vi input {
     background: -o-linear-gradient(left, #fbb400 0%, #ffd362 50%, #fbb400 60%);
     background: -ms-linear-gradient(left, #fbb400 0%, #ffd362 50%, #fbb400 60%);
     background: linear-gradient(to right, #fbb400 0%, #ffd362 50%, #fbb400 60%); }
-  .esri-global-nav.app-color-insights {
+  .esri-global-nav__wrapper.app-color-insights {
     background: #ff9f33;
     background: -moz-linear-gradient(left, #ff9f33 0%, #ffcf99 50%, #ff9f33 60%);
     background: -webkit-gradient(left top, right top, color-stop(0%, #ff9f33), color-stop(50%, #ffcf99), color-stop(60%, #ff9f33));
@@ -3897,7 +3857,7 @@ html.vi input {
     background: -o-linear-gradient(left, #ff9f33 0%, #ffcf99 50%, #ff9f33 60%);
     background: -ms-linear-gradient(left, #ff9f33 0%, #ffcf99 50%, #ff9f33 60%);
     background: linear-gradient(to right, #ff9f33 0%, #ffcf99 50%, #ff9f33 60%); }
-  .esri-global-nav.app-color-workforce {
+  .esri-global-nav__wrapper.app-color-workforce {
     background: #e04f1d;
     background: -moz-linear-gradient(left, #e04f1d 0%, #ed9476 50%, #e04f1d 60%);
     background: -webkit-gradient(left top, right top, color-stop(0%, #e04f1d), color-stop(50%, #ed9476), color-stop(60%, #e04f1d));
@@ -3905,7 +3865,7 @@ html.vi input {
     background: -o-linear-gradient(left, #e04f1d 0%, #ed9476 50%, #e04f1d 60%);
     background: -ms-linear-gradient(left, #e04f1d 0%, #ed9476 50%, #e04f1d 60%);
     background: linear-gradient(to right, #e04f1d 0%, #ed9476 50%, #e04f1d 60%); }
-  .esri-global-nav.app-color-survey {
+  .esri-global-nav__wrapper.app-color-survey {
     background: #50ad4e;
     background: -moz-linear-gradient(left, #50ad4e 0%, #94ce93 50%, #50ad4e 60%);
     background: -webkit-gradient(left top, right top, color-stop(0%, #50ad4e), color-stop(50%, #94ce93), color-stop(60%, #50ad4e));
@@ -3944,7 +3904,7 @@ html.vi input {
   -o-transform: translate(0, -2px) scale(1);
   transform: translate(0, -2px) scale(1); }
 
-.esri-global-nav-grid {
+.esri-global-nav {
   height: 61px;
   width: 100%;
   background-color: #fff;
@@ -3958,16 +3918,16 @@ html.vi input {
   align-items: stretch;
   -webkit-justify-content: flex-start;
   justify-content: flex-start; }
-  .esri-global-nav-grid a {
+  .esri-global-nav a {
     color: #6e6e6e;
     -webkit-transition: all 125ms ease-in-out 0ms;
     -moz-transition: all 125ms ease-in-out 0ms;
     -ms-transition: all 125ms ease-in-out 0ms;
     -o-transition: all 125ms ease-in-out 0ms;
     transition: all 125ms ease-in-out 0ms; }
-    .esri-global-nav-grid a:hover {
+    .esri-global-nav a:hover {
       text-decoration: none; }
-  .esri-global-nav-grid li:hover a {
+  .esri-global-nav li:hover a {
     color: #0079c1; }
 
 .esri-global-nav__app-brand {
@@ -3981,6 +3941,8 @@ html.vi input {
     cursor: pointer; }
 
 .esri-global-nav__app-name {
+  position: absolute;
+  left: 0;
   color: #4c4c4c;
   overflow: hidden;
   -webkit-align-self: center;
@@ -3999,6 +3961,11 @@ html.vi input {
   justify-content: center; }
 
 .esri-global-nav__nav-left {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -4012,7 +3979,8 @@ html.vi input {
   flex: 1 0; }
 
 .nav-left__secondary-nav {
-  margin-right: 1rem; }
+  margin-right: 1rem;
+  margin-left: auto; }
 
 .secondary-nav__item {
   display: -webkit-box;
@@ -4126,7 +4094,7 @@ html.vi input {
     .app-switcher-trigger:hover .app-switcher-path {
       fill: #0079c1; }
 
-.nav-right__search {
+.nav-right__icon-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -4136,7 +4104,7 @@ html.vi input {
   -webkit-align-items: center;
   align-items: center;
   padding: 0 0.5rem; }
-  .nav-right__search:hover {
+  .nav-right__icon-item:hover {
     cursor: pointer;
     color: #0079c1;
     -webkit-background-image: linear-gradient(to bottom, transparent 95%, #0079c1 96%, #0079c1 100%);
@@ -4166,14 +4134,27 @@ html.vi input {
   .app-switcher--visible .app-switcher-trigger .app-switcher-path {
     fill: #0079c1; }
 
+@media screen and (min-width: 1025px) {
+  .esri-global-nav--hide-large {
+    display: none; } }
+
 @media screen and (max-width: 1024px) {
-  .esri-global-nav--hide-mobile {
+  .esri-global-nav--hide-medium {
     display: none; }
-  .esri-global-nav--show-mobile {
-    display: block; }
+  .esri-global-nav--show-medium {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex; }
   .esri-global-nav__app-icon {
     border-right: none;
     margin-right: 0; } }
+
+@media screen and (max-width: 540px) {
+  .esri-global-nav--hide-small {
+    display: none; }
+  .esri-global-nav--show-small {
+    display: flex; } }
 
 body,
 html {
@@ -4196,17 +4177,42 @@ html {
     width: 100%;
     margin: 0 auto; }
 
-.esri-global-nav__menu.nav-left__primary-nav {
+.esri-global-nav__menu.nav-left__primary-nav,
+.project-thing {
   display: none; }
+
+.project-thing {
+  text-align: center; }
+  .project-thing img {
+    width: 40%;
+    margin: 20px 30%; }
+
+.in-item .app-items {
+  display: none; }
+
+.in-item .project-thing {
+  display: block; }
 
 .in-item .nav-left__primary-nav {
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
-  display: flex; }
+  display: flex;
+  -webkit-animation: show-item-nav 500ms ease-out;
+  -moz-animation: show-item-nav 500ms ease-out;
+  -o-animation: show-item-nav 500ms ease-out;
+  animation: show-item-nav 500ms ease-out; }
 
 .in-item .esri-global-nav__app-name {
-  display: none; }
+  -webkit-transform: translate(0, -200px);
+  -moz-transform: translate(0, -200px);
+  -ms-transform: translate(0, -200px);
+  -o-transform: translate(0, -200px);
+  transform: translate(0, -200px);
+  -webkit-animation: hide-app-name 500ms ease-in;
+  -moz-animation: hide-app-name 500ms ease-in;
+  -o-animation: hide-app-name 500ms ease-in;
+  animation: hide-app-name 500ms ease-in; }
 
 .app-items {
   padding-top: 50px; }

@@ -1,7 +1,7 @@
 
 /////////////////////////
 // APP HEADER
-@mixin appHeaderGrid() {
+@mixin globalNav() {
   height: $size - $border_size;
   width: $app_header_width;
   background-color: $Calcite_Gray_050;
@@ -49,6 +49,8 @@
 }
 
 @mixin appName() {
+  position: absolute;
+  left: 0;
   color: $Calcite_Gray_650;
   overflow: hidden;
   @include alignSelf(center);
@@ -183,13 +185,22 @@
   height: 100%;
 }
 
-@mixin mediaQueries($max-width: 1024px, $hide_class: "esri-global-nav--hide-mobile", $show_class: "esri-global-nav--show-mobile", $show_def:block) {
-  @media screen and (max-width: $max-width) {
-    .#{$hide_class} {
+@mixin mediaQueries($hide_class: "esri-global-nav--hide", $show_class: "esri-global-nav--show", $show_def: flex) {
+  @media screen and (min-width: 1025px) {
+    .#{$hide_class}-large {
       display: none;
     }
-    .#{$show_class} {
-      display: #{$show_def};
+  }
+  @media screen and (max-width: 1024px) {
+    .#{$hide_class}-medium {
+      display: none;
+    }
+    .#{$show_class}-medium {
+      @if $show_def == flex {
+        @include flexDisplay();
+      } @else {
+        display: $show_def;
+      }
     }
     .esri-global-nav__app-icon {
       border-right: none;
@@ -199,11 +210,19 @@
     //   border-left: none;
     // }
   }
+  @media screen and (max-width: 540px) {
+    .#{$hide_class}-small {
+      display: none;
+    }
+    .#{$show_class}-small {
+      display: #{$show_def};
+    }
+  }
 }
 
 //////////////////////////////////////////////////
 // CSS
-.esri-global-nav {
+.esri-global-nav__wrapper {
   width: 100%;
   padding-top: $border_size;
   // background-color: #fff;
@@ -254,17 +273,19 @@
   transition: all 125ms ease-in-out; 
 }
 
-.esri-global-nav__app-brand:hover .esri-global-nav__app-icon-image {
-  -webkit-transform: translate(0, -2px) scale(1); 
-  -moz-transform: translate(0, -2px) scale(1); 
-  -ms-transform: translate(0, -2px) scale(1); 
-  -o-transform: translate(0, -2px) scale(1); 
-  transform: translate(0, -2px) scale(1); 
+.esri-global-nav__app-brand:hover {
+  .esri-global-nav__app-icon-image {
+    -webkit-transform: translate(0, -2px) scale(1); 
+    -moz-transform: translate(0, -2px) scale(1); 
+    -ms-transform: translate(0, -2px) scale(1); 
+    -o-transform: translate(0, -2px) scale(1); 
+    transform: translate(0, -2px) scale(1); 
+  }
 }
 
 
-.esri-global-nav-grid {
-  @include appHeaderGrid();
+.esri-global-nav {
+  @include globalNav();
 }
 
 .esri-global-nav__app-brand {
@@ -296,6 +317,11 @@
 // }
 
 .esri-global-nav__nav-left {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
   @include flexDisplay();
   @include alignItems(stretch);
   @include justifyContent(space-between);
@@ -304,6 +330,7 @@
 
 .nav-left__secondary-nav {
   margin-right: 1rem;
+  margin-left: auto;
 }
 
 .secondary-nav__item {
@@ -346,7 +373,7 @@
   @include appSwitcherTrigger();
 }
 
-.nav-right__search {
+.nav-right__icon-item {
   @include flexDisplay();
   @include justifyContent(center);
   @include alignItems(center);

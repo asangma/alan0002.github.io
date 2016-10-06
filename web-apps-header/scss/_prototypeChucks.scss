@@ -28,34 +28,47 @@ html {
 
 // Dashboard
 // .show-item,
-.esri-global-nav__menu.nav-left__primary-nav {
+.esri-global-nav__menu.nav-left__primary-nav,
+.project-thing {
     display: none;
+}
+.project-thing {
+    text-align: center;
+    // margin-top: 20px;
+    img {
+        width: 40%;
+        margin: 20px 30%;
+    }
 }
 
 // In Item
 .in-item {
-    // .show-item {
-    //     display: block;
-    // }
+    .app-items {
+        display: none;
+    }
+    .project-thing {
+        display: block;
+    }
     .nav-left__primary-nav {
         // display: block;
         @include flexDisplay();
-        // -webkit-animation: show-item-nav 1000ms ease-out;
-        // -moz-animation: show-item-nav 1000ms ease-out;
-        // -o-animation: show-item-nav 1000ms ease-out;
-        // animation: show-item-nav 1000ms ease-out;
+        -webkit-animation: show-item-nav 500ms ease-out;
+        -moz-animation: show-item-nav 500ms ease-out;
+        -o-animation: show-item-nav 500ms ease-out;
+        animation: show-item-nav 500ms ease-out;
     }
     // .show-launch {
     //     display: none;
     // }
     .esri-global-nav__app-name {
-        display: none;
+        // display:  none;
         // width: 0;
-        // @include translate(0, -200px);
-        // -webkit-animation: hide-app-name 750ms ease-in;
-        // -moz-animation: hide-app-name 750ms ease-in;
-        // -o-animation: hide-app-name 750ms ease-in;
-        // animation: hide-app-name 750ms ease-in;
+        @include translate(0, -200px);
+        // top: -100px;
+        -webkit-animation: hide-app-name 500ms ease-in;
+        -moz-animation: hide-app-name 500ms ease-in;
+        -o-animation: hide-app-name 500ms ease-in;
+        animation: hide-app-name 500ms ease-in;
     }
 }
 

@@ -108,17 +108,17 @@ jQuery(document).ready(function() { // You wish you could use jQuery
       var color = jQuery(this).attr('data-app-class');
       var app = jQuery(this).attr('data-app-name');
       // if(icon !== "undefined") {
-        jQuery('.app-header__app-icon-image').attr('src', icon);
-        var appHeader = jQuery('.app-header');
+        jQuery('.esri-global-nav__app-icon-image').attr('src', icon);
+        var appHeader = jQuery('.esri-global-nav__wrapper');
         var classes = jQuery(appHeader).attr('class').split(' ');
         jQuery.each(classes, function(i, class_name){
             console.log(class_name);
             jQuery(appHeader).removeClass(class_name);
-            jQuery(appHeader).addClass('app-header');
+            jQuery(appHeader).addClass('esri-global-nav__wrapper');
             jQuery(appHeader).addClass(color);
         });
-        // jQuery('.app-header').css('background-color', color);
+        // jQuery('.esri-global-nav__wrapper').css('background-color', color);
       // }
-      jQuery('.app-header__app-name').html(app);
+      jQuery('.esri-global-nav__app-name').html(app);
     });
 });
