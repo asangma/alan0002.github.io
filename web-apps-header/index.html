@@ -6,11 +6,11 @@
     <!-- <link rel="stylesheet" type="text/css" href="node_modules/calcite-web/dist/css/calcite-web.min.css"> -->
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <style>
-    /*.app-header__app-icon .app-switcher-path {
+    /*.esri-global-nav__app-icon .app-switcher-path {
       fill: #FBB400;
     }*/
     
-    .app-header {
+    .esri-global-nav {
         /*border: none;*/
         /*border-top: 3px solid #FBB400;*/
         /*background-color: #FBB400;*/
@@ -24,18 +24,20 @@
 
 <body class="">
     <div class="app-wrapper">
-        <div class="app-header app-color-ops">
-            <div class="app-header-grid">
-                <a class="app-header__app-brand">
-                    <div class="app-header__app-icon in-item-toggle"><img class="app-header__app-icon-image" src="images/app-logos/operations-dashboard-opt.svg" alt=""></div>
+        <div class="esri-global-nav app-color-ops">
+            <div class="esri-global-nav-grid">
+                <a class="esri-global-nav__app-brand">
+                    <div class="esri-global-nav__app-icon in-item-toggle">
+                        <img class="esri-global-nav__app-icon-image" src="images/app-logos/operations-dashboard-opt.svg" alt="">
+                    </div>
                 </a>
-                <div class="app-header__nav-left">
-                    <span class="app-header__app-name esri-global-nav--hide-mobile  font-size--1">Operations Dashboard</span>
-                    <ul class="app-header__menu nav-left__primary-nav breadcrumbs font-size--2">
+                <div class="esri-global-nav__nav-left">
+                    <span class="esri-global-nav__app-name esri-global-nav--hide-mobile  font-size--1">Operations Dashboard</span>
+                    <ul class="esri-global-nav__menu nav-left__primary-nav breadcrumbs font-size--2">
                         <!-- <li class="breadcrumb"><a href="">Building Inspections</a></li> -->
                         <li class="breadcrumb breadcrumb--current">Inspection 2015-07-11</li>
                     </ul>
-                    <ul class=" app-header__menu nav-left__secondary-nav esri-global-nav--hide-mobile font-size--2">
+                    <ul class=" esri-global-nav__menu nav-left__secondary-nav esri-global-nav--hide-mobile font-size--2">
                         <li class="secondary-nav__item">
                             <a class="secondary-nav__link" href="">Resources</a>
                         </li>
@@ -44,14 +46,14 @@
                         </li>
                     </ul>
                 </div>
-                <div class="app-header__nav-right font-size--1">
+                <div class="esri-global-nav__nav-right font-size--1">
                     <a class="icon-ui-search nav-right__search"></a>
                     <a class="app-switcher-trigger">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path class="app-switcher-path" d="M0 0h4v4H0zM10 0h4v4h-4zM20 0h4v4h-4zM0 10h4v4H0zM10 10h4v4h-4zM20 10h4v4h-4zM0 20h4v4H0zM10 20h4v4h-4zM20 20h4v4h-4z" />
                         </svg>
                     </a>
-                    <a href="" class="app-header__user-profile">
+                    <a href="" class="esri-global-nav__user-profile">
                         <img class="user-profile__button" src="images/profile/350832-mr-bean-square.jpg" alt="Mr. Bean Profile Image">
                         <div class="user-profile__id">
                             <span class="user-profile__name font-size--2">Rowan</span>
@@ -61,6 +63,8 @@
                 </div>
             </div>
         </div>
+
+
         <div class="app-nav">
             <div class="button-wrap">
                 <button class="btn btn-clear">Create</button>
@@ -68,13 +72,15 @@
                 <button class="btn btn-clear">Combine</button>
             </div>
         </div>
+        
+
         <section class="app-items">
             <div class="grid-container">
                 <div class="column-18 pre-3">
                     <div class="block-group block-group-3-up">
                         <div class="card block in-item-toggle">
                             <figure class="card-image-wrap">
-                                <img class="card-image" src="https://placeimg.com/300/200/arch" alt="Bridge Club, 1954">
+                                <img class="card-image" src="https://placekitten.com/300/200" alt="Bridge Club, 1954">
                                 <div class="card-image-caption">
                                     Florida, January 1954
                                 </div>
