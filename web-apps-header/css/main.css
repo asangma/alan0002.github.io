@@ -3872,6 +3872,14 @@ html.vi input {
     background: -o-linear-gradient(left, #50ad4e 0%, #94ce93 50%, #50ad4e 60%);
     background: -ms-linear-gradient(left, #50ad4e 0%, #94ce93 50%, #50ad4e 60%);
     background: linear-gradient(to right, #50ad4e 0%, #94ce93 50%, #50ad4e 60%); }
+  .esri-global-nav__wrapper.app-map-viewer {
+    background: #0079c1;
+    background: -moz-linear-gradient(left, #0079c1 0%, #28afff 50%, #0079c1 60%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, #0079c1), color-stop(50%, #28afff), color-stop(60%, #0079c1));
+    background: -webkit-linear-gradient(left, #0079c1 0%, #28afff 50%, #0079c1 60%);
+    background: -o-linear-gradient(left, #0079c1 0%, #28afff 50%, #0079c1 60%);
+    background: -ms-linear-gradient(left, #0079c1 0%, #28afff 50%, #0079c1 60%);
+    background: linear-gradient(to right, #0079c1 0%, #28afff 50%, #0079c1 60%); }
 
 .esri-global-nav__menu {
   margin: 0;

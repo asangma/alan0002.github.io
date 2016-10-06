@@ -145,6 +145,8 @@ hr {
   max-width: 150px;
   
   background-color: #4c4c4c;
+  /*border-top: 1px solid #4c4c4c;*/
+  border-right: 4px solid #333;
   color: #fff;
 }
 
@@ -233,8 +235,8 @@ hr {
           align-items: center;
   padding: 10px 5px;
   font-size: 12px;
-  color: #323232;
-  background-color: #6e6e6e;
+  color: #121212;
+  /*background-color: #6e6e6e;*/
 }
 .navigation-bar__toggle:hover {
   color: #fff;
@@ -266,7 +268,7 @@ hr {
   -webkit-flex: 0 0 320px;
       -ms-flex: 0 0 320px;
           flex: 0 0 320px;
-  border-left: solid 4px #333;
+  /*border-left: solid 4px #333;*/
 }
 
 .action-panel h1,

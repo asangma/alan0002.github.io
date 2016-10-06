@@ -2,8 +2,9 @@
 <html>
 
 <head>
-    <title>Map Viewer for ArcGIS</title>
-    <link rel="stylesheet" href="node_modules/calcite-web/dist/css/calcite-web.min.css">
+    <title>ArcGIS Map Editor</title>
+    <!-- <link rel="stylesheet" href="node_modules/calcite-web/dist/css/calcite-web.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="../web-apps-header/css/main.css">
     <link rel="stylesheet" type="text/css" href="css/map-viewer-stylez.css">
     <link rel="stylesheet" href="https://jsdev.arcgis.com/4.0/esri/css/main.css">
     <script src="node_modules/calcite-web/dist/js/calcite-web.min.js"></script>
@@ -32,14 +33,15 @@
 
         // setup the map
         map = new Map({
+            // basemap: "dark-gray",
             basemap: "topo",
         });
 
         view = new MapView({
             container: "viewDiv",
             map: map,
-            center: [-117.049, 34.485],
-            zoom: 12
+            center: [-73.956, 40.69],
+            zoom: 10
         });
 
         basemapToggle = new BasemapToggle({
@@ -53,7 +55,7 @@
             view: view
         }, 'search-widget');
 
-        view.ui.add(basemapToggle, 'bottom-left');
+        // view.ui.add(basemapToggle, 'bottom-left');
         // view.ui.add(search, 'top-right');
 
         mapViewer.init(
@@ -65,16 +67,46 @@
 </head>
 
 <body>
-    <header class="top-nav">
-        <!-- <div class="grid-container"> -->
-        <!-- <div class="column-24"> -->
-        <!-- <div class="tablet-hide"> -->
-        <div class="branding-module"><img class="app-icon" src="images/app_bg.svg" alt=""> <a href="#" class="top-nav-title">ArcGIS Map Editor</a></div>
-        <!-- <div class="dropdown js-dropdown"> -->
-        <a href="" class="top-nav-link user-nav-link">
-            <img src="images/alan-hat-120.jpg" alt="User Avatar" class="user-nav-image"> Alan
-        </a>
-    </header>
+    <div class="esri-global-nav__wrapper app-map-viewer">
+        <div class="esri-global-nav">
+            <a class="esri-global-nav__app-brand">
+                <div class="esri-global-nav__app-icon in-item-toggle">
+                    <img class="esri-global-nav__app-icon-image" src="images/app_bg.svg" width="32" alt="">
+                </div>
+            </a>
+            <div class="esri-global-nav__nav-left">
+                <span class="esri-global-nav__app-name font-size-0 esri-global-nav--hide-small">Map Editor</span>
+                <!-- <ul class="esri-global-nav__menu nav-left__primary-nav breadcrumbs font-size--2  esri-global-nav--hide-small">
+                        <li class="breadcrumb"><a href="">Building Inspections</a></li>
+                        <li class="breadcrumb breadcrumb--current">Inspection 2015-07-11</li>
+                    </ul> -->
+                <ul class=" esri-global-nav__menu nav-left__secondary-nav esri-global-nav--hide-medium font-size--2">
+                    <li class="secondary-nav__item">
+                        <a class="secondary-nav__link" href="">Resources</a>
+                    </li>
+                    <li class="secondary-nav__item">
+                        <a href="" class="secondary-nav__link">Another Thing</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="esri-global-nav__nav-right font-size--1">
+                <a class="icon-ui-search nav-right__icon-item"></a>
+                <a class="icon-ui-menu nav-right__icon-item esri-global-nav--show-medium esri-global-nav--hide-large"></a>
+                <a class="app-switcher-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path class="app-switcher-path" d="M0 0h4v4H0zM10 0h4v4h-4zM20 0h4v4h-4zM0 10h4v4H0zM10 10h4v4h-4zM20 10h4v4h-4zM0 20h4v4H0zM10 20h4v4h-4zM20 20h4v4h-4z" />
+                    </svg>
+                </a>
+                <a href="" class="esri-global-nav__user-profile ">
+                    <img class="user-profile__button" src="../web-apps-header/images/profile/350832-mr-bean-square.jpg" alt="Mr. Bean Profile Image">
+                    <div class="user-profile__id esri-global-nav--hide-medium">
+                        <span class="user-profile__name font-size--2">Rowan</span>
+                        <span class="user-profile__username font-size--3">ratkinson@gmail.com</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
     <div class="app-container">
         <div class="navigation-bar navigation-bar--is-collapsed">
             <div class="navigation-bar__toggle" data-toggle-target="navigation-bar">

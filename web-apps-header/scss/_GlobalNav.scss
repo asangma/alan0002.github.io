@@ -248,6 +248,9 @@
   &.app-color-survey {
     @include gradientBackground(#50AD4E);
   }
+  &.app-map-viewer {
+    @include gradientBackground(#0079c1);
+  }
 }
 
 .esri-global-nav__menu {
