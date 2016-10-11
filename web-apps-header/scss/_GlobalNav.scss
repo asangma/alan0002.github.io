@@ -173,6 +173,18 @@
   }
 }
 
+@mixin navLeft() {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  @include flexDisplay();
+  @include alignItems(stretch);
+  @include justifyContent(space-between);
+  @include flex(1 0);
+}
+
 
 /////////////////////////
 // App ITEMS
@@ -320,15 +332,7 @@
 // }
 
 .esri-global-nav__nav-left {
-  position: relative;
-  overflow: hidden;
-  white-space: nowrap;
-  -ms-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-  @include flexDisplay();
-  @include alignItems(stretch);
-  @include justifyContent(space-between);
-  @include flex(1 0);
+  @include navLeft();
 }
 
 .nav-left__secondary-nav {
