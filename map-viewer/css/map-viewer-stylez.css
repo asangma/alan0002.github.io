@@ -13,13 +13,6 @@ body {
   background-color: #f8f8f8;
 }
 
-button {
-  /*padding-bottom: 0.55rem;*/
-}
-
-hr {
-  margin: 0 0;
-}
 
 .action-panel [class^="esri-icon-"],
 .action-panel [class*=" esri-icon-"] {
@@ -30,6 +23,18 @@ hr {
 [class*=" icon-ui-"]:before {
   padding-right: 0;
 }*/
+
+.esri-global-nav__app-icon-image {
+  width: 48px;
+}
+
+.app-letters {
+  position: absolute;
+  color: #fff;
+  font-weight: 600;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 1);
+  font-size: 20px;
+}
 
 .btn-clear {
   background: transparent;
@@ -156,6 +161,7 @@ hr {
 
 .navigation-bar hr {
   border-color: rgba(255, 255, 255, 0.15);
+  margin: 0;
 }
 
 .navigation-bar__menu {
@@ -248,7 +254,6 @@ hr {
 }
 
 .action-panel {
-  /*width: 320px;*/
   height: 100%;
   background-color: #f8f8f8;
   border-right: 1px solid #e0e0e0;
@@ -265,9 +270,9 @@ hr {
   -webkit-align-items: stretch;
           align-items: stretch;
   
-  -webkit-flex: 0 0 320px;
-      -ms-flex: 0 0 320px;
-          flex: 0 0 320px;
+  -webkit-flex: 0 0 300px;
+      -ms-flex: 0 0 300px;
+          flex: 0 0 300px;
   /*border-left: solid 4px #333;*/
 }
 
@@ -279,6 +284,9 @@ hr {
   margin: 0 0 0.55rem 0;
 }
 
+.action-panel hr {
+  margin: 0.5rem 0;
+}
 
 .action-panel__header {
   padding: 15px 12px;
