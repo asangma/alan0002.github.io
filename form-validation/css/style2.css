@@ -1,0 +1,301 @@
+html, body {
+  background:#f8f8f8;
+  width:100%;
+  height:100%;
+}
+
+.container {
+  margin-top:40px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 0.55rem;
+}
+
+h2 {
+  text-transform:uppercase;
+}
+
+::-webkit-input-placeholder {
+   color: #e0e0e0;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #e0e0e0;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #e0e0e0;
+}
+
+:-ms-input-placeholder {
+   color: red;
+}
+
+label {
+  margin-bottom:.1em;
+  line-height:1em;
+  font-weight:300;
+  font-size:14px;
+}
+label:after {
+  content:"\00a0";
+  /*vertical-align:super;*/
+}
+
+label.required:after {
+  color:#de2900;
+  content:"\002a";
+  /*vertical-align:super;*/
+}
+/*label.required.valid:after {
+  color:#2d822c;
+}*/
+
+
+input[type=text],
+input[type=tel] {
+  font-size:16px;
+  border:solid 1px #a9a9a9;
+  /*border-left-width: 2px;*/
+  padding:5px 10px;
+  text-overflow:ellipsis;
+}
+
+input[type=url],
+input[type=number],
+input[type=password],
+input[type=month],
+input[type=date],
+input[type=datetime],
+input[type=datetime-local],
+input[type=email],
+input[type=time],
+input[type=week],
+input[type=search],
+input[type=tel],
+input[type=text],
+textarea,
+select {
+  box-shadow:none;
+  -webkit-transition: all 125ms ease-in-out;
+  -moz-transition: all 125ms ease-in-out;
+  -ms-transition: all 125ms ease-in-out;
+  -o-transition: all 125ms ease-in-out;
+  transition: all 125ms ease-in-out;
+}
+
+input[type=url]:focus,
+input[type=number]:focus,
+input[type=password]:focus,
+input[type=month]:focus,
+input[type=date]:focus,
+input[type=datetime]:focus,
+input[type=datetime-local]:focus,
+input[type=email]:focus,
+input[type=time]:focus,
+input[type=week]:focus,
+input[type=search]:focus,
+input[type=tel]:focus,
+input[type=text]:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  box-shadow:none;
+  border:solid 1px #007ac2;
+  /*border-left-width: 2px;*/
+  /*background-position:125% center;*/
+}
+
+
+
+input.valid[type=text]:focus,
+input.valid[type=tel]:focus,
+input.error-empty[type=text]:focus,
+input.error-empty[type=tel]:focus,
+input.error-invalid[type=text]:focus,
+input.error-invalid[type=tel]:focus {
+  background-position:125% center;
+  padding-right:10px;
+}
+
+input.required.error-empty {
+  background:url(../graphics/error2_d.svg) no-repeat 98% center #fff;
+  background-size:1.25em;
+  border-color:#de2900;
+}
+
+
+input.error-invalid {
+  background:url(../graphics/notice-round_d.svg) no-repeat 98% center #fff;
+  background-size:1.25em;
+  border-color:#de2900;
+}
+
+/*
+select:focus {
+  box-shadow:none;
+  border:solid 1px #007ac2;
+}
+
+input[type=radio]:focus,
+input[type=checkbox]:focus {
+  box-shadow:none;
+}
+
+
+input.required,
+select.required,
+textarea.required {
+  border-left:solid 2px #de2900;
+}
+input.required:focus,
+select.required:focus,
+textarea.required:focus {
+  border-left-width: 2px;
+}
+
+input[type=text].error-invalid,
+input[type=tel].error-invalid {
+  background:url(../graphics/notice-round_d.svg) no-repeat 98% center #fff;
+  background-size:1.25em;
+}
+
+input[type=text].valid:focus,
+input[type=tel].valid:focus,
+input[type=text].error-invalid:focus,
+input[type=tel].error-invalid:focus {
+  background-position:125% center;
+  padding-right:10px;
+  border-color: #007ac2;
+  
+}
+
+input[type=text].required.valid,
+input[type=tel].required.valid {
+  border-color:#2d822c;
+  border-left-width: 2px;
+}
+
+input.required.error-empty[type=text]:focus,
+input.required.error-empty[type=tel]:focus,
+input.required.error-invalid[type=text]:focus,
+input.required.error-invalid[type=tel]:focus {
+  
+  border-left-width: 2px;
+  background-position:125% center;
+  padding-right:10px;
+}
+
+input[type=text].required.error-empty,
+input[type=tel].required.error-empty {
+  padding-right:32px;
+  border:solid 1px #de2900;
+  border-left-width: 2px;
+  background:url(../graphics/error2_d.svg) no-repeat 98% center #fff;
+  background-size:1.25em;
+}
+
+input.required.error-invalid[type=text],
+input.required.error-invalid[type=tel] {
+  padding-right:32px;
+  border:solid 1px #de2900;
+  border-left-width: 2px;
+  background:url(../graphics/notice-round_d.svg) no-repeat 98% center #fff;
+  background-size:1.25em;
+}
+
+
+
+
+
+
+/*.radio-wrap.valid {
+  background:url(../graphics/check-mark_d.svg) no-repeat -30px center;
+  background-size:1.25em;
+}*/
+
+.radio-wrap.error-empty,
+.check-wrap.error-empty {
+  border: solid 1px #de2900;
+  /*background: #f4dfd8;*/
+  background:url(../graphics/error2_d.svg) no-repeat 97% center #fff;
+  background-size:1.25em;
+  /*color:#333;*/
+  padding: 5px;
+  margin-top:5px;
+}
+
+input[type=text].valid,
+input[type=tel].valid {
+  padding-right:32px;
+  border: 1px solid #a9a9a9;
+  background:url(../graphics/check-mark_d.svg) no-repeat 98% center #fff;
+  background-size:1.25em;
+}*/
+
+
+
+
+
+
+
+
+select {
+  width:100%;
+}
+
+select.valid,
+textarea.valid {
+  /*border-left:solid 2px #2d822c;*/
+}
+
+.select-wrap {
+  padding-right:32px;
+}
+
+.select-wrap.required.valid {
+  background:url(../graphics/check-mark_d.svg) no-repeat 98% center;
+  background-size:1.25em;
+  /*padding-right:32px;*/
+}
+
+select.required.error-empty/*,
+textarea.required.error-empty*/ {
+  border:solid 1px #de2900;
+  /*border-left-width: 2px;*/
+  /*background-color:#f4dfd8;*/
+  /*background:url(../graphics/error2_d.svg) no-repeat 98% center #fff;
+  background-size:1.25em;*/
+  /*color:#333;*/
+}
+.select-wrap.required.error-empty {
+  background:url(../graphics/error2_d.svg) no-repeat 98% center;
+  background-size:1.25em;
+  /*padding-right:32px;*/
+}
+
+textarea.required.error-empty {
+  border:solid 1px #de2900;
+  /*border-left-width: 2px;*/
+  background:url(../graphics/error2_d.svg) no-repeat 98% center #fff;
+  background-size:1.25em;
+}
+/*
+select.required.error-empty:focus,*/
+textarea.required.error-empty:focus {
+  background-color:#fff;
+  background-position:125% center;
+}
+
+textarea {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding:10px 15px;
+}
+
+span.error-message {
+  display:block;
+  font-size:12px;
+}

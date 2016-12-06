@@ -1,0 +1,204 @@
+html, body {
+  background:#f8f8f8;
+  width:100%;
+  height:100%;
+}
+
+.container {
+  margin-top:40px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 0.55rem;
+}
+
+h2 {
+  text-transform:uppercase;
+}
+
+::-webkit-input-placeholder {
+   color: #e0e0e0;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #e0e0e0;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #e0e0e0;
+}
+
+:-ms-input-placeholder {
+   color: red;
+}
+
+label {
+  margin-bottom:.1em;
+  line-height:1em;
+  font-weight:300;
+  font-size:14px;
+}
+label:after {
+  content:"\00a0";
+  /*vertical-align:super;*/
+}
+
+label.required:after {
+  color:#de2900;
+  content:"\002a";
+  /*vertical-align:super;*/
+}
+/*label.required.valid:after {
+  color:#2d822c;
+}*/
+
+
+input[type=text],
+input[type=tel] {
+  font-size:16px;
+  border:solid 1px #a9a9a9;
+  padding:5px 10px;
+  text-overflow:ellipsis;
+}
+
+input[type=url],
+input[type=number],
+input[type=password],
+input[type=month],
+input[type=date],
+input[type=datetime],
+input[type=datetime-local],
+input[type=email],
+input[type=time],
+input[type=week],
+input[type=search],
+input[type=tel],
+input[type=text],
+textarea,
+select {
+  box-shadow:none;
+  -webkit-transition: all 125ms ease-in-out;
+  -moz-transition: all 125ms ease-in-out;
+  -ms-transition: all 125ms ease-in-out;
+  -o-transition: all 125ms ease-in-out;
+  transition: all 125ms ease-in-out;
+}
+
+input[type=url]:focus,
+input[type=number]:focus,
+input[type=password]:focus,
+input[type=month]:focus,
+input[type=date]:focus,
+input[type=datetime]:focus,
+input[type=datetime-local]:focus,
+input[type=email]:focus,
+input[type=time]:focus,
+input[type=week]:focus,
+input[type=search]:focus,
+input[type=tel]:focus,
+input[type=text]:focus,
+input:focus,
+textarea:focus {
+  box-shadow:none;
+  border:solid 1px #007ac2;
+  background-position:125% center;
+}
+
+select:focus {
+  box-shadow:none;
+  border:solid 1px #007ac2;
+}
+
+input[type=radio]:focus,
+input[type=checkbox]:focus {
+  /*box-shadow:inset 0 0px 1px rgba(0,122,194, 1);*/
+  box-shadow:none;
+}
+
+
+input[type=text].error-invalid,
+input[type=tel].error-invalid {
+  border:solid 1px #de2900;
+  background:url(../graphics/error2_d.svg) no-repeat 98% center #fff;
+  background-size:1.25em;
+}
+
+input[type=text].valid,
+input[type=tel].valid {
+  padding-right:32px;
+  background:url(../graphics/check-mark_d.svg) no-repeat 98% center #fff;
+  background-size:1.25em;
+}
+
+input[type=text].error-invalid:focus,
+input[type=tel].error-invalid:focus,
+input[type=text].valid:focus,
+input[type=tel].valid:focus {
+  border:solid 1px #007ac2;
+  background-position:125% center;
+  padding-right:10px;
+}
+
+.radio-wrap.error-invalid,
+.check-wrap.error-invalid {
+  border: solid 1px #de2900;
+  background:url(../graphics/error2_d.svg) no-repeat 97% center;
+  background-size:1.25em;
+  padding: 5px;
+  margin-top:5px;
+}
+
+select {
+  width:100%;
+}
+
+
+/*.select-wrap {
+  -webkit-transition: all 125ms ease-in-out;
+     -moz-transition: all 125ms ease-in-out;
+      -ms-transition: all 125ms ease-in-out;
+       -o-transition: all 125ms ease-in-out;
+          transition: all 125ms ease-in-out;
+}*/
+
+.select-wrap.required.valid {
+  padding-right:32px;
+  background:url(../graphics/check-mark_d.svg) no-repeat 98% center;
+  background-size:1.25em;
+}
+
+.select-wrap.required.error-invalid {
+  padding-right:32px;
+  background:url(../graphics/error2_d.svg) no-repeat 98% center;
+  background-size:1.25em;
+}
+
+/*.select-wrap.required.error-invalid {
+}
+.select-wrap.required.valid {
+  
+}*/
+
+textarea.required.error-invalid {
+  border:solid 1px #de2900;
+  background:url(../graphics/error2_d.svg) no-repeat 98% center #fff;
+  background-size:1.25em;
+}
+
+textarea.required.error-invalid:focus {
+  background-color:#fff;
+  background-position:125% center;
+}
+
+textarea {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding:10px 15px;
+}
+
+span.error-message {
+  color:#ff0000;
+  display:block;
+  font-size:12px;
+}

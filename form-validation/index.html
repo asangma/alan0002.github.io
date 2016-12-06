@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/latest/css/calcite-web.min.css">
+  <!-- <link rel="stylesheet" type="text/css" href="./_assets/css/style.css"> -->
+  <!-- <link rel="stylesheet" href="./css/style.css"> -->
+  <link rel="stylesheet" href="./css/style.css">
+  <style type="text/css" media="screen">
+    .versioner-toggle {
+      opacity: 1;
+    }
+    #selectTestError00 {
+      display:none;
+    }
+  </style>
+  <script type="text/javascript">
+  jQuery(document).ready(function() {
+    jQuery('.selectTest').change(function(event) {
+      //console.log('* '+jQuery('.selectTest').val());
+      jQuery(this).parent().removeClass('error-invalid');
+      jQuery(this).parent().removeClass('valid');
+      if(jQuery(this).val()) {
+        jQuery(this).parent().addClass('valid');
+        jQuery('#'+jQuery(this).attr('data-msg')).fadeOut('fast');
+      } else {
+        jQuery(this).parent().addClass('error-invalid');
+        jQuery('#'+jQuery(this).attr('data-msg')).fadeIn('fast');
+      }
+    });
+  });
+  </script>
+  <title>ArcGIS Online : Form Element Designs</title>
+</head>
+
+<body  class="calcite">
+  <div id="v2" class="container versioner" data-version="v02">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>ArcGIS Online : Form Element Designs</h1>
+        Notes:
+        <ul>
+          <li>Click into an input in the Initial State column to see the <span style="font-weight:500;">:focus</span> state.</li>
+          <li>All states after Initial would ideally occur <span style="font-weight:500;">onBlur</span>.</li>
+          <li>The SVG graphics used here were not created by the Icon Team and as such require vetting.</li>
+        </ul>
+      </div>
+    </div>
+    <h2>Text Inputs</h2>
+    <!-- //////////////////////////////////////// -->
+    <!-- Optional Text Input w/ Open Format -->
+    <div class="row">
+      <div class="panel">
+        <h3>Optional Text Input w/ Open Format</h3>
+        <hr>
+        <div class="col-md-3">
+          <h3>Initial State</h3>
+            <label for="firstName">First Name</label>
+            <input type="text" name="firstName" title="First Name" placeholder="">
+        </div>
+        <div class="col-md-3">
+          <h3>With Input</h3>
+            <label for="firstName">First Name</label>
+            <input type="text" name="firstName" title="First Name" placeholder="" class="" value="Charlesunbelievableycrazylong">
+        </div>
+      </div>
+    </div>
+    <!-- Optional Text Input w/ Open Format -->
+    <!-- //////////////////////////////////////// -->
+
+    <!-- //////////////////////////////////////// -->
+    <!-- Optional Text Input w/ Required Format -->
+    <div class="row">
+      <div class="panel">
+        <h3>Optional Text Input w/ Required Format</h3>
+        <p>Ideally, these text inputs would be "pre-formatted" and dynamically indicate the user's progress. For instance, if the user inputs the first number without the opening parenthesis, the parenthesis would be added dynamically.  Also, the remaining required numbers would be indicated by grayed out Xs.</p>
+        <hr>
+        <div class="col-md-3">
+          <h3>Initial State</h3>
+          <label for="telephone">Telephone (xxx) xxx-xxxx</label>
+          <input type="tel" name="telephone" title="Telephone" placeholder="(xxx) xxx-xxxx">
+        </div>
+        <div class="col-md-3">
+          <h3>Valid Input</h3>
+          <label for="telephone">Telephone (xxx) xxx-xxxx</label>
+          <input type="tel" name="telephone" title="Telephone" class="valid" required placeholder="(xxx) xxx-xxxx" value="(909) 793-2853">
+        </div>
+        <div class="col-md-3">
+          <h3>Invalid Input Error</h3>
+          <label for="telephone">Telephone (xxx) xxx-xxxx</label>
+          <input type="tel" name="telephone" title="Telephone" class="error-invalid" required placeholder="(xxx) xxx-xxxx" value="909-307">
+            <span class="error-message">Please enter a valid phone number.</span>
+        </div>
+      </div>
+    </div>
+    <!-- Optional Text Input w/ Open Format -->
+    <!-- //////////////////////////////////////// -->
+
+    <!-- //////////////////////////////////////// -->
+    <!-- Required Text Input w/ Open Format -->
+    <div class="row">
+      <div class="panel">
+        <h3>Required Text Input w/ Open Format</h3>
+        <hr>
+        <div class="col-md-3">
+          <h3>Initial State</h3>
+            <label for="firstName" class="required">First Name</label>
+            <input type="text" name="firstName" title="First Name" placeholder="" class="required" required>
+        </div>
+        <div class="col-md-3">
+          <h3>Valid Input</h3>
+            <label for="firstName" class="required valid">First Name</label>
+            <input type="text" name="firstName" title="First Name" placeholder="" class="required valid" required value="Charlesunbelievableycrazylong">
+        </div>
+        <div class="col-md-3">
+          <h3>No Input Error</h3>
+            <label for="firstName" class="required">First Name</label>
+            <input type="text" name="firstName" title="First Name" placeholder="" class="required error-invalid" required>
+            <span class="error-message">This field is required.</span>
+        </div>
+      </div>
+    </div>
+    <!-- Required Text Input w/ Open Format -->
+    <!-- //////////////////////////////////////// -->
+
+    <!-- //////////////////////////////////////// -->
+    <!-- Required Text Input w/ Required Format -->
+
+    <div class="row">
+      <div class="panel">
+        <h3>Required Text Input w/ Required Format</h3>
+        <p>Ideally, these text inputs would be "pre-formatted" and dynamically indicate the user's progress. For instance, if the user inputs the first number without the opening parenthesis, the parenthesis would be added dynamically.  Also, the remaining required numbers would be indicated by grayed out Xs.</p>
+        <hr>
+        <div class="col-md-3">
+          <h3>Initial State</h3>
+          <label for="telephone" class="required">Telephone (xxx) xxx-xxxx</label>
+          <input type="tel" name="telephone" title="Telephone" class="required" required placeholder="(xxx) xxx-xxxx">
+        </div>
+        <div class="col-md-3">
+          <h3>Valid Input</h3>
+          <label for="telephone" class="required valid">Telephone (xxx) xxx-xxxx</label>
+          <input type="tel" name="telephone" title="Telephone" class="required valid" required placeholder="(xxx) xxx-xxxx" value="(909) 793-2853">
+        </div>
+        <div class="col-md-3">
+          <h3>No Input Error</h3>
+          <label for="telephone" class="required">Telephone (xxx) xxx-xxxx</label>
+          <input type="tel" name="telephone" title="Telephone" class="required error-invalid" required placeholder="(xxx) xxx-xxxx" value="">
+            <span class="error-message">This field is required.</span>
+        </div>
+        <div class="col-md-3">
+          <h3>Invalid Input Error</h3>
+          <label for="telephone" class="required">Telephone (xxx) xxx-xxxx</label>
+          <input type="tel" name="telephone" title="Telephone" class="required error-invalid" required placeholder="(xxx) xxx-xxxx" value="909-307">
+            <span class="error-message">Please enter a valid phone number.</span>
+        </div>
+      </div>
+    </div>
+    <!-- Required Text Input w/ Required Format -->
+    <!-- //////////////////////////////////////// -->
+
+    <hr>
+
+
+    <h2>Radio Buttons</h2>
+    <!-- //////////////////////////////////////// -->
+    <!-- Optional Radio Button -->
+    <div class="row">
+      <div class="panel">
+        <h3>Optional Radio Button</h3>
+        <hr>
+        <div class="col-md-3">
+        <h3>Initial State</h3>
+        <label for="bool-00">Select one.</label>
+          <input type="radio" name="bool-00" title="Boolean" title="Boolean" value="male"> True<br/>
+          <input type="radio" name="bool-00" title="Boolean" title="Boolean" value="female"> False<br/>
+          <input type="radio" name="bool-00" title="Boolean" title="Boolean" value="Probably"> Probably
+        </div>
+        <div class="col-md-3">
+          <h3>Selected</h3>
+          <label for="bool-02" class="">Select one.</label>
+          <div class="radio-wrap">
+            <input type="radio" name="bool-04" title="Boolean" title="Select One" value="male" checked> True<br/>
+            <input type="radio" name="bool-04" title="Boolean" title="Select One" value="female"> False<br/>
+            <input type="radio" name="bool-04" title="Boolean" title="Select One" value="Probably"> Probably
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Optional Radio Button -->
+    <!-- //////////////////////////////////////// -->
+
+    <!-- //////////////////////////////////////// -->
+    <!-- Required Radio Button -->
+
+    <div class="row">
+      <div class="panel">
+        <h3>Required Radio Button</h3>
+        <hr>
+        <div class="col-md-3">
+          <h3>Initial State</h3>
+          <label for="bool-01" class="required">Select one.</label>
+          <div class="radio-wrap required">
+            <input type="radio" name="bool-01" title="Boolean" value="male"> True<br/>
+            <input type="radio" name="bool-01" title="Boolean" value="female"> False<br/>
+            <input type="radio" name="bool-01" title="Boolean" value="Probably"> Probably
+          </div>
+        </div>
+        <div class="col-md-3">
+          <h3>Selected</h3>
+          <label for="bool-02" class="required">Select one.</label>
+          <div class="radio-wrap required valid">
+            <input type="radio" name="bool-02" title="Boolean" value="male" checked> True<br/>
+            <input type="radio" name="bool-02" title="Boolean" value="female"> False<br/>
+            <input type="radio" name="bool-02" title="Boolean" value="Probably"> Probably
+          </div>
+        </div>
+        <div class="col-md-3">
+          <h3>No Input Error</h3>
+          <label for="bool-03" class="required">Select one.</label>
+          <div class="radio-wrap required error-invalid">
+            <input type="radio" name="bool-03" title="Boolean" value="male"> True<br/>
+            <input type="radio" name="bool-03" title="Boolean" value="female"> False<br/>
+            <input type="radio" name="bool-03" title="Boolean" value="Probably"> Probably
+          </div>
+          <span class="error-message">This field is required.</span>
+        </div>
+      </div>
+    </div>
+    <!-- Required Radio Button -->
+    <!-- //////////////////////////////////////// -->
+
+    <hr>
+
+
+    <h2>Check Boxes</h2>
+    <!-- //////////////////////////////////////// -->
+    <!-- Optional Check Box -->
+    <div class="row">
+      <div class="panel">
+        <h3>Optional Check Box</h3>
+        <hr>
+        <div class="col-md-3">
+          <h3>Initial State</h3>
+          <label for="check-00">Select at least one.</label>
+          <div class="check-wrap">
+            <input type="checkbox" name="check-00" title="Stooges" value="moe"> Moe<br/>
+            <input type="checkbox" name="check-00" title="Stooges" value="larry"> Larry<br/>
+            <input type="checkbox" name="check-00" title="Stooges" value="curly"> Curly<br/>
+            <input type="checkbox" name="check-00" title="Stooges" value="shemp"> Shemp
+          </div>
+        </div>
+        <div class="col-md-3">
+          <h3>Selected</h3>
+          <label for="check-02" class="valid">Select at least one.</label>
+          <div class="check-wrap valid">
+            <input type="checkbox" name="check-04" title="Stooges" value="male" checked> Moe<br/>
+            <input type="checkbox" name="check-04" title="Stooges" value="larry" checked> Larry<br/>
+            <input type="checkbox" name="check-04" title="Stooges" value="curly" checked> Curly<br/>
+            <input type="checkbox" name="check-04" title="Stooges" value="shemp"> Shemp
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Optional Check Box -->
+    <!-- //////////////////////////////////////// -->
+
+    <!-- //////////////////////////////////////// -->
+    <!-- Required Check Box -->
+
+    <div class="row">
+      <div class="panel">
+        <h3>Required Check Box</h3>
+        <hr>
+        <div class="col-md-3">
+          <h3>Initial State</h3>
+          <label for="check-01" class="required">Select at least <span style="font-weight:500;">three</span>.</label>
+          <div class="check-wrap required">
+            <input type="checkbox" name="check-01" title="Stooges" value="moe"> Moe<br/>
+            <input type="checkbox" name="check-01" title="Stooges" value="larry"> Larry<br/>
+            <input type="checkbox" name="check-01" title="Stooges" value="curly"> Curly<br/>
+            <input type="checkbox" name="check-01" title="Stooges" value="shemp"> Shemp
+          </div>
+        </div>
+        <div class="col-md-3">
+          <h3>Selected</h3>
+          <label for="check-02" class="required">Select at least <span style="font-weight:500;">three</span>.</label>
+          <div class="check-wrap required valid">
+            <input type="checkbox" name="check-02" title="Stooges" value="male" checked> Moe<br/>
+            <input type="checkbox" name="check-02" title="Stooges" value="larry" checked> Larry<br/>
+            <input type="checkbox" name="check-02" title="Stooges" value="curly" checked> Curly<br/>
+            <input type="checkbox" name="check-02" title="Stooges" value="shemp"> Shemp
+          </div>
+        </div>
+        <div class="col-md-3">
+          <h3>Invalid Input Error</h3>
+          <label for="check-03" class="required">Select at least <span style="font-weight:500;">three</span>.</label>
+          <div class="check-wrap required error-invalid">
+            <input type="checkbox" name="check-03" title="Stooges" value="moe" checked> Moe<br/>
+            <input type="checkbox" name="check-03" title="Stooges" value="larry" checked> Larry<br/>
+            <input type="checkbox" name="check-03" title="Stooges" value="curly"> Curly<br/>
+            <input type="checkbox" name="check-03" title="Stooges" value="shemp"> Shemp
+          </div>
+          <span class="error-message">This field is required.</span>
+        </div>
+      </div>
+    </div>
+    <!-- Required Check Box -->
+    <!-- //////////////////////////////////////// -->
+
+
+    <hr>
+
+
+    <h2>Select Drop-downs</h2>
+    <!-- //////////////////////////////////////// -->
+    <!-- Optional Select Drop-down -->
+    <div class="row">
+      <div class="panel">
+        <h3>Optional Select</h3>
+        <hr>
+        <div class="col-md-3">
+          <h3>Initial State</h3>
+          <label for="cars-00">Select one.</label>
+          <div class="select-wrap">
+            <select name="cars-00" title="Cars">
+              <optgroup label="Cars">
+                <option title="Select this one" value="">Select One</option>
+                <option title="Select this one" value="subaru">Subaru</option>
+                <option title="Select this one" value="volvo">Volvo</option>
+                <option title="Select this one" value="saab">Saab</option>
+                <option title="Select this one" value="fiat">Fiat</option>
+                <option title="Select this one" value="audi">Audi</option>
+              </optgroup>
+              <optgroup label="Sins">
+                <option title="Select this one" value="lust">Lust</option>
+                <option title="Select this one" value="gluttony">Gluttony</option>
+                <option title="Select this one" value="greed">Greed</option>
+                <option title="Select this one" value="sloth">Sloth</option>
+                <option title="Select this one" value="wrath">Wrath</option>
+                <option title="Select this one" value="envy">Envy</option>
+                <option title="Select this one" value="pride">Pride</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <h3>Selected</h3>
+          <label for="cars-01" class="">Select one.</label>
+          <div class="select-wrap">
+            <select name="cars-01" title="Cars" class="">
+              <optgroup label="Cars">
+                <option title="Select this one" value="">Select One</option>
+                <option title="Select this one" value="subaru">Subaru</option>
+                <option title="Select this one" value="volvo">Volvo</option>
+                <option title="Select this one" value="saab">Saab</option>
+                <option title="Select this one" value="fiat">Fiat</option>
+                <option title="Select this one" value="audi">Audi</option>
+              </optgroup>
+              <optgroup label="Sins">
+                <option title="Select this one" value="lust">Lust</option>
+                <option title="Select this one" value="gluttony">Gluttony</option>
+                <option title="Select this one" value="greed">Greed</option>
+                <option title="Select this one" value="sloth">Sloth</option>
+                <option title="Select this one" value="wrath">Wrath</option>
+                <option title="Select this one" value="envy">Envy</option>
+                <option title="Select this one" value="pride" selected>Pride</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Optional Select Drop-down -->
+    <!-- //////////////////////////////////////// -->
+
+    <!-- //////////////////////////////////////// -->
+    <!-- Optional Select Drop-down -->
+    <div class="row">
+      <div class="panel">
+        <h3>Required Select</h3>
+        <hr>
+        <div class="col-md-3">
+          <h3>Initial State</h3>
+          <label for="cars-02" class="required">Select one.</label>
+          <div class="select-wrap required">
+            <select name="cars-02" title="Cars" class="required">
+                <option title="Select this one" value="">Select One</option>
+              <optgroup label="Cars">
+                <option title="Select this one" value="subaru">Subaru</option>
+                <option title="Select this one" value="volvo">Volvo</option>
+                <option title="Select this one" value="saab">Saab</option>
+                <option title="Select this one" value="fiat">Fiat</option>
+                <option title="Select this one" value="audi">Audi</option>
+              </optgroup>
+              <optgroup label="Sins">
+                <option title="Select this one" value="lust">Lust</option>
+                <option title="Select this one" value="gluttony">Gluttony</option>
+                <option title="Select this one" value="greed">Greed</option>
+                <option title="Select this one" value="sloth">Sloth</option>
+                <option title="Select this one" value="wrath">Wrath</option>
+                <option title="Select this one" value="envy">Envy</option>
+                <option title="Select this one" value="pride">Pride</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <h3>Selected</h3>
+          <label for="cars-03" class="required">Select one.</label>
+          <div class="select-wrap required valid">
+            <select name="cars-03" title="Cars" class="required valid selectTest" data-msg="selectTestError00">
+              <option title="Select this one" value="">Select One</option>
+              <optgroup label="Cars">
+                <option title="Select this one" value="subaru">Subaru</option>
+                <option title="Select this one" value="volvo">Volvo</option>
+                <option title="Select this one" value="saab">Saab</option>
+                <option title="Select this one" value="fiat">Fiat</option>
+                <option title="Select this one" value="audi">Audi</option>
+              </optgroup>
+              <optgroup label="Sins">
+                <option title="Select this one" value="lust">Lust</option>
+                <option title="Select this one" value="gluttony">Gluttony</option>
+                <option title="Select this one" value="greed">Greed</option>
+                <option title="Select this one" value="sloth">Sloth</option>
+                <option title="Select this one" value="wrath">Wrath</option>
+                <option title="Select this one" value="envy">Envy</option>
+                <option title="Select this one" value="pride" selected>Pride</option>
+              </optgroup>
+            </select>
+          </div>
+          <span class="error-message" id="selectTestError00">This field is required.</span>
+        </div>
+        <div class="col-md-3">
+          <h3>No Input Error</h3>
+          <label for="cars-04" class="required error-invalid">Select one.</label>
+          <div class="select-wrap required error-invalid">
+            <select name="cars-04" title="Cars" class="required error-invalid selectTest" data-msg="selectTestError01">
+              <option title="Select this one" value="">Select One</option>
+              <optgroup label="Cars">
+                <option title="Select this one" value="subaru">Subaru</option>
+                <option title="Select this one" value="volvo">Volvo</option>
+                <option title="Select this one" value="saab">Saab</option>
+                <option title="Select this one" value="fiat">Fiat</option>
+                <option title="Select this one" value="audi">Audi</option>
+              </optgroup>
+              <optgroup label="Sins">
+                <option title="Select this one" value="lust">Lust</option>
+                <option title="Select this one" value="gluttony">Gluttony</option>
+                <option title="Select this one" value="greed">Greed</option>
+                <option title="Select this one" value="sloth">Sloth</option>
+                <option title="Select this one" value="wrath">Wrath</option>
+                <option title="Select this one" value="envy">Envy</option>
+                <option title="Select this one" value="pride">Pride</option>
+              </optgroup>
+            </select>
+          </div>
+          <span class="error-message" id="selectTestError01">This field is required.</span>
+        </div>
+      </div>
+    </div>
+    <!-- Optional Select Drop-down -->
+    <!-- //////////////////////////////////////// -->
+
+    <hr>
+
+    <h2>Text Areas</h2>
+    <!-- //////////////////////////////////////// -->
+    <!-- Optional Text Area -->
+    <div class="row">
+      <div class="panel">
+        <h3>Optional Text Area</h3>
+        <hr>
+        <div class="col-md-3">
+          <h3>Initial State</h3>
+          <label for="text-area-00">Enter your description.</label>
+          <textarea name="text-area-00" id="text-area-00" rows="5"></textarea>
+        </div>
+        <div class="col-md-3">
+          <h3>Valid Input</h3>
+          <label for="text-area-01" class="valid">Enter your description.</label>
+          <textarea name="text-area-01" id="text-area-01" class="valid" rows="5">We borrowed a wheelbarrow, and embarking our things, including my own poor carpet-bag, and Queequeg's canvas sack and hammock.
+          </textarea>
+        </div>
+      </div>
+    </div>
+    <!-- Optional Text Area -->
+    <!-- //////////////////////////////////////// -->
+
+    <!-- //////////////////////////////////////// -->
+    <!-- Required Text Area -->
+    <div class="row">
+      <div class="panel">
+        <h3>Required Text Area</h3>
+        <hr>
+        <div class="col-md-3">
+          <h3>Initial State</h3>
+          <label for="text-area-02" class="required">Enter your description.</label>
+          <textarea name="text-area-02" id="text-area-02" class="required" rows="5"></textarea>
+        </div>
+        <div class="col-md-3">
+          <h3>Valid Input</h3>
+          <label for="text-area-03" class="valid required">Enter your description.</label>
+          <textarea name="text-area-03" id="text-area-03" class="valid" rows="5">We borrowed a wheelbarrow, and embarking our things, including my own poor carpet-bag, and Queequeg's canvas sack and hammock.
+          </textarea>
+        </div>
+        <div class="col-md-3">
+          <h3>No Input Error</h3>
+          <label for="text-area-04" class="required error-invalid">Enter your description.</label>
+          <textarea name="text-area-04" id="text-area-04" class="required error-invalid" rows="5"></textarea>
+          <span class="error-message">This field is required.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- Optional Text Area -->
+    <!-- //////////////////////////////////////// -->
+
+  <!--<script src="./_assets/js/common.js" type="text/javascript"></script>
+  <script src="./_assets/js/main.js" type="text/javascript"></script>-->
+</body>
+
+</html>
