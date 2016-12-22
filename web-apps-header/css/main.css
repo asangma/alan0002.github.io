@@ -1779,7 +1779,7 @@ h6 {
   @media screen and (max-width: 479px) {
     h6 {
       font-size: 1rem; } }
-
+/*
 code, kbd, pre, samp {
   font-family: "Consolas", "Andale Mono", "Lucida Console", "Monaco", "Courier New", Courier, monospace; }
 
@@ -1935,7 +1935,7 @@ figcaption {
       font-size: 0.875rem; } }
 
 table {
-  margin-bottom: 1.55rem; }
+  margin-bottom: 1.55rem; }*/
 
 html[lang="vi"] body,
 html[lang="vi"] form,

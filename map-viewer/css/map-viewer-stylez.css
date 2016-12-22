@@ -14,10 +14,10 @@ body {
 }
 
 
-.action-panel [class^="esri-icon-"],
+/*.action-panel [class^="esri-icon-"],
 .action-panel [class*=" esri-icon-"] {
   padding-right: .5rem;
-}
+}*/
 
 /*[class^="icon-ui-"]:before,
 [class*=" icon-ui-"]:before {
@@ -43,19 +43,12 @@ body {
 
 .top-nav *,
 .action-panel * {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .branding-module {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
-  
-  -webkit-align-items: center;
-          align-items: center;
+  align-items: center;
 }
 
 .app-icon {
@@ -65,13 +58,8 @@ body {
 }
 
 .top-nav {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
-  -webkit-align-items: center;
-          align-items: center;
-  -webkit-justify-content: space-between;
+  align-items: center;
   justify-content: space-between;
   padding: 0 15px;
   border-top: 3px solid #0079c2;
@@ -96,13 +84,8 @@ body {
 .user-nav-link {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
-  
-  -webkit-align-items: center;
-          align-items: center;
+  align-items: center;
 }
 
 .user-nav-image {
@@ -116,37 +99,16 @@ body {
 .app-container {
   position: relative;
   height: 100%;
-  
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
-  -webkit-align-items: stretch;
-          align-items: stretch;
-  /*-webkit-align-content: stretch;
-          align-content: stretch;*/
+  align-items: stretch;
 }
 
 .navigation-bar {
   overflow: hidden;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
-  
-  -webkit-flex: 1 0 150px;
-      -ms-flex: 1 0 150px;
-          flex: 1 0 150px;
-  
-  -webkit-flex-flow: column nowrap;
-      -ms-flex-flow: column nowrap;
-          flex-flow: column nowrap;
-  
-  -webkit-transition: max-width 250ms ease-in-out;
-     -moz-transition: max-width 250ms ease-in-out;
-      -ms-transition: max-width 250ms ease-in-out;
-       -o-transition: max-width 250ms ease-in-out;
-          transition: max-width 250ms ease-in-out;
+  flex: 1 0 150px;
+  flex-flow: column nowrap;
+  transition: max-width 250ms ease-in-out;
   max-width: 150px;
   
   background-color: #4c4c4c;
@@ -188,15 +150,6 @@ body {
   list-style: none;
   padding: 0;
   margin: 0;
-  /*
-  width: 100%;
-  
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-align-items: center;
-          align-items: center;*/
 }
 
 .navigation-bar__menu li a {
@@ -231,14 +184,9 @@ body {
 }
 
 .navigation-bar__toggle {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
-  -webkit-justify-content: flex-end;
-          justify-content: flex-end;
-  -webkit-align-items: center;
-          align-items: center;
+  justify-content: flex-end;
+  align-items: center;
   padding: 10px 5px;
   font-size: 12px;
   color: #121212;
@@ -249,30 +197,18 @@ body {
   cursor: pointer;
 }
 .navigation-bar--is-collapsed .navigation-bar__toggle {
-  -webkit-justify-content: center;
+  
           justify-content: center;
 }
 
 .action-panel {
   height: 100%;
-  background-color: #f8f8f8;
+  background-color: #f2f2f2;
   border-right: 1px solid #e0e0e0;
-  
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
-  
-  -webkit-flex-flow: column nowrap;
-      -ms-flex-flow: column nowrap;
-          flex-flow: column nowrap;
-  
-  -webkit-align-items: stretch;
-          align-items: stretch;
-  
-  -webkit-flex: 0 0 300px;
-      -ms-flex: 0 0 300px;
-          flex: 0 0 300px;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  flex: 0 0 300px;
   /*border-left: solid 4px #333;*/
 }
 
@@ -292,15 +228,7 @@ body {
   padding: 15px 12px;
   border-bottom: 1px solid #e7e7e7;
   background-color: #efefef;
-
-  
-  /*display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;*/
-  
-  -webkit-justify-content: space-around;
-          justify-content: space-around;
+  justify-content: space-around;
   display: none;
 
 }
@@ -314,27 +242,13 @@ body {
 
 .action-panel__content {
   padding: 12px 15px;
-  /*height: 100%;*/
-  
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
+  height: 100%;
   display: flex;
-  -webkit-flex-flow: column nowrap;
-      -ms-flex-flow: column nowrap;
-          flex-flow: column nowrap;
-  /*-webkit-align-content: flex-start;
-          align-content: flex-start;*/
-  
-  /*-webkit-justify-content: space-around;
-          justify-content: space-around;*/
-  /*-webkit-align-items: flex-start;
-          align-items: flex-start;*/
+  flex-flow: column nowrap;
 }
 
 .action-panel__content--is-empty {
-  -webkit-align-items: center;
-          align-items: center;
+  align-items: center;
 }
 
 .show-empty-only {
@@ -347,35 +261,39 @@ body {
 .map-panel {
   background-color: #333;
   height: 100%;
-  -webkit-flex: 1 0;
-      -ms-flex: 1 0;
-          flex: 1 0;
-  
-  /*
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  -webkit-flex-flow: column nowrap;
-      -ms-flex-flow: column nowrap;
-          flex-flow: column nowrap;
-  -webkit-align-items: stretch;
-          align-items: stretch;*/
+  flex: 1;
 }
 
+.layer-list-container {
+  min-height: 50px;
+  max-height: 65%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.esri-layer-list {
+  padding: 0;
+  background-color: transparent;
+  max-height: 100%;
+}
+
+.esri-layer-list ul {
+  font-size: 12px;
+}
+/*
 .layer-list {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  -webkit-flex-flow: column nowrap;
-      -ms-flex-flow: column nowrap;
+  
+  
+  
+  
+      
           flex-flow: column nowrap;
-  -webkit-align-items: stretch;
+  
           align-items: stretch;
   -webkit-flex: 0 0 100%;
-      -ms-flex: 0 0 100%;
+      
           flex: 0 0 100%;
   margin: 0 0 15px 0;
-  /*white-space: nowrap;*/
 }
 
 .layer-list__item {
@@ -384,21 +302,18 @@ body {
   background-color: #fff;
   border: 1px solid #e0e0e0;
   font-size: 14px;
-  /*-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);*/
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  -webkit-flex-flow: row nowrap;
-      -ms-flex-flow: row nowrap;
+  
+  
+  
+  
+      
           flex-flow: row nowrap;
-  -webkit-align-items: flex-start;
+  
           align-items: flex-start;
 }
 
 .layer-list__expand-icon {
   font-size: 12px;
-  /*padding: 0 0.5rem 0 0;*/
   -webkit-align-self: center;
           align-self: center;
 }
@@ -409,7 +324,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
+*/
 /* WIDGET FIXED */
 .esri-search .esri-search__input {
   height: auto;
@@ -424,6 +339,7 @@ body {
   z-index: 100;
   top: 15px;
   right: 15px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 

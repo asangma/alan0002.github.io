@@ -5,44 +5,126 @@
     <title>ArcGIS Map Editor</title>
     <!-- <link rel="stylesheet" href="node_modules/calcite-web/dist/css/calcite-web.min.css"> -->
     <link rel="stylesheet" type="text/css" href="../web-apps-header/css/main.css">
+    <link rel="stylesheet" href="https://jsdev.arcgis.com/4.2/esri/css/main.css">
     <link rel="stylesheet" type="text/css" href="css/map-viewer-stylez.css">
-    <link rel="stylesheet" href="https://jsdev.arcgis.com/4.0/esri/css/main.css">
-    <script src="node_modules/calcite-web/dist/js/calcite-web.min.js"></script>
+    <!-- <script src="node_modules/calcite-web/dist/js/calcite-web.min.js"></script> -->
     <script src="js/MapViewer.js"></script>
-    <script src="https://jsdev.arcgis.com/4.1"></script>
+    <script src="https://jsdev.arcgis.com/4.2"></script>
     <script type="text/javascript">
-    var basemapToggle, view, map, mapViewer;
+    var basemapToggle, view, map, webmap, mapViewer;
 
     require([
         "dojo",
         "esri/Map",
+        "esri/WebMap",
         "esri/views/MapView",
+
+        "esri/layers/FeatureLayer",
+        "esri/layers/GraphicsLayer",
+        "esri/layers/MapImageLayer",
+        "esri/geometry/Extent",
+        "esri/PopupTemplate",
+
         "esri/widgets/BasemapToggle",
         "esri/widgets/Search",
+        "esri/widgets/LayerList",
         "dojo/on",
         "dojo/domReady!"
     ], function(
         dojo,
         Map,
+        WebMap,
         MapView,
+
+        FeatureLayer,
+        GraphicsLayer,
+        MapImageLayer,
+        Extent,
+        PopupTemplate,
+
         BasemapToggle,
         Search,
+        LayerList,
 
         on
     ) {
 
         // setup the map
-        map = new Map({
-            // basemap: "dark-gray",
-            basemap: "topo",
-        });
+        // map = new Map({
+        //     // basemap: "dark-gray",
+        //     basemap: "topo",
+        // });
 
-        view = new MapView({
-            container: "viewDiv",
-            map: map,
-            center: [-73.956, 40.69],
-            zoom: 10
-        });
+        // view = new MapView({
+        //     container: "viewDiv",
+        //     map: map,
+        //     center: [-73.956, 40.69],
+        //     zoom: 10
+        // });
+      webmap = new WebMap({
+        portalItem: { // autocasts as new PortalItem()
+          //id: "72748e2e531f400cbe5a7560f768bdb8"
+          id: "a3bc216108414746877d2c367300bde0"
+        }
+      });
+
+      view = new MapView({
+        container: "viewDiv",
+        map: webmap
+      });
+
+
+      layerList = new LayerList({
+        createActionsFunction: function (evt) {
+
+          if (evt.item.title === "SpecialEvents - SpecialEvents.DBO.SpecialEventCL" || evt.item.title.indexOf('lan') >= 0) {
+            return [[{
+              title: "testing",
+              className: "esri-icon-zoom-in-magnifying-glass",
+              id: "test"
+            }, {
+              title: "testing2",
+              className: "esri-icon-zoom-out-fixed",
+              id: "test2"
+            }],
+            [{
+              title: "testing3",
+              className: "esri-icon-map-pin",
+              id: "test3"
+            }, {
+              title: "testing4",
+              image: "https://emoji.slack-edge.com/T04Q55E1R/dang-bro/0b89e870a8554896.png",
+              id: "test4"
+            }, {
+              title: "testing5",
+              id: "test5"
+            }]];
+          } else {
+            return [[{
+                          title: "testing",
+                          className: "esri-icon-zoom-in-magnifying-glass",
+                          id: "test"
+                        }]]
+          }
+
+          // if (evt.item.title === "City and Community") {
+          //   return [[{
+          //     title: "testing4",
+          //     image: "https://emoji.slack-edge.com/T04Q55E1R/dang-bro/0b89e870a8554896.png",
+          //     id: "test4"
+          //   }]];
+          // }
+
+        },
+        view: view,
+      }, "LayerList");
+
+      layerList.on("trigger-action", function (evt) {
+
+        console.log(evt.action, evt.action.id);
+
+      });
+
 
         basemapToggle = new BasemapToggle({
             // titleVisible: true,
@@ -133,29 +215,31 @@
             </ul>
         </div>
         <div class="action-panel">
-            <div class="action-panel__header">
+            <!-- <div class="action-panel__header">
                 <button class="btn-clear"><span class="esri-icon-layers"></span> Run Analysis</button>
                 <button class="btn-clear"><span class="esri-icon-plus"></span> Add Layer</button>
-                <!-- 
-        <button class="btn-clear">Another Action</button> -->
-            </div>
+            </div> -->
             <div class="action-panel__content ">
                 <h5>Content Layers</h5>
-                <div class="layer-list">
+                <div class="layer-list-container">
+                    <div id="LayerList"></div>
+                </div>
+                <!-- <div class="layer-list">
                     <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Hurricane Points</span></div>
                     <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Hurricane Lines</span></div>
                     <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">rrc-23 updated noncomm 2219655321 AL 29</span></div>
                     <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Popuplation density 2014-01-23</span></div>
-                </div>
+                </div> -->
                 <!-- <button class="btn "><span class="esri-icon-plus"></span> Add</button> -->
                 <hr>
                 <h5>Basemap Layers</h5>
-                <div class="layer-list">
+                <span style="font-size: 12px;">Basemap layers could appear here.</span>
+                <!-- <div class="layer-list">
                     <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Travel routes condensed 221</span></div>
                     <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">State Boundaries Polygons</span></div>
                     <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Waterways Census 2012</span></div>
                     <div class="layer-list__item"><span class="esri-icon-right-triangle-arrow layer-list__expand-icon"></span> <span class="layer-list__title">Topo</span></div>
-                </div>
+                </div> -->
                 <!-- <button class="btn-clear"><span class="esri-icon-plus"></span> Add</button> -->
             </div>
         </div>
