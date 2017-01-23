@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html dir="ltr">
 
@@ -5,227 +6,304 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
   <title>Feature Highlight</title>
-  <link rel="stylesheet" href="https://jsdev.arcgis.com/4.1/esri/themes/light/main.css">
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.1/esri/themes/light/main.css">
+
   <style>
-  html,
-  body,
-  #sceneDiv {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .options-widget,
-  .suggestion-widget {
-    padding: 12px 15px;
-  }
-  
-  ul {
-    padding: 0;
-    margin: 0;
-  }
-  
-  li {
-    list-style: none;
-    margin: .5em 0 1em;
-    font-size: 12px;
-  }
-  
-  .esri-widget label {
-    margin: 10px 0 0 0;
-    display: block;
-  }
-  
-  .esri-widget input {
-    font-size: 12px;
-    padding: 0.5em;
-  }
-  
-  .text-small {
-    font-size: 12px;
-    color: #ccc;
-  }
+    html,
+    body,
+    #sceneDiv {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
 
-  .esri-widget *:focus {
-    outline: none;
-  }
-  
-  .keynav-mode .esri-widget:focus {
-    outline: 2px solid #90cdf2;
-    outline-offset: 2px;
-    z-index: 1
-  }
-  
-  .keynav-mode .esri-widget *:focus {
-    outline: 2px solid #90cdf2;
-    outline-offset: 2px;
-    z-index: 1
-  }
+    .options-widget,
+    .suggestion-widget {
+      padding: 12px 15px;
+    }
+
+    ul {
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      list-style: none;
+      margin: .5em 0 1em;
+      font-size: 12px;
+    }
+
+    .esri-widget label {
+      margin: 10px 0 0 0;
+      display: block;
+    }
+
+    .esri-widget input {
+      font-size: 12px;
+      padding: 0.5em;
+    }
+
+    .text-small {
+      font-size: 12px;
+      color: #ccc;
+    }
+
+    .esri-widget *:focus {
+      outline: none;
+    }
+
+    .keynav-mode .esri-widget:focus {
+      outline: 2px solid #90cdf2;
+      outline-offset: 2px;
+      z-index: 1
+    }
+
+    .keynav-mode .esri-widget *:focus {
+      outline: 2px solid #90cdf2;
+      outline-offset: 2px;
+      z-index: 1
+    }
   </style>
-  <script src="https://jsdev.arcgis.com/4.1"></script>
+
+  <script src="https://js.arcgis.com/4.1"></script>
+
   <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+
   <script type="text/javascript">
-  var map, view, svgDefNode, featureLayer, bmt;
+    var map, view, svgDefNode, featureLayer, bmt;
 
-  require([
-      "esri/Map",
-      "esri/views/MapView",
-      "esri/core/watchUtils",
+    require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/core/watchUtils",
 
-      "esri/layers/FeatureLayer",
+        "esri/layers/FeatureLayer",
 
-      "esri/PopupTemplate",
+        "esri/PopupTemplate",
 
-      "esri/widgets/BasemapToggle",
+        "esri/widgets/BasemapToggle",
 
-      "dojo/dom-construct",
-      "dojo/dom-attr",
-      "dojo/dom-class",
-      "dojo/query",
-      "dojo/NodeList-traverse",
+        "dojo/dom-construct",
+        "dojo/dom-attr",
+        "dojo/dom-class",
+        "dojo/query",
+        "dojo/NodeList-traverse",
+        "dojox/gfx/filters",
 
-      "dojo/text!./includes/svg-defs.html",
-      "dojo/domReady!"
-    ],
-    function(
-      Map, MapView,
-      watchUtils,
-      FeatureLayer,
-      PopupTemplate,
-      BasemapToggle,
-      domConstruct,
-      domAttr,
-      domClass,
-      query,
-      traverse,
-      svgDefs
-    ) {
+        "dojo/text!./includes/svg-defs.html",
 
-      map = new Map({
-        basemap: "gray"
-      });
+        "dojox/gfx/svgext",
+        "dojo/domReady!"
+      ],
+      function(
+        Map, MapView,
+        watchUtils,
+        FeatureLayer,
+        PopupTemplate,
+        BasemapToggle,
+        domConstruct,
+        domAttr,
+        domClass,
+        query,
+        traverse,
+        gfxFilters,
+        svgDefs
+      ) {
 
-      view = new MapView({
-        container: "sceneDiv",
-        map: map,
-        center: [-73.950, 40.702],
-        zoom: 11
-      });
-
-      view.popup.dockOptions = {
-        position: "bottom-center"
-      };
-
-      /********************
-       * Add feature layer
-       ********************/
-
-      //Create the PopupTemplate
-      var tpl = new PopupTemplate({
-        title: "Marriage in NY, Zip Code: {ZIP}",
-        content: "<p><b> Marriage Rate: {MARRIEDRATE}% </b></p>" +
-          "<p> Married: {MARRIED_CY}</p>" +
-          "<p> Never Married: {NEVMARR_CY}</p>" +
-          "<p> Divorced: {DIVORCD_CY}</p>"
-      });
-
-      //Create the FeatureLayer using the popupTemplate
-      featureLayer = new FeatureLayer({
-        url: "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/NYCDemographics1/FeatureServer/0",
-        outFields: ["*"],
-        popupTemplate: tpl
-      });
-      map.add(featureLayer);
-
-      view.whenLayerView(featureLayer).then(function(layerView) {
-        window.layerView = layerView;
-        watchUtils.when(layerView, "_graphicsView.container.surface", function() {
-          svgDefNode = layerView._graphicsView.group.surface.parent.defNode;
-
-          // Need Dojo help here
-          jQuery(svgDefNode).load('includes/svg-defs.html');
-          // domConstruct.place(jQuery('defs')[0], svgDefs);
+        map = new Map({
+          basemap: "gray"
         });
-      });
 
-      view.on('click', function(evt) {
-        var curr_nodes = query('.curr_svg_node');
-        if(curr_nodes.length > 0) {
-          for(var i = 0; i < curr_nodes.length; i++) {
-            var node = curr_nodes[i];
+        view = new MapView({
+          container: "sceneDiv",
+          map: map,
+          center: [-73.950, 40.702],
+          zoom: 11
+        });
 
-            // console.log(node);
-            domAttr.remove(node, 'filter');
+        view.popup.dockOptions = {
+          position: "bottom-center"
+        };
 
-            // Need Dojo help here
-            // domClass.remove(node, 'curr_svg_node');
-            jQuery(node).removeClass('curr_svg_node');
+        /********************
+         * Add feature layer
+         ********************/
 
-          }
+          //Create the PopupTemplate
+        var tpl = new PopupTemplate({
+            title: "Marriage in NY, Zip Code: {ZIP}",
+            content: "<p><b> Marriage Rate: {MARRIEDRATE}% </b></p>" +
+            "<p> Married: {MARRIED_CY}</p>" +
+            "<p> Never Married: {NEVMARR_CY}</p>" +
+            "<p> Divorced: {DIVORCD_CY}</p>"
+          });
+
+        //Create the FeatureLayer using the popupTemplate
+        featureLayer = new FeatureLayer({
+          url: "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/NYCDemographics1/FeatureServer/0",
+          outFields: ["*"],
+          popupTemplate: tpl
+        });
+
+        map.add(featureLayer);
+
+        function createSVGHighlightFilter() {
+          var primitives = [
+            gfxFilters.feColorMatrix({
+              type:   "matrix",
+              in:     "SourceGraphic",
+              values: "1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 1 1 1 1 0",
+              result: "OpaqueSource"
+            }),
+
+            gfxFilters.feMorphology({
+              id:       "size",
+              in:       "OpaqueSource",
+              operator: "dilate",
+              radius:   2,
+              result:   "DilatedSource"
+            }),
+
+            gfxFilters.feGaussianBlur({
+              id:           "blur",
+              in:           "DilatedSource",
+              result:       "BlurredSource",
+              stdDeviation: "0"
+            }),
+
+            gfxFilters.feFlood({
+              id:     "color",
+              result: "FloodedRect",
+              "flood-color": "rgba(0, 0, 0, .85)"
+            }),
+
+            gfxFilters.feComposite({
+              in:       "FloodedRect",
+              in2:      "BlurredSource",
+              operator: "in",
+              result:   "GlowUnderlay"
+            }),
+
+            gfxFilters.feComposite({
+              in:       "GlowUnderlay",
+              in2:      "OpaqueSource",
+              operator: "xor",
+              result:   "GlowRing"
+            }),
+
+            gfxFilters.feComposite({
+              in: "SourceGraphic",
+              in2:      "GlowRing",
+              operator: "over"
+            })
+          ];
+
+          var args = { id: "highlight" };
+          var filter = gfxFilters.createFilter(args, primitives);
+
+          filter.width = "200%";
+          filter.height = "200%";
+
+          return filter;
         }
 
-        var uid = view.popup.selectedFeature.uid;
-        var vector = view.layerViews.items[0]._graphicsView._vectors[uid].shape.getNode();
-        domAttr.set(vector, 'filter', "url(#highlight)");
-        // jQuery(vector).attr('filter', "url(#highlight)");
+        var filter;
 
-        // Need Dojo help here
-        // domClass.add(vector, 'curr_svg_node');
-        jQuery(vector).addClass('curr_svg_node');
+        view.whenLayerView(featureLayer).then(function(layerView) {
+          window.layerView = layerView;
+          watchUtils.when(layerView, "_graphicsView.container.surface", function() {
+            svgDefNode = layerView._graphicsView.group.surface.parent.defNode;
 
-        domConstruct.place(vector, query(vector).parent()[0], 'last');
+            // Need Dojo help here
+            //jQuery(svgDefNode).load('includes/svg-defs.html');
+            // domConstruct.place(jQuery('defs')[0], svgDefs);
+
+            filter = createSVGHighlightFilter();
+          });
+        });
+
+        view.on('click', function(evt) {
+          var curr_nodes = query('.curr_svg_node');
+          if(curr_nodes.length > 0) {
+            for(var i = 0; i < curr_nodes.length; i++) {
+              var node = curr_nodes[i];
+
+              // console.log(node);
+              domAttr.remove(node, 'filter');
+
+              // Need Dojo help here
+              // domClass.remove(node, 'curr_svg_node');
+              jQuery(node).removeClass('curr_svg_node');
+
+            }
+          }
+
+          var uid = view.popup.selectedFeature.uid;
+          var shape = view.layerViews.items[0]._graphicsView._vectors[uid].shape;
+          shape.setFilter(filter);
+
+          var vector = shape.getNode();
+          //domAttr.set(vector, 'filter', "url(#highlight)");
+          // jQuery(vector).attr('filter', "url(#highlight)");
+
+          // Need Dojo help here
+          // domClass.add(vector, 'curr_svg_node');
+          jQuery(vector).addClass('curr_svg_node');
+
+          domConstruct.place(vector, query(vector).parent()[0], 'last');
+
+        });
+
+        bmt = new BasemapToggle({
+          view: view,
+          nextBasemap: "dark-gray"
+        });
+        view.ui.add(bmt, "bottom-left");
+        view.ui.add(jQuery('.options-widget')[0], 'top-right');
+        view.ui.add(jQuery('.suggestion-widget')[0], 'bottom-right');
 
       });
 
-      bmt = new BasemapToggle({
-        view: view,
-        nextBasemap: "dark-gray"
+
+    jQuery(document).ready(function() {
+
+      jQuery('input[name=size]').on('change', function() {
+        jQuery('#size').attr('radius', jQuery(this).val());
       });
-      view.ui.add(bmt, "bottom-left");
-      view.ui.add(jQuery('.options-widget')[0], 'top-right');
-      view.ui.add(jQuery('.suggestion-widget')[0], 'bottom-right');
+      jQuery('input[name=blur]').on('change', function() {
+        jQuery('#blur').attr('stdDeviation', jQuery(this).val());
+      });
+      jQuery('input[name=color]').on('change', setColor);
 
+
+
+      jQuery('#sceneDiv').keydown(function(event) {
+        jQuery('#sceneDiv').addClass('keynav-mode');
+      });
+      jQuery(document).click(function(event) {
+        jQuery('#sceneDiv').removeClass('keynav-mode');
+      });
     });
 
+    function setColor() {
+      var hex_re = /^#[0-9A-Fa-f]{6}$/i;
+      var value = jQuery(this).val();
+      var color = false;
 
-  jQuery(document).ready(function() {
+      if (value.indexOf('rgba') !== -1) {
+        if ((value.match(/,/g) || []).length == 3) color = value;
+      } else if (hex_re.test(value)) {
+        color = value;
+      }
 
-    jQuery('input[name=size]').on('change', function() {
-      jQuery('#size').attr('radius', jQuery(this).val());
-    });
-    jQuery('input[name=blur]').on('change', function() {
-      jQuery('#blur').attr('stdDeviation', jQuery(this).val());
-    });
-    jQuery('input[name=color]').on('change', setColor);
-
-
-
-    jQuery('#sceneDiv').keydown(function(event) {
-      jQuery('#sceneDiv').addClass('keynav-mode');
-    });
-    jQuery(document).click(function(event) {
-      jQuery('#sceneDiv').removeClass('keynav-mode');
-    });
-  });
-
-  function setColor() {
-    var hex_re = /^#[0-9A-Fa-f]{6}$/i;
-    var value = jQuery(this).val();
-    var color = false;
-
-    if (value.indexOf('rgba') !== -1) {
-      if ((value.match(/,/g) || []).length == 3) color = value;
-    } else if (hex_re.test(value)) {
-      color = value;
+      if (color !== false) {
+        jQuery('#color').attr('flood-color', value);
+      } else {
+        jQuery(this).val('');
+      }
     }
-
-    if (color !== false) {
-      jQuery('#color').attr('flood-color', value);
-    } else {
-      jQuery(this).val('');
-    }
-  }
   </script>
 </head>
 
