@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>In-Flow Browse Prototype</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script src="node_modules/jquery/dist/jquery.min.js" type="text/javascript"></script>
+  <script src="js/app.js" type="text/javascript"></script>
+</head>
+<body>
+  <div class="fake-bg">
+    <img src="images/fake-bg-1440.png" alt="" >
+  </div>
+  <div class="page-takeover">
+    <div class="page-takeover-content">
+      <div class="grid-container">
+        <div class="column-24 page-takeover-header">
+          <h2>New Hosted Feature Layer</h2>
+          <a class="page-takeover-close">
+            <span class="icon-ui-close"></span>
+          </a>
+        </div>
+        <div class="column-24">
+          <nav class="page-takeover-nav leader-1">
+            <a class="btn btn-grouped is-active">From Template</a>
+            <a class="btn btn-grouped">From Existing Layer</a>
+            <a class="btn btn-grouped">From URL</a>
+          </nav>
+        </div>
+
+        <div class="column-5 leader-1">
+          What do you want to do?
+        </div>
+        <div class="column-14 leader-1">
+          Select a feature layer template.
+        </div>
+        <div class="column-5 leader-1">
+          <input class="input-search" type="text" name="search" placeholder="Search">
+        </div>
+
+        <div class="column-5">
+          <aside class="side-nav leader-1">
+            <nav>
+              <a id="agriculture" class="side-nav-link is-active">Show All</a>
+              <a id="agriculture" class="side-nav-link">Agriculture</a>
+              <a id="electricutil" class="side-nav-link">Electric Utilities</a>
+              <a id="environment" class="side-nav-link">Environment</a>
+              <a id="gasutil" class="side-nav-link">Gas Utilities</a>
+              <a id="general" class="side-nav-link">General</a>
+              <a id="natresources" class="side-nav-link">Natural Resources</a>
+              <a id="petroleum" class="side-nav-link">Petroleum</a>
+              <a id="pubsafety" class="side-nav-link">Public Safety</a>
+              <a id="telecommunications" class="side-nav-link">Telecommunications</a>
+              <a id="transportation" class="side-nav-link">Transportation</a>
+              <a id="waterutil" class="side-nav-link">Water Utilities</a>
+            </nav>
+          </aside>
+        </div>
+        <div class="column-19 leader-1">
+          <!-- <div class="grid-container"> -->
+            <!-- <div class="column-24"> -->
+              <div class="block-group block-group-4-up">
+                <div class="card block">
+                  <figure class="card-image-wrap">
+                    <img class="card-image" src="http://energy.mapsdevext.arcgis.com/sharing/rest/content/items/0db09f2f557d4c6a8851f998a56758a6/info/thumbnail/AED.jpg?token=eAnf6gQrmcbNDKIp_0TIOrZyen1QwVize98UbgM0u_injewj7phCGoxt2wj-zQdAo9eCdVygwwEDT0y1DIq0yEQAaaKdkW-qSaSc9NDyODPmuyVoQtPA38pqg3OEkE1x67SrTcMqmVPqB8zfvW5r_p69sROaIk17bm6syjx-gEDk9v9MQ8Fu8OmPG5BMZ0m0" alt="Bridge Club, 1954">
+                  </figure>
+                  <div class="card-content">
+                    <h4><a href="" class="page-takeover__card-trigger">AEDs</a></h4>
+                    <p class="font-size--2 card-last">Portable electronic devices that automatically diagnose...</p>
+                  </div>
+                </div>
+                <div class="card block">
+                  <figure class="card-image-wrap">
+                    <img class="card-image" src="http://energy.mapsdevext.arcgis.com/sharing/rest/content/items/cd624c3c4d0f44ccb3a548d27ea83404/info/thumbnail/GettyImages-157317217_5B1_5D__281_29.png?token=eAnf6gQrmcbNDKIp_0TIOrZyen1QwVize98UbgM0u_injewj7phCGoxt2wj-zQdAo9eCdVygwwEDT0y1DIq0yEQAaaKdkW-qSaSc9NDyODPmuyVoQtPA38pqg3OEkE1x67SrTcMqmVPqB8zfvW5r_p69sROaIk17bm6syjx-gEDk9v9MQ8Fu8OmPG5BMZ0m0" alt="Bridge Club, 1954">
+                  </figure>
+                  <div class="card-content">
+                    <h4><a href="" class="page-takeover__card-trigger">As-Built Mapping</a></h4>
+                    <p class="font-size--1 card-last">Enables field staff to sketch locations of new or...</p>
+                  </div>
+                </div>
+                <div class="card block">
+                  <figure class="card-image-wrap">
+                    <img class="card-image" src="http://energy.mapsdevext.arcgis.com/sharing/rest/content/items/470d55f783a44b439619f9f66e553125/info/thumbnail/BoomPlacement.jpg?token=eAnf6gQrmcbNDKIp_0TIOrZyen1QwVize98UbgM0u_injewj7phCGoxt2wj-zQdAo9eCdVygwwEDT0y1DIq0yEQAaaKdkW-qSaSc9NDyODPmuyVoQtPA38pqg3OEkE1x67SrTcMqmVPqB8zfvW5r_p69sROaIk17bm6syjx-gEDk9v9MQ8Fu8OmPG5BMZ0m0" alt="Bridge Club, 1954">
+                  </figure>
+                  <div class="card-content">
+                    <h4><a href="" class="page-takeover__card-trigger">Boom Placement</a></h4>
+                    <p class="font-size--1 card-last">Containment boom provides a temporary floating barrier...</p>
+                  </div>
+                </div>
+                <div class="card block">
+                  <figure class="card-image-wrap">
+                    <img class="card-image" src="http://energy.mapsdevext.arcgis.com/sharing/rest/content/items/3ab6db58826a4a988dad3d3040ef341e/info/thumbnail/BridgeInventory.jpg?token=eAnf6gQrmcbNDKIp_0TIOrZyen1QwVize98UbgM0u_injewj7phCGoxt2wj-zQdAo9eCdVygwwEDT0y1DIq0yEQAaaKdkW-qSaSc9NDyODPmuyVoQtPA38pqg3OEkE1x67SrTcMqmVPqB8zfvW5r_p69sROaIk17bm6syjx-gEDk9v9MQ8Fu8OmPG5BMZ0m0" alt="Bridge Club, 1954">
+                  </figure>
+                  <div class="card-content">
+                    <h4><a href="" class="page-takeover__card-trigger">Bridge Inventory</a></h4>
+                    <p class="font-size--1 card-last">Providing a standardized approach toward field...</p>
+                  </div>
+                </div>
+                <div class="card block">
+                  <figure class="card-image-wrap">
+                    <img class="card-image" src="http://energy.mapsdevext.arcgis.com/sharing/rest/content/items/0db09f2f557d4c6a8851f998a56758a6/info/thumbnail/AED.jpg?token=eAnf6gQrmcbNDKIp_0TIOrZyen1QwVize98UbgM0u_injewj7phCGoxt2wj-zQdAo9eCdVygwwEDT0y1DIq0yEQAaaKdkW-qSaSc9NDyODPmuyVoQtPA38pqg3OEkE1x67SrTcMqmVPqB8zfvW5r_p69sROaIk17bm6syjx-gEDk9v9MQ8Fu8OmPG5BMZ0m0" alt="Bridge Club, 1954">
+                  </figure>
+                  <div class="card-content">
+                    <h4><a href="" class="page-takeover__card-trigger">AEDs</a></h4>
+                    <p class="font-size--2 card-last">Portable electronic devices that automatically diagnose...</p>
+                  </div>
+                </div>
+                <div class="card block">
+                  <figure class="card-image-wrap">
+                    <img class="card-image" src="http://energy.mapsdevext.arcgis.com/sharing/rest/content/items/cd624c3c4d0f44ccb3a548d27ea83404/info/thumbnail/GettyImages-157317217_5B1_5D__281_29.png?token=eAnf6gQrmcbNDKIp_0TIOrZyen1QwVize98UbgM0u_injewj7phCGoxt2wj-zQdAo9eCdVygwwEDT0y1DIq0yEQAaaKdkW-qSaSc9NDyODPmuyVoQtPA38pqg3OEkE1x67SrTcMqmVPqB8zfvW5r_p69sROaIk17bm6syjx-gEDk9v9MQ8Fu8OmPG5BMZ0m0" alt="Bridge Club, 1954">
+                  </figure>
+                  <div class="card-content">
+                    <h4><a href="" class="page-takeover__card-trigger">As-Built Mapping</a></h4>
+                    <p class="font-size--1 card-last">Enables field staff to sketch locations of new or...</p>
+                  </div>
+                </div>
+                <div class="card block">
+                  <figure class="card-image-wrap">
+                    <img class="card-image" src="http://energy.mapsdevext.arcgis.com/sharing/rest/content/items/470d55f783a44b439619f9f66e553125/info/thumbnail/BoomPlacement.jpg?token=eAnf6gQrmcbNDKIp_0TIOrZyen1QwVize98UbgM0u_injewj7phCGoxt2wj-zQdAo9eCdVygwwEDT0y1DIq0yEQAaaKdkW-qSaSc9NDyODPmuyVoQtPA38pqg3OEkE1x67SrTcMqmVPqB8zfvW5r_p69sROaIk17bm6syjx-gEDk9v9MQ8Fu8OmPG5BMZ0m0" alt="Bridge Club, 1954">
+                  </figure>
+                  <div class="card-content">
+                    <h4><a href="" class="page-takeover__card-trigger">Boom Placement</a></h4>
+                    <p class="font-size--1 card-last">Containment boom provides a temporary floating barrier...</p>
+                  </div>
+                </div>
+                <div class="card block">
+                  <figure class="card-image-wrap">
+                    <img class="card-image" src="http://energy.mapsdevext.arcgis.com/sharing/rest/content/items/3ab6db58826a4a988dad3d3040ef341e/info/thumbnail/BridgeInventory.jpg?token=eAnf6gQrmcbNDKIp_0TIOrZyen1QwVize98UbgM0u_injewj7phCGoxt2wj-zQdAo9eCdVygwwEDT0y1DIq0yEQAaaKdkW-qSaSc9NDyODPmuyVoQtPA38pqg3OEkE1x67SrTcMqmVPqB8zfvW5r_p69sROaIk17bm6syjx-gEDk9v9MQ8Fu8OmPG5BMZ0m0" alt="Bridge Club, 1954">
+                  </figure>
+                  <div class="card-content">
+                    <h4><a href="" class="page-takeover__card-trigger">Bridge Inventory</a></h4>
+                    <p class="font-size--1 card-last">Providing a standardized approach toward field...</p>
+                  </div>
+                </div>
+              </div>
+            <!-- </div> -->
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "in-flow-browse",
+  "version": "0.0.1",
+  "license": "UNLICENSED",
+  "description": "A prototype for browsing while in a workflow.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/asangma/asangma.github.io.git"
+  },
+  "devDependencies": {
+    "calcite-web": "github:esri/calcite-web#v1.0.0-rc.1",
+    "jquery": "^3.1.1",
+    "node-sass": "^4.5.0"
+  }
+}
