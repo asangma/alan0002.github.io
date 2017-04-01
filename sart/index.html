@@ -13,13 +13,12 @@
     "esri/WebMap",
     "esri/widgets/Legend",
     "esri/widgets/Expand",
-    "dojo/dom",
     "dojo/domReady!"
   ], function(
-    MapView, WebMap, Legend, Expand, dom
+    MapView, WebMap, Legend, Expand
   ) {
 
-    var scene = new WebMap({
+    var map = new WebMap({
       portalItem: { // autocasts as new PortalItem()
         // id: "3a9976baef9240ab8645ee25c7e9c096"
         // id: "02c56dc9eea142cbbaf167d8974fa91c"
@@ -28,7 +27,7 @@
     });
 
     var view = new MapView({
-      map: scene,
+      map: map,
       container: "viewDiv",
       // padding: {
       //   top: 40
@@ -36,12 +35,11 @@
     });
 
     view.then(function() {
-      var featureLayer = scene.layers.getItemAt(1);
 
       var legend = new Legend({
         view: view,
         layerInfos: [{
-          layer: featureLayer/*,
+          layer: map/*,
           title: "Legend"*/
         }]
       });
