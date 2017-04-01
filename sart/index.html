@@ -9,37 +9,25 @@
   <script src="https://js.arcgis.com/4.3/"></script>
   <script>
   require([
-    "esri/views/SceneView",
-    "esri/WebScene",
+    "esri/views/MapView",
+    "esri/WebMap",
     "esri/widgets/Legend",
     "esri/widgets/Expand",
     "dojo/dom",
     "dojo/domReady!"
   ], function(
-    SceneView, WebScene, Legend, Expand, dom
+    MapView, WebMap, Legend, Expand, dom
   ) {
 
-    var titleDiv = dom.byId("titleDiv");
-
-    /************************************************************
-     * Creates a new WebScene instance. A WebScene must reference
-     * a PortalItem ID that represents a WebScene saved to
-     * arcgis.com or an on-premise portal.
-     *
-     * To load a WebScene from an on-premise portal, set the portal
-     * url in esriConfig.portalUrl.
-     ************************************************************/
-    var scene = new WebScene({
+    var scene = new WebMap({
       portalItem: { // autocasts as new PortalItem()
         // id: "3a9976baef9240ab8645ee25c7e9c096"
-        id: "02c56dc9eea142cbbaf167d8974fa91c"
+        // id: "02c56dc9eea142cbbaf167d8974fa91c"
+        id: "7192c91833c94fccaeb17bdfd54f4e31"
       }
     });
 
-    /************************************************************
-     * Set the WebScene instance to the map property in a SceneView.
-     ************************************************************/
-    var view = new SceneView({
+    var view = new MapView({
       map: scene,
       container: "viewDiv",
       // padding: {
@@ -48,8 +36,6 @@
     });
 
     view.then(function() {
-      // get the first layer in the collection of operational layers in the WebMap
-      // when the resources in the MapView have loaded.
       var featureLayer = scene.layers.getItemAt(1);
 
       var legend = new Legend({
