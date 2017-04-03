@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <title>Popup 2D</title>
+  <link id="color-theme-stylesheet" rel="stylesheet" href="https://js.arcgis.com/4.3/esri/themes/light/main.css">
+  <style>
+    html,
+    body,
+    #sceneDiv {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .shia {
+      background-image: url(http://www.extension.zone/wp-content/uploads/2015/06/shya.png);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      width: 16px;
+      height: 16px;
+    }
+
+  </style>
+  <script src="https://js.arcgis.com/4.3/"></script>
+  <script type="text/javascript">
+    var v, map, popup;
+
+    require([
+        "esri/Map",
+        "esri/views/MapView",
+        "../data/TestFeatures.js",
+        "esri/widgets/Popup",
+        "dojo/domReady!"
+      ], function (
+      Map,
+      MapView,
+      TestFeatures,
+      Popup
+    ) {
+
+      // setup the map
+      map = new Map({
+        basemap: "dark-gray"
+      });
+
+      var testFeatures = new TestFeatures();
+      var features = testFeatures.getFeatures();
+
+      v = new MapView({
+        container: "sceneDiv",
+        map: map,
+        center: features[0].geometry,
+        zoom: 12
+      });
+
+      popup = v.popup;
+      popup.autoAlignmentEnabled = true;
+
+      v.then(function () {
+
+        popup.open({
+          updateLocationEnabled: true,
+          location: features[0].geometry,
+          features: features
+        });
+
+      });
+
+      popup.viewModel.on("trigger-action", function (evt) {
+
+        if (evt.action && evt.action.id === "shia") {
+          popup.viewModel.set({
+            title: "Do It",
+            content: "<iframe width=\"100%\" height=\"150\" src=\"https://www.youtube.com/embed/ZXsQAXx_ao0\" frameborder=\"0\" allowfullscreen></iframe>"
+          });
+        }
+      })
+
+      v.on("click", function (evt) {
+
+        var testFeatures = new TestFeatures();
+        var features = testFeatures.getFeatures(evt.mapPoint);
+
+        popup.open({
+          features: features,
+          location: evt.mapPoint
+        });
+
+      });
+
+    });
+
+  </script>
+
+</head>
+
+<body>
+  <div id="sceneDiv"></div>
+</body>
+
+</html>
