@@ -3,7 +3,7 @@
     <symbol id="esri-icon-close" viewBox="0 0 16 16">
       <title>close</title>
       <path class="fore" d="M13.314 1.99l0.707 0.707-11.314 11.313-0.707-0.707 11.314-11.313z"></path>
-      <path class="back" d="M2 2.697l0.707-0.707 11.313 11.314-0.707 0.707-11.313-11.314z"></path>
+      <path class="back" fill="currentColor" d="M2 2.697l0.707-0.707 11.313 11.314-0.707 0.707-11.313-11.314z"></path>
     </symbol>
     <symbol id="esri-icon-drag-horizontal" viewBox="0 0 16 16">
       <title>drag-horizontal</title>
